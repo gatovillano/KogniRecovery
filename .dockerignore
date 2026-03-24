@@ -1,0 +1,12 @@
+node_modules
+.expo
+.git
+android
+ios
+web-build
+.env
+.env.local
+node_modules
+server/node_modules
+server/dist
+npm-debug.log

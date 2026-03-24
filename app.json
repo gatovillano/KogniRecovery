@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "KogniRecovery",
+    "slug": "kognirecovery",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4A90E2"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kognirecovery.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "KogniRecovery necesita acceso a la ubicación para funciones de emergencia."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "backgroundColor": "#4A90E2"
+      },
+      "package": "com.kognirecovery.app",
+      "permissions": [
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./src/assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "KogniRecovery necesita acceso a tus fotos para permitirte compartir imágenes en tu progreso."
+        }
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ff1777f8-56fa-432b-a7ac-250ec909dbf3"
+      }
+    },
+    "owner": "gatovillano"
+  }
+}

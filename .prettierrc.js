@@ -1,0 +1,50 @@
+/**
+ * Configuración de Prettier para KogniRecovery
+ */
+
+module.exports = {
+  printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  singleQuote: true,
+  quoteProps: 'as-needed',
+  jsxSingleQuote: false,
+  trailingComma: 'es5',
+  bracketSpacing: true,
+  bracketSameLine: false,
+  arrowParens: 'always',
+  rangeStart: 0,
+  rangeEnd: Infinity,
+  requirePragma: false,
+  insertPragma: false,
+  proseWrap: 'preserve',
+  htmlWhitespaceSensitivity: 'css',
+  endOfLine: 'lf',
+  embeddedLanguageFormatting: 'auto',
+  singleAttributePerLine: false,
+  overrides: [
+    {
+      files: ['*.json', '*.jsonc'],
+      options: {
+        tabWidth: 2,
+        useTabs: false,
+      },
+    },
+    {
+      files: ['*.md', '*.mdx'],
+      options: {
+        tabWidth: 2,
+        useTabs: false,
+        proseWrap: 'preserve',
+      },
+    },
+    {
+      files: ['*.yml', '*.yaml'],
+      options: {
+        tabWidth: 2,
+        useTabs: false,
+      },
+    },
+  ],
+};

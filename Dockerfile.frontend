@@ -1,0 +1,28 @@
+# Base image
+FROM node:18-alpine
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install expo-cli and other tools
+RUN npm install -g expo-cli
+
+# Copy package files from the root
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY . .
+
+# Expose ports for Expo
+# 19000: Expo packager
+# 19001: Expo server
+# 19002: Expo dev tools (old versions)
+# 19006: Expo web
+# 8081: Metro bundler
+EXPOSE 19000 19001 19002 19006 8081
+
+# Command to run expo in LAN mode (compatible with Expo Go on mobile)
+CMD ["npx", "expo", "start", "--lan"]
