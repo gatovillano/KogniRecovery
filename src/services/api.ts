@@ -42,9 +42,14 @@ let authTokens: AuthTokens | null = null;
 let isRefreshing = false;
 let refreshPromise: Promise<boolean> | null = null;
 let onUnauthorizedCallback: (() => void) | null = null;
+let onTokensRefreshedCallback: ((tokens: AuthTokens) => void) | null = null;
 
 export const setOnUnauthorized = (callback: () => void): void => {
   onUnauthorizedCallback = callback;
+};
+
+export const setOnTokensRefreshed = (callback: (tokens: AuthTokens) => void): void => {
+  onTokensRefreshedCallback = callback;
 };
 
 // ============================================
@@ -322,12 +327,21 @@ const tryRefreshToken = async (): Promise<boolean> => {
       });
 
       if (response.ok) {
-        const data: ApiResponse<AuthResponse> = await response.json();
-        setAuthTokens({
-          accessToken: data.data.accessToken,
-          refreshToken: data.data.refreshToken,
-          expiresAt: Date.now() + data.data.expiresIn * 1000,
-        });
+        const data: ApiResponse<{ tokens: { accessToken: string; refreshToken: string; expiresIn?: number } }> = await response.json();
+        
+        const newTokens: AuthTokens = {
+          accessToken: data.data.tokens.accessToken,
+          refreshToken: data.data.tokens.refreshToken,
+          expiresAt: Date.now() + (data.data.tokens.expiresIn || 3600) * 1000,
+        };
+
+        setAuthTokens(newTokens);
+
+        // Notificar al store que los tokens han cambiado (para persistencia)
+        if (onTokensRefreshedCallback) {
+          onTokensRefreshedCallback(newTokens);
+        }
+
         return true;
       }
 
@@ -501,17 +515,24 @@ export const register = async (userData: RegisterRequest): Promise<AuthResponse>
   const { user, tokens } = response.data;
 
   // Guardar tokens
-  setAuthTokens({
+  const newTokens: AuthTokens = {
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-    expiresAt: Date.now() + (response.data.expiresIn || 3600) * 1000,
-  });
+    expiresAt: Date.now() + (tokens.expiresIn || response.data.expiresIn || 3600) * 1000,
+  };
+
+  setAuthTokens(newTokens);
+
+  // También notificar si hay callback (opcional ya que login suele manejar su propio estado)
+  if (onTokensRefreshedCallback) {
+    onTokensRefreshedCallback(newTokens);
+  }
 
   return {
     user,
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-    expiresIn: response.data.expiresIn || 3600
+    expiresIn: tokens.expiresIn || response.data.expiresIn || 3600
   };
 };
 
@@ -598,6 +619,7 @@ const apiClient = {
   getAuthTokens,
   clearAuthTokens,
   setOnUnauthorized,
+  setOnTokensRefreshed,
   getAIModels,
 };
 

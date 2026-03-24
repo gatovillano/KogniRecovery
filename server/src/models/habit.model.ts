@@ -11,6 +11,7 @@ export interface Habit {
   description: string;
   icon: string | null;
   frequency: 'daily' | 'weekly';
+  habit_type: 'positive' | 'negative';
   is_active: boolean;
   created_at: Date;
   updated_at: Date;
@@ -28,12 +29,12 @@ export interface HabitCompletion {
 // DEFINICIÓN DE HÁBITOS
 // =====================================================
 
-export const createHabit = async (userId: string, data: { name: string; description?: string; icon?: string; frequency?: 'daily' | 'weekly' }): Promise<Habit> => {
+export const createHabit = async (userId: string, data: { name: string; description?: string; icon?: string; frequency?: 'daily' | 'weekly'; habit_type?: 'positive' | 'negative' }): Promise<Habit> => {
   const sql = `
-    INSERT INTO habits (user_id, name, description, icon, frequency)
-    VALUES ($1, $2, $3, $4, $5)
+    INSERT INTO habits (user_id, name, description, icon, frequency, habit_type)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *`;
-  const result = await query(sql, [userId, data.name, data.description || null, data.icon || null, data.frequency || 'daily']);
+  const result = await query(sql, [userId, data.name, data.description || null, data.icon || null, data.frequency || 'daily', data.habit_type || 'positive']);
   return result.rows[0] as Habit;
 };
 
@@ -44,7 +45,7 @@ export const getUserHabits = async (userId: string): Promise<Habit[]> => {
 };
 
 export const updateHabit = async (id: string, userId: string, data: Partial<Habit>): Promise<Habit | null> => {
-  const fields = Object.keys(data).filter(key => ['name', 'description', 'icon', 'frequency', 'is_active'].includes(key));
+  const fields = Object.keys(data).filter(key => ['name', 'description', 'icon', 'frequency', 'habit_type', 'is_active'].includes(key));
   if (fields.length === 0) return null;
 
   const setClause = fields.map((field, index) => `${field} = $${index + 3}`).join(', ');

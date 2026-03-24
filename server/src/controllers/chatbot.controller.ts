@@ -301,6 +301,17 @@ export const sendMessage = async (
     // Actualizar conversación
     await conversationModel.updateConversationActivity(conversationId as string);
 
+    // Generar título automático si es el primer mensaje o tiene el título por defecto
+    if (conversation.title === 'Nueva conversación' || !conversation.title) {
+      langGraphAgent.generateConversationTitle(userId as string, content)
+        .then(newTitle => {
+          if (newTitle) {
+            conversationModel.updateConversation(conversationId as string, { title: newTitle });
+          }
+        })
+        .catch(err => console.error('❌ Error generando título automático:', err));
+    }
+
     // Guardar intención
     await messageModel.createMessageIntent(userMessage.id, userId, {
       intent: 'general',
@@ -422,6 +433,18 @@ export const streamMessage = async (
       content,
     });
     await conversationModel.updateConversationActivity(conversationId as string);
+
+    // Obtener información de la conversación para verificar el título
+    const conversation = await conversationModel.getConversationById(conversationId as string);
+    if (conversation && (conversation.title === 'Nueva conversación' || !conversation.title)) {
+      langGraphAgent.generateConversationTitle(userId as string, content)
+        .then(newTitle => {
+          if (newTitle) {
+            conversationModel.updateConversation(conversationId as string, { title: newTitle });
+          }
+        })
+        .catch(err => console.error('❌ Error generando título automático en stream:', err));
+    }
 
     // Obtener contexto del usuario
     const profile = await profileModel.getProfileByUserId(userId);

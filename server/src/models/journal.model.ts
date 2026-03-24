@@ -72,6 +72,16 @@ export const deleteDailyNote = async (id: string, userId: string): Promise<boole
   return (result.rowCount ?? 0) > 0;
 };
 
+export const updateDailyNote = async (id: string, userId: string, data: { content: string; note_date?: string }): Promise<DailyNote | null> => {
+  const sql = `
+    UPDATE daily_notes 
+    SET content = $1, note_date = COALESCE($2, note_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $3 AND user_id = $4
+    RETURNING *`;
+  const result = await query(sql, [data.content, data.note_date || null, id, userId]);
+  return (result.rows[0] as DailyNote) || null;
+};
+
 // =====================================================
 // HÁBITOS
 // =====================================================
@@ -94,6 +104,16 @@ export const getHabitEntries = async (userId: string, limit = 20): Promise<Habit
 export const deleteHabitEntry = async (id: string, userId: string): Promise<boolean> => {
   const result = await query(`DELETE FROM habit_entries WHERE id = $1 AND user_id = $2`, [id, userId]);
   return (result.rowCount ?? 0) > 0;
+};
+
+export const updateHabitEntry = async (id: string, userId: string, data: { protective_habits: string; risk_habits: string; entry_date?: string }): Promise<HabitEntry | null> => {
+  const sql = `
+    UPDATE habit_entries 
+    SET protective_habits = $1, risk_habits = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $4 AND user_id = $5
+    RETURNING *`;
+  const result = await query(sql, [data.protective_habits, data.risk_habits, data.entry_date || null, id, userId]);
+  return (result.rows[0] as HabitEntry) || null;
 };
 
 // =====================================================
@@ -120,6 +140,16 @@ export const deleteSocialEntry = async (id: string, userId: string): Promise<boo
   return (result.rowCount ?? 0) > 0;
 };
 
+export const updateSocialEntry = async (id: string, userId: string, data: { people_description: string; impact_assessment: string; entry_date?: string }): Promise<SocialEntry | null> => {
+  const sql = `
+    UPDATE social_entries 
+    SET people_description = $1, impact_assessment = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $4 AND user_id = $5
+    RETURNING *`;
+  const result = await query(sql, [data.people_description, data.impact_assessment, data.entry_date || null, id, userId]);
+  return (result.rows[0] as SocialEntry) || null;
+};
+
 // =====================================================
 // ANÁLISIS DE CONSUMO / IMPULSO
 // =====================================================
@@ -142,6 +172,16 @@ export const getConsumptionAnalyses = async (userId: string, limit = 20): Promis
 export const deleteConsumptionAnalysis = async (id: string, userId: string): Promise<boolean> => {
   const result = await query(`DELETE FROM consumption_analysis WHERE id = $1 AND user_id = $2`, [id, userId]);
   return (result.rowCount ?? 0) > 0;
+};
+
+export const updateConsumptionAnalysis = async (id: string, userId: string, data: { trigger_situation: string; action_taken: string; entry_date?: string }): Promise<ConsumptionAnalysis | null> => {
+  const sql = `
+    UPDATE consumption_analysis 
+    SET trigger_situation = $1, action_taken = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $4 AND user_id = $5
+    RETURNING *`;
+  const result = await query(sql, [data.trigger_situation, data.action_taken, data.entry_date || null, id, userId]);
+  return (result.rows[0] as ConsumptionAnalysis) || null;
 };
 
 // =====================================================
@@ -180,13 +220,23 @@ export const deleteActivityEntry = async (id: string, userId: string): Promise<b
   return (result.rowCount ?? 0) > 0;
 };
 
+export const updateActivityEntry = async (id: string, userId: string, data: { activity_name: string; feeling_before: string; feeling_during: string; feeling_after: string; entry_date?: string }): Promise<ActivityEntry | null> => {
+  const sql = `
+    UPDATE activity_entries 
+    SET activity_name = $1, feeling_before = $2, feeling_during = $3, feeling_after = $4, entry_date = COALESCE($5, entry_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $6 AND user_id = $7
+    RETURNING *`;
+  const result = await query(sql, [data.activity_name, data.feeling_before, data.feeling_during, data.feeling_after, data.entry_date || null, id, userId]);
+  return (result.rows[0] as ActivityEntry) || null;
+};
+
 // =====================================================
 // FEED UNIFICADO (muro de registros)
 // =====================================================
 
 export interface FeedEntry {
   id: string;
-  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis';
+  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion';
   entry_date: string;
   created_at: string;
   data: Record<string, any>;
@@ -213,6 +263,14 @@ export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEn
     SELECT id, 'habit' AS type, entry_date::text, created_at::text,
       json_build_object('protective_habits', protective_habits, 'risk_habits', risk_habits) AS data
     FROM habit_entries WHERE user_id = $1
+
+    UNION ALL
+
+    SELECT hc.id, 'habit_completion' AS type, hc.completed_at::text AS entry_date, hc.created_at::text,
+      json_build_object('habit_name', h.name, 'habit_type', h.habit_type) AS data
+    FROM habit_completions hc
+    JOIN habits h ON hc.habit_id = h.id
+    WHERE hc.user_id = $1
 
     UNION ALL
 

@@ -157,6 +157,8 @@ export class LangGraphAgentService {
 
     const docsStr = scoredChunks.map(r => r.chunk.content).join('\n\n');
 
+    console.log(`[RETRIEVE] Query: "${query}" | Chunks found: ${scoredChunks.length} | Top score: ${scoredChunks[0]?.score?.toFixed(4) || 'N/A'}`);
+
     return { retrievedDocs: docsStr };
   }
 
@@ -187,6 +189,7 @@ Mensaje: "${lastMessage.content}"`;
         if (jsonMatch) {
           const extracted = JSON.parse(jsonMatch[0]);
           const data = Array.isArray(extracted) ? extracted : [extracted];
+          console.log(`[MEMORY] Extracted ${data.length} new insights:`, JSON.stringify(data, null, 2));
           for (const item of data) {
             if (item.key && item.value) {
               await messageModel.saveContextHistory(
@@ -317,6 +320,7 @@ Responde de manera empática, con respaldo científico si aplica, y tomando en c
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
     let docsStr = scoredChunks.map(r => r.chunk.content).join('\n\n');
+    console.log(`[STREAMING][RETRIEVE] Query: "${messageContent}" | Top score: ${scoredChunks[0]?.score?.toFixed(4) || 'N/A'}`);
 
     // 2.5 Búsqueda Web Automática si el RAG es insuficiente o el tema es muy específico
     let webSearchContext = '';
@@ -398,6 +402,7 @@ Mensaje: "${content}"`;
       if (jsonMatch) {
         const extracted = JSON.parse(jsonMatch[0]);
         const data = Array.isArray(extracted) ? extracted : [extracted];
+        console.log(`[STREAMING][MEMORY] Extracted ${data.length} new insights from "${content}":`, JSON.stringify(data, null, 2));
         for (const item of data) {
           if (item.key && item.value) {
             await messageModel.saveContextHistory(userId, 'preference', item.key, item.value, undefined, 5);
@@ -406,6 +411,29 @@ Mensaje: "${content}"`;
       }
     } catch (e) {
       // Silencioso
+    }
+  }
+
+  /**
+   * Genera un título corto para la conversación basado en el mensaje inicial
+   */
+  public async generateConversationTitle(userId: string, firstMessage: string): Promise<string> {
+    try {
+      const llm = await this.getUserLLM(userId);
+      const prompt = `Genera un título muy corto (máximo 4 palabras) y descriptivo para una sesión de chat basada en este mensaje del usuario: "${firstMessage}". 
+Responde ÚNICAMENTE con el título en español, sin comillas, sin puntos finales y sin preámbulos.`;
+      
+      const response = await llm.invoke([new HumanMessage(prompt)]);
+      let title = response.content.toString().trim();
+      
+      // Limpiar por si acaso el LLM ignora las instrucciones
+      title = title.replace(/["'./]/g, '');
+      if (title.length > 50) title = title.substring(0, 47) + '...';
+      
+      return title;
+    } catch (error) {
+      console.error('❌ Error al generar título de conversación:', error);
+      return 'Conversación de apoyo';
     }
   }
 }

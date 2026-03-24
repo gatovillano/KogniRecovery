@@ -127,7 +127,7 @@ export const jwt: JwtConfig = {
   secret: getRequired('JWT_SECRET'),
   expiresIn: getOptional('JWT_EXPIRES_IN', '15m'),
   refreshSecret: getRequired('JWT_REFRESH_SECRET'),
-  refreshExpiresIn: getOptional('JWT_REFRESH_EXPIRES_IN', '7d'),
+  refreshExpiresIn: getOptional('JWT_REFRESH_EXPIRES_IN', '30d'),
 };
 
 export const auth: AuthConfig = {

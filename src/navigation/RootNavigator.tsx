@@ -49,8 +49,17 @@ export const RootNavigator: React.FC = () => {
       authStore.setState({
         user: null,
         token: null,
+        refreshToken: null,
         isAuthenticated: false,
         error: 'Tu sesión ha expirado, por favor ingresa nuevamente.',
+      });
+    });
+
+    // Escuchar cuando se refrescan los tokens para guardarlos en el store (persistencia)
+    apiClient.setOnTokensRefreshed((tokens) => {
+      authStore.setState({
+        token: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
       });
     });
 

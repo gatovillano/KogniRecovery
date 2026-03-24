@@ -10,7 +10,28 @@ import { useCheckIn } from '@hooks/useCheckIn';
 import { api } from '@services/api';
 import { MainTabNavigationProp } from '@navigation/types';
 import { DashboardData, ApiResponse } from '../../types/api';
+import { JOURNAL_ENDPOINTS } from '@services/endpoints';
 import Icon from '@expo/vector-icons/Ionicons';
+
+// Tipo para las entradas del feed unificado
+interface FeedEntry {
+  id: string;
+  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion';
+  entry_date: string;
+  created_at: string;
+  data: Record<string, any>;
+}
+
+// Mapeo de tipos a información de visualización
+const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
+  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#007AFF' },
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#34C759' },
+  habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#34C759' },
+  social: { label: 'Entorno Social', icon: 'people-outline', color: '#007AFF' },
+  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#FF9500' },
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#FF3B30' },
+  habit_completion: { label: 'Hábito Completado', icon: 'checkmark-circle-outline', color: '#34C759' },
+};
 
 export const DashboardScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -19,6 +40,10 @@ export const DashboardScreen: React.FC = () => {
   const { todayCheckIn, checkIns, stats, streaks, hasCheckedInToday, getCurrentStreak, loadTodayCheckIn, loadCheckIns, loadStats, loadStreaks } = useCheckIn();
   const [refreshing, setRefreshing] = useState(false);
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [feedData, setFeedData] = useState<FeedEntry[]>([]);
+  const [habitsStatus, setHabitsStatus] = useState<any[]>([]);
+  const [loadingFeed, setLoadingFeed] = useState(false);
+  const [loadingHabits, setLoadingHabits] = useState(false);
 
   // Cargar datos del dashboard
   const loadDashboardData = async () => {
@@ -32,6 +57,53 @@ export const DashboardScreen: React.FC = () => {
     }
   };
 
+  const loadFeed = async () => {
+    setLoadingFeed(true);
+    try {
+      const response = await api.get<ApiResponse<FeedEntry[]>>(JOURNAL_ENDPOINTS.FEED, { limit: 5 });
+      if (response && response.success) {
+        setFeedData(response.data || []);
+      }
+    } catch (error) {
+      console.error('Error loading feed:', error);
+    } finally {
+      setLoadingFeed(false);
+    }
+  };
+
+  const loadHabitsStatus = async () => {
+    setLoadingHabits(true);
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await api.get<ApiResponse<any[]>>(`${JOURNAL_ENDPOINTS.HABITS_STATUS}?date=${today}`);
+      if (response && response.success) {
+        setHabitsStatus(response.data || []);
+      }
+    } catch (error) {
+      console.error('Error loading habits:', error);
+    } finally {
+      setLoadingHabits(false);
+    }
+  };
+
+  const toggleHabit = async (habitId: string) => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await api.post<ApiResponse<any>>(JOURNAL_ENDPOINTS.HABIT_TOGGLE, {
+        habit_id: habitId,
+        date: today
+      });
+      if (response && response.success) {
+        // Actualización optimista
+        setHabitsStatus(prev => prev.map(h => 
+          h.id === habitId ? { ...h, is_completed: !h.is_completed } : h
+        ));
+      }
+    } catch (error) {
+      console.error('Error toggling habit:', error);
+    }
+  };
+
   // Usar useFocusEffect para recargar al volver a la pestaña
   useFocusEffect(
     useCallback(() => {
@@ -40,12 +112,22 @@ export const DashboardScreen: React.FC = () => {
       loadCheckIns(1, 10);
       loadStats(30);
       loadStreaks();
+      loadFeed();
+      loadHabitsStatus();
     }, [loadTodayCheckIn, loadCheckIns, loadStats, loadStreaks])
   );
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await Promise.all([loadDashboardData(), loadTodayCheckIn(), loadCheckIns(1, 10), loadStats(30), loadStreaks()]);
+    await Promise.all([
+      loadDashboardData(), 
+      loadTodayCheckIn(), 
+      loadCheckIns(1, 10), 
+      loadStats(30), 
+      loadStreaks(),
+      loadFeed(),
+      loadHabitsStatus()
+    ]);
     setRefreshing(false);
   };
 
@@ -53,6 +135,38 @@ export const DashboardScreen: React.FC = () => {
   const longestStreak = streaks.find(s => s.streak_type === 'checkin_completed')?.longest_streak || 0;
   
   const latestCheckIn = todayCheckIn || (checkIns?.length > 0 ? checkIns[0] : null);
+
+  const renderFeedItem = (entry: FeedEntry) => {
+    const config = FEED_TYPE_CONFIG[entry.type] || { label: 'Registro', icon: 'document-outline', color: '#8E8E93' };
+    const entryDate = new Date(entry.entry_date + 'T12:00:00');
+    const formattedDate = entryDate.toLocaleDateString('es-CL', { weekday: 'short', day: 'numeric', month: 'short' });
+
+    return (
+      <TouchableOpacity 
+        key={entry.id} 
+        style={[styles.feedItemShort, { backgroundColor: theme.colors.card }]}
+        onPress={() => navigation.navigate('CheckIn')}
+        activeOpacity={0.7}
+      >
+        <View style={[styles.feedIconCircle, { backgroundColor: config.color + '15' }]}>
+          <Icon name={config.icon as any} size={18} color={config.color} />
+        </View>
+        <View style={styles.feedContentShort}>
+          <Text style={[styles.feedLabel, { color: theme.colors.textSecondary }]}>{config.label}</Text>
+          <Text style={[styles.feedTextShort, { color: theme.colors.text }]} numberOfLines={1}>
+            {entry.type === 'checkin' ? `Ánimo: ${entry.data.mood_score}/10` : 
+             entry.type === 'note' ? entry.data.content :
+             entry.type === 'habit' ? (entry.data.protective_habits || entry.data.risk_habits) :
+             entry.type === 'social' ? entry.data.people_description :
+             entry.type === 'activity' ? entry.data.activity_name :
+             entry.type === 'analysis' ? 'Análisis de situación' :
+             entry.type === 'habit_completion' ? entry.data.habit_name : 'Registro diario'}
+          </Text>
+        </View>
+        <Text style={[styles.feedDate, { color: theme.colors.textSecondary }]}>{formattedDate}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -62,19 +176,29 @@ export const DashboardScreen: React.FC = () => {
       />
       <ScrollView
         style={{ flex: 1, paddingTop: insets.top }}
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 100 }]}
+        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 110 }]}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.colors.primary} />
         }
       >
         {/* Header de Bienvenida */}
         <View style={styles.header}>
-          <Text style={[styles.welcomeSub, { color: theme.colors.textSecondary }]}>
-            {new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })}
-          </Text>
-          <Text style={[styles.title, { color: theme.colors.text }]}>
-            ¿Cómo te sientes hoy?
-          </Text>
+          <View style={styles.headerTop}>
+            <View>
+              <Text style={[styles.welcomeSub, { color: theme.colors.textSecondary }]}>
+                {new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })}
+              </Text>
+              <Text style={[styles.title, { color: theme.colors.text }]}>
+                ¡{dashboardData?.profile?.first_name ? `Hola ${dashboardData.profile.first_name}` : 'Bienvenido'}!
+              </Text>
+            </View>
+            <TouchableOpacity 
+              style={[styles.profileButton, { backgroundColor: theme.colors.card }]}
+              onPress={() => navigation.navigate('Profile')}
+            >
+              <Icon name="person-circle-outline" size={32} color={theme.colors.primary} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Fila de Tarjetas de Acción (SOS y Alertas) */}
@@ -109,152 +233,113 @@ export const DashboardScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Widget de Estado Emocional */}
-        <Card variant="elevated" padding="md">
-          <View style={styles.widgetHeader}>
-            <View>
-              <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>Estado Emocional</Text>
-              <Text style={[styles.widgetSub, { color: theme.colors.textSecondary }]}>
-                {latestCheckIn && latestCheckIn !== todayCheckIn ? 'Último registro' : 'Tu estado de hoy'}
-              </Text>
+        {/* Resumen del Día */}
+        <View style={styles.summaryGrid}>
+          <Card style={styles.summaryCard} padding="md">
+            <Icon name="flame" size={24} color={theme.colors.accent} />
+            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>{currentStreak}</Text>
+            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Racha</Text>
+          </Card>
+          <Card style={styles.summaryCard} padding="md">
+            <Icon name="leaf" size={24} color={theme.colors.success} />
+            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
+              {habitsStatus.filter(h => h.is_completed).length}/{habitsStatus.length || 0}
+            </Text>
+            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Hábitos</Text>
+          </Card>
+          <Card style={styles.summaryCard} padding="md">
+            <Icon name="pulse" size={24} color={theme.colors.primary} />
+            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>{latestCheckIn?.mood_score || '-'}/10</Text>
+            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
+          </Card>
+        </View>
+
+        {/* Hábitos de Hoy */}
+        {habitsStatus.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Hábitos de Hoy</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('CheckIn')}>
+                <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Gestionar</Text>
+              </TouchableOpacity>
             </View>
-            {latestCheckIn?.mood_score && (
-              <LinearGradient
-                colors={[theme.colors.primary, theme.colors.primaryDark]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.moodBadge}
-              >
-                <Text style={styles.moodScore}>
-                  {latestCheckIn.mood_score}/10
-                </Text>
-              </LinearGradient>
-            )}
+            <View style={styles.habitsRow}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 12 }}>
+                {habitsStatus.map(habit => (
+                  <TouchableOpacity
+                    key={habit.id}
+                    style={[
+                      styles.habitBubble,
+                      { 
+                        backgroundColor: habit.is_completed ? theme.colors.primary : theme.colors.card,
+                        borderColor: habit.is_completed ? theme.colors.primary : theme.colors.border,
+                        borderWidth: 1
+                      }
+                    ]}
+                    onPress={() => toggleHabit(habit.id)}
+                    activeOpacity={0.8}
+                  >
+                    <Icon 
+                      name={habit.habit_type === 'positive' ? 'add-circle' : 'remove-circle'} 
+                      size={16} 
+                      color={habit.is_completed ? 'white' : theme.colors.textSecondary} 
+                    />
+                    <Text style={[styles.habitBubbleText, { color: habit.is_completed ? 'white' : theme.colors.text }]}>
+                      {habit.name}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          </View>
+        )}
+
+        {/* Bitácora */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Mi Bitácora</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('CheckIn')}>
+              <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Ver todo</Text>
+            </TouchableOpacity>
           </View>
           
-          {latestCheckIn ? (
-            <View>
-              <View style={styles.moodRow}>
-                <View style={styles.moodItem}>
-                  <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
-                  <Text style={[styles.moodValue, { color: theme.colors.text }]}>
-                    {latestCheckIn.mood_score || '-'}
-                  </Text>
-                </View>
-                <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
-                <View style={styles.moodItem}>
-                  <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Ansiedad</Text>
-                  <Text style={[styles.moodValue, { color: theme.colors.text }]}>
-                    {latestCheckIn.anxiety_score || '-'}
-                  </Text>
-                </View>
-                <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
-                <View style={styles.moodItem}>
-                  <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Energía</Text>
-                  <Text style={[styles.moodValue, { color: theme.colors.text }]}>
-                    {latestCheckIn.energy_score || '-'}
-                  </Text>
-                </View>
-              </View>
-              {latestCheckIn.emotional_tags && latestCheckIn.emotional_tags.length > 0 && (
-                <View style={styles.tagsContainer}>
-                  {latestCheckIn.emotional_tags.map((tag, index) => (
-                    <View key={index} style={[styles.tag, { backgroundColor: theme.colors.primary + '10' }]}>
-                      <Text style={[styles.tagText, { color: theme.colors.primary }]}>{tag}</Text>
-                    </View>
-                  ))}
-                </View>
-              )}
-            </View>
-          ) : (
-            <View style={styles.emptyState}>
-              <Icon name="happy-outline" size={40} color={theme.colors.textSecondary + '40'} />
-              <Text style={[styles.noData, { color: theme.colors.textSecondary }]}>
-                Aún no tienes registros emocionales. ¡Haz tu primer check-in!
-              </Text>
-            </View>
-          )}
-        </Card>
-
-        {/* Widget de Rachas y Check-in */}
-        <View style={styles.statsRow}>
-          <Card style={StyleSheet.flatten([styles.halfWidget, { flex: 1.2 }])} padding="md">
-            <Text style={[styles.widgetSub, { color: theme.colors.textSecondary, marginBottom: 8 }]}>Racha actual</Text>
-            <View style={styles.streakContainer}>
-              <Text style={[styles.statValue, { color: theme.colors.primary }]}>
-                {currentStreak}
-              </Text>
-              <Icon name="flame" size={24} color={theme.colors.accent} />
-            </View>
-            <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>días seguidos</Text>
-          </Card>
-
-          <Card style={StyleSheet.flatten([styles.halfWidget, { flex: 1 }])} padding="md">
-            <Text style={[styles.widgetSub, { color: theme.colors.textSecondary, marginBottom: 8 }]}>Check-in hoy</Text>
-            {hasCheckedInToday() ? (
-              <View style={styles.checkinStatusBox}>
-                <View style={[styles.statusIcon, { backgroundColor: theme.colors.success + '20' }]}>
-                  <Icon name="checkmark" size={20} color={theme.colors.success} />
-                </View>
-                <Text style={[styles.checkinStatus, { color: theme.colors.success }]}>Listo</Text>
+          <Card variant="elevated" padding="sm" style={styles.feedCard}>
+            {loadingFeed ? (
+              <View style={styles.loadingContainer}><Text style={{ color: theme.colors.textSecondary }}>Cargando bitácora...</Text></View>
+            ) : feedData.length > 0 ? (
+              <View>
+                {feedData.map(renderFeedItem)}
               </View>
             ) : (
-              <TouchableOpacity style={styles.checkinStatusBox} onPress={() => navigation.navigate('CheckIn')}>
-                <View style={[styles.statusIcon, { backgroundColor: theme.colors.warning + '20' }]}>
-                  <Icon name="time-outline" size={20} color={theme.colors.warning} />
-                </View>
-                <Text style={[styles.checkinStatus, { color: theme.colors.warning }]}>Pendiente</Text>
-              </TouchableOpacity>
+              <View style={styles.emptyFeed}>
+                <Icon name="calendar-outline" size={40} color={theme.colors.textSecondary + '40'} />
+                <Text style={[styles.noData, { color: theme.colors.textSecondary }]}>
+                  No hay registros recientes.
+                </Text>
+                <Button 
+                  title="Añadir primero" 
+                  size="sm" 
+                  variant="outline" 
+                  onPress={() => navigation.navigate('CheckIn')} 
+                  style={{ marginTop: 12 }}
+                />
+              </View>
             )}
           </Card>
         </View>
 
-        {/* Widget de Salud Global */}
-        <Card variant="elevated" padding="md">
-          <Text style={[styles.widgetTitle, { color: theme.colors.text, marginBottom: 16 }]}>Métricas de Salud</Text>
-          {latestCheckIn ? (
-            <View style={styles.healthGrid}>
-              <View style={styles.healthCard}>
-                <Text style={styles.healthEmoji}>😴</Text>
-                <Text style={[styles.healthValue, { color: theme.colors.text }]}>
-                  {latestCheckIn.sleep_hours ? `${latestCheckIn.sleep_hours}h` : '-'}
-                </Text>
-                <Text style={[styles.healthLabel, { color: theme.colors.textSecondary }]}>Sueño</Text>
-              </View>
-              <View style={styles.healthCard}>
-                <Text style={styles.healthEmoji}>💪</Text>
-                <Text style={[styles.healthValue, { color: theme.colors.text }]}>
-                  {latestCheckIn.exercised_today ? `${latestCheckIn.exercise_minutes || 0}m` : '-'}
-                </Text>
-                <Text style={[styles.healthLabel, { color: theme.colors.textSecondary }]}>Ejercicio</Text>
-              </View>
-              <View style={styles.healthCard}>
-                <Text style={styles.healthEmoji}>👥</Text>
-                <Text style={[styles.healthValue, { color: theme.colors.text }]}>
-                  {latestCheckIn.social_interaction || '-'}
-                </Text>
-                <Text style={[styles.healthLabel, { color: theme.colors.textSecondary }]}>Social</Text>
-              </View>
-            </View>
-          ) : (
-            <Text style={[styles.noData, { color: theme.colors.textSecondary }]}>
-              Registra tu salud en el check-in diario
-            </Text>
-          )}
-        </Card>
-
-        {/* Widget de Cravings Activos */}
+        {/* Widget de Cravings Activos (TERMINOLOGÍA ACTUALIZADA: Impulsos/Consumo) */}
         {dashboardData?.active_cravings && dashboardData.active_cravings.length > 0 && (
           <Card style={{ backgroundColor: theme.colors.warning + '10', borderColor: theme.colors.warning + '30', borderWidth: 1 }} padding="md">
             <View style={styles.cravingHeader}>
               <Icon name="alert-circle" size={24} color={theme.colors.warning} />
-              <Text style={[styles.widgetTitle, { color: theme.colors.text, marginLeft: 8 }]}>Cravings Activos</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text, marginLeft: 8 }]}>Impulsos Detectados</Text>
             </View>
             <Text style={[styles.cravingCount, { color: theme.colors.warning }]}>
-              {dashboardData.active_cravings.length} impulsos detectados
+              Tienes {dashboardData.active_cravings.length} impulsos registrados hoy
             </Text>
             <Button
-              title="Hablar con NADA"
+              title="Hablar con LÚA"
               variant="outline"
               size="sm"
               onPress={() => navigation.navigate('Chatbot')}
@@ -264,11 +349,11 @@ export const DashboardScreen: React.FC = () => {
           </Card>
         )}
 
-        {/* Pared Familiar */}
+        {/* Muro Familiar */}
         <Card variant="elevated" padding="md">
           <View style={styles.widgetHeader}>
             <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>Muro Familiar</Text>
-            <TouchableOpacity onPress={() => { /* Navegar */ }}>
+            <TouchableOpacity onPress={() => { /* Navegar a Familia */ }}>
               <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Ver todo</Text>
             </TouchableOpacity>
           </View>
@@ -307,14 +392,14 @@ export const DashboardScreen: React.FC = () => {
         <View style={styles.quickActions}>
           <Button
             variant="primary"
-            title="Hablar con NADA"
+            title="Hablar con LÚA"
             icon={<Icon name="chatbubble-ellipses" size={20} color="white" />}
             onPress={() => navigation.navigate('Chatbot')}
             style={styles.actionButton}
           />
           <Button
             variant="secondary"
-            title="Check-in"
+            title="Nuevo Registro"
             icon={<Icon name="add-circle" size={20} color="white" />}
             onPress={() => navigation.navigate('CheckIn')}
             style={styles.actionButton}
@@ -337,14 +422,29 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 4,
   },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  profileButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#00000010',
+  },
   welcomeSub: {
     fontSize: 14,
     textTransform: 'capitalize',
-    marginBottom: 4,
+    marginBottom: 2,
     fontWeight: '500',
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: '800',
     letterSpacing: -0.5,
   },
@@ -391,126 +491,104 @@ const styles = StyleSheet.create({
     fontSize: 8,
     fontWeight: 'bold',
   },
+  summaryGrid: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  summaryCard: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  summaryValue: {
+    fontSize: 18,
+    fontWeight: '800',
+  },
+  summaryLabel: {
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  section: {
+    gap: 12,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  habitsRow: {
+    marginTop: 4,
+  },
+  habitBubble: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 6,
+  },
+  habitBubbleText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  feedCard: {
+    overflow: 'hidden',
+  },
+  feedItemShort: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#00000008',
+    gap: 12,
+  },
+  feedIconCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  feedContentShort: {
+    flex: 1,
+  },
+  feedLabel: {
+    fontSize: 10,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  feedTextShort: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: 1,
+  },
+  feedDate: {
+    fontSize: 11,
+    fontWeight: '500',
+  },
+  loadingContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  emptyFeed: {
+    padding: 30,
+    alignItems: 'center',
+    gap: 4,
+  },
   widgetHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: 20,
   },
   widgetTitle: {
     fontSize: 18,
     fontWeight: '700',
-  },
-  widgetSub: {
-    fontSize: 13,
-    marginTop: 2,
-  },
-  moodBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
-  },
-  moodScore: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  moodRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  moodItem: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  divider: {
-    width: 1,
-    height: 30,
-    opacity: 0.5,
-  },
-  moodLabel: {
-    fontSize: 12,
-    marginBottom: 4,
-    fontWeight: '500',
-  },
-  moodValue: {
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  tagsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 20,
-    gap: 8,
-    justifyContent: 'center',
-  },
-  tag: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 20,
-  },
-  tagText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  statsRow: {
-    flexDirection: 'row',
-    gap: 16,
-  },
-  halfWidget: {
-    justifyContent: 'center',
-  },
-  streakContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  statValue: {
-    fontSize: 32,
-    fontWeight: '800',
-  },
-  statLabel: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  checkinStatusBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  statusIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkinStatus: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  healthGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  healthCard: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  healthEmoji: {
-    fontSize: 24,
-    marginBottom: 8,
-  },
-  healthValue: {
-    fontSize: 18,
-    fontWeight: '700',
-  },
-  healthLabel: {
-    fontSize: 11,
-    marginTop: 2,
-    fontWeight: '500',
   },
   cravingHeader: {
     flexDirection: 'row',
@@ -554,10 +632,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     marginTop: 10,
-  },
-  emptyState: {
-    alignItems: 'center',
-    paddingVertical: 20,
   },
   quickActions: {
     flexDirection: 'row',

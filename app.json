@@ -30,7 +30,15 @@
       "permissions": [
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "softwareKeyboardLayoutMode": "resize",
+      "statusBar": {
+        "translucent": true
+      },
+      "navigationBar": {
+        "barStyle": "light-content",
+        "backgroundColor": "#00000000"
+      }
     },
     "web": {
       "favicon": "./src/assets/favicon.png",

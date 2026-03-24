@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, FlatList, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, FlatList, Modal, Alert } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MainTabNavigationProp } from '@navigation/types';
@@ -16,13 +16,13 @@ import { checkinStore } from '@store/checkinStore';
 import { useAuth } from '@hooks/useAuth';
 import { api } from '@services/api';
 import { ApiResponse } from '../../types/api';
-import { JOURNAL_ENDPOINTS } from '@services/endpoints';
+import { JOURNAL_ENDPOINTS, CHECKIN_ENDPOINTS } from '@services/endpoints';
 import Icon from '@expo/vector-icons/Ionicons';
 
 // Tipo para las entradas del feed unificado
 interface FeedEntry {
   id: string;
-  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis';
+  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion';
   entry_date: string;
   created_at: string;
   data: Record<string, any>;
@@ -36,6 +36,7 @@ const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: str
   social: { label: 'Entorno Social', icon: 'people-outline', color: '#007AFF' },
   activity: { label: 'Actividad', icon: 'analytics-outline', color: '#FF9500' },
   analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#FF3B30' },
+  habit_completion: { label: 'Hábito Completado', icon: 'checkmark-circle-outline', color: '#34C759' },
 };
 
 const { width } = Dimensions.get('window');
@@ -195,14 +196,144 @@ export const CheckInScreen: React.FC = () => {
   const [socialImpact, setSocialImpact] = useState('');
   const [habitGood, setHabitGood] = useState('');
   const [habitBad, setHabitBad] = useState('');
+  const [habitsConfig, setHabitsConfig] = useState<any[]>([]); // Lista de hábitos definidos
+  const [loadingHabits, setLoadingHabits] = useState(false);
+  const [showAddHabit, setShowAddHabit] = useState(false);
+  const [newHabitName, setNewHabitName] = useState('');
+  const [newHabitType, setNewHabitType] = useState<'positive' | 'negative'>('positive');
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingType, setEditingType] = useState<FeedEntry['type'] | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const totalSteps = 5;
+
+  const getLocalDateString = (date: Date | null) => {
+    const d = date || new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const resetForm = () => {
+    setEditingId(null);
+    setEditingType(null);
+    setMood(5);
+    setAnxiety(3);
+    setEnergy(7);
+    setSelectedTags([]);
+    setSleepHours('8');
+    setExercised(false);
+    setConsumed(false);
+    setConsumedAmount('');
+    setNotes('');
+    setFreeNotes('');
+    setActivityName('');
+    setFeelingBefore('');
+    setFeelingDuring('');
+    setFeelingAfter('');
+    setAnalysisSituation('');
+    setAnalysisAction('');
+    setSocialPeople('');
+    setSocialImpact('');
+    setHabitGood('');
+    setHabitBad('');
+    setStep(0);
+    setCompleted(false);
+  };
+
+  const renderDatePickerModal = () => {
+    const days = generateMonthDays(currentMonth);
+    const monthName = currentMonth.toLocaleDateString('es-CL', { month: 'long', year: 'numeric' });
+
+    return (
+      <Modal visible={showDatePicker} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: theme.colors.card, width: '90%', paddingBottom: 20 }]}>
+            <View style={styles.modalHeader}>
+              <Text style={[styles.modalTitle, { color: theme.colors.text }]}>Seleccionar Fecha</Text>
+              <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                <Icon name="close" size={24} color={theme.colors.text} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={[styles.calendarHeader, { marginBottom: 10 }]}>
+              <Text style={[styles.monthTitle, { color: theme.colors.text, fontSize: 18 }]}>
+                {monthName.charAt(0).toUpperCase() + monthName.slice(1)}
+              </Text>
+              <View style={styles.headerControls}>
+                <TouchableOpacity onPress={() => handleMonthChange(-1)}>
+                  <Icon name="chevron-back" size={20} color={theme.colors.primary} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleMonthChange(1)}>
+                  <Icon name="chevron-forward" size={20} color={theme.colors.primary} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={[styles.daysWeekRow, { marginBottom: 5 }]}>
+              {DAYS_WEEK.map((d, i) => (
+                <Text key={i} style={[styles.dayWeekText, { color: theme.colors.textSecondary, width: 40 }]}>{d}</Text>
+              ))}
+            </View>
+
+            <View style={[styles.daysGrid, { justifyContent: 'flex-start' }]}>
+              {days.map((d, i) => {
+                if (!d) return <View key={`empty-${i}`} style={{ width: (width * 0.9 - 60) / 7, height: 40, margin: 2 }} />;
+                const isSelected = selectedDate && d.toDateString() === selectedDate.toDateString();
+                const isToday = d.toDateString() === new Date().toDateString();
+                return (
+                  <TouchableOpacity
+                    key={i}
+                    style={[
+                      { width: (width * 0.9 - 60) / 7, height: 40, justifyContent: 'center', alignItems: 'center', margin: 2 },
+                      isSelected && { backgroundColor: theme.colors.primary, borderRadius: 10 }
+                    ]}
+                    onPress={() => {
+                      setSelectedDate(d);
+                      setShowDatePicker(false);
+                    }}
+                  >
+                    <Text style={[
+                      { color: isSelected ? 'white' : theme.colors.text },
+                      isToday && !isSelected && { color: theme.colors.primary, fontWeight: 'bold' }
+                    ]}>
+                      {d.getDate()}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
+  const renderDateSelector = () => (
+    <View style={[styles.dateSelectorContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+      <Icon name="calendar-outline" size={20} color={theme.colors.primary} />
+      <View style={{ flex: 1, marginLeft: 12 }}>
+        <Text style={{ color: theme.colors.textSecondary, fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.5 }}>Fecha del registro</Text>
+        <Text style={{ color: theme.colors.text, fontSize: 15, fontWeight: '600' }}>
+          {selectedDate?.toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </Text>
+      </View>
+      <TouchableOpacity 
+        style={[styles.miniEditBtn, { backgroundColor: theme.colors.primary + '15' }]}
+        onPress={() => setShowDatePicker(true)}
+      >
+        <Text style={{ color: theme.colors.primary, fontSize: 12, fontWeight: 'bold' }}>Cambiar</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   useEffect(() => {
     fetchGeneralStats();
     fetchMonthCheckIns(currentMonth);
     fetchFeed();
-  }, []);
+    fetchHabitsStatus();
+  }, [currentMonth]);
 
   const fetchGeneralStats = async () => {
     try {
@@ -235,7 +366,7 @@ export const CheckInScreen: React.FC = () => {
   const fetchDayData = async (date: Date) => {
     setLoadingDay(true);
     try {
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = getLocalDateString(date);
       const response = await api.get<ApiResponse<any>>(`/checkins/today?date=${dateStr}`);
       if (response && response.success) {
         setDayData(response.data);
@@ -263,11 +394,75 @@ export const CheckInScreen: React.FC = () => {
     }
   };
 
+  const fetchHabitsStatus = async (date?: Date) => {
+    setLoadingHabits(true);
+    try {
+      const targetDate = getLocalDateString(date || selectedDate);
+      const response = await api.get<ApiResponse<any[]>>(`${JOURNAL_ENDPOINTS.HABITS_STATUS}?date=${targetDate}`);
+      if (response && response.success) {
+        setHabitsConfig(response.data || []);
+      }
+    } catch (error) {
+      console.error('Error fetching habits:', error);
+    } finally {
+      setLoadingHabits(false);
+    }
+  };
+
+  const toggleHabit = async (habitId: string) => {
+    try {
+      const targetDate = getLocalDateString(selectedDate);
+      const response = await api.post<ApiResponse<any>>(JOURNAL_ENDPOINTS.HABIT_TOGGLE, {
+        habit_id: habitId,
+        date: targetDate
+      });
+      if (response && response.success) {
+        // Optimistic update locally
+        setHabitsConfig(prev => prev.map(h => 
+          h.id === habitId ? { ...h, is_completed: !h.is_completed } : h
+        ));
+      }
+    } catch (error) {
+      console.error('Error toggling habit:', error);
+    }
+  };
+
+  const addHabitDefinition = async () => {
+    if (!newHabitName.trim()) return;
+    try {
+      const response = await api.post<ApiResponse<any>>(JOURNAL_ENDPOINTS.HABIT_DEFINITION, {
+        name: newHabitName,
+        frequency: 'daily',
+        habit_type: newHabitType
+      });
+      if (response && response.success) {
+        setNewHabitName('');
+        setNewHabitType('positive');
+        setShowAddHabit(false);
+        fetchHabitsStatus();
+      }
+    } catch (error) {
+      console.error('Error adding habit definition:', error);
+    }
+  };
+
+  const deleteHabitDefinition = async (habitId: string) => {
+    try {
+      const response = await api.delete<ApiResponse<any>>(JOURNAL_ENDPOINTS.HABIT_DEFINITION_ID(habitId));
+      if (response && response.success) {
+        fetchHabitsStatus();
+      }
+    } catch (error) {
+      console.error('Error deleting habit:', error);
+    }
+  };
+
   const handleMonthChange = (offset: number) => {
     const newMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + offset, 1);
     setCurrentMonth(newMonth);
     fetchMonthCheckIns(newMonth);
-    setSelectedDate(null);
+    // No reseteamos selectedDate para permitir navegar meses manteniendo la fecha si se desea, 
+    // pero limpiamos dayData para que se recargue si el usuario vuelve a ver el día.
     setDayData(null);
   };
 
@@ -298,7 +493,7 @@ export const CheckInScreen: React.FC = () => {
   const submitCheckIn = async () => {
     setLoading(true);
     try {
-      const targetDate = (selectedDate || new Date()).toISOString().split('T')[0];
+      const targetDate = getLocalDateString(selectedDate);
       let response: ApiResponse<any> | null = null;
 
       if (viewMode === 'form') {
@@ -316,48 +511,78 @@ export const CheckInScreen: React.FC = () => {
           notes: notes,
           checkin_type: 'diario'
         };
-        response = await api.post<ApiResponse<any>>('/checkins', payload);
+        
+        if (editingId && editingType === 'checkin') {
+          response = await api.put<ApiResponse<any>>(`/checkins/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/checkins', payload);
+        }
 
       } else if (viewMode === 'notes') {
         // --- Nota Libre ---
-        response = await api.post<ApiResponse<any>>('/journal/notes', {
+        const payload = {
           content: freeNotes,
           note_date: targetDate,
-        });
+        };
+        if (editingId && editingType === 'note') {
+          response = await api.patch<ApiResponse<any>>(`/journal/notes/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/journal/notes', payload);
+        }
 
       } else if (viewMode === 'activity') {
         // --- Registro de Actividad ---
-        response = await api.post<ApiResponse<any>>('/journal/activities', {
+        const payload = {
           activity_name: activityName,
           feeling_before: feelingBefore,
           feeling_during: feelingDuring,
           feeling_after: feelingAfter,
           entry_date: targetDate,
-        });
+        };
+        if (editingId && editingType === 'activity') {
+          response = await api.patch<ApiResponse<any>>(`/journal/activities/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/journal/activities', payload);
+        }
 
       } else if (viewMode === 'social') {
         // --- Entorno Social ---
-        response = await api.post<ApiResponse<any>>('/journal/social', {
+        const payload = {
           people_description: socialPeople,
           impact_assessment: socialImpact,
           entry_date: targetDate,
-        });
+        };
+        if (editingId && editingType === 'social') {
+          response = await api.patch<ApiResponse<any>>(`/journal/social/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/journal/social', payload);
+        }
 
       } else if (viewMode === 'habits') {
         // --- Hábitos ---
-        response = await api.post<ApiResponse<any>>('/journal/habits', {
+        const payload = {
           protective_habits: habitGood,
           risk_habits: habitBad,
           entry_date: targetDate,
-        });
+        };
+        if (editingId && editingType === 'habit') {
+          response = await api.patch<ApiResponse<any>>(`/journal/habits/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/journal/habits', payload);
+        }
 
       } else if (viewMode === 'analysis') {
         // --- Análisis de Consumo ---
-        response = await api.post<ApiResponse<any>>('/journal/analysis', {
+        const payload = {
           trigger_situation: analysisSituation,
           action_taken: analysisAction,
           entry_date: targetDate,
-        });
+        };
+        if (editingId && editingType === 'analysis') {
+          response = await api.patch<ApiResponse<any>>(`/journal/analysis/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/journal/analysis', payload);
+        }
       }
 
       if (response && response.success) {
@@ -375,6 +600,45 @@ export const CheckInScreen: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDeleteEntry = (entry: FeedEntry) => {
+    Alert.alert(
+      'Eliminar registro',
+      '¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { 
+          text: 'Eliminar', 
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              let url = '';
+              switch (entry.type) {
+                case 'checkin': url = `/checkins/${entry.id}`; break;
+                case 'note': url = `/journal/notes/${entry.id}`; break;
+                case 'habit': url = `/journal/habits/${entry.id}`; break;
+                case 'social': url = `/journal/social/${entry.id}`; break;
+                case 'activity': url = `/journal/activities/${entry.id}`; break;
+                case 'analysis': url = `/journal/analysis/${entry.id}`; break;
+              }
+              
+              if (url) {
+                const response = await api.delete<ApiResponse<any>>(url);
+                if (response && response.success) {
+                  fetchFeed();
+                  if (selectedDate) fetchDayData(selectedDate);
+                  fetchGeneralStats();
+                }
+              }
+            } catch (error) {
+              console.error('Error deleting entry:', error);
+              Alert.alert('Error', 'No se pudo eliminar el registro.');
+            }
+          }
+        }
+      ]
+    );
   };
 
   // Helper para generar días del mes
@@ -398,7 +662,7 @@ export const CheckInScreen: React.FC = () => {
   // Renderizar una entrada del feed con detalles completos
   const renderFeedItem = (entry: FeedEntry) => {
     const config = FEED_TYPE_CONFIG[entry.type] || { label: 'Registro', icon: 'document-outline', color: '#8E8E93' };
-    const entryDate = new Date(entry.entry_date);
+    const entryDate = new Date(entry.entry_date + 'T12:00:00');
     const formattedDate = entryDate.toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' });
 
     // Renderizar contenido según el tipo de entrada
@@ -565,6 +829,24 @@ export const CheckInScreen: React.FC = () => {
               )}
             </View>
           );
+        case 'habit_completion':
+          return (
+            <View style={styles.feedCardContent}>
+              <View style={styles.detailRow}>
+                <Icon 
+                  name={entry.data.habit_type === 'negative' ? 'trending-down' : 'trending-up'} 
+                  size={20} 
+                  color={entry.data.habit_type === 'negative' ? theme.colors.error : theme.colors.success} 
+                />
+                <Text style={{ color: theme.colors.text, fontWeight: 'bold' }}>
+                  {entry.data.habit_name}
+                </Text>
+              </View>
+              <Text style={{ color: theme.colors.textSecondary, fontSize: 13 }}>
+                {entry.data.habit_type === 'negative' ? 'Hábito de riesgo registrado' : 'Hábito saludable realizado'}
+              </Text>
+            </View>
+          );
         default:
           return (
             <View style={styles.feedCardContent}>
@@ -589,9 +871,12 @@ export const CheckInScreen: React.FC = () => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              setSelectedDate(new Date(entry.entry_date));
-              // Cargar datos del día y habilitar edición
-              fetchDayData(new Date(entry.entry_date));
+              // Ajustar la fecha para que se interprete localmente sin desfase UTC
+              const entryDate = new Date(entry.entry_date + 'T12:00:00');
+              setSelectedDate(entryDate);
+              setEditingId(entry.id);
+              setEditingType(entry.type);
+              
               if (entry.type === 'checkin') {
                 setMood(entry.data.mood_score || 5);
                 setAnxiety(entry.data.anxiety_score || 3);
@@ -604,11 +889,42 @@ export const CheckInScreen: React.FC = () => {
                 setNotes(entry.data.notes || '');
                 setStep(0);
                 setViewMode('form');
+              } else if (entry.type === 'note') {
+                setFreeNotes(entry.data.content || '');
+                setViewMode('notes');
+              } else if (entry.type === 'habit') {
+                setHabitGood(entry.data.protective_habits || '');
+                setHabitBad(entry.data.risk_habits || '');
+                setViewMode('habits');
+              } else if (entry.type === 'social') {
+                setSocialPeople(entry.data.people_description || '');
+                setSocialImpact(entry.data.impact_assessment || '');
+                setViewMode('social');
+              } else if (entry.type === 'activity') {
+                setActivityName(entry.data.activity_name || '');
+                setFeelingBefore(entry.data.feeling_before || '');
+                setFeelingDuring(entry.data.feeling_during || '');
+                setFeelingAfter(entry.data.feeling_after || '');
+                setViewMode('activity');
+              } else if (entry.type === 'analysis') {
+                setAnalysisSituation(entry.data.trigger_situation || '');
+                setAnalysisAction(entry.data.action_taken || '');
+                setViewMode('analysis');
+              } else if (entry.type === 'habit_completion') {
+                // Para hábitos completados, llevamos a la vista de checklist de ese día
+                setViewMode('habits');
+                fetchHabitsStatus(entryDate);
               }
             }}
             style={[styles.editButton, { backgroundColor: theme.colors.primary + '20' }]}
           >
             <Icon name="create-outline" size={18} color={theme.colors.primary} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleDeleteEntry(entry)}
+            style={[styles.deleteButton, { backgroundColor: theme.colors.error + '20', marginLeft: 8 }]}
+          >
+            <Icon name="trash-outline" size={18} color={theme.colors.error} />
           </TouchableOpacity>
         </View>
         {renderContent()}
@@ -639,10 +955,7 @@ export const CheckInScreen: React.FC = () => {
 
     // Filtrar entradas del día seleccionado (si hay una fecha seleccionada)
     const filteredFeed = selectedDate
-      ? feedData.filter(entry => {
-        const entryDate = new Date(entry.entry_date).toDateString();
-        return entryDate === selectedDate.toDateString();
-      })
+      ? feedData.filter(entry => entry.entry_date === getLocalDateString(selectedDate))
       : feedData.slice(0, 10); // Mostrar últimos 10 si no hay fecha seleccionada
 
     if (filteredFeed.length === 0) {
@@ -698,7 +1011,7 @@ export const CheckInScreen: React.FC = () => {
                 return <View key={`empty-${i}`} style={styles.dayCell} />;
               }
 
-              const dateStr = d.toISOString().split('T')[0];
+              const dateStr = getLocalDateString(d);
               const isToday = d.toDateString() === new Date().toDateString();
               const isSelected = selectedDate && d.toDateString() === selectedDate.toDateString();
               const hasCheckIn = monthCheckIns.includes(dateStr);
@@ -780,6 +1093,7 @@ export const CheckInScreen: React.FC = () => {
           style={[styles.fab, { backgroundColor: theme.colors.primary }]}
           onPress={() => {
             if (!selectedDate) setSelectedDate(new Date());
+            resetForm();
             setShowOptionsModal(true);
           }}
         >
@@ -810,9 +1124,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
-                  setStep(0);
+                  resetForm();
                   setViewMode('form');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
@@ -828,8 +1141,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
+                  resetForm();
                   setViewMode('notes');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.success + '20' }]}>
@@ -845,8 +1158,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
+                  resetForm();
                   setViewMode('activity');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: '#FF9500' + '20' }]}>
@@ -862,8 +1175,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
+                  resetForm();
                   setViewMode('analysis');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.error + '20' }]}>
@@ -878,8 +1191,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
+                  resetForm();
                   setViewMode('social');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
@@ -895,8 +1208,8 @@ export const CheckInScreen: React.FC = () => {
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
                   setShowOptionsModal(false);
+                  resetForm();
                   setViewMode('habits');
-                  setCompleted(false);
                 }}
               >
                 <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.success + '20' }]}>
@@ -955,7 +1268,9 @@ export const CheckInScreen: React.FC = () => {
   if (['notes', 'activity', 'analysis', 'social', 'habits'].includes(viewMode)) {
     return (
       <View style={[styles.container, { backgroundColor: theme.colors.background, flex: 1 }]}>
+        {renderDatePickerModal()}
         <ScrollView style={{ flex: 1 }} contentContainerStyle={[styles.scrollContent, { paddingTop: Math.max(insets.top, 30), paddingBottom: insets.bottom + 100 }]} keyboardShouldPersistTaps="handled">
+          {renderDateSelector()}
           {viewMode === 'notes' && (
             <View style={styles.stepContainer}>
               <Text style={[styles.stepTitle, { color: theme.colors.text }]}>Notas Libres</Text>
@@ -1006,11 +1321,157 @@ export const CheckInScreen: React.FC = () => {
 
           {viewMode === 'habits' && (
             <View style={styles.stepContainer}>
-              <Text style={[styles.stepTitle, { color: theme.colors.text }]}>Auditoría de Hábitos</Text>
-              <Text style={[styles.description, { color: theme.colors.textSecondary }]}>Reconocer acciones invisibles del día a día.</Text>
-              <Input label="Hábitos Protectores" value={habitGood} onChangeText={setHabitGood} multiline style={{ height: 100 }} placeholder="Ej: Leer, tomar agua, alejarme de X lugares, respiración..." />
-              <View style={{ height: 16 }} />
-              <Input label="Hábitos de Riesgo" value={habitBad} onChangeText={setHabitBad} multiline style={{ height: 100 }} placeholder="Ej: Acostarme muy tarde, pasar por el bar, no desayunar..." />
+              <Text style={[styles.stepTitle, { color: theme.colors.text }]}>Hábitos Diarios</Text>
+              <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
+                Marca los hábitos que has logrado mantener el día de hoy.
+              </Text>
+
+              {loadingHabits ? (
+                <View style={{ padding: 20, alignItems: 'center' }}>
+                  <Text style={{ color: theme.colors.textSecondary }}>Cargando hábitos...</Text>
+                </View>
+              ) : habitsConfig.length === 0 ? (
+                <Card variant="outlined" padding="lg" style={{ alignItems: 'center', marginBottom: 20 }}>
+                  <Icon name="leaf-outline" size={48} color={theme.colors.textSecondary} style={{ marginBottom: 12 }} />
+                  <Text style={{ color: theme.colors.textSecondary, textAlign: 'center', marginBottom: 16 }}>
+                    No tienes hábitos registrados aún. Comienza creando uno para mañana.
+                  </Text>
+                  <Button title="Crear mi primer hábito" size="sm" onPress={() => setShowAddHabit(true)} />
+                </Card>
+              ) : (
+                <View style={{ gap: 12, marginBottom: 20 }}>
+                  {habitsConfig.map((habit) => (
+                    <TouchableOpacity
+                      key={habit.id}
+                      style={[
+                        styles.habitCheckCard,
+                        { 
+                          backgroundColor: theme.colors.card, 
+                          borderColor: habit.is_completed ? theme.colors.success : theme.colors.border,
+                          borderWidth: habit.is_completed ? 2 : 1
+                        }
+                      ]}
+                      onPress={() => toggleHabit(habit.id)}
+                    >
+                      <View style={[
+                        styles.habitCheckbox,
+                        { 
+                          backgroundColor: habit.is_completed 
+                            ? (habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success) 
+                            : 'transparent',
+                          borderColor: habit.is_completed 
+                            ? (habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success) 
+                            : theme.colors.textSecondary
+                        }
+                      ]}>
+                        {habit.is_completed && <Icon name="checkmark" size={16} color="white" />}
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Icon 
+                            name={habit.habit_type === 'negative' ? 'trending-down' : 'trending-up'} 
+                            size={16} 
+                            color={habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success}
+                            style={{ marginRight: 6 }}
+                          />
+                          <Text style={[
+                            styles.habitCheckName, 
+                            { 
+                              color: theme.colors.text,
+                              textDecorationLine: habit.is_completed ? 'line-through' : 'none',
+                              opacity: habit.is_completed ? 0.6 : 1,
+                              flex: 1
+                            }
+                          ]}>
+                            {habit.name}
+                          </Text>
+                        </View>
+                        {habit.description && (
+                          <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }} numberOfLines={1}>
+                            {habit.description}
+                          </Text>
+                        )}
+                      </View>
+                      
+                      {!habit.is_completed && (
+                        <TouchableOpacity 
+                          onPress={() => deleteHabitDefinition(habit.id)}
+                          style={{ padding: 8 }}
+                        >
+                          <Icon name="trash-outline" size={20} color={theme.colors.error} />
+                        </TouchableOpacity>
+                      )}
+                    </TouchableOpacity>
+                  ))}
+                  
+                  <TouchableOpacity 
+                    style={[styles.addHabitBtn, { borderColor: theme.colors.primary }]}
+                    onPress={() => setShowAddHabit(true)}
+                  >
+                    <Icon name="add" size={20} color={theme.colors.primary} />
+                    <Text style={{ color: theme.colors.primary, fontWeight: '600', marginLeft: 8 }}>Agregar un hábito</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              {/* Modal para agregar hábito */}
+                <Modal visible={showAddHabit} transparent animationType="fade">
+                  <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContent, { backgroundColor: theme.colors.card, minHeight: 300 }]}>
+                      <View style={styles.modalHeader}>
+                        <Text style={[styles.modalTitle, { color: theme.colors.text }]}>Nuevo Hábito</Text>
+                        <TouchableOpacity onPress={() => setShowAddHabit(false)}>
+                          <Icon name="close" size={24} color={theme.colors.text} />
+                        </TouchableOpacity>
+                      </View>
+                      <Input 
+                        label="¿Qué hábito quieres incorporar?" 
+                        value={newHabitName} 
+                        onChangeText={setNewHabitName} 
+                        placeholder="Ej: Meditar 5 min, Tomar agua..." 
+                        autoFocus
+                      />
+                      
+                      <Text style={[styles.subTitle, { color: theme.colors.text, marginTop: 16 }]}>Tipo de Hábito</Text>
+                      <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
+                        <TouchableOpacity 
+                          style={[
+                            styles.typeSelector, 
+                            { 
+                              borderColor: newHabitType === 'positive' ? theme.colors.success : theme.colors.border,
+                              backgroundColor: newHabitType === 'positive' ? theme.colors.success + '10' : 'transparent'
+                            }
+                          ]}
+                          onPress={() => setNewHabitType('positive')}
+                        >
+                          <Icon name="happy-outline" size={24} color={newHabitType === 'positive' ? theme.colors.success : theme.colors.textSecondary} />
+                          <Text style={{ color: newHabitType === 'positive' ? theme.colors.success : theme.colors.textSecondary, fontWeight: '600' }}>Saludable</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                          style={[
+                            styles.typeSelector, 
+                            { 
+                              borderColor: newHabitType === 'negative' ? theme.colors.error : theme.colors.border,
+                              backgroundColor: newHabitType === 'negative' ? theme.colors.error + '10' : 'transparent'
+                            }
+                          ]}
+                          onPress={() => setNewHabitType('negative')}
+                        >
+                          <Icon name="sad-outline" size={24} color={newHabitType === 'negative' ? theme.colors.error : theme.colors.textSecondary} />
+                          <Text style={{ color: newHabitType === 'negative' ? theme.colors.error : theme.colors.textSecondary, fontWeight: '600' }}>Perjudicial</Text>
+                        </TouchableOpacity>
+                      </View>
+
+                      <Button 
+                        title="Guardar Hábito" 
+                        onPress={addHabitDefinition} 
+                        style={{ marginTop: 20 }} 
+                        disabled={!newHabitName.trim()}
+                      />
+                    </View>
+                  </View>
+                </Modal>
             </View>
           )}
         </ScrollView>
@@ -1024,6 +1485,7 @@ export const CheckInScreen: React.FC = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background, flex: 1 }]}>
+      {renderDatePickerModal()}
       {/* Progress Bar */}
       <View style={styles.progressBarContainer}>
         <View
@@ -1034,13 +1496,14 @@ export const CheckInScreen: React.FC = () => {
         />
       </View>
 
-      <ScrollView
+        <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 100 }]}
         keyboardShouldPersistTaps="handled"
       >
         {step === 0 && (
           <View style={styles.stepContainer}>
+            {renderDateSelector()}
             <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
               Control de Consumo
             </Text>
@@ -1406,6 +1869,19 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 4,
   },
+  dateSelectorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    marginBottom: 20,
+  },
+  miniEditBtn: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
   statValue: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -1738,6 +2214,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  deleteButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   feedCardContent: {
     gap: 8,
   },
@@ -1793,5 +2276,47 @@ const styles = StyleSheet.create({
   categoryLabel: {
     fontSize: 13,
     fontWeight: '500',
+  },
+  // Estilos para la gestión de hábitos
+  habitCheckCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 12,
+  },
+  habitCheckbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 6,
+    borderWidth: 2,
+    marginRight: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  habitCheckName: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  addHabitBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
+    justifyContent: 'center',
+    marginTop: 8,
+    marginBottom: 20,
+  },
+  typeSelector: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 8,
   },
 });

@@ -94,6 +94,26 @@ export const ChatbotScreen: React.FC = () => {
                 heading3: { color: theme.colors.text, fontSize: 18, fontWeight: 'bold', marginVertical: 8 },
                 text: { color: theme.colors.text },
                 link: { color: theme.colors.primary, textDecorationLine: 'underline' },
+                blockquote: {
+                  backgroundColor: theme.colors.surface,
+                  borderLeftColor: theme.colors.primary,
+                  borderLeftWidth: 4,
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                  marginVertical: 10,
+                  borderRadius: 4,
+                },
+                code_inline: {
+                  backgroundColor: theme.colors.surface,
+                  color: theme.colors.secondary,
+                  paddingHorizontal: 4,
+                  borderRadius: 4,
+                },
+                hr: {
+                  backgroundColor: theme.colors.border,
+                  height: 1,
+                  marginVertical: 16,
+                },
               }}
             >
               {item.content || '...'}
@@ -124,8 +144,8 @@ export const ChatbotScreen: React.FC = () => {
   return (
     <KeyboardAvoidingView 
       style={[styles.container, { backgroundColor: theme.colors.background }]}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={90}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0} // Ajustar según sea necesario, pero 90 era excesivo
     >
       {/* Header */}
       <View style={[styles.header, {
@@ -351,7 +371,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    padding: 12,
+    paddingHorizontal: 16, // Aumento de padding horizontal
+    paddingTop: 12,
+    paddingBottom: Platform.OS === 'ios' ? 12 : 20, // Padding extra en la parte inferior para evitar choques
     gap: 8,
     borderTopWidth: StyleSheet.hairlineWidth,
   },

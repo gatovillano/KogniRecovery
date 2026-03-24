@@ -531,6 +531,7 @@ const MIGRATIONS = [
         description TEXT,
         icon VARCHAR(50),
         frequency VARCHAR(50) DEFAULT 'daily',
+        habit_type VARCHAR(20) DEFAULT 'positive' CHECK (habit_type IN ('positive', 'negative')),
         is_active BOOLEAN DEFAULT TRUE,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -546,6 +547,8 @@ const MIGRATIONS = [
     )`,
 
     `CREATE INDEX IF NOT EXISTS idx_habit_completions_user_date ON habit_completions(user_id, completed_at)`,
+
+    `ALTER TABLE habits ADD COLUMN IF NOT EXISTS habit_type VARCHAR(20) DEFAULT 'positive' CHECK (habit_type IN ('positive', 'negative'))`,
 
     `CREATE OR REPLACE FUNCTION update_timestamp()
     RETURNS TRIGGER AS $$

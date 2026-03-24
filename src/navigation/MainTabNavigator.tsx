@@ -13,6 +13,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@theme/ThemeContext';
 import { MainTabParamList, ProfileStackParamList } from './types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
 // Importar pantallas
@@ -96,6 +98,12 @@ const TabIcon: React.FC<{
 export const MainTabNavigator: React.FC = () => {
   const { theme, isDark } = useTheme();
 
+  const insets = useSafeAreaInsets();
+  
+  // Calcular padding inferior basado en insets para evitar solapamientos con botones de Android/iOS
+  const tabPaddingBottom = insets.bottom > 0 ? insets.bottom : (Platform.OS === 'ios' ? 30 : 12);
+  const tabHeight = (Platform.OS === 'ios' ? 64 : 60) + tabPaddingBottom;
+
   const screenOptions = {
     tabBarActiveTintColor: theme.colors.primary,
     tabBarInactiveTintColor: isDark ? '#A0A0A0' : '#6B7280',
@@ -103,15 +111,15 @@ export const MainTabNavigator: React.FC = () => {
       backgroundColor: theme.colors.surface,
       borderTopColor: theme.colors.border,
       borderTopWidth: 1,
+      height: tabHeight,
       paddingTop: 8,
-      height: undefined, // Dejar que el Safe Area maneje el alto
-      minHeight: 60,
-      paddingBottom: 8, // Este padding se sumará al bottom inset de SafeArea
+      paddingBottom: tabPaddingBottom,
       elevation: 8,
       shadowOpacity: 0.1,
       shadowOffset: { width: 0, height: -2 },
       shadowRadius: 4,
     },
+    tabBarHideOnKeyboard: true, // Evita solapamientos raros cuando el teclado está activo o transicionando
     tabBarLabelStyle: {
       fontSize: 12,
       fontWeight: '500' as const,

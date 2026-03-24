@@ -213,7 +213,7 @@ export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise
     'mood_score', 'anxiety_score', 'energy_score', 'emotional_tags',
     'consumed_substances', 'risk_situation', 'risk_description', 'coping_strategy_used',
     'sleep_hours', 'sleep_quality', 'exercised_today', 'exercise_minutes', 'exercise_type',
-    'activities', 'social_interaction', 'notes', 'location', 'is_completed'
+    'activities', 'social_interaction', 'notes', 'location', 'is_completed', 'checkin_date'
   ];
 
   for (const [key, value] of Object.entries(data)) {

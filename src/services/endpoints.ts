@@ -316,6 +316,13 @@ export const JOURNAL_ENDPOINTS = {
 
   // Feed unificado de todos los registros
   FEED: buildUrl('/journal/feed'),
+
+  // Gestión de hábitos (Nuevos)
+  HABITS_LIST: buildUrl('/journal/habits/list'),
+  HABITS_STATUS: buildUrl('/journal/habits/status'),
+  HABIT_TOGGLE: buildUrl('/journal/habits/toggle'),
+  HABIT_DEFINITION: buildUrl('/journal/habits/definition'),
+  HABIT_DEFINITION_ID: (id: string) => buildUrl(`/journal/habits/definition/${id}`),
 } as const;
 
 export default {

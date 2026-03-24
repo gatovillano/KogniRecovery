@@ -6,6 +6,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from '../middleware/auth.js';
 import * as journal from '../models/journal.model.js';
+import * as habitsModel from '../models/habit.model.js';
 
 const getUser = (req: Request) => (req as AuthRequest).user?.userId;
 
@@ -23,6 +24,19 @@ export const createNote = async (req: Request, res: Response, next: NextFunction
     if (!content) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'El contenido es requerido' } }); return; }
     const note = await journal.createDailyNote(userId, { content, note_date });
     res.status(201).json({ success: true, data: note, message: 'Nota guardada' });
+  } catch (error) { next(error); }
+};
+
+export const updateNote = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    const { content, note_date } = req.body;
+    if (!id || !content) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'ID y contenido requeridos' } }); return; }
+    const note = await journal.updateDailyNote(id, userId, { content, note_date });
+    if (!note) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Nota no encontrada' } }); return; }
+    res.json({ success: true, data: note, message: 'Nota actualizada' });
   } catch (error) { next(error); }
 };
 
@@ -62,6 +76,19 @@ export const createHabit = async (req: Request, res: Response, next: NextFunctio
   } catch (error) { next(error); }
 };
 
+export const updateHabit = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    const { protective_habits, risk_habits, entry_date } = req.body;
+    if (!id) { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const entry = await journal.updateHabitEntry(id, userId, { protective_habits: protective_habits || '', risk_habits: risk_habits || '', entry_date });
+    if (!entry) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Registro no encontrado' } }); return; }
+    res.json({ success: true, data: entry, message: 'Registro de hábitos actualizado' });
+  } catch (error) { next(error); }
+};
+
 export const getHabits = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userId = getUser(req);
@@ -84,6 +111,81 @@ export const deleteHabit = async (req: Request, res: Response, next: NextFunctio
 };
 
 // =====================================================
+// DEFINICIÓN DE HÁBITOS (NUEVO)
+// =====================================================
+
+export const getHabitDefinitions = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const habits = await habitsModel.getUserHabits(userId);
+    res.json({ success: true, data: habits });
+  } catch (error) { next(error); }
+};
+
+export const createHabitDefinition = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { name, description, icon, frequency, habit_type } = req.body;
+    if (!name) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Nombre requerido' } }); return; }
+    const habit = await habitsModel.createHabit(userId, { name, description, icon, frequency, habit_type });
+    res.status(201).json({ success: true, data: habit });
+  } catch (error) { next(error); }
+};
+
+export const updateHabitDefinition = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    if (typeof id !== 'string') { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const habit = await habitsModel.updateHabit(id, userId, req.body);
+    if (!habit) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Hábito no encontrado' } }); return; }
+    res.json({ success: true, data: habit });
+  } catch (error) { next(error); }
+};
+
+export const deleteHabitDefinition = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    if (typeof id !== 'string') { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const deleted = await habitsModel.deleteHabit(id, userId);
+    if (!deleted) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Hábito no encontrado' } }); return; }
+    res.json({ success: true, message: 'Hábito eliminado' });
+  } catch (error) { next(error); }
+};
+
+// =====================================================
+// REGISTRO DE COMPLETITUD DE HÁBITOS
+// =====================================================
+
+export const getDailyHabitsStatus = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { date } = req.query;
+    const targetDate = String(date || new Date().toISOString().split('T')[0]);
+    const habits = await habitsModel.getDailyHabitStatus(userId, targetDate);
+    res.json({ success: true, data: habits });
+  } catch (error) { next(error); }
+};
+
+export const toggleHabit = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { habit_id, date } = req.body;
+    if (!habit_id) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Habit ID requerido' } }); return; }
+    const targetDate = String(date || new Date().toISOString().split('T')[0]);
+    const result = await habitsModel.toggleHabitCompletion(String(habit_id), userId, targetDate);
+    res.json({ success: true, data: result });
+  } catch (error) { next(error); }
+};
+
+// =====================================================
 // ENTORNO SOCIAL
 // =====================================================
 
@@ -94,6 +196,19 @@ export const createSocial = async (req: Request, res: Response, next: NextFuncti
     const { people_description, impact_assessment, entry_date } = req.body;
     const entry = await journal.createSocialEntry(userId, { people_description: people_description || '', impact_assessment: impact_assessment || '', entry_date });
     res.status(201).json({ success: true, data: entry, message: 'Entorno social registrado' });
+  } catch (error) { next(error); }
+};
+
+export const updateSocial = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    const { people_description, impact_assessment, entry_date } = req.body;
+    if (!id) { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const entry = await journal.updateSocialEntry(id, userId, { people_description: people_description || '', impact_assessment: impact_assessment || '', entry_date });
+    if (!entry) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Registro no encontrado' } }); return; }
+    res.json({ success: true, data: entry, message: 'Entorno social actualizado' });
   } catch (error) { next(error); }
 };
 
@@ -132,6 +247,19 @@ export const createAnalysis = async (req: Request, res: Response, next: NextFunc
   } catch (error) { next(error); }
 };
 
+export const updateAnalysis = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    const { trigger_situation, action_taken, entry_date } = req.body;
+    if (!id) { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const entry = await journal.updateConsumptionAnalysis(id, userId, { trigger_situation: trigger_situation || '', action_taken: action_taken || '', entry_date });
+    if (!entry) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Registro no encontrado' } }); return; }
+    res.json({ success: true, data: entry, message: 'Análisis actualizado' });
+  } catch (error) { next(error); }
+};
+
 export const getAnalyses = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userId = getUser(req);
@@ -164,6 +292,19 @@ export const createActivity = async (req: Request, res: Response, next: NextFunc
     const { activity_name, feeling_before, feeling_during, feeling_after, entry_date } = req.body;
     const entry = await journal.createActivityEntry(userId, { activity_name: activity_name || '', feeling_before: feeling_before || '', feeling_during: feeling_during || '', feeling_after: feeling_after || '', entry_date });
     res.status(201).json({ success: true, data: entry, message: 'Actividad registrada' });
+  } catch (error) { next(error); }
+};
+
+export const updateActivity = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const { id } = req.params;
+    const { activity_name, feeling_before, feeling_during, feeling_after, entry_date } = req.body;
+    if (!id) { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
+    const entry = await journal.updateActivityEntry(id, userId, { activity_name: activity_name || '', feeling_before: feeling_before || '', feeling_during: feeling_during || '', feeling_after: feeling_after || '', entry_date });
+    if (!entry) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Registro no encontrado' } }); return; }
+    res.json({ success: true, data: entry, message: 'Actividad actualizada' });
   } catch (error) { next(error); }
 };
 
