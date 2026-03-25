@@ -16,8 +16,8 @@ export const AISettingsScreen: React.FC = () => {
     const { profile, loadProfile } = useProfile();
     const { user, updateUser } = useAuth();
 
-    const [provider, setProvider] = useState('openai');
-    const [model, setModel] = useState('gpt-4');
+    const [provider, setProvider] = useState(user?.llm_provider || 'openai');
+    const [model, setModel] = useState(user?.llm_model || 'gpt-4');
     const [apiKey, setApiKey] = useState('');
     const [loading, setLoading] = useState(false);
     const [showKey, setShowKey] = useState(false);
@@ -31,8 +31,9 @@ export const AISettingsScreen: React.FC = () => {
                 const response = await api.getAIModels(provider);
                 if (response.success && response.data) {
                     setModels(response.data);
-                    // Si el modelo actual no está en la lista, seleccionar el primero
-                    if (!response.data.find((m: any) => m.id === model)) {
+                    // Si el modelo actual no está en la lista y no es el que ya tenemos del usuario, seleccionar el primero
+                    const currentModelInList = response.data.find((m: any) => m.id === model);
+                    if (!currentModelInList && response.data.length > 0 && !user?.llm_model) {
                         setModel(response.data[0]?.id || '');
                     }
                 }

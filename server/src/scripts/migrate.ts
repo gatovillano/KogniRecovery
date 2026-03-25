@@ -550,6 +550,46 @@ const MIGRATIONS = [
 
     `ALTER TABLE habits ADD COLUMN IF NOT EXISTS habit_type VARCHAR(20) DEFAULT 'positive' CHECK (habit_type IN ('positive', 'negative'))`,
 
+    // 9. Medicamentos y Tomas
+    `CREATE TABLE IF NOT EXISTS medications (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        name VARCHAR(255) NOT NULL,
+        dosage VARCHAR(100) NOT NULL,
+        schedule_time TIME NOT NULL,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    )`,
+
+    `CREATE TABLE IF NOT EXISTS medication_logs (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        medication_id UUID NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        taken_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        taken_date DATE NOT NULL DEFAULT CURRENT_DATE,
+        status VARCHAR(20) DEFAULT 'taken',
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (medication_id, user_id, taken_date)
+    )`,
+    
+    `CREATE INDEX IF NOT EXISTS idx_medication_logs_user_date ON medication_logs(user_id, taken_date)`,
+
+    // 10. Gastos en Sustancias
+    `CREATE TABLE IF NOT EXISTS substance_expenses (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        substance_id UUID,
+        amount DECIMAL(15,2) NOT NULL,
+        currency VARCHAR(10) DEFAULT 'CLP',
+        expense_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        description TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    )`,
+
+    `CREATE INDEX IF NOT EXISTS idx_substance_expenses_user_date ON substance_expenses(user_id, expense_date)`,
+
     `CREATE OR REPLACE FUNCTION update_timestamp()
     RETURNS TRIGGER AS $$
     BEGIN
@@ -577,7 +617,9 @@ const TRIGGERS = [
     `CREATE OR REPLACE TRIGGER update_invitations_timestamp BEFORE UPDATE ON sharing_invitations FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
     `CREATE OR REPLACE TRIGGER update_emergency_contacts_timestamp BEFORE UPDATE ON emergency_contacts FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
     `CREATE OR REPLACE TRIGGER update_wall_messages_timestamp BEFORE UPDATE ON wall_messages FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_habits_timestamp BEFORE UPDATE ON habits FOR EACH ROW EXECUTE FUNCTION update_timestamp();`
+    `CREATE OR REPLACE TRIGGER update_habits_timestamp BEFORE UPDATE ON habits FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+    `CREATE OR REPLACE TRIGGER update_medications_timestamp BEFORE UPDATE ON medications FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+    `CREATE OR REPLACE TRIGGER update_substance_expenses_timestamp BEFORE UPDATE ON substance_expenses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`
 ];
 
 async function runMigrations() {

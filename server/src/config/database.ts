@@ -38,7 +38,7 @@ export const createPool = (): Pool => {
     min: database.poolMin,
     idleTimeoutMillis: database.poolIdleTimeout,
     allowExitOnIdle: false,
-    ssl: database.url.includes('localhost') ? false : { rejectUnauthorized: false },
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   };
 
   const pool = new Pool(config);

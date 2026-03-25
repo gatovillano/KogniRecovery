@@ -17,6 +17,7 @@ export type AuthStackParamList = {
 export type MainTabParamList = {
   Dashboard: undefined;
   CheckIn: undefined;
+  Medications: undefined;
   Chatbot: undefined;
   Profile: undefined;
 };
@@ -29,6 +30,8 @@ export type DashboardStackParamList = {
 export type CheckInStackParamList = {
   CheckInHome: undefined;
   CheckInHistory: undefined;
+  Progress: undefined;
+  SubstanceExpense: undefined;
 };
 
 export type ChatbotStackParamList = {

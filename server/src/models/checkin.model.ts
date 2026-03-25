@@ -451,3 +451,70 @@ export const getCheckInStats = async (userId: string, days = 30): Promise<{
     riskSituations: parseInt(row.risk_situations) || 0
   };
 };
+export const getEmotionStats = async (userId: string, days = 30): Promise<any> => {
+  const sql = `
+    SELECT emotional_tags 
+    FROM checkins 
+    WHERE user_id = $1 AND checkin_date >= CURRENT_DATE - ($2 * INTERVAL '1 day')
+    AND emotional_tags IS NOT NULL`;
+  
+  const result = await query(sql, [userId, days]);
+  
+  const emotionMapping: Record<string, string> = {
+    // === FELICIDAD ===
+    'happy': 'happiness', 'content': 'happiness', 'joyful': 'happiness', 'satisfied': 'happiness',
+    'hopeful': 'happiness', 'motivated': 'happiness', 'enthusiastic': 'happiness', 'proud': 'happiness',
+    'grateful': 'happiness', 'loving': 'happiness', 'affectionate': 'happiness', 'connected': 'happiness',
+    'calm': 'happiness', 'peaceful': 'happiness', 'relaxed': 'happiness', 'serene': 'happiness',
+    'at_peace': 'happiness', 'comfortable': 'happiness', 'safe': 'happiness', 'confident': 'happiness',
+    'vital': 'happiness', 'active': 'happiness', 'energetic': 'happiness', 'inspired': 'happiness',
+    'reflective': 'happiness', 'physical_well': 'happiness',
+
+    // === SORPRESA ===
+    'surprised': 'surprise', 'amazed': 'surprise', 'anticipating': 'surprise', 'curious': 'surprise',
+    'confused': 'surprise',
+
+    // === MIEDO ===
+    'anxious': 'fear', 'nervous': 'fear', 'worried': 'fear', 'frightened': 'fear', 'fearful': 'fear',
+    'uncertain': 'fear', 'overwhelmed': 'fear', 'panic': 'fear', 'burdened': 'fear', 'restless': 'fear',
+    'vulnerable': 'fear', 'pressured': 'fear', 'rushed': 'fear', 'swamped': 'fear',
+
+    // === IRA ===
+    'angry': 'anger', 'frustrated': 'anger', 'irritated': 'anger', 'annoyed': 'anger', 'furious': 'anger',
+    'resentful': 'anger', 'bitter': 'anger', 'indignant': 'anger', 'stressed': 'anger', 'tense': 'anger',
+    'blocked': 'anger',
+
+    // === ASCO ===
+    'disgust': 'disgust', 'disapproving': 'disgust', 'disappointed': 'disgust', 'awful': 'disgust',
+    'withdrawal': 'disgust',
+
+    // === TRISTEZA ===
+    'sad': 'sadness', 'melancholy': 'sadness', 'down': 'sadness', 'dejected': 'sadness', 'hopeless': 'sadness',
+    'lonely': 'sadness', 'isolated': 'sadness', 'empty': 'sadness', 'nostalgic': 'sadness', 'missing': 'sadness',
+    'tired': 'sadness', 'exhausted': 'sadness', 'drained': 'sadness', 'worn_out': 'sadness', 'sleepy': 'sadness',
+    'physical_bad': 'sadness'
+  };
+
+  const distribution: Record<string, number> = {
+    happiness: 0,
+    surprise: 0,
+    fear: 0,
+    anger: 0,
+    disgust: 0,
+    sadness: 0
+  };
+
+  (result.rows as any[]).forEach(row => {
+    const tags = row.emotional_tags as string[];
+    if (Array.isArray(tags)) {
+      tags.forEach(tag => {
+        const category = emotionMapping[tag];
+        if (category && distribution[category] !== undefined) {
+          distribution[category]++;
+        }
+      });
+    }
+  });
+
+  return distribution;
+};

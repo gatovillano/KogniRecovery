@@ -44,6 +44,8 @@ export interface RegisterResponse {
     email: string;
     name: string;
     role: string;
+    llm_provider?: string | undefined;
+    llm_model?: string | undefined;
   };
   tokens: AuthTokens;
 }
@@ -54,6 +56,8 @@ export interface LoginResponse {
     email: string;
     name: string;
     role: string;
+    llm_provider?: string;
+    llm_model?: string;
   };
   tokens: AuthTokens;
 }
@@ -157,12 +161,14 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
     token: tokens.refreshToken,
   });
 
-  return {
+    return {
     user: {
       id: user.id,
       email: user.email,
       name: user.name,
       role: user.role,
+      llm_provider: user.llm_provider,
+      llm_model: user.llm_model,
     },
     tokens,
   };
@@ -222,6 +228,8 @@ export const login = async (input: LoginInput): Promise<LoginResponse> => {
       email: user.email,
       name: user.name,
       role: user.role,
+      llm_provider: user.llm_provider,
+      llm_model: user.llm_model,
     },
     tokens,
   };

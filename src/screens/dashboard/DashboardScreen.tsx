@@ -44,6 +44,7 @@ export const DashboardScreen: React.FC = () => {
   const [habitsStatus, setHabitsStatus] = useState<any[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(false);
   const [loadingHabits, setLoadingHabits] = useState(false);
+  const [totalSpent, setTotalSpent] = useState<number | null>(null);
 
   // Cargar datos del dashboard
   const loadDashboardData = async () => {
@@ -54,6 +55,17 @@ export const DashboardScreen: React.FC = () => {
       }
     } catch (error) {
       console.error('Error loading dashboard:', error);
+    }
+  };
+
+  const loadExpensesSummary = async () => {
+    try {
+      const response = await api.get<ApiResponse<{ total: number }>>('/substance-expenses/summary');
+      if (response && response.success && response.data) {
+        setTotalSpent(response.data.total);
+      }
+    } catch (error) {
+      console.error('Error loading expenses summary:', error);
     }
   };
 
@@ -114,6 +126,7 @@ export const DashboardScreen: React.FC = () => {
       loadStreaks();
       loadFeed();
       loadHabitsStatus();
+      loadExpensesSummary();
     }, [loadTodayCheckIn, loadCheckIns, loadStats, loadStreaks])
   );
 
@@ -126,7 +139,8 @@ export const DashboardScreen: React.FC = () => {
       loadStats(30), 
       loadStreaks(),
       loadFeed(),
-      loadHabitsStatus()
+      loadHabitsStatus(),
+      loadExpensesSummary()
     ]);
     setRefreshing(false);
   };
@@ -251,6 +265,17 @@ export const DashboardScreen: React.FC = () => {
             <Icon name="pulse" size={24} color={theme.colors.primary} />
             <Text style={[styles.summaryValue, { color: theme.colors.text }]}>{latestCheckIn?.mood_score || '-'}/10</Text>
             <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
+          </Card>
+          <Card 
+            style={styles.summaryCard} 
+            padding="md"
+            onPress={() => navigation.navigate('CheckIn', { screen: 'SubstanceExpense' } as any)}
+          >
+            <Icon name="wallet" size={24} color={theme.colors.error} />
+            <Text style={[styles.summaryValue, { color: theme.colors.text, fontSize: 14 }]}>
+              {totalSpent !== null ? `$${totalSpent.toLocaleString('es-CL')}` : '-'}
+            </Text>
+            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Gastos</Text>
           </Card>
         </View>
 

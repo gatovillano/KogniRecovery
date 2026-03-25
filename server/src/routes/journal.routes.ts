@@ -31,6 +31,7 @@ router.patch('/habits/definition/:id', journalController.updateHabitDefinition);
 router.delete('/habits/definition/:id', journalController.deleteHabitDefinition);
 router.get('/habits/status', journalController.getDailyHabitsStatus);
 router.post('/habits/toggle', journalController.toggleHabit);
+router.get('/habits/stats', journalController.getHabitStats);
 
 // --- Entorno Social ---
 router.post('/social', journalController.createSocial);

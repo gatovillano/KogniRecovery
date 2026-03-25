@@ -13,6 +13,7 @@ export { DashboardScreen } from './dashboard/DashboardScreen';
 
 // Check-in screens
 export { CheckInScreen } from './checkin/CheckInScreen';
+export { ProgressScreen } from './checkin/ProgressScreen';
 
 // Chatbot screens
 export { ChatbotScreen } from './chatbot/ChatbotScreen';
@@ -28,3 +29,9 @@ export { FamilyDashboardScreen } from './family/FamilyDashboardScreen';
 export { EmergencySettingsScreen } from './settings/EmergencySettingsScreen';
 export { PrivacySettingsScreen } from './settings/PrivacySettingsScreen';
 export { AISettingsScreen } from './settings/AISettingsScreen';
+
+// Medication screens
+export { MedicationScreen } from './medications/MedicationScreen';
+
+// Expense screens
+export { SubstanceExpenseScreen } from './expenses/SubstanceExpenseScreen';

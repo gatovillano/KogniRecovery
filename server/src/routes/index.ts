@@ -12,6 +12,9 @@ import chatbotRoutes from './chatbot.routes.js';
 import dashboardRoutes from './dashboard.routes.js';
 import familyRoutes from './family.routes.js';
 import journalRoutes from './journal.routes.js';
+import medicationRoutes from './medication.routes.js';
+import privacyRoutes from './privacy.routes.js';
+import substanceExpenseRoutes from './substance_expense.routes.js';
 
 // =====================================================
 // API ROUTER
@@ -62,5 +65,20 @@ apiRouter.use('/family', familyRoutes);
  * /api/v1/journal - Bitácora modular
  */
 apiRouter.use('/journal', journalRoutes);
+
+/**
+ * /api/v1/medications - Rutas de medicamentos
+ */
+apiRouter.use('/medications', medicationRoutes);
+
+/**
+ * /api/v1/privacy - Rutas de privacidad (GDPR/CCPA)
+ */
+apiRouter.use('/privacy', privacyRoutes);
+
+/**
+ * /api/v1/substance-expenses - Rutas de gastos económicos en sustancias
+ */
+apiRouter.use('/substance-expenses', substanceExpenseRoutes);
 
 export default apiRouter;

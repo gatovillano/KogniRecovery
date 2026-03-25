@@ -13,9 +13,12 @@ export interface User {
   id: string;
   email: string;
   role: UserRole;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
   profile?: UserProfile;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   llm_provider?: 'openai' | 'anthropic' | 'azure' | 'local' | 'openrouter';
   llm_model?: string;
   llm_api_key?: string;

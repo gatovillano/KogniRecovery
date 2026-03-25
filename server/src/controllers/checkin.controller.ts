@@ -408,7 +408,10 @@ export const getCheckInStats = async (
     }
 
     const days = parseInt(req.query.days as string) || 30;
-    const stats = await checkinModel.getCheckInStats(userId, days);
+    const stats = await checkinModel.getCheckInStats(userId, days) as any;
+    const emotionDistribution = await checkinModel.getEmotionStats(userId, days);
+    
+    stats.emotionDistribution = emotionDistribution;
 
     res.json({
       success: true,

@@ -63,6 +63,11 @@ export const Button: React.FC<ButtonProps> = ({
       baseStyle.width = '100%';
     }
 
+    if (variant === 'outline') {
+      baseStyle.borderWidth = 1;
+      baseStyle.borderColor = disabled ? theme.colors.border : theme.colors.primary;
+    }
+
     return baseStyle;
   };
 
@@ -73,7 +78,6 @@ export const Button: React.FC<ButtonProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        borderWidth: variant === 'outline' ? 1 : 0,
       },
     ];
 
@@ -100,7 +104,6 @@ export const Button: React.FC<ButtonProps> = ({
 
     if (variant === 'outline') {
       styles.push({
-        borderColor: disabled ? theme.colors.border : theme.colors.primary,
         backgroundColor: 'transparent',
       });
     } else if (variant === 'ghost') {

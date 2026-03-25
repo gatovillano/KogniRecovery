@@ -144,8 +144,8 @@ export const ChatbotScreen: React.FC = () => {
   return (
     <KeyboardAvoidingView 
       style={[styles.container, { backgroundColor: theme.colors.background }]}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0} // Ajustar según sea necesario, pero 90 era excesivo
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0} 
     >
       {/* Header */}
       <View style={[styles.header, {

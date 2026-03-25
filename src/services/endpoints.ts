@@ -114,20 +114,17 @@ export const MEDICATION_ENDPOINTS = {
   /** Crear medicamento */
   CREATE: buildUrl('/medications'),
 
-  /** Obtener medicamento específico */
-  GET: (id: string) => buildUrl(`/medications/${id}`),
-
   /** Actualizar medicamento */
   UPDATE: (id: string) => buildUrl(`/medications/${id}`),
 
   /** Eliminar medicamento */
   DELETE: (id: string) => buildUrl(`/medications/${id}`),
 
-  /** Marcar como tomado */
-  MARK_TAKEN: (id: string) => buildUrl(`/medications/${id}/taken`),
+  /** Marcar/desmarcar como tomado */
+  TOGGLE_TAKEN: (id: string) => buildUrl(`/medications/${id}/toggle-taken`),
 
-  /** Historial de medicamentos */
-  HISTORY: (id: string) => buildUrl(`/medications/${id}/history`),
+  /** Estado diario de medicamentos */
+  DAILY_STATUS: buildUrl('/medications/daily-status'),
 } as const;
 
 // ============================================
@@ -323,6 +320,27 @@ export const JOURNAL_ENDPOINTS = {
   HABIT_TOGGLE: buildUrl('/journal/habits/toggle'),
   HABIT_DEFINITION: buildUrl('/journal/habits/definition'),
   HABIT_DEFINITION_ID: (id: string) => buildUrl(`/journal/habits/definition/${id}`),
+  HABITS_STATS: buildUrl('/journal/habits/stats'),
+} as const;
+
+// ============================================
+// Endpoints de gastos en sustancias
+// ============================================
+export const SUBSTANCE_EXPENSE_ENDPOINTS = {
+  /** Lista de gastos */
+  LIST: buildUrl('/substance-expenses'),
+
+  /** Registrar nuevo gasto */
+  CREATE: buildUrl('/substance-expenses'),
+
+  /** Resumen de gastos */
+  SUMMARY: buildUrl('/substance-expenses/summary'),
+
+  /** Actualizar gasto */
+  UPDATE: (id: string) => buildUrl(`/substance-expenses/${id}`),
+
+  /** Eliminar gasto */
+  DELETE: (id: string) => buildUrl(`/substance-expenses/${id}`),
 } as const;
 
 export default {
@@ -339,4 +357,5 @@ export default {
   PUBLIC_ENDPOINTS,
   API_CONFIG,
   JOURNAL_ENDPOINTS,
+  SUBSTANCE_EXPENSE_ENDPOINTS,
 };

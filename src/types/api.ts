@@ -85,13 +85,15 @@ export interface AuthResponse {
 export interface User {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   phone?: string;
   avatar?: string;
   role: UserRole;
   createdAt: string;
   updatedAt: string;
+  llm_provider?: 'openai' | 'anthropic' | 'azure' | 'local' | 'openrouter';
+  llm_model?: string;
 }
 
 /**

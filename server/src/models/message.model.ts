@@ -481,12 +481,12 @@ export const detectEmotion = async (content: string): Promise<{
 
   // Emociones básicas con palabras clave
   const emotionPatterns: Record<string, string[]> = {
-    'ansiedad': ['ansioso', 'nervioso', 'preocupado', 'miedo', 'pánico'],
-    'tristeza': ['triste', 'deprimido', 'abandonado', 'solo', 'melancólico'],
-    'ira': ['enojado', 'furioso', 'frustrado', 'molesto', 'rabia'],
-    'feliz': ['feliz', 'contento', 'alegre', 'emocionado', 'esperanzado'],
-    'estrés': ['estrés', 'presionado', 'agobiado', 'abrumado'],
-    'cansancio': ['cansado', 'agotado', 'fatigado', 'sin energía']
+    'miedo': ['miedo', 'ansioso', 'nervioso', 'preocupado', 'pánico', 'agobiado', 'abrumado', 'inseguro', 'vulnerable'],
+    'tristeza': ['triste', 'deprimido', 'solo', 'melancólico', 'vacío', 'cansado', 'agotado', 'fatigado', 'sin energía', 'culpable', 'arrepentido'],
+    'ira': ['enojado', 'furioso', 'frustrado', 'molesto', 'rabia', 'estrés', 'presionado', 'tenso', 'resentido'],
+    'felicidad': ['feliz', 'contento', 'alegre', 'emocionado', 'esperanzado', 'optimista', 'motivado', 'orgulloso', 'agradecido'],
+    'sorpresa': ['sorprendido', 'asombrado', 'confundido', 'curioso', 'entusiasmado'],
+    'asco': ['asco', 'repugnancia', 'decepcionado', 'horrible', 'abstinencia', 'odio']
   };
 
   for (const [emotion, keywords] of Object.entries(emotionPatterns)) {

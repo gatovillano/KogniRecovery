@@ -46,109 +46,73 @@ const DAYS_WEEK = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
 
 // Emociones matizadas organizadas por categoría para el check-in diario
 const EMOTIONAL_TAGS = [
-  // === EMOCIONES POSITIVAS ===
-  { label: 'Feliz', emoji: '😊', value: 'happy', category: 'positive' },
-  { label: 'Contento', emoji: '😄', value: 'content', category: 'positive' },
-  { label: 'Alegre', emoji: '😃', value: 'joyful', category: 'positive' },
-  { label: 'Satisfecho', emoji: '😌', value: 'satisfied', category: 'positive' },
-  { label: 'Esperanzado', emoji: '🌟', value: 'hopeful', category: 'positive' },
-  { label: 'Motivado', emoji: '🔥', value: 'motivated', category: 'positive' },
-  { label: 'Entusiasmo', emoji: '⚡', value: 'enthusiastic', category: 'positive' },
-  { label: 'Orgulloso', emoji: '🏆', value: 'proud', category: 'positive' },
-  { label: 'Grateful', emoji: '🙏', value: 'grateful', category: 'positive' },
-  { label: 'Amor', emoji: '❤️', value: 'loving', category: 'positive' },
-  { label: 'Afectuoso', emoji: '🤗', value: 'affectionate', category: 'positive' },
-  { label: 'Conectado', emoji: '🤝', value: 'connected', category: 'positive' },
+  // === FELICIDAD ===
+  { label: 'Feliz', emoji: '😊', value: 'happy', category: 'happiness' },
+  { label: 'Alegre', emoji: '😄', value: 'joyful', category: 'happiness' },
+  { label: 'Satisfecho', emoji: '😌', value: 'satisfied', category: 'happiness' },
+  { label: 'Optimista', emoji: '🌟', value: 'optimistic', category: 'happiness' },
+  { label: 'Motivado', emoji: '🔥', value: 'motivated', category: 'happiness' },
+  { label: 'Orgulloso', emoji: '🏆', value: 'proud', category: 'happiness' },
+  { label: 'Agradecido', emoji: '🙏', value: 'grateful', category: 'happiness' },
+  { label: 'Amoroso', emoji: '❤️', value: 'loving', category: 'happiness' },
+  { label: 'Calmado', emoji: '🧘', value: 'calm', category: 'happiness' },
+  { label: 'Seguro', emoji: '🛡️', value: 'safe', category: 'happiness' },
+  { label: 'Confiado', emoji: '💪', value: 'confident', category: 'happiness' },
+  { label: 'Inspirado', emoji: '💡', value: 'inspired', category: 'happiness' },
 
-  // === EMOCIONES DE CALMA Y BIENESTAR ===
-  { label: 'Calmado', emoji: '🧘', value: 'calm', category: 'calm' },
-  { label: 'Tranquilo', emoji: '😌', value: 'peaceful', category: 'calm' },
-  { label: 'Relajado', emoji: '🌊', value: 'relaxed', category: 'calm' },
-  { label: 'Sereno', emoji: '☀️', value: 'serene', category: 'calm' },
-  { label: 'En paz', emoji: '🕊️', value: 'at_peace', category: 'calm' },
-  { label: 'Cómodo', emoji: '🛋️', value: 'comfortable', category: 'calm' },
-  { label: 'Seguro', emoji: '🛡️', value: 'safe', category: 'calm' },
-  { label: 'Confiado', emoji: '💪', value: 'confident', category: 'calm' },
+  // === SORPRESA ===
+  { label: 'Sorprendido', emoji: '😲', value: 'surprised', category: 'surprise' },
+  { label: 'Asombrado', emoji: '😮', value: 'amazed', category: 'surprise' },
+  { label: 'Confundido', emoji: '😕', value: 'confused', category: 'surprise' },
+  { label: 'Curioso', emoji: '🤔', value: 'curious', category: 'surprise' },
+  { label: 'Entusiasmado', emoji: '⚡', value: 'excited', category: 'surprise' },
 
-  // === EMOCIONES DE TRISTEZA ===
-  { label: 'Triste', emoji: '😢', value: 'sad', category: 'sadness' },
-  { label: 'Melancólico', emoji: '🌧️', value: 'melancholy', category: 'sadness' },
-  { label: 'Desanimado', emoji: '😔', value: 'down', category: 'sadness' },
-  { label: 'Abatido', emoji: '😞', value: 'dejected', category: 'sadness' },
-  { label: 'Desesperanzado', emoji: '😩', value: 'hopeless', category: 'sadness' },
-  { label: 'Solo', emoji: '😔', value: 'lonely', category: 'sadness' },
-  { label: 'Aislado', emoji: '🌑', value: 'isolated', category: 'sadness' },
-  { label: 'Vacío', emoji: '🕳️', value: 'empty', category: 'sadness' },
-  { label: 'Nostálgico', emoji: '📷', value: 'nostalgic', category: 'sadness' },
-  { label: 'Echando de menos', emoji: '💭', value: 'missing', category: 'sadness' },
+  // === MIEDO ===
+  { label: 'Miedo', emoji: '😨', value: 'fearful', category: 'fear' },
+  { label: 'Ansioso', emoji: '😰', value: 'anxious', category: 'fear' },
+  { label: 'Preocupado', emoji: '😟', value: 'worried', category: 'fear' },
+  { label: 'Inseguro', emoji: '❓', value: 'insecure', category: 'fear' },
+  { label: 'Vulnerable', emoji: '💔', value: 'vulnerable', category: 'fear' },
+  { label: 'Agobiado', emoji: '😫', value: 'overwhelmed', category: 'fear' },
+  { label: 'Espantado', emoji: '😱', value: 'frightened', category: 'fear' },
 
-  // === EMOCIONES DE ANSIEDAD Y MIEDO ===
-  { label: 'Ansioso', emoji: '😰', value: 'anxious', category: 'anxiety' },
-  { label: 'Nervioso', emoji: '😬', value: 'nervous', category: 'anxiety' },
-  { label: 'Preocupado', emoji: '😟', value: 'worried', category: 'anxiety' },
-  { label: 'Asustado', emoji: '😨', value: 'frightened', category: 'anxiety' },
-  { label: 'Temeroso', emoji: '😱', value: 'fearful', category: 'anxiety' },
-  { label: 'Inseguro', emoji: '❓', value: 'uncertain', category: 'anxiety' },
-  { label: 'Sobrepasado', emoji: '😵', value: 'overwhelmed', category: 'anxiety' },
-  { label: 'Panico', emoji: '😰', value: 'panic', category: 'anxiety' },
-  { label: 'Agobiado', emoji: '😫', value: 'burdened', category: 'anxiety' },
-  { label: 'Intranquilo', emoji: '🔄', value: 'restless', category: 'anxiety' },
-
-  // === EMOCIONES DE IRA Y FRUSTRACIÓN ===
+  // === IRA ===
   { label: 'Enojado', emoji: '😠', value: 'angry', category: 'anger' },
   { label: 'Frustrado', emoji: '😤', value: 'frustrated', category: 'anger' },
   { label: 'Irritado', emoji: '😒', value: 'irritated', category: 'anger' },
   { label: 'Molesto', emoji: '😡', value: 'annoyed', category: 'anger' },
   { label: 'Rabioso', emoji: '🤬', value: 'furious', category: 'anger' },
   { label: 'Resentido', emoji: '😾', value: 'resentful', category: 'anger' },
-  { label: 'Amargo', emoji: '🫤', value: 'bitter', category: 'anger' },
-  { label: 'Indignado', emoji: '😤', value: 'indignant', category: 'anger' },
+  { label: 'Estresado', emoji: '😫', value: 'stressed', category: 'anger' },
+  { label: 'Tenso', emoji: '💪', value: 'tense', category: 'anger' },
 
-  // === EMOCIONES DE FATIGA Y ENERGÍA ===
-  { label: 'Cansado', emoji: '😴', value: 'tired', category: 'energy' },
-  { label: 'Agotado', emoji: '😩', value: 'exhausted', category: 'energy' },
-  { label: 'Sin energía', emoji: '🔋', value: 'drained', category: 'energy' },
-  { label: 'Desgastado', emoji: '🪫', value: 'worn_out', category: 'energy' },
-  { label: 'Somnoliento', emoji: '😪', value: 'sleepy', category: 'energy' },
-  { label: 'Energético', emoji: '⚡', value: 'energetic', category: 'energy' },
-  { label: 'Vital', emoji: '💫', value: 'vital', category: 'energy' },
-  { label: 'Activo', emoji: '🏃', value: 'active', category: 'energy' },
+  // === ASCO ===
+  { label: 'Asco', emoji: '🤢', value: 'disgust', category: 'disgust' },
+  { label: 'Decepcionado', emoji: '😞', value: 'disappointed', category: 'disgust' },
+  { label: 'Horrible', emoji: '🤮', value: 'awful', category: 'disgust' },
+  { label: 'Abstinencia', emoji: '💊', value: 'withdrawal', category: 'disgust' },
+  { label: 'Desconforme', emoji: '🫤', value: 'disapproving', category: 'disgust' },
 
-  // === EMOCIONES DE ESTRÉS ===
-  { label: 'Estresado', emoji: '😫', value: 'stressed', category: 'stress' },
-  { label: 'Tenso', emoji: '💪', value: 'tense', category: 'stress' },
-  { label: 'Presionado', emoji: '⏰', value: 'pressured', category: 'stress' },
-  { label: 'Apresurado', emoji: '🏃', value: 'rushed', category: 'stress' },
-  { label: 'Agobiado', emoji: '😵', value: 'swamped', category: 'stress' },
-  { label: 'Bloqueado', emoji: '🚧', value: 'blocked', category: 'stress' },
-
-  // === EMOCIONES COMPLEJAS ===
-  { label: 'Confundido', emoji: '😕', value: 'confused', category: 'complex' },
-  { label: 'Sorprendido', emoji: '😲', value: 'surprised', category: 'complex' },
-  { label: 'Sorprendido positivamente', emoji: '😮', value: 'amazed', category: 'complex' },
-  { label: 'Esperando', emoji: '⏳', value: 'anticipating', category: 'complex' },
-  { label: 'Curioso', emoji: '🤔', value: 'curious', category: 'complex' },
-  { label: 'Inspirado', emoji: '💡', value: 'inspired', category: 'complex' },
-  { label: 'Reflexivo', emoji: '🧠', value: 'reflective', category: 'complex' },
-  { label: 'Vulnerable', emoji: '💔', value: 'vulnerable', category: 'complex' },
-  { label: 'Hambriento', emoji: '🍽️', value: 'hungry', category: 'physical' },
-  { label: 'Sediento', emoji: '💧', value: 'thirsty', category: 'physical' },
-  { label: 'Físicamente bien', emoji: '💪', value: 'physical_well', category: 'physical' },
-  { label: 'Físicamente mal', emoji: '🤒', value: 'physical_bad', category: 'physical' },
+  // === TRISTEZA ===
+  { label: 'Triste', emoji: '😢', value: 'sad', category: 'sadness' },
+  { label: 'Solo', emoji: '😔', value: 'lonely', category: 'sadness' },
+  { label: 'Deprimido', emoji: '😞', value: 'depressed', category: 'sadness' },
+  { label: 'Culpable', emoji: '😔', value: 'guilty', category: 'sadness' },
+  { label: 'Abatido', emoji: '😞', value: 'dejected', category: 'sadness' },
+  { label: 'Desesperanzado', emoji: '😩', value: 'hopeless', category: 'sadness' },
+  { label: 'Cansado', emoji: '😴', value: 'tired', category: 'sadness' },
+  { label: 'Agotado', emoji: '😩', value: 'exhausted', category: 'sadness' },
 ];
 
 // Categorías para filtrar emociones
 const EMOTION_CATEGORIES = [
   { key: 'all', label: 'Todas', color: '#007AFF' },
-  { key: 'positive', label: 'Positivas', color: '#34C759' },
-  { key: 'calm', label: 'Calma', color: '#5AC8FA' },
-  { key: 'sadness', label: 'Tristeza', color: '#5856D6' },
-  { key: 'anxiety', label: 'Ansiedad', color: '#FF9500' },
-  { key: 'anger', label: 'Ira', color: '#FF3B30' },
-  { key: 'energy', label: 'Energía', color: '#FFCC00' },
-  { key: 'stress', label: 'Estrés', color: '#AF52DE' },
-  { key: 'complex', label: 'Complejas', color: '#FF2D55' },
-  { key: 'physical', label: 'Físicas', color: '#00C7BE' },
+  { key: 'happiness', label: 'Felicidad', color: '#FFD580' },
+  { key: 'surprise', label: 'Sorpresa', color: '#FFFACD' },
+  { key: 'fear', label: 'Miedo', color: '#E0E0E0' },
+  { key: 'anger', label: 'Ira', color: '#FFB2B2' },
+  { key: 'disgust', label: 'Asco', color: '#D1FFD1' },
+  { key: 'sadness', label: 'Tristeza', color: '#E6E6FA' },
 ];
 
 export const CheckInScreen: React.FC = () => {
@@ -1053,7 +1017,12 @@ export const CheckInScreen: React.FC = () => {
 
           <View style={{ marginTop: 20 }}>
             <View>
-              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Tu Progreso General</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <Text style={[styles.sectionTitle, { color: theme.colors.text, marginBottom: 0 }]}>Tu Progreso General</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Progress' as any)}>
+                  <Text style={{ color: theme.colors.primary, fontWeight: 'bold' }}>Ver detalles</Text>
+                </TouchableOpacity>
+              </View>
 
               <View style={styles.statsGrid}>
                 <Card variant="outlined" style={styles.statCard}>
@@ -1120,6 +1089,8 @@ export const CheckInScreen: React.FC = () => {
                 ¿Qué tipo de registro deseas añadir a tu bitácora hoy?
               </Text>
 
+              <ScrollView showsVerticalScrollIndicator={false} style={{ maxHeight: '80%' }} contentContainerStyle={{ paddingBottom: 20 }}>
+
               <TouchableOpacity
                 style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
                 onPress={() => {
@@ -1133,7 +1104,7 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Diario de Observación</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>Evaluación general de tu día (ánimo, energía, ansiedad).</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Evaluación general de tu día (ánimo, energía, ansiedad).</Text>
                 </View>
               </TouchableOpacity>
 
@@ -1150,7 +1121,7 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Notas Libres</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>Escribe libremente tus pensamientos, un párrafo o una carta.</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Escribe libremente tus pensamientos, un párrafo o una carta.</Text>
                 </View>
               </TouchableOpacity>
 
@@ -1167,7 +1138,7 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Registro de Actividad</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>Evalúa cómo te sentiste antes, durante y después de una actividad.</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Evalúa cómo te sentiste antes, durante y después de una actividad.</Text>
                 </View>
               </TouchableOpacity>
 
@@ -1184,7 +1155,7 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Análisis de Consumo</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>¿Qué hago cuando consumo y cuando no? Reflexión para prevenir.</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>¿Qué hago cuando consumo y cuando no? Reflexión para prevenir.</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -1200,7 +1171,7 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Entorno Social</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>Identifica a tu red de apoyo y los contactos de riesgo.</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Identifica a tu red de apoyo y los contactos de riesgo.</Text>
                 </View>
               </TouchableOpacity>
 
@@ -1217,9 +1188,25 @@ export const CheckInScreen: React.FC = () => {
                 </View>
                 <View style={styles.optionTexts}>
                   <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Evaluación de Hábitos</Text>
-                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]}>Contrasta tus hábitos protectores frente a los de riesgo.</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Contrasta tus hábitos protectores frente a los de riesgo.</Text>
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.optionCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
+                onPress={() => {
+                  setShowOptionsModal(false);
+                  navigation.navigate('SubstanceExpense' as any);
+                }}
+              >
+                <View style={[styles.optionIconContainer, { backgroundColor: theme.colors.error + '15' }]}>
+                  <Icon name="wallet-outline" size={24} color={theme.colors.error} />
+                </View>
+                <View style={styles.optionTexts}>
+                  <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Gasto de Sustancias</Text>
+                  <Text style={[styles.optionDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>Registra la inversión económica en el consumo.</Text>
+                </View>
+              </TouchableOpacity>
+              </ScrollView>
             </View>
           </View>
         </Modal >
@@ -2048,9 +2035,9 @@ const styles = StyleSheet.create({
   modalContent: {
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    padding: 24,
+    padding: 20,
     paddingBottom: 40,
-    minHeight: '60%',
+    minHeight: '50%',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -2063,36 +2050,35 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   modalSubtitle: {
-    fontSize: 14,
-    marginBottom: 24,
+    fontSize: 13,
+    marginBottom: 16,
   },
   optionCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 16,
+    padding: 10,
+    borderRadius: 14,
     borderWidth: StyleSheet.hairlineWidth,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   optionIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 12,
   },
   optionTexts: {
     flex: 1,
   },
   optionTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
-    marginBottom: 4,
   },
   optionDesc: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 12,
+    lineHeight: 16,
   },
   feedCard: {
     borderRadius: 16,

@@ -11,14 +11,24 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@theme/ThemeContext';
-import { MainTabParamList, ProfileStackParamList } from './types';
+import { MainTabParamList, ProfileStackParamList, CheckInStackParamList } from './types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
 // Importar pantallas
-import { DashboardScreen, CheckInScreen, ChatbotScreen, ProfileScreen, AISettingsScreen, IntelligenceProfileScreen } from '@screens';
+import { 
+  DashboardScreen, 
+  CheckInScreen, 
+  ChatbotScreen, 
+  ProfileScreen, 
+  AISettingsScreen, 
+  IntelligenceProfileScreen, 
+  MedicationScreen,
+  ProgressScreen,
+  SubstanceExpenseScreen
+} from '@screens';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
@@ -57,6 +67,36 @@ const ProfileNavigator: React.FC = () => {
   );
 };
 
+const CheckInStack = createNativeStackNavigator<CheckInStackParamList>();
+
+/**
+ * Navegador de Bitácora (Stack)
+ */
+const CheckInNavigator: React.FC = () => {
+  const { theme } = useTheme();
+
+  return (
+    <CheckInStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <CheckInStack.Screen
+        name="CheckInHome"
+        component={CheckInScreen}
+      />
+      <CheckInStack.Screen
+        name="Progress"
+        component={ProgressScreen}
+      />
+      <CheckInStack.Screen
+        name="SubstanceExpense"
+        component={SubstanceExpenseScreen}
+      />
+    </CheckInStack.Navigator>
+  );
+};
+
 /**
  * Configuración de iconos y etiquetas para cada tab
  */
@@ -70,6 +110,11 @@ const TAB_CONFIG = {
     icon: 'journal-outline',
     iconFilled: 'journal',
     label: 'Bitácora',
+  },
+  Medications: {
+    icon: 'medkit-outline',
+    iconFilled: 'medkit',
+    label: 'Medics',
   },
   Chatbot: {
     icon: 'chatbubble-outline',
@@ -147,7 +192,7 @@ export const MainTabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="CheckIn"
-        component={CheckInScreen}
+        component={CheckInNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon
@@ -158,6 +203,21 @@ export const MainTabNavigator: React.FC = () => {
             />
           ),
           tabBarLabel: TAB_CONFIG.CheckIn.label,
+        }}
+      />
+      <Tab.Screen
+        name="Medications"
+        component={MedicationScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon
+              name={TAB_CONFIG.Medications.icon}
+              focused={focused}
+              color={color}
+              size={size}
+            />
+          ),
+          tabBarLabel: TAB_CONFIG.Medications.label,
         }}
       />
       <Tab.Screen

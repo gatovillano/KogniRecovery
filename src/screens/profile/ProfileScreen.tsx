@@ -1,8 +1,5 @@
 /**
  * ProfileScreen - Pantalla de perfil de usuario
- *
- * NOTA: Esta es una implementación placeholder.
- * Se implementará completamente en el sprint correspondiente.
  */
 
 import React from 'react';
@@ -22,6 +19,13 @@ export const ProfileScreen: React.FC = () => {
   const handleLogout = async () => {
     await logout();
   };
+
+  const menuItems = [
+    { icon: '🧠', label: 'Motor de Inteligencia LÚA', onPress: () => navigation.navigate('AISettings') },
+    { icon: '📒', label: 'Memoria de LÚA (Insights)', onPress: () => navigation.navigate('IntelligenceProfile') },
+    { icon: '🔔', label: 'Notificaciones', onPress: () => {} },
+    { icon: '🔒', label: 'Privacidad y Seguridad', onPress: () => {} },
+  ];
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -54,49 +58,36 @@ export const ProfileScreen: React.FC = () => {
         <View style={styles.menu}>
           <Text style={[styles.label, { color: theme.colors.textSecondary }]}>CONFIGURACIÓN</Text>
 
-          <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: theme.colors.surface }]}
-            onPress={() => navigation.navigate('AISettings')}
-          >
-            <Text style={[styles.menuItemText, { color: theme.colors.text }]}>
-              🧠 Motor de Inteligencia LÚA
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: theme.colors.surface }]}
-            onPress={() => navigation.navigate('IntelligenceProfile')}
-          >
-            <Text style={[styles.menuItemText, { color: theme.colors.text }]}>
-              📒 Memoria de LÚA (Insights)
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: theme.colors.surface }]}
-            onPress={() => { }}
-          >
-            <Text style={[styles.menuItemText, { color: theme.colors.text }]}>
-              🔔 Notificaciones
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: theme.colors.surface }]}
-            onPress={() => { }}
-          >
-            <Text style={[styles.menuItemText, { color: theme.colors.text }]}>
-              🔒 Privacidad y Seguridad
-            </Text>
-          </TouchableOpacity>
+          <View style={[styles.menuGroup, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
+            {menuItems.map((item, index) => (
+              <React.Fragment key={item.label}>
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={item.onPress}
+                  activeOpacity={0.6}
+                >
+                  <Text style={styles.menuItemIcon}>{item.icon}</Text>
+                  <Text style={[styles.menuItemText, { color: theme.colors.text }]}>
+                    {item.label}
+                  </Text>
+                  <Text style={[styles.menuItemChevron, { color: theme.colors.textSecondary }]}>›</Text>
+                </TouchableOpacity>
+                {index < menuItems.length - 1 && (
+                  <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
+                )}
+              </React.Fragment>
+            ))}
+          </View>
         </View>
 
-        <Button
-          title="Cerrar Sesión"
-          onPress={handleLogout}
-          variant="outline"
-          fullWidth
-        />
+        <View style={styles.logoutContainer}>
+          <Button
+            title="Cerrar Sesión"
+            onPress={handleLogout}
+            variant="outline"
+            fullWidth
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -160,7 +151,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   menu: {
-    gap: 12,
+    gap: 10,
   },
   label: {
     fontSize: 12,
@@ -169,20 +160,41 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     letterSpacing: 1,
   },
+  menuGroup: {
+    borderRadius: 16,
+    borderWidth: 1,
+    overflow: 'hidden',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+  },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 16,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
+    paddingHorizontal: 18,
+  },
+  menuItemIcon: {
+    fontSize: 20,
+    marginRight: 14,
   },
   menuItemText: {
-    fontSize: 16,
+    flex: 1,
+    fontSize: 15,
     fontWeight: '500',
+  },
+  menuItemChevron: {
+    fontSize: 22,
+    fontWeight: '300',
+    marginLeft: 8,
+  },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    marginLeft: 52,
+  },
+  logoutContainer: {
+    marginBottom: 16,
   },
 });

@@ -1,0 +1,223 @@
+src/config/database.ts(22,9): error TS2749: 'Pool' refers to a value, but is being used as a type here. Did you mean 'typeof Pool'?
+src/config/database.ts(34,31): error TS2749: 'Pool' refers to a value, but is being used as a type here. Did you mean 'typeof Pool'?
+src/config/database.ts(59,11): error TS2345: Argument of type '"end"' is not assignable to parameter of type '"error" | "release" | "connect" | "acquire" | "remove"'.
+src/config/database.ts(70,47): error TS2749: 'Pool' refers to a value, but is being used as a type here. Did you mean 'typeof Pool'?
+src/config/database.ts(97,28): error TS2749: 'Pool' refers to a value, but is being used as a type here. Did you mean 'typeof Pool'?
+src/config/database.ts(117,24): error TS2344: Type 'T' does not satisfy the constraint 'QueryResultRow'.
+src/config/database.ts(144,57): error TS2344: Type 'T' does not satisfy the constraint 'QueryResultRow'.
+src/config/database.ts(145,24): error TS2344: Type 'T' does not satisfy the constraint 'QueryResultRow'.
+src/config/neo4j.ts(28,7): error TS6133: 'getRequired' is declared but its value is never read.
+src/controllers/chatbot.controller.ts(494,3): error TS6133: 'req' is declared but its value is never read.
+src/controllers/chatbot.controller.ts(577,3): error TS6133: 'req' is declared but its value is never read.
+src/controllers/checkin.controller.ts(99,65): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/checkin.controller.ts(217,55): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/checkin.controller.ts(252,54): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/checkin.controller.ts(288,54): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(191,55): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(231,55): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(360,75): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(382,62): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(413,61): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(443,34): error TS2339: Property 'id' does not exist on type 'JwtPayload'.
+src/controllers/craving.controller.ts(456,52): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controllers/craving.controller.ts(482,34): error TS2339: Property 'id' does not exist on type 'JwtPayload'.
+src/controllers/craving.controller.ts(514,34): error TS2339: Property 'id' does not exist on type 'JwtPayload'.
+src/controllers/craving.controller.ts(566,34): error TS2339: Property 'id' does not exist on type 'JwtPayload'.
+src/controllers/craving.controller.ts(603,34): error TS2339: Property 'id' does not exist on type 'JwtPayload'.
+src/controllers/index.ts(13,10): error TS2305: Module '"./profile.controller.js"' has no exported member 'default'.
+src/controllers/index.ts(14,10): error TS2305: Module '"./checkin.controller.js"' has no exported member 'default'.
+src/controllers/index.ts(15,10): error TS2305: Module '"./craving.controller.js"' has no exported member 'default'.
+src/controllers/index.ts(16,10): error TS2305: Module '"./chatbot.controller.js"' has no exported member 'default'.
+src/controllers/medication.controller.ts(106,79): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/index.ts(81,47): error TS6133: 'promise' is declared but its value is never read.
+src/middleware/auth.ts(71,34): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/middleware/validation.ts(8,1): error TS6133: 'ValidationError' is declared but its value is never read.
+src/models/conversation.model.ts(7,17): error TS6133: 'queryWithTransaction' is declared but its value is never read.
+src/models/conversation.model.ts(97,3): error TS2322: Type 'unknown' is not assignable to type 'Conversation'.
+src/models/conversation.model.ts(106,3): error TS2322: Type '{} | null' is not assignable to type 'Conversation | null'.
+  Type '{}' is missing the following properties from type 'Conversation': id, user_id, status, message_count, and 8 more.
+src/models/conversation.model.ts(119,3): error TS2322: Type '{} | null' is not assignable to type 'Conversation | null'.
+  Type '{}' is missing the following properties from type 'Conversation': id, user_id, status, message_count, and 8 more.
+src/models/conversation.model.ts(134,26): error TS2571: Object is of type 'unknown'.
+src/models/conversation.model.ts(143,12): error TS2322: Type 'unknown[]' is not assignable to type 'Conversation[]'.
+  Type 'unknown' is not assignable to type 'Conversation'.
+src/models/conversation.model.ts(179,3): error TS2322: Type '{} | null' is not assignable to type 'Conversation | null'.
+  Type '{}' is missing the following properties from type 'Conversation': id, user_id, status, message_count, and 8 more.
+src/models/conversation.model.ts(215,3): error TS2322: Type '{} | null' is not assignable to type 'Conversation | null'.
+  Type '{}' is missing the following properties from type 'Conversation': id, user_id, status, message_count, and 8 more.
+src/models/conversation.model.ts(245,3): error TS2322: Type 'unknown' is not assignable to type 'ConversationSession'.
+src/models/conversation.model.ts(254,3): error TS2322: Type '{} | null' is not assignable to type 'ConversationSession | null'.
+  Type '{}' is missing the following properties from type 'ConversationSession': id, conversation_id, user_id, session_number, and 4 more.
+src/models/conversation.model.ts(266,3): error TS2322: Type 'unknown[]' is not assignable to type 'ConversationSession[]'.
+  Type 'unknown' is not assignable to type 'ConversationSession'.
+src/models/conversation.model.ts(302,3): error TS2322: Type '{} | null' is not assignable to type 'ConversationSession | null'.
+  Type '{}' is missing the following properties from type 'ConversationSession': id, conversation_id, user_id, session_number, and 4 more.
+src/models/conversation.model.ts(318,3): error TS2322: Type '{} | null' is not assignable to type 'ConversationSession | null'.
+  Type '{}' is missing the following properties from type 'ConversationSession': id, conversation_id, user_id, session_number, and 4 more.
+src/models/conversation.model.ts(333,3): error TS2322: Type '{} | null' is not assignable to type 'ScenarioConfig | null'.
+  Type '{}' is missing the following properties from type 'ScenarioConfig': id, scenario_type, scenario_name, system_prompt, and 3 more.
+src/models/conversation.model.ts(345,3): error TS2322: Type 'unknown[]' is not assignable to type 'ScenarioConfig[]'.
+  Type 'unknown' is not assignable to type 'ScenarioConfig'.
+src/models/conversation.model.ts(356,3): error TS2322: Type '{} | null' is not assignable to type 'ScenarioConfig | null'.
+  Type '{}' is missing the following properties from type 'ScenarioConfig': id, scenario_type, scenario_name, system_prompt, and 3 more.
+src/models/conversation.model.ts(363,3): error TS6133: 'userId' is declared but its value is never read.
+src/models/conversation.model.ts(397,20): error TS2339: Property 'contains' does not exist on type 'string'.
+src/models/conversation.model.ts(455,34): error TS18046: 'row' is of type 'unknown'.
+src/models/conversation.model.ts(456,35): error TS18046: 'row' is of type 'unknown'.
+src/models/conversation.model.ts(457,38): error TS18046: 'row' is of type 'unknown'.
+src/models/conversation.model.ts(458,33): error TS18046: 'row' is of type 'unknown'.
+src/models/conversation.model.ts(459,33): error TS18046: 'row' is of type 'unknown'.
+src/models/conversation.model.ts(460,29): error TS2571: Object is of type 'unknown'.
+src/models/craving.model.ts(7,17): error TS6133: 'queryWithTransaction' is declared but its value is never read.
+src/models/craving.model.ts(119,3): error TS2322: Type 'unknown' is not assignable to type 'Craving'.
+src/models/craving.model.ts(128,3): error TS2322: Type '{} | null' is not assignable to type 'Craving | null'.
+  Type '{}' is missing the following properties from type 'Craving': id, user_id, substance_name, intensity, and 4 more.
+src/models/craving.model.ts(140,3): error TS2322: Type 'unknown[]' is not assignable to type 'Craving[]'.
+  Type 'unknown' is not assignable to type 'Craving'.
+src/models/craving.model.ts(155,3): error TS2322: Type 'unknown[]' is not assignable to type 'Craving[]'.
+  Type 'unknown' is not assignable to type 'Craving'.
+src/models/craving.model.ts(170,26): error TS2571: Object is of type 'unknown'.
+src/models/craving.model.ts(179,12): error TS2322: Type 'unknown[]' is not assignable to type 'Craving[]'.
+  Type 'unknown' is not assignable to type 'Craving'.
+src/models/craving.model.ts(214,3): error TS2322: Type '{} | null' is not assignable to type 'Craving | null'.
+  Type '{}' is missing the following properties from type 'Craving': id, user_id, substance_name, intensity, and 4 more.
+src/models/craving.model.ts(261,3): error TS2322: Type '{} | null' is not assignable to type 'Craving | null'.
+  Type '{}' is missing the following properties from type 'Craving': id, user_id, substance_name, intensity, and 4 more.
+src/models/craving.model.ts(291,3): error TS2322: Type 'unknown' is not assignable to type 'CravingPattern'.
+src/models/craving.model.ts(303,3): error TS2322: Type 'unknown[]' is not assignable to type 'CravingPattern[]'.
+  Type 'unknown' is not assignable to type 'CravingPattern'.
+src/models/craving.model.ts(337,3): error TS2322: Type '{} | null' is not assignable to type 'CravingPattern | null'.
+  Type '{}' is missing the following properties from type 'CravingPattern': id, user_id, pattern_type, description, and 3 more.
+src/models/craving.model.ts(376,3): error TS2322: Type 'unknown' is not assignable to type 'CopingStrategy'.
+src/models/craving.model.ts(388,3): error TS2322: Type 'unknown[]' is not assignable to type 'CopingStrategy[]'.
+  Type 'unknown' is not assignable to type 'CopingStrategy'.
+src/models/craving.model.ts(400,3): error TS2322: Type 'unknown[]' is not assignable to type 'CopingStrategy[]'.
+  Type 'unknown' is not assignable to type 'CopingStrategy'.
+src/models/craving.model.ts(435,3): error TS2322: Type '{} | null' is not assignable to type 'CopingStrategy | null'.
+  Type '{}' is missing the following properties from type 'CopingStrategy': id, user_id, name, category, and 2 more.
+src/models/craving.model.ts(502,3): error TS2322: Type 'unknown' is not assignable to type 'CravingTrigger'.
+src/models/craving.model.ts(514,3): error TS2322: Type 'unknown[]' is not assignable to type 'CravingTrigger[]'.
+  Type 'unknown' is not assignable to type 'CravingTrigger'.
+src/models/craving.model.ts(544,3): error TS2322: Type '{} | null' is not assignable to type 'CravingTrigger | null'.
+  Type '{}' is missing the following properties from type 'CravingTrigger': id, user_id, trigger_type, trigger_description, and 3 more.
+src/models/craving.model.ts(563,55): error TS6133: 'days' is declared but its value is never read.
+src/models/craving.model.ts(596,29): error TS18046: 'row' is of type 'unknown'.
+src/models/craving.model.ts(597,32): error TS18046: 'row' is of type 'unknown'.
+src/models/craving.model.ts(598,31): error TS18046: 'row' is of type 'unknown'.
+src/models/craving.model.ts(599,35): error TS18046: 'row' is of type 'unknown'.
+src/models/craving.model.ts(600,34): error TS18046: 'row' is of type 'unknown'.
+src/models/craving.model.ts(601,47): error TS18046: 'r' is of type 'unknown'.
+src/models/index.ts(7,1): error TS2308: Module './user.model.js' has already exported a member named 'create'. Consider explicitly re-exporting to resolve the ambiguity.
+src/models/index.ts(16,10): error TS2305: Module '"./profile.model.js"' has no exported member 'default'.
+src/models/index.ts(17,10): error TS2305: Module '"./checkin.model.js"' has no exported member 'default'.
+src/models/index.ts(18,10): error TS2305: Module '"./craving.model.js"' has no exported member 'default'.
+src/models/index.ts(19,10): error TS2305: Module '"./conversation.model.js"' has no exported member 'default'.
+src/models/index.ts(20,10): error TS2305: Module '"./message.model.js"' has no exported member 'default'.
+src/models/message.model.ts(7,17): error TS6133: 'queryWithTransaction' is declared but its value is never read.
+src/models/message.model.ts(102,3): error TS2322: Type 'unknown' is not assignable to type 'Message'.
+src/models/message.model.ts(111,3): error TS2322: Type '{} | null' is not assignable to type 'Message | null'.
+  Type '{}' is missing the following properties from type 'Message': id, conversation_id, user_id, role, and 3 more.
+src/models/message.model.ts(136,3): error TS2322: Type 'unknown[]' is not assignable to type 'Message[]'.
+  Type 'unknown' is not assignable to type 'Message'.
+src/models/message.model.ts(149,3): error TS2322: Type '{} | null' is not assignable to type 'Message | null'.
+  Type '{}' is missing the following properties from type 'Message': id, conversation_id, user_id, role, and 3 more.
+src/models/message.model.ts(165,3): error TS2322: Type 'unknown[]' is not assignable to type 'Message[]'.
+  Type 'unknown' is not assignable to type 'Message'.
+src/models/message.model.ts(174,19): error TS2571: Object is of type 'unknown'.
+src/models/message.model.ts(212,3): error TS2322: Type 'unknown' is not assignable to type 'MessageAttachment'.
+src/models/message.model.ts(221,3): error TS2322: Type 'unknown[]' is not assignable to type 'MessageAttachment[]'.
+  Type 'unknown' is not assignable to type 'MessageAttachment'.
+src/models/message.model.ts(256,3): error TS2322: Type 'unknown' is not assignable to type 'MessageIntent'.
+src/models/message.model.ts(265,3): error TS2322: Type '{} | null' is not assignable to type 'MessageIntent | null'.
+  Type '{}' is missing the following properties from type 'MessageIntent': id, message_id, user_id, intent, created_at
+src/models/message.model.ts(282,3): error TS2322: Type 'unknown[]' is not assignable to type 'MessageIntent[]'.
+  Type 'unknown' is not assignable to type 'MessageIntent'.
+src/models/message.model.ts(299,3): error TS2322: Type '{} | null' is not assignable to type 'QuickResponse | null'.
+  Type '{}' is missing the following properties from type 'QuickResponse': id, trigger_phrase, response_text, category, and 2 more.
+src/models/message.model.ts(311,3): error TS2322: Type 'unknown[]' is not assignable to type 'QuickResponse[]'.
+  Type 'unknown' is not assignable to type 'QuickResponse'.
+src/models/message.model.ts(323,3): error TS2322: Type 'unknown[]' is not assignable to type 'QuickResponse[]'.
+  Type 'unknown' is not assignable to type 'QuickResponse'.
+src/models/profile.model.ts(7,17): error TS6133: 'queryWithTransaction' is declared but its value is never read.
+src/models/profile.model.ts(108,3): error TS2322: Type 'unknown' is not assignable to type 'Profile'.
+src/models/profile.model.ts(117,3): error TS2322: Type '{} | null' is not assignable to type 'Profile | null'.
+  Type '{}' is missing the following properties from type 'Profile': id, user_id, profile_type, created_at, updated_at
+src/models/profile.model.ts(126,3): error TS2322: Type '{} | null' is not assignable to type 'Profile | null'.
+  Type '{}' is missing the following properties from type 'Profile': id, user_id, profile_type, created_at, updated_at
+src/models/profile.model.ts(159,3): error TS2322: Type '{} | null' is not assignable to type 'Profile | null'.
+  Type '{}' is missing the following properties from type 'Profile': id, user_id, profile_type, created_at, updated_at
+src/models/profile.model.ts(179,26): error TS2571: Object is of type 'unknown'.
+src/models/profile.model.ts(184,12): error TS2322: Type 'unknown[]' is not assignable to type 'Profile[]'.
+  Type 'unknown' is not assignable to type 'Profile'.
+src/models/profile.model.ts(221,3): error TS2322: Type 'unknown' is not assignable to type 'ProfileSettings'.
+src/models/profile.model.ts(230,3): error TS2322: Type '{} | null' is not assignable to type 'ProfileSettings | null'.
+  Type '{}' is missing the following properties from type 'ProfileSettings': id, profile_id, created_at, updated_at
+src/models/profile.model.ts(262,3): error TS2322: Type '{} | null' is not assignable to type 'ProfileSettings | null'.
+  Type '{}' is missing the following properties from type 'ProfileSettings': id, profile_id, created_at, updated_at
+src/models/profile.model.ts(290,3): error TS2322: Type 'unknown' is not assignable to type 'SubstancePreference'.
+src/models/profile.model.ts(299,3): error TS2322: Type 'unknown[]' is not assignable to type 'SubstancePreference[]'.
+  Type 'unknown' is not assignable to type 'SubstancePreference'.
+src/models/profile.model.ts(326,3): error TS2322: Type '{} | null' is not assignable to type 'SubstancePreference | null'.
+  Type '{}' is missing the following properties from type 'SubstancePreference': id, profile_id, substance_name, created_at, updated_at
+src/models/user.model.ts(7,17): error TS6133: 'queryWithTransaction' is declared but its value is never read.
+src/scripts/ingest_knowledge.ts(27,48): error TS7016: Could not find a declaration file for module 'pdf-parse'. '/home/gato/Proyectos/KogniRecovery/server/node_modules/pdf-parse/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/pdf-parse` if it exists or add a new declaration (.d.ts) file containing `declare module 'pdf-parse';`
+src/services/auth.service.ts(8,1): error TS6133: 'uuidv4' is declared but its value is never read.
+src/services/auth.service.ts(129,39): error TS2379: Argument of type '{ email: string; password: string; name: string; role: "patient" | "family" | "professional"; phone: string | undefined; }' is not assignable to parameter of type 'CreateUserInput' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'phone' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/services/auth.service.ts(139,63): error TS2379: Argument of type '{ profile_type: string; display_name: string | undefined; current_status: string; preferred_language: string; }' is not assignable to parameter of type 'Partial<Profile>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'display_name' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/services/auth.service.ts(283,34): error TS2379: Argument of type '{ userId: string; token: string; deviceId: string | undefined; deviceName: string | undefined; deviceType: string | undefined; ipAddress: string | undefined; userAgent: string | undefined; }' is not assignable to parameter of type 'CreateRefreshTokenInput' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'deviceId' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/services/embedding.service.ts(171,5): error TS2322: Type '{ embedding: number[] | undefined; id: string; content: string; source: string; sourceType: "document" | "faq" | "technique" | "resource" | "kg" | "conversation"; metadata: { [key: string]: any; ... 5 more ...; language?: string; }; }[]' is not assignable to type 'EmbeddingChunk[]'.
+  Type '{ embedding: number[] | undefined; id: string; content: string; source: string; sourceType: "document" | "faq" | "technique" | "resource" | "kg" | "conversation"; metadata: { title?: string; category?: string; tags?: string[]; country?: string[]; audience?: string[]; language?: string; [key: string]: any; }; }' is not assignable to type 'EmbeddingChunk' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'embedding' are incompatible.
+      Type 'number[] | undefined' is not assignable to type 'number[]'.
+        Type 'undefined' is not assignable to type 'number[]'.
+src/services/embedding.service.ts(193,21): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(193,28): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(194,16): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(194,23): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(195,16): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(195,23): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(211,23): error TS2532: Object is possibly 'undefined'.
+src/services/embedding.service.ts(211,30): error TS2532: Object is possibly 'undefined'.
+src/services/langgraph.service.ts(7,25): error TS6133: 'SearchResult' is declared but its value is never read.
+src/services/langgraph.service.ts(302,5): error TS6133: 'conversationId' is declared but its value is never read.
+src/services/langgraph.service.ts(327,86): error TS2532: Object is possibly 'undefined'.
+src/services/neo4j.service.ts(67,19): error TS2503: Cannot find namespace 'neo4j'.
+src/services/neo4j.service.ts(85,34): error TS7006: Parameter 'record' implicitly has an 'any' type.
+src/services/neo4j.service.ts(87,30): error TS7006: Parameter 'key' implicitly has an 'any' type.
+src/services/neo4j.service.ts(132,14): error TS2503: Cannot find namespace 'neo4j'.
+src/services/neo4j.service.ts(136,56): error TS7006: Parameter 'tx' implicitly has an 'any' type.
+src/services/neo4j.service.ts(149,30): error TS2503: Cannot find namespace 'neo4j'.
+src/services/neo4j.service.ts(160,38): error TS2503: Cannot find namespace 'neo4j'.
+src/services/notification.service.ts(26,49): error TS18046: 'r' is of type 'unknown'.
+src/services/notification.service.ts(86,25): error TS18046: 'contact' is of type 'unknown'.
+src/services/notification.service.ts(87,67): error TS18046: 'contact' is of type 'unknown'.
+src/services/rag.service.ts(8,29): error TS6133: 'chunkingService' is declared but its value is never read.
+src/services/rag.service.ts(308,5): error TS6133: 'topK' is declared but its value is never read.
+src/services/rag.service.ts(312,11): error TS6133: 'keywords' is declared but its value is never read.
+src/services/rag.service.ts(325,5): error TS6133: 'userContext' is declared but its value is never read.
+src/services/rag.service.ts(403,11): error TS6198: All destructured elements are unused.
+src/services/rag.service.ts(403,54): error TS2532: Object is possibly 'undefined'.

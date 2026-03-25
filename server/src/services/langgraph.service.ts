@@ -102,17 +102,21 @@ export class LangGraphAgentService {
     if (provider.toLowerCase() === 'openrouter') {
       configuration = {
         baseURL: 'https://openrouter.ai/api/v1',
-        apiKey: apiKey, // Importante para OpenRouter en algunas versiones
+        apiKey: apiKey,
         defaultHeaders: {
           'HTTP-Referer': 'https://kognirecovery.com',
           'X-Title': 'KogniRecovery',
+          'Authorization': `Bearer ${apiKey}`,
         },
       };
     } else if (provider.toLowerCase() !== 'openai' && process.env.LLM_BASE_URL) {
       // Proveedor genérico compatible con OpenAI
       configuration = { 
         baseURL: process.env.LLM_BASE_URL,
-        apiKey: apiKey
+        apiKey: apiKey,
+        defaultHeaders: {
+          'Authorization': `Bearer ${apiKey}`,
+        }
       };
     }
 
@@ -122,16 +126,18 @@ export class LangGraphAgentService {
 
     console.log(`🤖 Inicializando LLM para usuario ${userId}: Provider=${provider}, Model=${modelName}, BaseURL=${configuration.baseURL || 'default (OpenAI)'}, Key=${apiKey.substring(0, 5)}...`);
 
-    return new ChatOpenAI({
-      apiKey: apiKey, 
-      openAIApiKey: apiKey, 
+    const llmConfig: any = {
+      apiKey: apiKey,
+      openAIApiKey: apiKey,
       modelName: modelName as string,
       model: modelName as string,
       temperature: 0.7,
       maxTokens: 8192,
-      configuration,
-      streaming: true 
-    });
+      streaming: true,
+      configuration: configuration
+    };
+
+    return new ChatOpenAI(llmConfig);
   }
 
   /**
@@ -324,7 +330,7 @@ Responde de manera empática, con respaldo científico si aplica, y tomando en c
 
     // 2.5 Búsqueda Web Automática si el RAG es insuficiente o el tema es muy específico
     let webSearchContext = '';
-    const shouldSearchWeb = scoredChunks.length === 0 || (scoredChunks.length > 0 && scoredChunks[0].score < 0.35);
+    const shouldSearchWeb = scoredChunks.length === 0 || (scoredChunks.length > 0 && (scoredChunks[0]?.score ?? 0) < 0.35);
     
     if (shouldSearchWeb) {
       console.log(`🔍 RAG insuficiente (score best: ${scoredChunks[0]?.score || 0}). Iniciando búsqueda web científica...`);

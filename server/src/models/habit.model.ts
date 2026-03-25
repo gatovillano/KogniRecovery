@@ -107,3 +107,33 @@ export const getDailyHabitStatus = async (userId: string, date: string): Promise
   const result = await query(sql, [userId, date]);
   return result.rows;
 };
+export const getHabitStats = async (userId: string, days = 30): Promise<any[]> => {
+  const sql = `
+    WITH habit_dates AS (
+      SELECT generate_series(
+        current_date - ($2 * interval '1 day'), 
+        current_date, 
+        interval '1 day'
+      )::date AS date
+    ),
+    user_habits AS (
+      SELECT id, name, habit_type
+      FROM habits
+      WHERE user_id = $1 AND is_active = TRUE
+    )
+    SELECT 
+      uh.id,
+      uh.name,
+      uh.habit_type,
+      COUNT(hc.id) as completion_count,
+      $2 as total_days,
+      (COUNT(hc.id)::float / $2) * 100 as completion_rate
+    FROM user_habits uh
+    CROSS JOIN habit_dates hd
+    LEFT JOIN habit_completions hc ON hc.habit_id = uh.id AND hc.completed_at = hd.date::text
+    GROUP BY uh.id, uh.name, uh.habit_type
+    ORDER BY completion_rate DESC`;
+  
+  const result = await query(sql, [userId, days]);
+  return result.rows;
+};

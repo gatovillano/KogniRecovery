@@ -6,6 +6,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import * as authService from '../services/auth.service.js';
+import * as UserModel from '../models/user.model.js';
 import { AuthRequest } from '../middleware/auth.js';
 
 // =====================================================
@@ -229,20 +230,50 @@ export const getSessions = async (
   }
 };
 
-export const verify = (
+export const verify = async (
   req: AuthRequest,
-  res: Response
-): void => {
-  // Si llegó aquí, el middleware `authenticate` ya verificó el token
-  res.status(200).json({
-    success: true,
-    valid: true,
-    data: {
-      userId: req.user?.userId,
-      email: req.user?.email,
-      role: req.user?.role,
-    },
-  });
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.userId;
+
+    if (!userId) {
+       res.status(401).json({
+        success: false,
+        valid: false,
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+      });
+      return;
+    }
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      res.status(404).json({
+        success: false,
+        valid: false,
+        error: { code: 'USER_NOT_FOUND', message: 'Usuario no encontrado' }
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      valid: true,
+      data: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        llm_provider: user.llm_provider,
+        llm_model: user.llm_model,
+        onboarding_completed: user.onboarding_completed,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export default {

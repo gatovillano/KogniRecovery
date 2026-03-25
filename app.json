@@ -29,9 +29,12 @@
       "package": "com.kognirecovery.app",
       "permissions": [
         "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
       ],
-      "softwareKeyboardLayoutMode": "resize",
+      "softwareKeyboardLayoutMode": "pan",
       "statusBar": {
         "translucent": true
       },
@@ -52,7 +55,15 @@
           "photosPermission": "KogniRecovery necesita acceso a tus fotos para permitirte compartir imágenes en tu progreso."
         }
       ],
-      "expo-font"
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/icon.png",
+          "color": "#6366F1",
+          "sounds": []
+        }
+      ]
     ],
     "extra": {
       "eas": {

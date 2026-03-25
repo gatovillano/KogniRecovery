@@ -342,3 +342,13 @@ export const getFeed = async (req: Request, res: Response, next: NextFunction): 
     res.json({ success: true, data: entries });
   } catch (error) { next(error); }
 };
+
+export const getHabitStats = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = getUser(req);
+    if (!userId) { unauthorized(res); return; }
+    const days = parseInt(req.query.days as string) || 30;
+    const stats = await habitsModel.getHabitStats(userId, days);
+    res.json({ success: true, data: stats });
+  } catch (error) { next(error); }
+};

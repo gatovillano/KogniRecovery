@@ -354,8 +354,19 @@ export const useAuth = () => {
    * Actualiza los datos del usuario en el estado
    */
   const updateUser = useCallback(
-    (user: User): void => {
+    async (user: User): Promise<void> => {
+      // Actualizar el store de Zustand
       store.setUser(user);
+
+      // Sincronizar con AsyncStorage si hay una sesión activa
+      try {
+        const rememberMe = await AsyncStorage.getItem(AUTH_STORAGE_KEYS.REMEMBER_ME);
+        if (rememberMe === 'true') {
+          await AsyncStorage.setItem(AUTH_STORAGE_KEYS.USER_DATA, JSON.stringify(user));
+        }
+      } catch (error) {
+        console.warn('Error sincronizando actualización de usuario con storage:', error);
+      }
     },
     [store]
   );
