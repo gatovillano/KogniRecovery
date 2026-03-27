@@ -1,0 +1,1103 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article xml:lang="en" article-type="research-article" dtd-version="1.4">
+```
+`<processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">`{=html}`<restricted-by>`{=html}pmc`</restricted-by>`{=html}`</processing-meta>`{=html}`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}Curr
+Opin
+Psychiatry`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}Curr
+Opin
+Psychiatry`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}319`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}nihpa`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}Current
+opinion in
+psychiatry`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="ppub">`{=html}0951-7367`</issn>`{=html}`<issn pub-type="epub">`{=html}1473-6578`</issn>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-is-collection-domain`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-collection-title`</meta-name>`{=html}`<meta-value>`{=html}NIHPA
+Author
+Manuscripts`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC9260953`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC9260953.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}9260953`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}9260953`</article-id>`{=html}`<article-id pub-id-type="manuscript-id">`{=html}NIHMS1810763`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}35781465`</article-id>`{=html}`<article-id pub-id-type="doi">`{=html}10.1097/YCO.0000000000000801`</article-id>`{=html}`<article-id pub-id-type="manuscript-id-alternative">`{=html}NIHMS1810763`</article-id>`{=html}`<article-id pub-id-type="manuscript-id-alternative">`{=html}NIHPA1810763`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group subj-group-type="heading">`{=html}`<subject>`{=html}Article`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}Digital
+Approaches to Continuing
+Care`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names initials="JR">`{=html}James
+R.`</given-names>`{=html}`</name>`{=html}`</contrib>`{=html}`<aff id="A1">`{=html}University
+of
+Pennsylvania`</aff>`{=html}`</contrib-group>`{=html}`<author-notes>`{=html}`<corresp id="CR1">`{=html}Correspondence
+to: James R. McKay, Ph.D., University of Pennsylvania, 3535 Market St.,
+Suite 500, Philadelphia, PA. 19104, Tel: +1 215 746 7704,
+`<email>`{=html}james.mckay@pennmedicine.upenn.edu`</email>`{=html}`</corresp>`{=html}`</author-notes>`{=html}`<pub-date pub-type="ppub">`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}7`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}35`</volume>`{=html}`<issue>`{=html}4`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}411913`</issue-id>`{=html}`<fpage>`{=html}259`</fpage>`{=html}`<lpage>`{=html}264`</lpage>`{=html}`<pub-history>`{=html}`<event event-type="nihms-submitted">`{=html}`<date>`{=html}`<day>`{=html}26`</day>`{=html}`<month>`{=html}05`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}07`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}07`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-released-under-embargo">`{=html}`<date>`{=html}`<day>`{=html}08`</day>`{=html}`<month>`{=html}07`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2024-06-13 14:25:16.320">`{=html}`<day>`{=html}13`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2024`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<license>`{=html}`<license-p>`{=html}This
+file is available for text mining. It may also be used consistent with
+the principles of fair use under the copyright
+law.`</license-p>`{=html}`</license>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="nihms-1810763.pdf"/>`{=html}`<abstract id="ABS1">`{=html}`<sec id="S1">`{=html}
+```{=html}
+<title>
+```
+Purpose of review
+```{=html}
+</title>
+```
+```{=html}
+<p id="P1">
+```
+To provide an update of studies on the effectiveness of digital and
+telephonic approaches to providing remote continuing care for substance
+use disorders.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S2">`{=html}
+```{=html}
+<title>
+```
+Recent findings
+```{=html}
+</title>
+```
+```{=html}
+<p id="P2">
+```
+Effective continuing care can be provided via smartphone apps, text
+messaging, interactive voice response, and structured telephone
+counseling. The remote continuing care interventions with the strongest
+evidence of efficacy are the Addiction Comprehensive Health Enhancement
+Support System (ACHESS) app and Telephone Monitoring and Counseling
+(TMC). Positive effects for these intervention on drinking outcomes in
+patients with alcohol use disorders were replicated in a recent
+randomized controlled study.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S3">`{=html}
+```{=html}
+<title>
+```
+Summary
+```{=html}
+</title>
+```
+```{=html}
+<p id="P3">
+```
+Continuing care is widely believed to be an important component of
+treatment for substance use disorders, especially for sustaining
+positive outcomes. However, many individuals do not attend clinic-based
+continuing care, due to a variety of reasons including competing work
+and family responsibilities, disabilities, transportation challenges,
+and recently the COVID 19 pandemic. Remote continuing care, provided via
+smartphone apps, text messaging, and various telephonic approaches, has
+been shown to be effective, and could be used to provide continuing care
+to patients who would otherwise not receive it. Further work is needed
+to determine how to effectively combine more traditional continuing care
+with newer digitized and telephonic approaches.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</abstract>`{=html}`<kwd-group>`{=html}`<kwd>`{=html}substance
+use disorder`</kwd>`{=html}`<kwd>`{=html}continuing
+care`</kwd>`{=html}`<kwd>`{=html}digital
+interventions`</kwd>`{=html}`<kwd>`{=html}remote
+interventions`</kwd>`{=html}`<kwd>`{=html}outcomes`</kwd>`{=html}`</kwd-group>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-manuscript`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`</front>`{=html}
+```{=html}
+<body>
+```
+`<sec id="S4">`{=html}
+```{=html}
+<title>
+```
+Introduction
+```{=html}
+</title>
+```
+```{=html}
+<p id="P4">
+```
+Because rates of relapse following treatment are high for individuals
+with substance use disorders, most patients are referred to continuing
+care to support sustained recovery. Randomized studies have found that
+patients provided with continuing care have better substance use
+outcomes than those who are not given continuing care, although the
+magnitude of these positive effects was relatively small
+\[`<xref rid="R1" ref-type="bibr">`{=html}1`</xref>`{=html}\]. There is
+also some suggestion that continuing care interventions provided for
+longer periods of time and those that involve more active outreach to
+patients may be more effective
+\[`<xref rid="R2" ref-type="bibr">`{=html}2`</xref>`{=html}\]. However,
+it can be difficult to retain patients in traditional clinic-based
+continuing care, as many need to return to work or family
+responsibilities following a more intensive episode of treatment.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P5">
+```
+Digital interventions that do not require clinic attendance and can be
+provided remotely may be particularly helpful to patients who want
+continuing care but cannot attend sessions at a clinic or office. The
+technology could also be used in conjunction with other behavioral
+interventions to provide automated support in between therapy sessions
+and to convey information on a patient's status back to the therapist.
+This article reviews evidence for the effectiveness of continuing care
+interventions delivered remotely via smartphone apps, texting,
+interactive voice response (IVR), and structured telephone counseling.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S5">`{=html}
+```{=html}
+<title>
+```
+Smartphone Apps
+```{=html}
+</title>
+```
+```{=html}
+<p id="P6">
+```
+There is one smartphone app that was developed specifically for the
+continuing care phase of treatment, the Addiction Comprehensive Health
+Enhancement Support System (ACHESS)
+\[`<xref rid="R3" ref-type="bibr">`{=html}3`</xref>`{=html}\]. It should
+be noted that ACHESS does not provide a digitized version of an
+evidence-based substance use disorder treatment, such as
+cognitive-behavioral therapy (CBT), through the presentation of
+sequential modules. Rather, ACHESS has a menu of functions that can be
+accessed in any order at any time, including links to social supports,
+information on handling stressful situations, aids for relaxation,
+self-monitoring, and GPS-linked tools (see
+`<xref rid="T1" ref-type="table">`{=html}Table 1`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P7">
+```
+In the first large, controlled trial of ACHESS, patients with moderate
+to severe alcohol use disorder (N=349) who had completed residential
+treatment were randomized to receive ACHESS and a smartphone with a data
+plan for 8 months or to a control condition, which consisted of referral
+to whatever continuing care was available to the patients in their
+communities
+\[`<xref rid="R3" ref-type="bibr">`{=html}3`</xref>`{=html}\].
+Continuing care services obtained by participants in the control
+condition were not assessed. Although frequency of reported alcohol use
+was low in both conditions, patients receiving ACHESS reported 49% fewer
+risky drinking days in the prior 30 days at 4, 8, and 12 month
+follow-ups, compared to those in standard care. Rates of alcohol
+abstinence within the prior 30 days were higher in ACHESS than in
+standard care at the 8 (78% vs. 67%) and 12 (79% vs. 66%) month
+follow-ups
+\[`<xref rid="R3" ref-type="bibr">`{=html}3`</xref>`{=html}\]. A
+secondary analysis from this study found that ACHESS increased rates of
+participation in outpatient addiction treatment during follow-up
+relative to standard care, which partially mediated or accounted for the
+positive effect of ACHESS on number of risky drinking days
+\[`<xref rid="R4" ref-type="bibr">`{=html}4`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p id="P8">
+```
+A second controlled trial focused on patients with moderate to severe
+alcohol use disorder attending intensive outpatient programs (IOP).
+Patients randomized to receive ACHESS and a smartphone with a data plan
+for 12 months in addition to standard care (N=68) had fewer heavy
+drinking days during that 12-month period than those receiving IOP and
+standard continuing care without ACHESS (N=65) (6.80% days vs. 10.29%
+days, d= .31, p= .031).
+\[`<xref rid="R5" ref-type="bibr">`{=html}5`</xref>`{=html}\]. In this
+study, standard continuing care consisted of weekly outpatient group
+counseling at the clinic. However, the positive effects of ACHESS did
+not persist at an 18- month follow-up, and the intervention did not
+reduce other drug use.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P9">
+```
+There is some evidence that patients continue to use ACHESS over long
+periods. For example, participants logged on to ACHESS on an average of
+20 days per month in the first two months and about 14 days per month in
+months 3--12 in the second trial described above
+\[`<xref rid="R5" ref-type="bibr">`{=html}5`</xref>`{=html}\]. In a
+third study that examined the implementation of a version of ACHESS for
+primary care ("Seva") in three federally qualified health centers,
+50--60% of patients given Seva and a smartphone with a data plan were
+still using the app at least weekly at the end of the 12-month trial
+\[`<xref rid="R6" ref-type="bibr">`{=html}6`</xref>`{=html}\]. However,
+these measures of daily or weekly use do not provide information on
+length of time spent on the app or on functions that were accessed and
+used.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P10">
+```
+Several other apps for substance use disorder treatment have been
+developed and have generated evidence of efficacy, including Dynamicare,
+ReSET, Computer Based Training for Cognitive Behavioral Therapy
+(CBT4CBT), and Step Away. However, none of these apps was specifically
+designed as a continuing care intervention, and none has been evaluated
+as such. However, it is quite possible that these apps could provide
+effective continuing care, as they address issues related to relapse
+prevention, such as identifying risky situations, improving coping
+behaviors, and increasing involvement in pro-recovery activities.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P11">
+```
+A web-based relapse prevention intervention was tested in patients who
+met DSM IV or V criteria for a substance use disorder who were recruited
+from psychiatric hospitals in Japan. The most common primary drug of
+choice was methamphetamine (50% of the sample). The intervention, the
+e-learning Serigaya Methamphetamine Relapse Prevention Program
+(e-SMARPP) \[`<xref rid="R7" ref-type="bibr">`{=html}7`</xref>`{=html}\]
+was based on the Matrix Model
+\[`<xref rid="R8" ref-type="bibr">`{=html}8`</xref>`{=html}\] and
+consisted of six sessions delivered via five modules that focused on
+self-monitoring and relapse prevention and included videos and homework.
+This intervention was compared to a web-based intervention that included
+self-monitoring but not relapse prevention. The e-SMARPP condition did
+not differ from the control condition on the primary outcome, longest
+period of days abstinent from the primary drug
+\[`<xref rid="R7" ref-type="bibr">`{=html}7`</xref>`{=html}\].
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S6">`{=html}
+```{=html}
+<title>
+```
+Text Messaging Interventions
+```{=html}
+</title>
+```
+```{=html}
+<p id="P12">
+```
+Effective remote continuing care can also be provided by texting
+interventions. The "Educating and Supporting inQuisitive Youth in
+Recovery" (ESQYIR) is a 12-week continuing care texting intervention for
+adolescents with substance use disorders
+\[`<xref rid="R8" ref-type="bibr">`{=html}8`</xref>`{=html}\]. The
+intervention consists of twice daily disease management text messages,
+which include monitoring, feedback, reminders, education, and support.
+In a study of 80 adolescents who had completed an initial phase of
+treatment, those randomized to ESQYIR were less likely to have relapsed
+to use of their primary substance, as indicated by either urine drug
+screen or self-report, than those randomized to standard care at the
+6-month (28.6% vs. 54.1%; OR= 0.72, p= .02) and 9-month (14.7%
+vs. 42.9%; OR= 0.74, p= .01) follow-ups. They also reported
+significantly higher self-efficacy (OR= 1.36, p= .03) and were more
+likely to participate in recovery-oriented activities (6 months: 15
+vs. 11 days; 9 months: 18 vs. 13 days; p\< .001)
+\[`<xref rid="R9" ref-type="bibr">`{=html}9`</xref>`{=html}\].
+Subsequent mediation analyses shed light on what accounted for the
+positive effect of ESQYIR on substance use outcomes. The mobile
+aftercare intervention promoted increased engagement in
+recovery-oriented behaviors such as participation in extracurricular
+activities, which mediated the positive effect of the intervention on
+substance use outcomes
+\[`<xref rid="R10" ref-type="bibr">`{=html}10`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p id="P13">
+```
+A text messaging continuing care intervention that consisted of
+monitoring of self-selected drinking goals, motivational text messages,
+and telephone calls when participants failed to achieve goals or asked
+for support was evaluated in a randomized study in Switzerland with
+patients who had entered outpatient treatment for alcohol use problems
+\[`<xref rid="R11" ref-type="bibr">`{=html}11`</xref>`{=html}\]. The
+participants in the SMS condition responded to 88% of the SMS prompts,
+and 44% sent at least one request for help. However, the intervention
+was not superior to the standard continuing care comparison condition on
+the primary outcome, percentage of participants who had any at risk
+drinking during follow-up
+\[`<xref rid="R11" ref-type="bibr">`{=html}11`</xref>`{=html}\].
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S7">`{=html}
+```{=html}
+<title>
+```
+Interactive Voice Response
+```{=html}
+</title>
+```
+```{=html}
+<p id="P14">
+```
+Rose and colleagues developed an automated telephone continuing care
+intervention that is delivered via Interactive Voice Response (IVR)
+\[`<xref rid="R12" ref-type="bibr">`{=html}12`</xref>`{=html}\].
+Participants call into the system once per day and report on several
+factors, including substance use, mood states, craving, self-efficacy,
+risk situations, sobriety support, substance free recreation, and
+coping. If a participant is categorized as "at risk" by this assessment,
+tailored automated feedback is provided. Other features include
+encouragement to use CBT skills learned in the initial phase of
+treatment, review of coping skills, and coping skills practice. Each
+month, participants also receive a personalized voice message from their
+therapist, which includes comments on progress and suggestions.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P15">
+```
+The system was evaluated in a study in which individuals with alcohol
+use disorder who completed 12 weeks of outpatient CBT were randomized to
+four months of the IVR system or usual care and followed for four
+months. Any services that were provided in the usual care condition were
+not described. Most of primary analyses indicated no differences in
+drinking outcomes between the two conditions. However, a significant
+group × time interaction (p= .04) on drinking days per week during the
+4-month treatment period favored the IVR condition. In addition, in
+participants who were abstinent at the end of the 12-week initial CBT
+intervention, outcomes on any drinking at the 2- and 4-month follow-ups
+and any heavy drinking at the 4-month follow-up favored IVR over usual
+care \[`<xref rid="R12" ref-type="bibr">`{=html}12`</xref>`{=html}\].
+However, there were no treatment effects at the 12-month follow-up.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S8">`{=html}
+```{=html}
+<title>
+```
+Telephone Continuing Care
+```{=html}
+</title>
+```
+```{=html}
+<p id="P16">
+```
+McKay and colleagues developed Telephone Monitoring and Counseling
+(TMC), a structured continuing care intervention that can be delivered
+over the telephone or through a combination of telephone and clinic
+visits \[`<xref rid="R13" ref-type="bibr">`{=html}13`</xref>`{=html}\].
+TMC combines measurement-based care with CBT components, such as
+identification of high-risk situations and strengthening of coping
+responses, which are delivered in 15--30 minute individual sessions.
+Information on concerning changes in risk and protective factors
+gathered in a brief assessment at the start of each session is used to
+select the focus or target of the remainder of the session. Versions of
+TMC ranging from 12 weeks up to 24 months have been evaluated in
+controlled trials. Prior research has found that when provided to
+patients with alcohol use disorder who had completed 4--6 weeks of an
+intensive outpatient program (IOP), TMC improved alcohol use outcomes
+relative to IOP only
+\[`<xref rid="R14" ref-type="bibr">`{=html}14`</xref>`{=html},`<xref rid="R15" ref-type="bibr">`{=html}15`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p id="P17">
+```
+Results with patients who have cocaine use disorder have been more
+mixed. One study found that TMC produced lower rates of cocaine positive
+urines over 24 months than standard care and CBT comparison conditions
+\[`<xref rid="R14" ref-type="bibr">`{=html}14`</xref>`{=html}\], while
+another study found positive effects for TMC on drug use outcomes only
+in patients who continued to use cocaine or alcohol early in IOP
+\[`<xref rid="R16" ref-type="bibr">`{=html}16`</xref>`{=html}\].
+Wimberly et
+al. \[`<xref rid="R17" ref-type="bibr">`{=html}17`</xref>`{=html}\]
+found that patients with cocaine use disorder randomized to TMC had
+fewer criminal convictions over a 4-year follow-up period than patients
+randomized to standard care. Conversely, a fourth study found that a
+more intensive version of TMC that was initiated at the start of IOP
+produced worse cocaine urine toxicology outcomes than IOP only
+\[`<xref rid="R18" ref-type="bibr">`{=html}18`</xref>`{=html}\]. Other
+findings have shown that TMC tends to produce larger effects for poorer
+prognosis patients and for women
+\[`<xref rid="R19" ref-type="bibr">`{=html}19`</xref>`{=html},`<xref rid="R20" ref-type="bibr">`{=html}20`</xref>`{=html}\],
+and that is cost-effective and cost-beneficial
+\[`<xref rid="R21" ref-type="bibr">`{=html}21`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p id="P18">
+```
+A 12-week version of TMC was evaluated in two recent studies conducted
+by Timko and colleagues. One study randomized 406 patients receiving
+inpatient care for co-occurring substance use disorders and mental
+health disorders to usual care or usual care plus 12 weeks of TMC
+\[`<xref rid="R22" ref-type="bibr">`{=html}22`</xref>`{=html}\].
+Outcomes were measures of substance use, psychological problems,
+outpatient substance use treatment, and 12-step group involvement over a
+15-month follow-up. Both TMC and usual care conditions improved over the
+follow-up, but there were no significant differences between the
+conditions. In the second study
+\[`<xref rid="R23" ref-type="bibr">`{=html}23`</xref>`{=html}\], 298
+patients undergoing inpatient detoxification were randomized to usual
+care or usual care plus 12 weeks of TMC. The primary outcomes were rates
+of readmission to inpatient detoxification at 3 and 6 months. Results
+indicated that TMC produced a lower rate of readmission than usual care
+at 3 months (24.3% vs. 38.6%, p= .014), but not at 6 months (26.0%
+vs. 33.3%, p= .20).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P19">
+```
+A recent study evaluated the impact of adding TMC, ACHESS, and a package
+that integrated both TMC and ACHESS to IOP for alcohol use disorder
+\[`<xref rid="R5" ref-type="bibr">`{=html}5`</xref>`{=html}\]. All
+patients received IOP with any continuing care counseling groups they
+chose to attend at the clinics, and were randomized to also receive TMC,
+ACHESS, TMC+ACHESS, or no additional continuing care. The primary
+outcome in this study was percentage of heavy drinking days (PDHD; days
+with ≥ 4 and ≥ 5 drinks per day for women and men, respectively) during
+the 12 months in which the interventions were provided. The validity of
+self-reports of PDHD were supported by a biological measure of recent
+heavy alcohol use, %dCDT. Secondary outcomes were measures of any
+drinking, any drug use, negative consequences of drinking, and quality
+of life. The results pertaining to ACHESS are described above.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P20">
+```
+In analyses of the impact of adding TMC and TMC+ACHESS to IOP, mean PDHD
+in months 1--12 was 5.41 in TMC, 5.99 in TMC+ACHESS, and 10.29 in IOP
+with standard continuing care only. PDHD was lower in TMC (d=.35,
+p=0.018) and TMC+ACHESS (d= .36, p=0.009) than in IOP with standard
+continuing care only. Differences in PDHD between TMC+ACHESS, TMC, and
+ACHESS were small (d≤ .06) and non-significant. A significant effect was
+also obtained on Any Drinking, which was higher in months 1--12 in IOP
+with standard continuing care only than in TMC (odds ratio (OR)= 3.02,
+p=0.01) and TMC+ACHESS (OR= 2.43, p=0.03). There were no treatment group
+differences on the other secondary measures during months 1--12, and no
+differences on primary or secondary outcomes at 18 months
+\[`<xref rid="R5" ref-type="bibr">`{=html}5`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p id="P21">
+```
+Therefore, the results of this study replicate prior studies that found
+TMC and ACHESS to be efficacious continuing care interventions for
+patients with alcohol use disorders
+\[`<xref rid="R3" ref-type="bibr">`{=html}3`</xref>`{=html},
+`<xref rid="R14" ref-type="bibr">`{=html}14`</xref>`{=html},`<xref rid="R15" ref-type="bibr">`{=html}15`</xref>`{=html}\].
+However, there were two notable additional findings in this new study.
+First, contrary to study hypotheses, the combination of the two
+interventions (i.e., TMC+ACHESS) did not achieve better substance use
+outcomes than either intervention alone. During the 12-month treatment
+phase, outcomes in TMC, ACHESS, and TMC+ACHES were very similar.
+Therefore, it appears that the expected additive or synergistic effects
+of combining the two interventions did not materialize. Second, none of
+the interventions was significantly better than IOP with standard
+continuing care at 18 months, which was six months after the mobile
+interventions had ended. Because the positive effects from continuing
+care provided remotely via smartphone apps or telephone may deteriorate
+after the interventions have ended, it may be necessary to extend these
+interventions to better support long-term recovery. Finally, it is
+possible that TMC may be more effective if it is delivered with a video
+component, as in telemedicine, rather than in an audio-only format.
+However, this has not been tested in a controlled study.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P22">
+```
+Participation in telephone continuing care has varied considerably
+across studies. In studies of ETM, the percentage of possible sessions
+completed ranged from 25%
+\[`<xref rid="R15" ref-type="bibr">`{=html}15`</xref>`{=html}\] to 56%
+\[`<xref rid="R5" ref-type="bibr">`{=html}5`</xref>`{=html}\]. In one
+study providing \$10 incentives for each completed TMC session raised
+the participation rate from 38% to 67% of possible sessions
+\[`<xref rid="R16" ref-type="bibr">`{=html}16`</xref>`{=html}\].
+However, the increased rate of participation did not improve drug use
+outcomes
+\[`<xref rid="R16" ref-type="bibr">`{=html}16`</xref>`{=html}\].
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S9">`{=html}
+```{=html}
+<title>
+```
+Conclusions
+```{=html}
+</title>
+```
+```{=html}
+<p id="P23">
+```
+There is clear evidence that effective continuing care for substance use
+disorders can be provided remotely through several modalities, including
+automated smartphone apps, text messaging, IVR, and structured telephone
+counseling. Studies of mediation effects suggest that these
+interventions tend to work by increasing use of addiction treatment
+\[`<xref rid="R4" ref-type="bibr">`{=html}4`</xref>`{=html}\],
+engagement in recovery-oriented activities
+\[`<xref rid="R10" ref-type="bibr">`{=html}10`</xref>`{=html}\], and
+participation in 12-step programs
+\[`<xref rid="R24" ref-type="bibr">`{=html}24`</xref>`{=html}\] during
+follow-up periods. At this point, evidence for the effectiveness of
+these interventions is stronger for patients with alcohol use disorder
+than for other drug use disorders. However, this at least in part
+reflects that fact that most studies of digital and remote continuing
+care have focused to a greater degree on alcohol use disorder. As more
+research is conducted, the evidence base for drug use disorders may
+grow. In particular, there is a need for studies of digital continuing
+care in the context of medication treatment for opioid use disorder.
+Furthermore, most studies of smartphone apps for addiction have looked
+at effects early in treatment, rather than during the continuing care
+phase. At least some of these apps are likely to also be effective when
+delivered as continuing care, although this needs to be confirmed by
+further research.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P24">
+```
+Despite the initial promise of digitized mobile health interventions,
+significant challenges remain in the provision of continuing care via
+mobile health apps and SMS
+\[`<xref rid="R25" ref-type="bibr">`{=html}25`</xref>`{=html}\]. Users
+must have access to a smartphone and data plan, or to a telephone with
+SMS capabilities for texting-based interventions. In order to fully
+realize the potential of this technology to provide just-in-time
+interventions during periods of high relapse risk, users of digitized
+continuing care must be willing to carry the devices with them and
+engage their functions when needed. Rates of app use are often low and
+tend to decrease relatively rapidly. Therefore, to maximize the efficacy
+of digitized continuing care, further work is needed to increase
+sustained use of apps and other interventions. Finally, additional
+research is needed to better understand how to integrate therapist
+delivered counseling and digital recovery aids to maximize the impact of
+these interventions.
+```{=html}
+</p>
+```
+`</sec>`{=html}
+```{=html}
+</body>
+```
+`<back>`{=html}`<ack id="S10">`{=html}
+```{=html}
+<title>
+```
+Financial Support and Sponsorship
+```{=html}
+</title>
+```
+```{=html}
+<p id="P25">
+```
+Preparation of this article was supported by National Institute on Drug
+Abuse (NIDA) award 2K24 DA029062, to James R. McKay.
+```{=html}
+</p>
+```
+`</ack>`{=html}`<fn-group>`{=html}`<fn fn-type="COI-statement" id="FN1">`{=html}
+```{=html}
+<p id="P26">
+```
+Conflicts of Interest
+```{=html}
+</p>
+```
+```{=html}
+<p id="P27">
+```
+James R. McKay one of the principal developers of Telephone Monitoring
+and Counseling (TMC). However, the intervention is in the public domain
+and he does not derive any direct financial benefit from it.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</fn-group>`{=html}`<ref-list>`{=html}
+```{=html}
+<title>
+```
+References
+```{=html}
+</title>
+```
+`<ref id="R1">`{=html}`<label>`{=html}1.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Blodgett`</surname>`{=html}`<given-names>`{=html}JC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Maisel`</surname>`{=html}`<given-names>`{=html}NC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Fuh`</surname>`{=html}`<given-names>`{=html}IL`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}How effective is continuing
+care for substance use disorders? A meta-analytic
+review`</article-title>`{=html}. `<source>`{=html}Journal of Substance
+Abuse Treatment`</source>`{=html} `<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}46`</volume>`{=html}:`<fpage>`{=html}87`</fpage>`{=html}--`<lpage>`{=html}97`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24075796`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2013.08.022`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3840113`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R2">`{=html}`<label>`{=html}2.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}.
+`<article-title>`{=html}Continuing care research: What we've learned and
+where we're going`</article-title>`{=html}. `<source>`{=html}Journal of
+Substance Abuse Treatment`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}36`</volume>`{=html}:`<fpage>`{=html}131`</fpage>`{=html}--`<lpage>`{=html}145`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}19161894`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2008.10.004`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2670779`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R3">`{=html}`<label>`{=html}3.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gustafson`</surname>`{=html}`<given-names>`{=html}DH`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McTavish`</surname>`{=html}`<given-names>`{=html}FM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Chih`</surname>`{=html}`<given-names>`{=html}M-Y`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}A smartphone application to
+support recovery from alcoholism: A randomized controlled
+trial`</article-title>`{=html}. `<source>`{=html}JAMA
+Psychiatry`</source>`{=html} `<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}71`</volume>`{=html}:`<fpage>`{=html}566`</fpage>`{=html}--`<lpage>`{=html}572`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24671165`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jamapsychiatry.2013.4642`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4016167`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R4">`{=html}`<label>`{=html}4.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Glass`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gustafson`</surname>`{=html}`<given-names>`{=html}DH`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}Treatment seeking as a
+mechanism of change in a randomized controlled trial of a mobile health
+intervention to support recovery from alcohol use
+disorders`</article-title>`{=html}. `<source>`{=html}Journal of
+Substance Abuse Treatment`</source>`{=html}
+`<year>`{=html}2017`</year>`{=html};
+`<volume>`{=html}77`</volume>`{=html}:`<fpage>`{=html}57`</fpage>`{=html}--`<lpage>`{=html}66`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}28476273`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2017.03.011`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5880274`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R5">`{=html}`<label>`{=html}5.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gustafson`</surname>`{=html}`<given-names>`{=html}DH`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ivey`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}Efficacy and comparative
+effectiveness of telephone and smartphone remote continuing care
+interventions for alcohol use disorder: A randomized controlled
+trial`</article-title>`{=html}.
+`<source>`{=html}Addiction`</source>`{=html}
+`<year>`{=html}2021`</year>`{=html}; `<comment>`{=html}e-publication
+ahead of print.`</comment>`{=html} DOI:
+`<pub-id pub-id-type="doi">`{=html}10.1111/add.15771`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC10600977`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}34859519`</pub-id>`{=html}`</mixed-citation>`{=html}
+```{=html}
+<note>
+```
+```{=html}
+<p id="P29">
+```
+\*\*This was the first study to compare three remotely delivered
+continuing care interventions (e.g., TMC, ACHESS, and TMC+ACHESS)
+provided in addition to intensive outpatient programs (IOP) for alcohol
+use disorder to each other and to IOP only. The importance of being able
+to provide effective continuing care remotely has been made clear by the
+COVID 19 pandemic. Results indicated that all three interventions
+produced lower PDHD than IOP only during the 12 months in which they
+were provided.
+```{=html}
+</p>
+```
+```{=html}
+</note>
+```
+`</ref>`{=html}`<ref id="R6">`{=html}`<label>`{=html}6.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Quanbeck`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gustafson`</surname>`{=html}`<given-names>`{=html}DH`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Marsch`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}Implementing a mobile health
+system to integrate the treatment of addiction into primary care: A
+hybrid implementation-effectiveness study`</article-title>`{=html}.
+`<source>`{=html}Journal of Medical Internet Research`</source>`{=html}
+`<year>`{=html}2018`</year>`{=html};
+`<volume>`{=html}20`</volume>`{=html}:`<fpage>`{=html}e37`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}29382624`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.2196/jmir.8928`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5811649`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R7">`{=html}`<label>`{=html}7.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Takano`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Miyamoto`</surname>`{=html}`<given-names>`{=html}Y`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Shinozaki`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+`<etal/>`{=html} `<article-title>`{=html}Effect of a web-based relapse
+prevention program on abstinence among Japanese drug users: A pilot
+randomized controlled trial`</article-title>`{=html}.
+`<source>`{=html}Journal of Substance Abuse Treatment`</source>`{=html}
+`<year>`{=html}2020`</year>`{=html};
+`<volume>`{=html}111`</volume>`{=html}:`<fpage>`{=html}37`</fpage>`{=html}--`<lpage>`{=html}46`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}32087837`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2019.12.001`</pub-id>`{=html}`</mixed-citation>`{=html}
+```{=html}
+<note>
+```
+```{=html}
+<p id="P31">
+```
+-   This study was the first to evaluate the web-based Serigaya
+    Methamphetamine Relapse Prevention Program (e-SMARPP) in comparison
+    to another web-based intervention that included self-monitoring but
+    not relapse prevention.
+    ```{=html}
+    </p>
+    ```
+    ```{=html}
+    </note>
+    ```
+    `</ref>`{=html}`<ref id="R8">`{=html}`<label>`{=html}8.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rawson`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Shoptaw`</surname>`{=html}`<given-names>`{=html}SJ`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Obert`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}An intensive outpatient
+    approach for cocaine abuse treatment: The Matrix
+    Model`</article-title>`{=html}. `<source>`{=html}Journal of
+    Substance Abuse Treatment`</source>`{=html}
+    `<year>`{=html}1995`</year>`{=html};
+    `<volume>`{=html}12`</volume>`{=html}:`<fpage>`{=html}117`</fpage>`{=html}--`<lpage>`{=html}127`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}7623389`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/0740-5472(94)00080-b`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R9">`{=html}`<label>`{=html}9.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gonzales`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Hernandez`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Murphy`</surname>`{=html}`<given-names>`{=html}DA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Ang`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}.
+    `<article-title>`{=html}Youth recovery outcomes at 6 and 9 months
+    following participation in a mobile texting recovery support
+    aftercare pilot study`</article-title>`{=html}.
+    `<source>`{=html}American Journal of Addictions`</source>`{=html}
+    `<year>`{=html}2016`</year>`{=html};
+    `<volume>`{=html}25`</volume>`{=html}:`<fpage>`{=html}62`</fpage>`{=html}--`<lpage>`{=html}68`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/ajad.12322`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4966532`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}26689171`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R10">`{=html}`<label>`{=html}10.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gonzales-Castaneda`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Steinberg`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Testing mediational
+    processes of substance use relapse among youth who participated in a
+    mobile texting aftercare project`</article-title>`{=html}.
+    `<source>`{=html}Substance Abuse`</source>`{=html}
+    `<year>`{=html}2022`</year>`{=html};
+    `<volume>`{=html}43`</volume>`{=html}:`<fpage>`{=html}1`</fpage>`{=html}--`<lpage>`{=html}12`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}31638878`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/08897077.2019.1671941`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7174140`</pub-id>`{=html}`</mixed-citation>`{=html}
+    ```{=html}
+    <note>
+    ```
+    ```{=html}
+    <p id="P33">
+    ```
+    \*This was the first study to identify a therapeutic mechanism of
+    action in an efficacious texting continuing care intervention for
+    adolescents. The results indicated that the positive effect of the
+    intervention was partially accounted for by increases in
+    recovery-oriented behavior produced by the intervention.
+    ```{=html}
+    </p>
+    ```
+    ```{=html}
+    </note>
+    ```
+    `</ref>`{=html}`<ref id="R11">`{=html}`<label>`{=html}11.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Huag`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Lucht`</surname>`{=html}`<given-names>`{=html}MJ`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}John`</surname>`{=html}`<given-names>`{=html}U`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}A pilot study on the
+    feasibility and acceptability of a text message-based aftercare
+    treatment programme among alcohol
+    outpatients`</article-title>`{=html}. `<source>`{=html}Alcohol and
+    Alcoholism`</source>`{=html} `<year>`{=html}2015`</year>`{=html};
+    `<volume>`{=html}50`</volume>`{=html}:`<fpage>`{=html}188`</fpage>`{=html}--`<lpage>`{=html}194`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}25600249`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1093/alcalc/agu107`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R12">`{=html}`<label>`{=html}12.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rose`</surname>`{=html}`<given-names>`{=html}GL`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Skelly JM
+    Badger`</surname>`{=html}`<given-names>`{=html}GJ`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Efficacy of automated
+    telephone continuing care following outpatient therapy for alcohol
+    dependence`</article-title>`{=html}. `<source>`{=html}Addictive
+    Behaviors`</source>`{=html} `<year>`{=html}2015`</year>`{=html};
+    `<volume>`{=html}41`</volume>`{=html}:`<fpage>`{=html}223`</fpage>`{=html}--`<lpage>`{=html}231`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}25452069`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.addbeh.2014.10.022`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4314347`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R13">`{=html}`<label>`{=html}13.`</label>`{=html}`<mixed-citation publication-type="book">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Morrison`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}.
+    `<source>`{=html}Telephone continuing care for
+    adults`</source>`{=html}. `<publisher-loc>`{=html}Center City
+    MN`</publisher-loc>`{=html}: `<publisher-name>`{=html}Hazelden
+    Foundation Press`</publisher-name>`{=html},
+    `<year>`{=html}2010`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R14">`{=html}`<label>`{=html}14.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Lynch`</surname>`{=html}`<given-names>`{=html}KG`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Shepard`</surname>`{=html}`<given-names>`{=html}DS`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Pettinati`</surname>`{=html}`<given-names>`{=html}HM`</given-names>`{=html}`</name>`{=html}.
+    `<article-title>`{=html}The effectiveness of telephone based
+    continuing care for alcohol and cocaine dependence: 24-month
+    outcomes`</article-title>`{=html}. `<source>`{=html}Archives of
+    General Psychiatry`</source>`{=html}
+    `<year>`{=html}2005`</year>`{=html};
+    `<volume>`{=html}62`</volume>`{=html}:`<fpage>`{=html}199`</fpage>`{=html}--`<lpage>`{=html}207`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}15699297`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/archpsyc.62.2.199`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R15">`{=html}`<label>`{=html}15.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}DHA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Oslin`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}A randomized trial of
+    extended telephone-based continuing care for alcohol dependence:
+    Within treatment substance use outcomes`</article-title>`{=html}.
+    `<source>`{=html}Journal of Consulting and Clinical
+    Psychology`</source>`{=html} `<year>`{=html}2010`</year>`{=html};
+    `<volume>`{=html}78`</volume>`{=html}:`<fpage>`{=html}912`</fpage>`{=html}--`<lpage>`{=html}923`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20873894`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0020700`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3082847`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R16">`{=html}`<label>`{=html}16.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}DHA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Lynch`</surname>`{=html}`<given-names>`{=html}KG`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}An adaptive approach for
+    identifying cocaine dependent patients who benefit from extended
+    continuing care`</article-title>`{=html}. `<source>`{=html}Journal
+    of Consulting and Clinical Psychology`</source>`{=html}
+    `<year>`{=html}2013`</year>`{=html};
+    `<volume>`{=html}81`</volume>`{=html}:`<fpage>`{=html}1063`</fpage>`{=html}--`<lpage>`{=html}1073`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24041231`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0034265`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3938091`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R17">`{=html}`<label>`{=html}17.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Wimberly`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Hyatt`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}.
+    `<article-title>`{=html}Effect of continuing care for people with
+    cocaine dependence on criminal justice
+    sentences`</article-title>`{=html}. `<source>`{=html}Behavioral
+    Sciences & the Law`</source>`{=html}
+    `<year>`{=html}2018`</year>`{=html};
+    `<volume>`{=html}36`</volume>`{=html}:`<fpage>`{=html}116`</fpage>`{=html}--`<lpage>`{=html}129`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}29460440`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1002/bsl.2330`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6051697`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R18">`{=html}`<label>`{=html}18.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}DHA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Ivey`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Enhanced continuing care
+    provided in parallel to intensive outpatient treatment does not
+    improve outcomes for patients with cocaine
+    dependence`</article-title>`{=html}. `<source>`{=html}Journal of
+    Studies on Alcohol and Drugs`</source>`{=html}
+    `<year>`{=html}2013`</year>`{=html};
+    `<volume>`{=html}74`</volume>`{=html}:`<fpage>`{=html}642`</fpage>`{=html}--`<lpage>`{=html}651`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}23739030`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.15288/jsad.2013.74.642`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3711355`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R19">`{=html}`<label>`{=html}19.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}DHA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Oslin`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Extended telephone-based
+    continuing care for alcohol dependence: 24 month outcomes and
+    subgroup analyses`</article-title>`{=html}.
+    `<source>`{=html}Addiction`</source>`{=html}
+    `<year>`{=html}2011`</year>`{=html};
+    `<volume>`{=html}106`</volume>`{=html}:`<fpage>`{=html}1760`</fpage>`{=html}--`<lpage>`{=html}1769`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21545667`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/j.1360-0443.2011.03483.x`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3174323`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R20">`{=html}`<label>`{=html}20.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Van
+    Horn`</surname>`{=html}`<given-names>`{=html}DHA`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Lynch`</surname>`{=html}`<given-names>`{=html}KG`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Who benefits from extended
+    continuing care?`</article-title>`{=html} `<source>`{=html}Addictive
+    Behaviors`</source>`{=html} `<year>`{=html}2014`</year>`{=html};
+    `<volume>`{=html}39`</volume>`{=html}:`<fpage>`{=html}660`</fpage>`{=html}--`<lpage>`{=html}668`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24355401`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.addbeh.2013.11.019`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3925615`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R21">`{=html}`<label>`{=html}21.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McCollister`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Yang`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}.
+    `<article-title>`{=html}Cost-effectiveness analysis of a continuing
+    care intervention for cocaine-dependent
+    adults`</article-title>`{=html}. `<source>`{=html}Drug and Alcohol
+    Dependence`</source>`{=html} `<year>`{=html}2016`</year>`{=html};
+    `<volume>`{=html}158`</volume>`{=html}:`<fpage>`{=html}38`</fpage>`{=html}--`<lpage>`{=html}44`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}26621551`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.drugalcdep.2015.10.032`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4698077`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R22">`{=html}`<label>`{=html}22.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Timko`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Harris`</surname>`{=html}`<given-names>`{=html}AHS`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Jannausch`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Ilgen`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}.
+    `<article-title>`{=html}Randomized controlled trial of telephone
+    monitoring with psychiatry inpatients with co-occurring substance
+    use and mental health disorders`</article-title>`{=html}.
+    `<source>`{=html}Drug and Alcohol Dependence`</source>`{=html}
+    `<year>`{=html}2019`</year>`{=html};
+    `<volume>`{=html}194`</volume>`{=html}:`<fpage>`{=html}230`</fpage>`{=html}--`<lpage>`{=html}237`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}30466040`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.drugalcdep.2018.09.010`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6448768`</pub-id>`{=html}`</mixed-citation>`{=html}
+    ```{=html}
+    <note>
+    ```
+    ```{=html}
+    <p id="P35">
+    ```
+    \*The study was one of the first to examine the impact on substance
+    use and mental health outcomes of a brief (i.e., 12 week) version of
+    Telephone Monitoring and Counseling (TMC) with dual diagnosis
+    patients.
+    ```{=html}
+    </p>
+    ```
+    ```{=html}
+    </note>
+    ```
+    `</ref>`{=html}`<ref id="R23">`{=html}`<label>`{=html}23.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Timko`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Below`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+    `<name name-style="western">`{=html}`<surname>`{=html}Vittorio`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+    `<etal/>`{=html} `<article-title>`{=html}Randomized controlled trial
+    of enhanced telephone monitoring with detoxification patients: 3-
+    and 6-month outcomes`</article-title>`{=html}.
+    `<source>`{=html}Journal of Substance Abuse
+    Treatment`</source>`{=html} `<year>`{=html}2019`</year>`{=html};
+    `<volume>`{=html}99`</volume>`{=html}:`<fpage>`{=html}24`</fpage>`{=html}--`<lpage>`{=html}31`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}30797391`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2018.12.008`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6568005`</pub-id>`{=html}`</mixed-citation>`{=html}
+    ```{=html}
+    <note>
+    ```
+    ```{=html}
+    <p id="P37">
+    ```
+    -   The study was the first to examine the impact on readmission
+        rates of a brief (i.e., 12 week) version of Telephone Monitoring
+        and Counseling (TMC) with dual diagnosis patients.
+        ```{=html}
+        </p>
+        ```
+        ```{=html}
+        </note>
+        ```
+        `</ref>`{=html}`<ref id="R24">`{=html}`<label>`{=html}24.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mensinger`</surname>`{=html}`<given-names>`{=html}JL`</given-names>`{=html}`</name>`{=html},
+        `<name name-style="western">`{=html}`<surname>`{=html}Lynch`</surname>`{=html}`<given-names>`{=html}KG`</given-names>`{=html}`</name>`{=html},
+        `<name name-style="western">`{=html}`<surname>`{=html}TenHave`</surname>`{=html}`<given-names>`{=html}TR`</given-names>`{=html}`</name>`{=html},
+        `<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}.
+        `<article-title>`{=html}Mediators of telephone-based continuing
+        care for alcohol and cocaine
+        dependence`</article-title>`{=html}. `<source>`{=html}Journal of
+        Consulting and Clinical Psychology`</source>`{=html}
+        `<year>`{=html}2007`</year>`{=html};
+        `<volume>`{=html}75`</volume>`{=html}:`<fpage>`{=html}775`</fpage>`{=html}--`<lpage>`{=html}784`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}17907859`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/0022-006X.75.5.775`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2677065`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R25">`{=html}`<label>`{=html}25.`</label>`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Nesvag`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+        `<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}.
+        `<article-title>`{=html}Digital interventions to support people
+        in recovery from substance use disorders: A review of
+        feasibility and effects`</article-title>`{=html}.
+        `<source>`{=html}Journal of Medical Internet
+        Research`</source>`{=html} `<year>`{=html}2018`</year>`{=html};
+        `<volume>`{=html}20`</volume>`{=html},
+        `<fpage>`{=html}e255`</fpage>`{=html}. doi:
+        `<pub-id pub-id-type="doi">`{=html}10.2196/jmir.9873`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30139724`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6127498`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`</ref-list>`{=html}`</back>`{=html}`<floats-group>`{=html}`<table-wrap position="float" id="T1" orientation="portrait">`{=html}`<label>`{=html}Table
+        1`</label>`{=html}
+        ```{=html}
+        <caption>
+        ```
+        ```{=html}
+        <p id="P38">
+        ```
+        ACHESS Functions
+        ```{=html}
+        </p>
+        ```
+        ```{=html}
+        </caption>
+        ```
+        ```{=html}
+        <table frame="void" rules="none">
+        ```
+        ```{=html}
+        <colgroup span="1">
+        ```
+        ```{=html}
+        <col align="left" valign="middle" span="1"/>
+        ```
+        ```{=html}
+        </colgroup>
+        ```
+        ```{=html}
+        <tbody>
+        ```
+        ```{=html}
+        <tr>
+        ```
+        ```{=html}
+        <td align="left" valign="top" rowspan="1" colspan="1">
+        ```
+        `<list list-type="bullet" id="L1">`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P39">
+        ```
+        Chat room proving connections to other ACHESS users
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P40">
+        ```
+        Connections to social supports via telephone and the internet
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P41">
+        ```
+        Library of materials on how to handle risky situations and other
+        stressors
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P42">
+        ```
+        Relaxation aids, including links to music
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P43">
+        ```
+        Daily and weekly assessments to measure progress
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P44">
+        ```
+        Capability to send assessment results to patients and therapists
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P45">
+        ```
+        "Find the closest AA meeting" function
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P46">
+        ```
+        GPS-based function that is activated when patients are near
+        locations where they have used alcohol or drugs frequently
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`</list>`{=html}
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        </tr>
+        ```
+        ```{=html}
+        </tbody>
+        ```
+        ```{=html}
+        </table>
+        ```
+        `</table-wrap>`{=html}`<boxed-text id="BX1" position="float" orientation="portrait">`{=html}
+        ```{=html}
+        <caption>
+        ```
+        ```{=html}
+        <title>
+        ```
+        Key Points
+        ```{=html}
+        </title>
+        ```
+        ```{=html}
+        </caption>
+        ```
+        `<list list-type="bullet" id="L2">`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P47">
+        ```
+        To increase rates of sustained recovery from substance use
+        disorders, effective approaches to providing continuing care
+        remotely are needed.
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P48">
+        ```
+        Digital devices including smartphone apps hold considerable
+        promise for the delivery of continuing care to individuals with
+        substance use disorders, especially for those who are not able
+        to attend clinic-based care.
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P49">
+        ```
+        Recent research indicates that the Addiction Comprehensive
+        Health Enhancement Support System (ACHESS) app and Telephone
+        Monitoring and Counseling (TMC) provide effective continuing
+        care for individuals with alcohol use disorder.
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`<list-item>`{=html}
+        ```{=html}
+        <p id="P50">
+        ```
+        Further work is needed to determine how best to effectively
+        combine traditional continuing care with newer digitized and
+        telephonic approaches.
+        ```{=html}
+        </p>
+        ```
+        `</list-item>`{=html}`</list>`{=html}`</boxed-text>`{=html}`</floats-group>`{=html}
+        ```{=html}
+        </article>
+        ```
+        `</pmc-articleset>`{=html}

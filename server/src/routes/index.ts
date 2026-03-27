@@ -15,6 +15,9 @@ import journalRoutes from './journal.routes.js';
 import medicationRoutes from './medication.routes.js';
 import privacyRoutes from './privacy.routes.js';
 import substanceExpenseRoutes from './substance_expense.routes.js';
+import consumptionRoutes from './consumption.routes.js';
+import substanceDoseRoutes from './substance_dose.routes.js';
+import noteRoutes from './note.routes.js';
 
 // =====================================================
 // API ROUTER
@@ -80,5 +83,20 @@ apiRouter.use('/privacy', privacyRoutes);
  * /api/v1/substance-expenses - Rutas de gastos económicos en sustancias
  */
 apiRouter.use('/substance-expenses', substanceExpenseRoutes);
+
+/**
+ * /api/v1/consumption - Rutas de registro detallado de consumo
+ */
+apiRouter.use('/consumption', consumptionRoutes);
+
+/**
+ * /api/v1/substance-doses - Rutas de registro individual de dosis
+ */
+apiRouter.use('/substance-doses', substanceDoseRoutes);
+
+/**
+ * /api/v1/notes - Notas del usuario y del agente
+ */
+apiRouter.use('/notes', noteRoutes);
 
 export default apiRouter;

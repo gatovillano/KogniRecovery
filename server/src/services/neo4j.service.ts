@@ -426,7 +426,17 @@ class Neo4jService {
           u.estado = 'activo'
     `;
 
-    await this.executeWrite(query, userData);
+    const params = {
+      id: userData.id,
+      nombre: userData.nombre ?? null,
+      edad: userData.edad ?? null,
+      genero: userData.genero ?? null,
+      pais: userData.pais ?? null,
+      etapaCambio: userData.etapaCambio ?? null,
+      riesgo: userData.riesgo ?? null,
+    };
+
+    await this.executeWrite(query, params);
   }
 
   /**

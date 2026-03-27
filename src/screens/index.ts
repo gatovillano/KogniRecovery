@@ -35,3 +35,10 @@ export { MedicationScreen } from './medications/MedicationScreen';
 
 // Expense screens
 export { SubstanceExpenseScreen } from './expenses/SubstanceExpenseScreen';
+
+// Dose screens
+export { SubstanceDoseScreen } from './medications/SubstanceDoseScreen';
+
+// Notes screens
+export { NotesScreen } from './notes/NotesScreen';
+export { NoteDetailScreen } from './notes/NoteDetailScreen';

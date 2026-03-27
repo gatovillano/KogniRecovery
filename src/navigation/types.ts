@@ -18,6 +18,7 @@ export type MainTabParamList = {
   Dashboard: undefined;
   CheckIn: undefined;
   Medications: undefined;
+  Notes: undefined;
   Chatbot: undefined;
   Profile: undefined;
 };
@@ -32,6 +33,7 @@ export type CheckInStackParamList = {
   CheckInHistory: undefined;
   Progress: undefined;
   SubstanceExpense: undefined;
+  SubstanceDose: undefined;
 };
 
 export type ChatbotStackParamList = {
@@ -46,6 +48,23 @@ export type ProfileStackParamList = {
   EmergencyContacts: undefined;
   AISettings: undefined;
   IntelligenceProfile: undefined;
+};
+
+export type NotesStackParamList = {
+  NotesHome: undefined;
+  NoteDetail: {
+    note: {
+      id: string;
+      user_id: string;
+      title: string | null;
+      content: string;
+      source: 'user' | 'agent';
+      category: string | null;
+      is_pinned: boolean;
+      created_at: string;
+      updated_at: string;
+    };
+  };
 };
 
 // ============================================

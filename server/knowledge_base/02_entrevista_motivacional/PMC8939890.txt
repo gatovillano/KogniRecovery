@@ -1,0 +1,265 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article id="CD008063.pub2" article-type="systematic-review" xml:lang="en" dtd-version="1.4">
+```
+```{=html}
+<!--The publisher of this article does not allow downloading of the full text in XML form.-->
+```
+`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}Cochrane
+Database Syst
+Rev`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}Cochrane
+Database Syst
+Rev`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}3102`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}cochrev`</journal-id>`{=html}`<journal-id journal-id-type="publisher-id">`{=html}14651858`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}The
+Cochrane Database of Systematic
+Reviews`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="epub">`{=html}1469-493X`</issn>`{=html}`<issn-l>`{=html}1361-6137`</issn-l>`{=html}`<publisher>`{=html}`<publisher-name>`{=html}John
+Wiley and Sons, Inc. and the Cochrane
+Library`</publisher-name>`{=html}`</publisher>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC8939890`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC8939890.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}8939890`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}8939890`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}21563163`</article-id>`{=html}`<article-id pub-id-type="doi">`{=html}10.1002/14651858.CD008063.pub2`</article-id>`{=html}`<article-id pub-id-type="publisher-id">`{=html}CD008063.pub2`</article-id>`{=html}`<article-id pub-id-type="other">`{=html}CD008063`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group>`{=html}`<subject>`{=html}Polydrug`</subject>`{=html}`<subject>`{=html}Tobacco,
+drugs &
+alcohol`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}Motivational
+interviewing for substance
+abuse`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib id="d23e188" contrib-type="author" corresp="yes">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Smedslund`</surname>`{=html}`<given-names initials="G">`{=html}Geir`</given-names>`{=html}`</name>`{=html}
+```{=html}
+<address>
+```
+`<email>`{=html}ges@nokc.no`</email>`{=html}
+```{=html}
+</address>
+```
+`<xref ref-type="aff" rid="CD008063-aff-0001"/>`{=html}`</contrib>`{=html}`<contrib id="d23e192" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Berg`</surname>`{=html}`<given-names initials="RC">`{=html}Rigmor
+C`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0001"/>`{=html}`</contrib>`{=html}`<contrib id="d23e196" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hammerstrøm`</surname>`{=html}`<given-names initials="KT">`{=html}Karianne
+T`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0001"/>`{=html}`</contrib>`{=html}`<contrib id="d23e200" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Steiro`</surname>`{=html}`<given-names initials="A">`{=html}Asbjørn`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0001"/>`{=html}`</contrib>`{=html}`<contrib id="d23e204" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Leiknes`</surname>`{=html}`<given-names initials="KA">`{=html}Kari
+A`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0001"/>`{=html}`</contrib>`{=html}`<contrib id="d23e208" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dahl`</surname>`{=html}`<given-names initials="HM">`{=html}Helene
+M`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0002"/>`{=html}`</contrib>`{=html}`<contrib id="d23e212" contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Karlsen`</surname>`{=html}`<given-names initials="K">`{=html}Kjetil`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="CD008063-aff-0002"/>`{=html}`</contrib>`{=html}`<contrib id="d23e222" contrib-type="editor">`{=html}`<collab collab-type="editors">`{=html}Cochrane
+Drugs and Alcohol
+Group`</collab>`{=html}`</contrib>`{=html}`</contrib-group>`{=html}`<aff id="CD008063-aff-0001">`{=html}`<institution>`{=html}Norwegian
+Knowledge Centre for the Health
+Services`</institution>`{=html}`<addr-line>`{=html}Postboks
+7004`</addr-line>`{=html}`<addr-line>`{=html}St. Olavs
+plass`</addr-line>`{=html}`<city>`{=html}Oslo`</city>`{=html}`<state>`{=html}N‐0130`</state>`{=html}`<country>`{=html}Norway`</country>`{=html}`</aff>`{=html}`<aff id="CD008063-aff-0002">`{=html}`<institution>`{=html}Institute
+of Clinical
+Medicine`</institution>`{=html}`<institution content-type="dept">`{=html}Department
+of Clinical
+Psychiatry`</institution>`{=html}`<addr-line>`{=html}University of
+Tromsø,
+Asgard,`</addr-line>`{=html}`<city>`{=html}Tromsø`</city>`{=html}`<country>`{=html}Norway`</country>`{=html}`<postal-code>`{=html}9291`</postal-code>`{=html}`</aff>`{=html}`<pub-date pub-type="epub">`{=html}`<day>`{=html}11`</day>`{=html}`<month>`{=html}5`</month>`{=html}`<year>`{=html}2011`</year>`{=html}`</pub-date>`{=html}`<pub-date pub-type="collection">`{=html}`<month>`{=html}5`</month>`{=html}`<year>`{=html}2011`</year>`{=html}`</pub-date>`{=html}`<pub-date pub-type="update">`{=html}`<day>`{=html}28`</day>`{=html}`<month>`{=html}9`</month>`{=html}`<year>`{=html}2011`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}2011`</volume>`{=html}`<issue>`{=html}5`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}332742`</issue-id>`{=html}`<elocation-id>`{=html}CD008063`</elocation-id>`{=html}`<pub-history>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}11`</day>`{=html}`<month>`{=html}05`</month>`{=html}`<year>`{=html}2012`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}23`</day>`{=html}`<month>`{=html}03`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2025-09-01 12:25:40.887">`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}09`</month>`{=html}`<year>`{=html}2025`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<copyright-statement>`{=html}Copyright
+© 2011 The Cochrane Collaboration. Published by John Wiley & Sons,
+Ltd.`</copyright-statement>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="CD008063.pdf"/>`{=html}`<related-article xmlns:xlink="http://www.w3.org/1999/xlink" related-article-type="update" xml:lang="en" xlink:title="systematic-review" journal-id="Cochrane Database Syst Rev" journal-id-type="nlm-ta" ext-link-type="pmc" xlink:href="PMC10714668">`{=html}`<article-title>`{=html}Motivational
+interviewing for substance use
+reduction`</article-title>`{=html}`<volume>`{=html}2023`</volume>`{=html}`<issue>`{=html}12`</issue>`{=html}`<date>`{=html}`<day>`{=html}12`</day>`{=html}`<month>`{=html}12`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</date>`{=html}`<elocation-id>`{=html}CD008063`</elocation-id>`{=html}`<source>`{=html}The
+Cochrane Database of Systematic
+Reviews`</source>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1002/14651858.CD008063.pub3`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC10714668`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}38084817`</pub-id>`{=html}`</related-article>`{=html}`<related-article xmlns:xlink="http://www.w3.org/1999/xlink" related-article-type="updated-article" ext-link-type="doi" xlink:href="10.1002/14651858.CD008063">`{=html}`<pub-id pub-id-type="doi">`{=html}10.1002/14651858.CD008063`</pub-id>`{=html}`</related-article>`{=html}`<abstract>`{=html}
+```{=html}
+<title>
+```
+Abstract
+```{=html}
+</title>
+```
+`<sec id="CD008063-sec-0001">`{=html}
+```{=html}
+<title>
+```
+Background
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+There are 76.3 million people with alcohol use disorders worldwide and
+15.3 million with drug use disorders. Motivational interviewing (MI) is
+a client‐centred, semi‐directive method for enhancing intrinsic
+motivation to change by exploring and resolving ambivalence. The
+intervention is used widely, and therefore it is important to find out
+whether it helps, harms or is ineffective.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0002">`{=html}
+```{=html}
+<title>
+```
+Objectives
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+To assess the effectiveness of motivational interviewing for substance
+abuse on drug use, retention in treatment, readiness to change, and
+number of repeat convictions.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0003">`{=html}
+```{=html}
+<title>
+```
+Search methods
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We searched 18 electronic databases, 5 web sites, 4 mailing lists, and
+reference lists from included studies and reviews. Search dates were
+November 30, 2010 for Cochrane Library, Medline, Embase and PsychINFO.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0004">`{=html}
+```{=html}
+<title>
+```
+Selection criteria
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Randomized controlled trials with persons dependent or abusing
+substance. Interventions were MI or motivational enhancement therapy.
+The outcomes were extent of substance abuse, retention in treatment,
+motivation for change, repeat conviction.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0005">`{=html}
+```{=html}
+<title>
+```
+Data collection and analysis
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Three authors independently assessed studies for inclusion, and two
+authors extracted data. Results were categorized into (1) MI versus
+no‐treatment control, (2) MI versus treatment as usual, (3) MI versus
+assessment and feedback, and (4) MI versus other active treatment.
+Within each category, we computed meta‐analyses separately for
+post‐intervention, short, medium and long follow‐ups.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0006">`{=html}
+```{=html}
+<title>
+```
+Main results
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We included 59 studies with a total of 13,342 participants. Compared to
+no treatment control MI showed a significant effect on substance use
+which was strongest at post‐intervention SMD 0.79, (95% CI 0.48 to 1.09)
+and weaker at short SMD 0.17 (95% CI 0.09 to 0.26\], and medium
+follow‐up SMD 0.15 (95% CI 0.04 to 0.25\]). For long follow‐up, the
+effect was not significant SMD 0.06 (95% CI‐0.16 to 0.28). There were no
+significant differences between MI and treatment as usual for either
+follow‐up post‐intervention, short and medium follow up. MI did better
+than assessment and feedback for medium follow‐up SMD 0.38 (95% CI 0.10
+to 0.66). For short follow‐up, there was no significant effect . For
+other active intervention there were no significant effects for either
+follow‐up.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+There was not enough data to conclude about effects of MI on the
+secondary outcomes.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="CD008063-sec-0007">`{=html}
+```{=html}
+<title>
+```
+Authors' conclusions
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+MI can reduce the extent of substance abuse compared to no intervention.
+The evidence is mostly of low quality, so further research is very
+likely to have an important impact on our confidence in the estimate of
+effect and is likely to change the estimate.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</abstract>`{=html}`<abstract abstract-type="short">`{=html}
+```{=html}
+<title>
+```
+Plain language summary
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}Motivational interviewing is a short psychological
+treatment that can help people cut down on drugs and
+alcohol`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+More than 76 million people worldwide have alcohol problems, and another
+15 million have drug problems. Motivational interviewing (MI) is a
+psychological treatment that aims to help people cut down or stop using
+drugs and alcohol. The drug abuser and counsellor typically meet between
+one and four times for about one hour each time. The counsellor
+expresses that he or she understands how the clients feel about their
+problem and supports the clients in making their own decisions. He or
+she does not try to convince the client to change anything, but
+discusses with the client possible consequences of changing or staying
+the same. Finally, they discuss the clients' goals and where they are
+today relative to these goals. We searched for studies that had included
+people with alcohol or drug problems and that had divided them by chance
+into MI or a control group that either received nothing or some other
+treatment. We included only studies that had checked video or sound
+recordings of the therapies in order to be certain that what was given
+really was MI. The results in this review are based on 59 studies. The
+results show that people who have received MI have reduced their use of
+substances more than people who have not received any treatment.
+However, it seems that other active treatments, treatment as usual and
+being assessed and receiving feedback can be as effective as
+motivational interviewing. There was not enough data to conclude about
+the effects of MI on retention in treatment, readiness to change, or
+repeat convictions.The quality of the research forces us to be careful
+about our conclusions, and new research may change them.
+```{=html}
+</p>
+```
+`</abstract>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`<notes notes-type="status-note">`{=html}
+```{=html}
+<p>
+```
+Edited (no change to conclusions), comment added to review
+```{=html}
+</p>
+```
+`</notes>`{=html}`</front>`{=html}
+```{=html}
+</article>
+```
+`</pmc-articleset>`{=html}

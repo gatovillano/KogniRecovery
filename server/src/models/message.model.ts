@@ -95,7 +95,7 @@ export const createMessage = async (
     data.content_filter_passed ?? true,
     data.inappropriate_content_flags || [],
     JSON.stringify(data.resources_included || []),
-    JSON.stringify(data.recommended_actions || [])
+    JSON.stringify(data.recommended_actions || []),
   ];
 
   const result = await query(sql, values);
@@ -152,10 +152,7 @@ export const getLastMessage = async (conversationId: string): Promise<Message | 
 /**
  * Obtener historial de mensajes para contexto
  */
-export const getMessageHistory = async (
-  conversationId: string,
-  limit = 10
-): Promise<Message[]> => {
+export const getMessageHistory = async (conversationId: string, limit = 10): Promise<Message[]> => {
   const sql = `
     SELECT * FROM messages 
     WHERE conversation_id = $1
@@ -205,7 +202,7 @@ export const createMessageAttachment = async (
     data.title || null,
     data.description || null,
     data.url || null,
-    data.content ? JSON.stringify(data.content) : null
+    data.content ? JSON.stringify(data.content) : null,
   ];
 
   const result = await query(sql, values);
@@ -249,7 +246,7 @@ export const createMessageIntent = async (
     data.emotion_confidence || null,
     data.suggested_scenario || null,
     data.is_crisis_indicator ?? false,
-    data.is_relapse_risk ?? false
+    data.is_relapse_risk ?? false,
   ];
 
   const result = await query(sql, values);
@@ -338,6 +335,10 @@ export const saveContextHistory = async (
   sourceMessageId?: string,
   importance = 5
 ): Promise<void> => {
+  const valueWithTimestamp = {
+    ...value,
+    recorded_at: new Date().toISOString(),
+  };
   const sql = `
     INSERT INTO context_history (user_id, context_type, key, value, source_message_id, importance)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -347,16 +348,20 @@ export const saveContextHistory = async (
       times_referenced = context_history.times_referenced + 1,
       last_referenced_at = CURRENT_TIMESTAMP`;
 
-  await query(sql, [userId, contextType, key, JSON.stringify(value), sourceMessageId, importance]);
+  await query(sql, [
+    userId,
+    contextType,
+    key,
+    JSON.stringify(valueWithTimestamp),
+    sourceMessageId,
+    importance,
+  ]);
 };
 
 /**
  * Obtener contexto histórico
  */
-export const getContextHistory = async (
-  userId: string,
-  contextType?: string
-): Promise<any[]> => {
+export const getContextHistory = async (userId: string, contextType?: string): Promise<any[]> => {
   let sql = `
     SELECT * FROM context_history 
     WHERE user_id = $1 
@@ -368,9 +373,7 @@ export const getContextHistory = async (
 
   sql += ` ORDER BY importance DESC, last_referenced_at DESC`;
 
-  const result = contextType
-    ? await query(sql, [userId, contextType])
-    : await query(sql, [userId]);
+  const result = contextType ? await query(sql, [userId, contextType]) : await query(sql, [userId]);
 
   return result.rows;
 };
@@ -446,17 +449,14 @@ export const logLLMCall = async (
     data.finishReason || null,
     data.latencyMs || null,
     data.costUsd || null,
-    data.metadata ? JSON.stringify(data.metadata) : '{}'
+    data.metadata ? JSON.stringify(data.metadata) : '{}',
   ]);
 };
 
 /**
  * Obtener logs de LLM
  */
-export const getLLMLogs = async (
-  userId: string,
-  limit = 20
-): Promise<any[]> => {
+export const getLLMLogs = async (userId: string, limit = 20): Promise<any[]> => {
   const sql = `
     SELECT * FROM llm_logs 
     WHERE user_id = $1
@@ -473,7 +473,9 @@ export const getLLMLogs = async (
 /**
  * Detectar emociones en mensaje
  */
-export const detectEmotion = async (content: string): Promise<{
+export const detectEmotion = async (
+  content: string
+): Promise<{
   emotion: string;
   confidence: number;
 }> => {
@@ -481,12 +483,54 @@ export const detectEmotion = async (content: string): Promise<{
 
   // Emociones básicas con palabras clave
   const emotionPatterns: Record<string, string[]> = {
-    'miedo': ['miedo', 'ansioso', 'nervioso', 'preocupado', 'pánico', 'agobiado', 'abrumado', 'inseguro', 'vulnerable'],
-    'tristeza': ['triste', 'deprimido', 'solo', 'melancólico', 'vacío', 'cansado', 'agotado', 'fatigado', 'sin energía', 'culpable', 'arrepentido'],
-    'ira': ['enojado', 'furioso', 'frustrado', 'molesto', 'rabia', 'estrés', 'presionado', 'tenso', 'resentido'],
-    'felicidad': ['feliz', 'contento', 'alegre', 'emocionado', 'esperanzado', 'optimista', 'motivado', 'orgulloso', 'agradecido'],
-    'sorpresa': ['sorprendido', 'asombrado', 'confundido', 'curioso', 'entusiasmado'],
-    'asco': ['asco', 'repugnancia', 'decepcionado', 'horrible', 'abstinencia', 'odio']
+    miedo: [
+      'miedo',
+      'ansioso',
+      'nervioso',
+      'preocupado',
+      'pánico',
+      'agobiado',
+      'abrumado',
+      'inseguro',
+      'vulnerable',
+    ],
+    tristeza: [
+      'triste',
+      'deprimido',
+      'solo',
+      'melancólico',
+      'vacío',
+      'cansado',
+      'agotado',
+      'fatigado',
+      'sin energía',
+      'culpable',
+      'arrepentido',
+    ],
+    ira: [
+      'enojado',
+      'furioso',
+      'frustrado',
+      'molesto',
+      'rabia',
+      'estrés',
+      'presionado',
+      'tenso',
+      'resentido',
+    ],
+    felicidad: [
+      'feliz',
+      'contento',
+      'alegre',
+      'emocionado',
+      'esperanzado',
+      'optimista',
+      'motivado',
+      'orgulloso',
+      'agradecido',
+    ],
+    sorpresa: ['sorprendido', 'asombrado', 'confundido', 'curioso', 'entusiasmado'],
+    asco: ['asco', 'repugnancia', 'decepcionado', 'horrible', 'abstinencia', 'odio'],
   };
 
   for (const [emotion, keywords] of Object.entries(emotionPatterns)) {
@@ -503,7 +547,9 @@ export const detectEmotion = async (content: string): Promise<{
 /**
  * Detectar indicadores de crisis
  */
-export const detectCrisis = async (content: string): Promise<{
+export const detectCrisis = async (
+  content: string
+): Promise<{
   isCrisis: boolean;
   crisisType: string | null;
 }> => {
@@ -513,7 +559,7 @@ export const detectCrisis = async (content: string): Promise<{
     { pattern: /suicid|suicidio|quitarme la vida|morir/i, type: 'suicidal' },
     { pattern: /autolesi|cortarme|hurtarme/i, type: 'self_harm' },
     { pattern: /no puedo más|no vale la pena|nadie me import/i, type: 'hopelessness' },
-    { pattern: /emergencia|ayuda inmediata|peor imposi/i, type: 'emergency' }
+    { pattern: /emergencia|ayuda inmediata|peor imposi/i, type: 'emergency' },
   ];
 
   for (const { pattern, type } of crisisPatterns) {

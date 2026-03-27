@@ -524,6 +524,20 @@ const MIGRATIONS = [
     `CREATE INDEX IF NOT EXISTS idx_activity_entries_user_date ON activity_entries(user_id, entry_date)`,
     `CREATE INDEX IF NOT EXISTS idx_consumption_analysis_user_date ON consumption_analysis(user_id, entry_date)`,
 
+    `CREATE TABLE IF NOT EXISTS consumption_events (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        substance_name VARCHAR(255) NOT NULL,
+        quantity DECIMAL(10,2) NOT NULL,
+        unit VARCHAR(50) DEFAULT 'unidades',
+        consumed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        craving_intensity INTEGER,
+        context_notes TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_consumption_events_user_date ON consumption_events(user_id, consumed_at)`,
+
     `CREATE TABLE IF NOT EXISTS habits (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -588,6 +602,22 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
+    `CREATE TABLE IF NOT EXISTS substance_doses (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        substance_name VARCHAR(100) NOT NULL,
+        quantity DECIMAL(10,2) NOT NULL,
+        unit VARCHAR(50) NOT NULL DEFAULT 'dosis',
+        dose_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        craving_intensity INTEGER CHECK (craving_intensity >= 1 AND craving_intensity <= 10),
+        feelings TEXT,
+        context_notes TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    )`,
+
+    `CREATE INDEX IF NOT EXISTS idx_substance_doses_user_date ON substance_doses(user_id, dose_time)`,
+
     `CREATE INDEX IF NOT EXISTS idx_substance_expenses_user_date ON substance_expenses(user_id, expense_date)`,
 
     `CREATE OR REPLACE FUNCTION update_timestamp()
@@ -619,7 +649,9 @@ const TRIGGERS = [
     `CREATE OR REPLACE TRIGGER update_wall_messages_timestamp BEFORE UPDATE ON wall_messages FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
     `CREATE OR REPLACE TRIGGER update_habits_timestamp BEFORE UPDATE ON habits FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
     `CREATE OR REPLACE TRIGGER update_medications_timestamp BEFORE UPDATE ON medications FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_substance_expenses_timestamp BEFORE UPDATE ON substance_expenses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`
+    `CREATE OR REPLACE TRIGGER update_substance_expenses_timestamp BEFORE UPDATE ON substance_expenses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+    `CREATE OR REPLACE TRIGGER update_substance_doses_timestamp BEFORE UPDATE ON substance_doses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+    `CREATE OR REPLACE TRIGGER update_consumption_events_timestamp BEFORE UPDATE ON consumption_events FOR EACH ROW EXECUTE FUNCTION update_timestamp();`
 ];
 
 async function runMigrations() {

@@ -1,0 +1,3538 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article article-type="other" xml:lang="en" dtd-version="1.4">
+```
+`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}Iran
+J
+Psychiatry`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}Iran
+J
+Psychiatry`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}1832`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}iranjpsych`</journal-id>`{=html}`<journal-id journal-id-type="publisher-id">`{=html}IJPS`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}Iranian
+Journal of
+Psychiatry`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="ppub">`{=html}1735-4587`</issn>`{=html}`<issn pub-type="epub">`{=html}2008-2215`</issn>`{=html}`<publisher>`{=html}`<publisher-name>`{=html}Tehran
+University of Medical
+Sciences`</publisher-name>`{=html}`</publisher>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC7215253`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC7215253.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}7215253`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}7215253`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}32426014`</article-id>`{=html}`<article-id pub-id-type="publisher-id">`{=html}IJPS-15-172`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group subj-group-type="heading">`{=html}`<subject>`{=html}Systematic
+Review`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}Addiction
+Recovery: A Systematized
+Review`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Inanlou`</surname>`{=html}`<given-names initials="M">`{=html}Mehrnoosh`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="aff1">`{=html}1`</xref>`{=html}`<xref ref-type="corresp" rid="cor1">`{=html}*`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bahmani`</surname>`{=html}`<given-names initials="B">`{=html}Bahman`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="aff1">`{=html}1`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Farhoudian`</surname>`{=html}`<given-names initials="A">`{=html}Ali`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="aff2">`{=html}2`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rafiee`</surname>`{=html}`<given-names initials="F">`{=html}Forough`</given-names>`{=html}`</name>`{=html}`<xref ref-type="aff" rid="aff3">`{=html}3`</xref>`{=html}`</contrib>`{=html}`</contrib-group>`{=html}`<aff id="aff1">`{=html}
+`<label>`{=html}1`</label>`{=html}Department of Counseling, University
+of Social Welfare and Rehabilitation Sciences. Tehran,
+Iran.`</aff>`{=html}`<aff id="aff2">`{=html}
+`<label>`{=html}2`</label>`{=html} Substance Abuse and Dependence
+Research Center, University of Social Welfare and Rehabilitation
+Sciences,Tehran, Iran; Department of Psychiatry, Roozbeh Hospital,
+Tehran University of Medical Sciences,Tehran,
+Iran.`</aff>`{=html}`<aff id="aff3">`{=html}
+`<label>`{=html}3`</label>`{=html} Nursing Care Research Center, Iran
+University of Medical Sciences, Tehran, Iran.
+`</aff>`{=html}`<author-notes>`{=html}`<corresp id="cor1">`{=html}`<label>`{=html}*`</label>`{=html}Corresponding
+Author: Address: Department of Counseling, kodakyar Avenue, Daneshjo
+Boulvard, Evin, Tehran, Iran, Postal Code: 1985713834. Tel:
+98-2122180061, Fax: 98-22180109, `<email>`{=html}Email:
+Me.inanlou@uswr.ac.ir`</email>`{=html}`</corresp>`{=html}`</author-notes>`{=html}`<pub-date pub-type="ppub">`{=html}`<month>`{=html}4`</month>`{=html}`<year>`{=html}2020`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}15`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}357491`</issue-id>`{=html}`<fpage>`{=html}172`</fpage>`{=html}`<lpage>`{=html}181`</lpage>`{=html}`<history>`{=html}`<date date-type="received">`{=html}`<day>`{=html}14`</day>`{=html}`<month>`{=html}8`</month>`{=html}`<year>`{=html}2019`</year>`{=html}`</date>`{=html}`<date date-type="rev-recd">`{=html}`<day>`{=html}6`</day>`{=html}`<month>`{=html}3`</month>`{=html}`<year>`{=html}2020`</year>`{=html}`</date>`{=html}`<date date-type="accepted">`{=html}`<day>`{=html}9`</day>`{=html}`<month>`{=html}3`</month>`{=html}`<year>`{=html}2020`</year>`{=html}`</date>`{=html}`</history>`{=html}`<pub-history>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}04`</month>`{=html}`<year>`{=html}2020`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}18`</day>`{=html}`<month>`{=html}05`</month>`{=html}`<year>`{=html}2020`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2024-03-27 23:25:11.823">`{=html}`<day>`{=html}27`</day>`{=html}`<month>`{=html}03`</month>`{=html}`<year>`{=html}2024`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<copyright-statement>`{=html}
+Copyright © Psychiatry & Psychology Research Center, Tehran University
+of Medical Sciences
+`</copyright-statement>`{=html}`<license>`{=html}`<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbylicense">`{=html}https://creativecommons.org/licenses/by/3.0/`</ali:license_ref>`{=html}`<license-p>`{=html}This
+is an Open Access article distributed under the terms of the Creative
+Commons Attribution License,
+(`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/3.0/">`{=html}http://creativecommons.org/licenses/by/3.0/`</ext-link>`{=html})
+which permits unrestricted use, distribution, and reproduction in any
+medium, provided the original work is properly
+cited.`</license-p>`{=html}`</license>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="IJPS-15-172.pdf"/>`{=html}`<abstract>`{=html}
+```{=html}
+<p>
+```
+`<bold>`{=html}Objective:`</bold>`{=html} Despite the fact that a
+practical definition of addiction recovery is necessary to conduct an
+appropriate intervention and research, this concept is still vague and
+there is no consensus over its meaning and how to measure it. Thus, this
+study aimed to define and clarify this concept based on the available
+literature.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}Method`</bold>`{=html} `<bold>`{=html}:`</bold>`{=html}
+The theoretical part of Schwartz_Barcott and Kim's Hybrid Model of
+concept analysis was used to analyze the concept of "Addiction
+Recovery." To find the relevant literature, an electronic search on
+valid databases was conducted using keywords related to the concept of
+addiction recovery. Medlib, IranMedex, Magiran, SID, Irandoc, Google
+Scholar, PubMed, Web of Science, Medline, Scopus, Pro Quest, CINAHL,
+Science Direct, Ovid, and Wiley databases were searched up to December
+2018 without a time limitation using the following keywords: "Substance
+use disorders", "Drug use", "Recovery", "Opioids", "Addiction
+treatment", "Dependency", "Rehabilitation", Remission", "Concept
+analysis", "Restore", "Definition", "Meaning", and "Conceptualization".
+The Conventional content analysis was used on selected research
+articles.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}Results: `</bold>`{=html}From a total of 9520 articles,
+39 were reviewed and analyzed. Five attributes were selected, including
+the process of change, being holistic, being client-centric, learning
+healthy coping, and being multistage. Antecedents are organized into 2
+interacting categories: personal and social resources. Personal
+resources refer to the person, his/her addiction, and the treatment
+characteristics, while social resources refer to the family, the
+community, and the context resources. Addiction recovery leads to
+sustained abstinence, improved physical and psychological health,
+improved quality of life and satisfaction, meaningful living, and
+citizenship.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}Conclusion: `</bold>`{=html}These findings may form a
+basis for the theories, scales, and criteria for the assessment of
+addiction recovery and will be useful in clinical practices and
+research. Also, these findings could help health care professionals to
+understand the concept of addiction recovery, which is important in
+improving the recovering person in all aspects of rehabilitation. We
+will report the implementation and analytical phase of this research
+project, namely, "the addiction recovery concept analysis" in Iran.
+```{=html}
+</p>
+```
+`</abstract>`{=html}`<kwd-group>`{=html}
+```{=html}
+<title>
+```
+Key Words
+```{=html}
+</title>
+```
+`<kwd>`{=html}`<italic toggle="yes">`{=html}Concept
+Analysis`</italic>`{=html}`</kwd>`{=html}`<kwd>`{=html}`<italic toggle="yes">`{=html}Definition`</italic>`{=html}`</kwd>`{=html}`<kwd>`{=html}`<italic toggle="yes">`{=html}Recovery`</italic>`{=html}`</kwd>`{=html}`<kwd>`{=html}`<italic toggle="yes">`{=html}Recovered`</italic>`{=html}`</kwd>`{=html}`<kwd>`{=html}`<italic toggle="yes">`{=html}Substance
+Use
+Disorders`</italic>`{=html}`</kwd>`{=html}`</kwd-group>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-license-ref`</meta-name>`{=html}`<meta-value>`{=html}CC
+BY`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`</front>`{=html}
+```{=html}
+<body>
+```
+```{=html}
+<p>
+```
+Substance use dependence is increasingly recognized as a chronic
+relapsing condition that may last for decades and requires multiple
+episodes of care over many years before reaching a sustained state of
+abstinence
+(`<xref rid="B1" ref-type="bibr">`{=html}1`</xref>`{=html}).The state of
+substance use and addiction in Iran is unique and linked to specific
+cultural and social issues
+(`<xref rid="B2" ref-type="bibr">`{=html}2`</xref>`{=html}). There are
+numerous references to the term recovery in the literature and it is
+generally defined as an outcome of treating chronic disorders such as
+addiction
+(`<xref rid="B3" ref-type="bibr">`{=html}3`</xref>`{=html}-`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html}).
+And what is generally recognized is that recovery refers to more than
+simply refraining from taking drugs
+(`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In recent years, recovery has been embraced as a target policy in the
+United States. Similarly, Scotland, England, and Wales consider recovery
+as a guiding approach to drug policy, and other countries, such as
+Australia, have considered incorporating this concept into their
+policies (`<xref rid="B3" ref-type="bibr">`{=html}3`</xref>`{=html})
+despite the lack of consensus regarding what the term actually means
+(`<xref rid="B3" ref-type="bibr">`{=html}3`</xref>`{=html},
+`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html}-`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The advocates of addiction recovery and treatment of the substance use
+disorders (SUDs) are categorized into 2 groups: the scientific community
+and the individuals going through rehabilitation.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Each group advocates a different set of recovery concepts and practices
+that have been formerly co-functioned. The researchers in the first
+group, including physicians, SUD (substance use disorder) experts,
+medical centers, and medical circles, define recovery as a process
+involving clinical diagnosis, treatment, and rehabilitation
+(`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+However, researchers who study and assess addiction treatments and
+addiction policymakers do not have a vivid mental image of recovery
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html}) despite the
+recent increase in the popularity of this concept
+(`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html}). For
+example, the term recovery has been repeatedly used interchangeably with
+the words abstinence, remission, and resolution; however, there is no
+consensus on a unified definition for each one of these terms to
+differentiate between them
+(`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+An example of those who have attempted to differentiate recovery from
+substance use
+(`<xref rid="B11" ref-type="bibr">`{=html}11`</xref>`{=html}) is the
+Betty Ford Institute Consensus Panel. They differentiated recovery from
+substance use as a "voluntarily maintained lifestyle characterized by
+sobriety, personal health, and citizenship."
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html}). similarly,
+in 2008, the UK Drug Policy Commission defined recovery as the
+"voluntarily sustained control over substance use, which maximizes
+health, well-being, and contribution in the form of rights, roles, and
+responsibilities in the society." A personal transformation process,
+mirrored in different aspects of performance and fueled by abstinence or
+increased control over the use of drugs, is at the core of these
+definitions (`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html}).
+Deegan (1988) defined recovery as the process of "recovering a new sense
+of self and of purpose within and beyond the limits of the disability."
+(`<xref rid="B11" ref-type="bibr">`{=html}11`</xref>`{=html}). All these
+definitions revolve around abstinence but they are not deemed as the
+equivalent of recovery.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Experts of addiction treatment usually use the remission (abstinence)
+criteria set forth in the Diagnostic and Statistical Manual of Mental
+Disorders (DSM) to differ abstinence from substance use. For instance,
+the total number of years a person does not suffer from the alcohol use
+disorder is one of these criteria. According to Dodge et al (2010), this
+criterion mainly shows the lack of clinical diagnosis of substance use
+instead of providing a multidimensional frame of reference for recovery
+(`<xref rid="B11" ref-type="bibr">`{=html}11`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+An addiction recovery model defined within the spiritual framework
+advocated by Alcoholics Anonymous was proposed by Galanter. The
+individual's viewpoint on his/her addiction forms the basis for this
+model, which reflects the spiritual viewpoint of the Alcoholics
+Anonymous while covering a major dimension of recovery
+(`<xref rid="B12" ref-type="bibr">`{=html}12`</xref>`{=html}). Chalk,
+McLellan, and Bartlett have also described recovery with regard to its
+outcomes, performance, and life quality
+(`<xref rid="B11" ref-type="bibr">`{=html}11`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The Substance Abuse and Mental Health Services Administration (SAMHSA)
+assesses recovery through the assessment of an individual's physical
+health, mental health, family and social relationships, housing
+stability, perception of care, access, and retention. This
+administration introduced a combination of abstinence and improvements
+in 3 dimensions of the 7 functional dimensions as the sign of recovery
+(`<xref rid="B13" ref-type="bibr">`{=html}13`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Kaskutas in "What is Recovery?" study argued that the study's findings
+illustrate substantial agreement among people who consider themselves in
+recovery and in how they define recovery. Overall, the six elements
+endorsed most (\>90%) as definitely belonging in their definition
+included three elements of "essential recovery" (being honest with
+myself, handling negative feelings without using drugs or alcohol, being
+able to enjoy life without drinking or using drugs like I used to) and
+three elements of "enriched recovery" (a process of growth and
+development, reacting to life's ups and downs in a more balanced way
+than I used to, taking responsibility for the things I can change).
+Although factor scores for these domains were significantly higher among
+individuals with greater levels of 12-step exposure, the magnitude of
+differences is small, suggesting that the elements in those factors many
+of which indeed reflect 12-step principles appear to be somewhat
+universal among survey participants. Humphreys urged caution not to lose
+track of the relative agreement among those with lived experience and to
+avoid definitions so broad that are meaningless or divorced from lived
+experience (`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html},
+`<xref rid="B14" ref-type="bibr">`{=html}14`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Also, the stigma attached to the substance use disorders can be overcome
+by communicating the feasibility of recovery. However, this image cannot
+be cultivated due to the lack of consensus on the definition of recovery
+(`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html}). Notions
+such as health, life quality, and chronic disorders have, however, been
+promoted along with the notion of recovery, and few studies have been
+performed on the qualities and characteristics of recovery. Therefore,
+this study was conducted to define and clarify this concept based on the
+literature to illustrate the concept of addiction recovery through a
+qualitative analysis and its results have clinical applications.
+```{=html}
+</p>
+```
+`<sec sec-type="materials|methods">`{=html}
+```{=html}
+<title>
+```
+Materials and Methods
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}`<italic toggle="yes">`{=html}Study
+Design`</italic>`{=html}`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In this study, the concept of addiction recovery was analyzed using a
+hybrid model. The hybrid model concept analysis was used as presented by
+Schwartz-Barcott and Kim (1993), which amalgamates both theoretical and
+empirical analysis and is specifically beneficial when exploring a known
+concept in a new context or when trying to find its new distinctive
+attribute (`<xref rid="B2" ref-type="bibr">`{=html}2`</xref>`{=html}).
+The model includes 3 phases: First, in the theoretical phase, data are
+collected using literature reviews to develop a foundation for the
+second phase. Second, in the field phase, qualitative data are obtained
+through semi-structured interviews to refine a concept of addiction
+recovery. Third, in the analytical phase, the concept application and
+its importance is justified after integration of the data gained during
+this phase (`<xref rid="B2" ref-type="bibr">`{=html}2`</xref>`{=html}).
+In this study, the theoretical phase which involves searching the
+literature, dealing with meaning and measurement, and identifying a
+working definition for the fieldwork phase is presented
+(`<xref rid="B2" ref-type="bibr">`{=html}2`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}`<italic toggle="yes">`{=html}Searching the
+Literature`</italic>`{=html}`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Schwartz_Barcott and Kim (1993) emphasized the extensive need to review
+the literature. However, it is important to determine the strengths and
+weaknesses of this definition to generate a tentative description
+extracted from the literature. The present study employed a systematized
+and evidence-based approach to search in the literature. This method
+includes one or more characteristics of a systematic review, but does
+not claim to present the same results as a systematic review does. The
+literature was reviewed by focusing on the key question of definition
+and measurement. The question posed by Schwartz-Barcott and Kims (2000)
+guided the inquiry through the literature to provide an initial
+direction for this research
+(`<xref rid="B2" ref-type="bibr">`{=html}2`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Before beginning the review, a protocol was developed with the following
+components:
+```{=html}
+</p>
+```
+`<list list-type="order">`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+The review question: How is addiction recovery described? How can
+addiction recovery be measured?
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Article types: The present study reviewed every original article
+published on the subject of addiction recovery, including quantitative,
+qualitative, meta-analysis, meta-synthesis, mixed method, and instrument
+development studies.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Search strategy: The search was done using the following keywords:
+"Substance use disorders", "Drug use", "Recovery", "Addiction
+treatment", "Opioids", "Dependency", "Rehabilitation", "Concept
+analysis", "Restore", "Remission", "Definition", "Meaning", and
+"Conceptualization" in electronic databases of Medlib, Iran Medex,
+Magiran, Sid, Irandoc, Web of Science, Google Scholar, CINAHL, PubMed,
+Medline, ProQuest, Ovid, and Wiley for articles published up to December
+2018, without a time limitation, using the search options provided in
+each database and EndNote software (X6).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+<p>
+```
+Based on inclusion criteria, articles with full-texts in Persian or
+English were evaluated by referring to the definition, outcomes,
+features, and outcomes of the concept of recovery. Exclusion criteria
+included repeated texts, book reviews, and letters to the editor in
+languages other than English and Persian.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+After conducting a systematic search using the aforementioned databases,
+the records retrieved from different databases were saved in Endnote
+files, which were eventually merged into a shared Endnote file
+(`<xref ref-type="fig" rid="F1">`{=html}Figure 1`</xref>`{=html}). The
+relevant articles to the research objectives were found and filtered by
+analyzing 9520 titles stored in this software. Afterwards, the abstract
+sections of the selected articles were retrieved. After reading the
+abstracts of the articles and assessing them based on the research
+criteria, a total of 437 articles were selected. Then, several
+electronic magazines were searched to obtain the full-texts of the
+articles with the reviewed titles. The full-texts of 157 articles were
+retrieved and analyzed. Eventually, 34 articles matching the research
+objectives were selected and 5 articles mentioned in the reference
+sections of some of the articles were included in the study. Therefore,
+a total of 39 articles were selected.
+`<xref rid="T1" ref-type="table">`{=html}Table 1`</xref>`{=html}
+presents an overview of studies conducted on addiction recovery.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}`<italic toggle="yes">`{=html}Dealing with Meaning and
+Measurement`</italic>`{=html}`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+To analyze the literature, the conventional content analysis method was
+used based on the model proposed by Graneheim and Lundman. Content
+analysis refers to the understanding, interpretation, and
+conceptualization of the core meanings of data. According to Polit and
+Beck (`<xref rid="B15" ref-type="bibr">`{=html}15`</xref>`{=html}),
+content analysis is the process of organizing and integrating stories
+and qualitative data that results in the genesis of themes and notions.
+The text was carefully studied by the researcher as a unit of analysis
+several times and summarized by meaningful units. Each sentence, phrase,
+and word referring to the definition and dimensions of the addiction
+recovery were identified, and each was assigned a code. The codes were
+categorized by performing continuous comparisons in different categories
+and subcategories, according to their repetition, differences, and
+similarities. 
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="results">`{=html}
+```{=html}
+<title>
+```
+Results
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+In this section, the findings from the literature review are discussed
+in 4 parts: definition of concept, attributes, antecedents,
+consequences, and method of measurement of the concept.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}1.   Characteristics and definition of the
+concept`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In general parlance, the word of recovery is defined by Merriam
+--Webster dictionary as "the process of combating a disorder (such as
+alcoholism) or a real or perceived problem"
+(`<xref rid="B16" ref-type="bibr">`{=html}16`</xref>`{=html}). Over the
+last 200 years, various terms have been associated with the resolution
+of severe alcohol and other drug problems based on conceptualizations of
+their etiology. These terms have included moral "reformation",
+"religious redemption", "criminal rehabilitation", or "medical
+recovery". In medicine, traditionally, recovery has connoted a return to
+health after trauma or illness
+(`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B17" ref-type="bibr">`{=html}17`</xref>`{=html}). The term
+recovery has turned into an item of jargon in the state organizations,
+but it was formerly only linked to 12-step fellowships such as the
+Alcoholics Anonymous International Fellowship
+(`<xref rid="B18" ref-type="bibr">`{=html}18`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+According to Laudat's article reviews on recovery, this concept is often
+defined by the majority of researchers as recovery from drug addiction.
+It is also commonly defined as a state of abstinence or remission.
+Furthermore, they define recovery as the process of "overcoming both
+physical and psychological dependence on psychoactive drugs while making
+a commitment to society". Under this definition, recovery includes the
+acts of avoiding drugs, achieving well-being, and refitting into society
+(`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+An addiction recovery model defined within the spiritual framework
+advocated by Alcoholics Anonymous was proposed by Galanter. The
+individual's viewpoint on his/her addiction forms the basis for this
+model, which reflects the spiritual viewpoint of the Alcoholics
+Anonymous while covering a major aspect of recovery
+(`<xref rid="B19" ref-type="bibr">`{=html}19`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The American Society of Addiction Medicine (ASAM) made a distinction
+between recovery and remission. This is done by defining recovery as a
+state of physical and psychological health, such as one's abstinence
+from a dependency-causing drug; and the remission is defined as "freedom
+from the active signs and symptoms of alcoholism, including the use of
+substitute drugs during a period of independent living"
+(`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B19" ref-type="bibr">`{=html}19`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The experimental aspect of recovery has also been addressed in some of
+the more recent definitions. For instance, "recovery is the experience
+(a process and a sustained status) through which individuals, families,
+and communities were impacted by severe alcohol and other drug (AOD)
+problems and then utilize internal and external resources to voluntarily
+resolve those problems, heal the wounds inﬂicted by AOD-related
+problems, actively manage their continued vulnerability to such
+problems, and develop a healthy, productive, and meaningful life"
+(`<xref rid="B20" ref-type="bibr">`{=html}20`</xref>`{=html}). Although
+recovery research varies based on how the term has been defined and
+measured, there is an argument over the application of the term;
+recovery, abstinence, and remission are used interchangeably. To explore
+and gain a boarder understanding of recovery, the attribute,
+antecedents, and consequences of recovery were identified and are
+described as below. It seems that there is an agreement on the notion
+that not using substances is at the core of the definition, even if some
+people may be using a small amount of one substance or another.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}2.   Attributes`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The attributes of a concept are the aspects of that concept used
+repeatedly to describe that concept and the existence of that concept is
+contingent. These attributes project a vivid image of the given concept.
+According to our in-depth analysis of the relevant articles, recovery
+from drug use is characterized based on the following attributes:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+1-   Process of Change:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Recovery is a process of change, not a static event. Recovery is a
+continuous and turbulent attempt to maintain abstinence. Recovery refers
+to an internal and external change in relations, attitudes, thoughts and
+emotions, or identity change
+(`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html},
+`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html},
+`<xref rid="B19" ref-type="bibr">`{=html}19`</xref>`{=html},
+`<xref rid="B21" ref-type="bibr">`{=html}21`</xref>`{=html}-`<xref rid="B28" ref-type="bibr">`{=html}28`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+2-   Holistic:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Given the multidimensional side effects of addiction, recovery is also
+multiaxial(biological, psychological, social, and spiritual, beyond
+abstinence) (`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html},
+`<xref rid="B18" ref-type="bibr">`{=html}18`</xref>`{=html},
+`<xref rid="B20" ref-type="bibr">`{=html}20`</xref>`{=html},
+`<xref rid="B22" ref-type="bibr">`{=html}22`</xref>`{=html},
+`<xref rid="B23" ref-type="bibr">`{=html}23`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+3-   Client-Center:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Recovery starts and continues in relation to personal traits, intensity,
+duration, personal needs, and society. Individuals define their own life
+goals. In the course of recovery, the individual's objectives matter and
+this process may continue at any speed or rate and taking any approach
+and everyone's own experience
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B26" ref-type="bibr">`{=html}26`</xref>`{=html},
+`<xref rid="B29" ref-type="bibr">`{=html}29`</xref>`{=html}-`<xref rid="B31" ref-type="bibr">`{=html}31`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+4-   Learning Healthy Coping Strategy:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Overcoming dependence on substance use and coping with it is an
+important aspect of recovery. Finding new and better ways to cope with
+the stressors of life by reaching out for help are important in recovery
+experience (`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html},
+`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html},
+`<xref rid="B32" ref-type="bibr">`{=html}32`</xref>`{=html},
+`<xref rid="B33" ref-type="bibr">`{=html}33`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+5-   Multistage:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Recovery consists of different stages and each stage has its own
+objectives and interventions
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html},
+`<xref rid="B26" ref-type="bibr">`{=html}26`</xref>`{=html},
+`<xref rid="B34" ref-type="bibr">`{=html}34`</xref>`{=html},
+`<xref rid="B35" ref-type="bibr">`{=html}35`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}3.   Antecedents`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In this study, antecedents are those events that should have occurred
+before recovery
+(`<xref rid="B36" ref-type="bibr">`{=html}36`</xref>`{=html}), which is
+divided into 2 categories. The "personal resources" and "social
+resources" are the antecedents of the notion of addiction recovery,
+affecting this concept in different stages of recovery
+(`<xref ref-type="fig" rid="F2">`{=html}Figure 2`</xref>`{=html})
+(`<xref rid="B37" ref-type="bibr">`{=html}37`</xref>`{=html}). The
+extent and quality of the internal and external resources determine the
+onset, continuation, and maintenance of complete recovery from
+addiction.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+1-   Personal Resources:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+A person's psychological resource, the addiction characteristics, and
+treatments affect their recovery process. These include self-concept,
+self-acceptance, belief and skills, attitude, responsibility, hope,
+openness, honesty, seeing others' achievements, personal experience,
+childhood traumas, type and severity of addiction, recovery pathway,
+coping pattern, personal background, knowledge, and mental and physical
+health (`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B21" ref-type="bibr">`{=html}21`</xref>`{=html},
+`<xref rid="B25" ref-type="bibr">`{=html}25`</xref>`{=html},
+`<xref rid="B26" ref-type="bibr">`{=html}26`</xref>`{=html},
+`<xref rid="B28" ref-type="bibr">`{=html}28`</xref>`{=html},
+`<xref rid="B30" ref-type="bibr">`{=html}30`</xref>`{=html},
+`<xref rid="B35" ref-type="bibr">`{=html}35`</xref>`{=html},
+`<xref rid="B38" ref-type="bibr">`{=html}38`</xref>`{=html}-`<xref rid="B41" ref-type="bibr">`{=html}41`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+2-   Social Resources:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Recovery is affected by socioeconomic and social factors which involve
+family and community strengths and responsibilities. Community is the
+relationships and social networks that provide support, acceptance,
+friendship, love, respect, and hope. Purpose refers to daily meaningful
+activities, such as a job, home, school, volunteerism, family
+caretaking, or creative endeavors, and the independence, income, and
+resources to participate in the society. Finally, health is overcoming
+or managing one's condition and symptoms
+(`<xref rid="B20" ref-type="bibr">`{=html}20`</xref>`{=html},
+`<xref rid="B21" ref-type="bibr">`{=html}21`</xref>`{=html},
+`<xref rid="B23" ref-type="bibr">`{=html}23`</xref>`{=html}-`<xref rid="B25" ref-type="bibr">`{=html}25`</xref>`{=html},
+`<xref rid="B29" ref-type="bibr">`{=html}29`</xref>`{=html},
+`<xref rid="B32" ref-type="bibr">`{=html}32`</xref>`{=html},
+`<xref rid="B41" ref-type="bibr">`{=html}41`</xref>`{=html}-`<xref rid="B43" ref-type="bibr">`{=html}43`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<bold>`{=html}4.   Consequences`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In this study, consequences were those events that occur as a result of
+the occurrence
+(`<xref rid="B36" ref-type="bibr">`{=html}36`</xref>`{=html}) of
+recovery. The consequences of recovery from drug addiction are as
+follow:
+```{=html}
+</p>
+```
+`<list list-type="bullet">`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Sustained control over substance use: Sustained abstinence is an
+important consequence of recovery.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Improved physical health: Recovery also improves physical health by
+mitigating the damage caused by drugs, reducing the feeling of illness,
+increasing appetite and weight, reducing fatigue and numbness,
+increasing sexual desire, and restoring the natural temperament and
+practicing greater self-care
+(`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Improved psychological health: Psychological recovery increases
+self-worth and self-efficacy; self-acceptance restores identity; and
+self-perception decreases feeling of shame and guilt, facilitates
+emotional regulation and management without the need for drug use, helps
+to gain emotional stability, and brings cognitive reconstruction, and an
+effective coping mechanism
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html},
+`<xref rid="B20" ref-type="bibr">`{=html}20`</xref>`{=html},
+`<xref rid="B21" ref-type="bibr">`{=html}21`</xref>`{=html},
+`<xref rid="B35" ref-type="bibr">`{=html}35`</xref>`{=html},
+`<xref rid="B44" ref-type="bibr">`{=html}44`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Effective citizenship: One of the important consequences of recovery is
+the respect for our surroundings and others, avoidance of judicial
+issues, a decrease in crime and leading meaningful lives in the
+community (`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html},
+`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Having a purpose in life: Finding meaning and hopefulness,
+reconstructing meaning and spiritual growth, and acquiring new values
+and beliefs such as love, trust, honesty, and acknowledgement can be
+some of the consequences of recovery from addiction
+(`<xref rid="B20" ref-type="bibr">`{=html}20`</xref>`{=html},
+`<xref rid="B33" ref-type="bibr">`{=html}33`</xref>`{=html},
+`<xref rid="B44" ref-type="bibr">`{=html}44`</xref>`{=html},
+`<xref rid="B45" ref-type="bibr">`{=html}45`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Improved social function: Social recovery helps to rebuild and improve
+social and family relationships, experience more involvement and
+usefulness in society, improve performance, improve employment and
+revenue, and experience reunion with the society
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B6" ref-type="bibr">`{=html}6`</xref>`{=html},
+`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p>
+```
+Improved quality of life and satisfaction: Well-being also stems from a
+decrease in the addiction stigma, an increase in housing stability, an
+increase in life satisfaction and life quality, and a normal life
+following recovery
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html},
+`<xref rid="B28" ref-type="bibr">`{=html}28`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+<p>
+```
+`<bold>`{=html}`<italic toggle="yes">`{=html}Measurement`</italic>`{=html}`</bold>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Valid definition and methods for measuring the recovery are necessary
+and crucial
+(`<xref rid="B46" ref-type="bibr">`{=html}46`</xref>`{=html}). One of
+the challenges associated with measuring recovery is that there is no
+agreement on whether the recovery experience can be standardized or
+whether it is entirely subjective
+(`<xref rid="B47" ref-type="bibr">`{=html}47`</xref>`{=html}). Close
+attention to the methods used to measure recovery from substance use
+reveals that most of the time the question that is used is simply about
+abstinence in a yes/no format because it is practical
+(`<xref rid="B46" ref-type="bibr">`{=html}46`</xref>`{=html}) or about
+measuring recovery
+capital(`<xref rid="B3" ref-type="bibr">`{=html}3`</xref>`{=html}) such
+as "SURE , "ARC" or "ADOM"
+(`<xref rid="B30" ref-type="bibr">`{=html}30`</xref>`{=html},
+`<xref rid="B37" ref-type="bibr">`{=html}37`</xref>`{=html},
+`<xref rid="B47" ref-type="bibr">`{=html}47`</xref>`{=html},
+`<xref rid="B48" ref-type="bibr">`{=html}48`</xref>`{=html}). Measuring
+recovery from a substance use disorder is much more difficult because
+recovery is a process, and it is
+multidimensional(`<xref rid="B46" ref-type="bibr">`{=html}46`</xref>`{=html})
+and needs to have a multidimensional measure of change and not a single
+score (`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html},
+`<xref rid="B46" ref-type="bibr">`{=html}46`</xref>`{=html}).
+```{=html}
+</p>
+```
+`<fig id="F1" position="float" orientation="portrait">`{=html}`<label>`{=html}Figure
+1`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Summary of the Theoretical Phase Based on the PRISMA Flowchart
+(Selection, Critical Appraisal, Data Extraction of Studies)
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="IJPS-15-172-g001.jpg"/>`{=html}`</fig>`{=html}`<fig id="F2" position="float" orientation="portrait">`{=html}`<label>`{=html}Figure
+2`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Antecedents and Consequences of Addiction Recovery
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="IJPS-15-172-g002.jpg"/>`{=html}`</fig>`{=html}`<table-wrap id="T1" position="float" orientation="portrait">`{=html}`<label>`{=html}Table
+1`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+An Overview of Some of Studies Conducted on the Concept of Addiction
+Recovery
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="right" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<th align="left" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Author`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Country`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Study Design`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Study Subject`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Sample /Sample `</bold>`{=html} `<break/>`{=html}
+`<bold>`{=html}Size`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+`<bold>`{=html}Data `</bold>`{=html} `<break/>`{=html}
+`<bold>`{=html}Collection`</bold>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+1
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Abedi (2017)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+IRAN
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Abstinence `<break/>`{=html}experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+10 member of NA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+2
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+BFI consensus panel `<break/>`{=html}(2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Consensus panel `<break/>`{=html}report
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery definition
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+3
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Best et al. (2011)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Mixed method
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery Experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+205recovered `<break/>`{=html}persons
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner- `<break/>`{=html}Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+4
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Best etal (2016)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Theoretical paper
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Model of recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+5
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Cano et al.( 2017)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cross sectional
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery capital
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+546 participants
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+6
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Duffy & Baldwin `<break/>`{=html}(2013)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery factors
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+45post recovery `<break/>`{=html}persond
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+7
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Dodge et al. (2010)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Measuring recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+11professional `<break/>`{=html}clinician
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Content `<break/>`{=html}analysis
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+8
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Dupont et al ( 2016)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Commentary article
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery element
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+9
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Dennis etal (2005)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cohort
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery duration
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+1271 person in `<break/>`{=html}recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+10
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Davidosn & white `<break/>`{=html}(2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery concept
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+11
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+El-gubaly (2012)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Canada
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review article
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery concept
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+12
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Elswik et al (2018)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery exprience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+8 in recovery person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+13
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Galanter et al (2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Instrument `<break/>`{=html}psychometric
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Spiritual Instrument
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+14
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Galanter (2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Spirituality in recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+15
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Laudet (2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Mixed method
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery mean
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+440 in recovery `<break/>`{=html}persons
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner- `<break/>`{=html}Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+16
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Laudet& Humphry `<break/>`{=html}(2013)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery Concept
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+17
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Laudet (2008)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery Road
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+18
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Laudet etal (2006)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cross-sectional
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery factor
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+353 Recovery `<break/>`{=html}person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+19
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Laudet (2002)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Pilot study
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery pathway
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+90 persons
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+20
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Law & Guo (2012 )
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Taiwan
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+exprimental
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery & hope
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+40 female drug `<break/>`{=html}offender
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+21
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Long & Vaughn `<break/>`{=html}(1999)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery exprience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+7 young person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+22
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Grant (2007)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+25in-recovery `<break/>`{=html}women
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+23
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Groshkova (2013)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Focus group
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery capital
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+142 individuals
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+24
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Horoosh& Freedman `<break/>`{=html}( 2017)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Israel
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cross sectional
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Addiction related `<break/>`{=html}growth
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+104 recovered `<break/>`{=html}person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+25
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+O Sullivan (2017)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cross sectional
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery capital
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+76 in recovery `<break/>`{=html}persons
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+26
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Neal etal (2014)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Focus group
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery elements
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+25professional `<break/>`{=html}clinician
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Group `<break/>`{=html}discussion
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+27
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Neal et al (2015)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Focus group
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery measure
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+46 in recovery `<break/>`{=html}person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+28
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Neal etal (2016 )
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Focus group
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery indicators
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+124 different `<break/>`{=html}member
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Group `<break/>`{=html}discussion
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+29
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Kaskutas etal (2014)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Internet based `<break/>`{=html}survey
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Element of recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+9,341 person in `<break/>`{=html}recovery or `<break/>`{=html}recovered
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+30
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Kelly et al (2015)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery definition
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+31
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Kearney (1998)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Grounded formal `<break/>`{=html}theory
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+10 article
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Content `<break/>`{=html}analysis
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+32
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Kaskutas et al (2015)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Comparative study
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery definition
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+1237 inrecovery `<break/>`{=html}person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+33
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Shineborne (2011)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+UK
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Qualitative
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Subjective `<break/>`{=html}Experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+6 female
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Interview
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+34
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Sterling etal ( 2013)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Cross sectional
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+149 in recovery `<break/>`{=html}person
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+35
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+White( 2005)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery concept
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+36
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+White & Kurtz (2006)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Assay
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery Experience
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+37
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+White (2009)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Review
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Community `<break/>`{=html}Recourses
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+38
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+Witbrodt et al (2015)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Comparative study
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery typology
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+4912 in recovery
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Questioner
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="right" valign="middle" rowspan="1" colspan="1">
+```
+39
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="middle" rowspan="1" colspan="1">
+```
+White et al (2006)
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+USA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Commentary
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1">
+```
+Recovery factors
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="middle" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`</table-wrap>`{=html}`</sec>`{=html}`<sec sec-type="discussion">`{=html}
+```{=html}
+<title>
+```
+Discussion
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+In this study, the concept of addiction recovery was investigated using
+the theoretical phase of the hybrid model. The results showed that
+addiction recovery is complex and multifaceted, and a unique process of
+voluntarily sustained control over substance use which maximizes health
+and well-being and participation in responsibilities of self, family and
+community.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In this study, 5 attributes were extracted as follow:
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+One of the attributes was "a process of change". Recovery is generally
+considered a journey rather than an incident. Recovery is a process of
+change, not a static event. Recovery is a continuous and turbulent
+attempt to maintain abstinence. Recovery refers to an internal and an
+external change in relations, attitudes, thoughts and emotions, or
+identity change. Recovery requires the restoration of a currently
+spoiled identity
+(`<xref rid="B5" ref-type="bibr">`{=html}5`</xref>`{=html},
+`<xref rid="B8" ref-type="bibr">`{=html}8`</xref>`{=html},
+`<xref rid="B10" ref-type="bibr">`{=html}10`</xref>`{=html},
+`<xref rid="B19" ref-type="bibr">`{=html}19`</xref>`{=html},
+`<xref rid="B21" ref-type="bibr">`{=html}21`</xref>`{=html}-`<xref rid="B28" ref-type="bibr">`{=html}28`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The second attribute was being holistic. Given the multidimensional side
+effects of addiction, recovery is also multiaxial, that is, biological,
+psychological, social, spiritual, and beyond abstinence. Recovery is
+multidimensional and is not simply sobriety
+(`<xref rid="B11" ref-type="bibr">`{=html}11`</xref>`{=html},
+`<xref rid="B49" ref-type="bibr">`{=html}49`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The third feature of the concept of addiction recovery is being
+client-centered: Recovery is self-directed and self-determinant and
+individualized in nature. Recovery starts and continues in relation to
+personal traits, intensity, duration, personal needs, and society.
+Individuals define their own life goals. In the course of recovery, the
+individual's objectives matter and this process may continue at any
+speed or rate and taking any approach, and everyone's experience is
+different (`<xref rid="B22" ref-type="bibr">`{=html}22`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Learned healthy coping was the fourth attribute of the theoretical phase
+of concept analysis. Overcoming dependence on substance use and coping
+with the issues it poses are an important aspect of recovery. Finding
+new and better ways to cope with the stressors of life by reaching out
+for help are important in the recovery experience. Recovery refers to
+the way in which a person with addiction or impacted by addiction
+experience actively manages the disorder or its residual effects in the
+process of reclaiming full treatment. People feel stronger than prior to
+the onset of their illnesses
+(`<xref rid="B22" ref-type="bibr">`{=html}22`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The fifth attribute was multistage. Recovery consists of different
+stages and each has its own objectives and interventions. The 3 stages
+of recovery are as follow: the early recovery stage (3 to 12 months):
+concentration on the maintenance of abstinence and prevention of
+relapse; sustained recovery (abstinence lasts from 1 year to 5 years):
+increased concentration on increasing life stability and attaining
+goals; and stable recovery (abstinence lasts for more than 5 years):
+improving the skills and concentrating on growth and development
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html}). Recovery is
+a dynamic process characterized by increasing a resulting stable
+remission and supported by an increased recovery capital and an enhanced
+quality of life. Recovery is an outcome-based concept. Although previous
+definitions have suggested some components of recovery, the concept of
+addiction recovery is wider than recovery solely with abstinence, while
+including global health, citizenship, quality of life, meaning and
+satisfaction in life
+(`<xref rid="B4" ref-type="bibr">`{=html}4`</xref>`{=html},
+`<xref rid="B9" ref-type="bibr">`{=html}9`</xref>`{=html},
+`<xref rid="B46" ref-type="bibr">`{=html}46`</xref>`{=html},
+`<xref rid="B50" ref-type="bibr">`{=html}50`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+As a result, a working definition of addiction recovery was formulated
+by comparing and contrasting the existing definition with the
+researchers tentative definition: "Recovery is an intentional endeavor,
+reclaiming a self-journey, through which a person in recovery with the
+use of recovery capitals manages the residual drug use effects for
+sustained control over the substance use, maximizing their health and
+well-being, having a meaningful life and citizenship, and pursuing other
+life goals."
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+This means that recovery leads to changes, preserves the desired new
+lifestyle, and incorporates these factors into daily life.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Limitation
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+One of the limitations of this study was the lack of access to the
+full-text copies of some papers. In addition, access to all resources
+via an electronic database was not possible (eg, Psych INFO). Another
+limitation was the language barrier and the use of only the Persian and
+English articles in the literature.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="conclusions">`{=html}
+```{=html}
+<title>
+```
+Conclusion
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+This finding can provide an insight for researchers to clarify the
+definition of recovery before designing the research. Ambiguity in the
+definition of recovery occurred when the researcher tried to emphasize
+the theoretical differences in its definition but overlooked them in
+practice. We need to relinquish certain restrictions of the theoretical
+definition, but instead exert them practically. The researchers and
+clinicians need to agree on the criteria that determine the indicators
+of recovery in persons for assessing the recovery. The clarity of
+language is also a major determinant of our success in making
+interventions in families, communities, individuals, and AOD cases.
+Commonly, the findings may help health care professionals to understand
+the concept of addiction recovery, which is important in making
+improvements in all aspects of recovery.not only abstinence.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Finally, our findings may form the basis for the theories, the scales,
+and the criteria for the assessment of addiction recovery. The results
+of our concept analysis revealed that many personal and social factors
+were affected with regard to the person in recovery and the recovery
+process, as this phenomenon is multidimensional. Health care
+professionals and clinicians should be aware of the different suitable
+approaches that should be taken to promote and maintain recovery. The
+imbalance of power between a person in recovery and clinicians and the
+focus on abstinence is another important issue and can be resolved by
+focusing on the definition. We will report the analytic phase of this
+research project as an addiction recovery concept analysis in Iran.
+```{=html}
+</p>
+```
+`</sec>`{=html}
+```{=html}
+</body>
+```
+`<back>`{=html}`<ack>`{=html}
+```{=html}
+<title>
+```
+Acknowledgment
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+This paper is a report of the first part of a hybrid model concept
+analysis study conducted in the University of Social Welfare &
+Rehabilitation Sciences for a rehabilitation counseling PhD degree. The
+authors would like to acknowledge all those who cooperated in this
+research project.
+```{=html}
+</p>
+```
+`</ack>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Conflict of Interest
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+The authors declare no potential conflict of interest with respect to
+the research, authorship, and publication of this article.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<ref-list>`{=html}
+```{=html}
+<title>
+```
+References
+```{=html}
+</title>
+```
+`<ref id="B1">`{=html}`<label>`{=html}1`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dennis`</surname>`{=html}`<given-names>`{=html}ML`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Scott`</surname>`{=html}`<given-names>`{=html}CK`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Funk`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Foss`</surname>`{=html}`<given-names>`{=html}MA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+duration and correlates of addiction and treatment
+careers`</article-title>`{=html}`<source>`{=html} J Subst Abuse
+Treat.`</source>`{=html}`<year>`{=html}2005`</year>`{=html}`<volume>`{=html}28`</volume>`{=html}`<issue>`{=html}Suppl
+1`</issue>`{=html}`<fpage>`{=html}S51`</fpage>`{=html}`<lpage>`{=html}62`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}15797639`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2004.10.013`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B2">`{=html}`<label>`{=html}2`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rahimi`</surname>`{=html}`<given-names>`{=html}Movaghar
+A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sharifi`</surname>`{=html}`<given-names>`{=html}V`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mohammadi`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sahimi`</surname>`{=html}`<given-names>`{=html}Izadian
+E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rad`</surname>`{=html}`<given-names>`{=html}Goodarzi
+R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mansouri`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Researches
+on substance use in Iran 3 decades
+evaluation`</article-title>`{=html}`<source>`{=html} Hakim Research
+Journal`</source>`{=html}`<year>`{=html}2006`</year>`{=html}`<volume>`{=html}8`</volume>`{=html}`<issue>`{=html}4`</issue>`{=html}`<fpage>`{=html}37`</fpage>`{=html}`<lpage>`{=html}44`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B3">`{=html}`<label>`{=html}3`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sterling`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Slusher`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Weinstein`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Measuring
+recovery capital and determining its relationship to outcome in an
+alcohol dependent sample`</article-title>`{=html}`<source>`{=html} Am J
+Drug Alcohol
+Abuse`</source>`{=html}`<year>`{=html}2008`</year>`{=html}`<volume>`{=html}34`</volume>`{=html}`<issue>`{=html}5`</issue>`{=html}`<fpage>`{=html}603`</fpage>`{=html}`<lpage>`{=html}10`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}18821453`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/00952990802308114`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B4">`{=html}`<label>`{=html}4`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Panel`</surname>`{=html}`<given-names>`{=html}TBFIC`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}What
+is recovery? A working definition from the Betty Ford
+Institute`</article-title>`{=html}`<source>`{=html} Journal of Substance
+Abuse
+Treatment`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}33`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}221`</fpage>`{=html}`<lpage>`{=html}8`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17889294`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2007.06.001`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B5">`{=html}`<label>`{=html}5`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}El-Guebaly`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+Meanings of Recovery From Addiction Evolution and
+Promises`</article-title>`{=html}`<source>`{=html} Journal of addiction
+medicine`</source>`{=html}`<year>`{=html}2012`</year>`{=html}`<volume>`{=html}6`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}1`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}22124289`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1097/ADM.0b013e31823ae540`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B6">`{=html}`<label>`{=html}6`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Neale`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Finch`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marsden`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mitcheson`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rose`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Strang`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}How
+should we measure addiction recovery? Analysis of service provider
+perspectives using online Delphi
+groups`</article-title>`{=html}`<source>`{=html} Drug-Educ Prev
+Polic`</source>`{=html}`<year>`{=html}2014`</year>`{=html}`<volume>`{=html}21`</volume>`{=html}`<issue>`{=html}4`</issue>`{=html}`<fpage>`{=html}310`</fpage>`{=html}`<lpage>`{=html}23`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B7">`{=html}`<label>`{=html}7`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Alexandre`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Laudet
+P`</article-title>`{=html}`<source>`{=html} The Road to Recovery: Where
+are we going and how do we get there? Empirically-driven conclusions and
+future directions for service development and
+research`</source>`{=html}`<year>`{=html}Subst Use
+Misuse`</year>`{=html}`<volume>`{=html}43`</volume>`{=html}`<issue>`{=html}12-13`</issue>`{=html}`<fpage>`{=html}2001`</fpage>`{=html}`<lpage>`{=html}20`</lpage>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/10826080802293459`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2593852`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19016176`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B8">`{=html}`<label>`{=html}8`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Best`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Beckwith`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Haslam`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Haslam`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Jetten`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mawson`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}Overcoming
+alcohol and other drug addiction as a process of social identity
+transition: the social identity model of recovery
+(SIMOR)`</article-title>`{=html}`<source>`{=html} Addict Res
+Theory`</source>`{=html}`<year>`{=html}2016`</year>`{=html}`<volume>`{=html}24`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}111`</fpage>`{=html}`<lpage>`{=html}23`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B9">`{=html}`<label>`{=html}9`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kaskutas`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Borkman`</surname>`{=html}`<given-names>`{=html}TJ`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ritter`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witbrodt`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Subbaraman`</surname>`{=html}`<given-names>`{=html}MS`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}Elements
+that define recovery: The experiential
+perspective`</article-title>`{=html}`<source>`{=html} J Stud Alcohol
+Drugs`</source>`{=html}`<year>`{=html}2014`</year>`{=html}`<volume>`{=html}75`</volume>`{=html}`<issue>`{=html}6`</issue>`{=html}`<fpage>`{=html}999`</fpage>`{=html}`<lpage>`{=html}1010`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}25343658`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.15288/jsad.2014.75.999`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4211341`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B10">`{=html}`<label>`{=html}10`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}AB`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}What
+does recovery mean to you? Lessons from the recovery experience for
+research and practice`</article-title>`{=html}`<source>`{=html} J Subst
+Abuse
+Treat`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}33`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}243`</fpage>`{=html}`<lpage>`{=html}56`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17889296`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2007.04.014`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2083562`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B11">`{=html}`<label>`{=html}11`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dodge`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Krantz`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kenny`</surname>`{=html}`<given-names>`{=html}PJ`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}How
+can we begin to measure
+recovery?`</article-title>`{=html}`<source>`{=html} Subst Abuse Treat
+Prev
+Policy`</source>`{=html}`<year>`{=html}2010`</year>`{=html}`<volume>`{=html}5`</volume>`{=html}`<fpage>`{=html}31`</fpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}21138568`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1186/1747-597X-5-31`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3016363`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B12">`{=html}`<label>`{=html}12`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Galanter`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Spirituality
+and recovery in 12-step programs: An empirical
+model`</article-title>`{=html}`<source>`{=html} J Subst Abuse
+Treat`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}33`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}265`</fpage>`{=html}`<lpage>`{=html}72`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17889297`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2007.04.016`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B13">`{=html}`<label>`{=html}13`</label>`{=html}`<element-citation publication-type="book">`{=html}`<collab>`{=html}Substance
+Abuse and Mental Health Services Administration(
+SAMHSA)`</collab>`{=html}`<source>`{=html}A report required by Congress
+on performance
+partnerships`</source>`{=html}`<year>`{=html}2005`</year>`{=html}`<publisher-loc>`{=html}Washington,
+DC`</publisher-loc>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B14">`{=html}`<label>`{=html}14`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kaskutas`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witbrodt`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grella`</surname>`{=html}`<given-names>`{=html}CE`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+definitions: Do they change?`</article-title>`{=html}`<source>`{=html}
+Drug and alcohol
+dependence.`</source>`{=html}`<year>`{=html}2015`</year>`{=html}`<volume>`{=html}154`</volume>`{=html}`<fpage>`{=html}85`</fpage>`{=html}`<lpage>`{=html}92`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}26166666`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.drugalcdep.2015.06.021`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4536083`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B15">`{=html}`<label>`{=html}15`</label>`{=html}`<element-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Polit`</surname>`{=html}`<given-names>`{=html}DF`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Beck`</surname>`{=html}`<given-names>`{=html}CT`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<source>`{=html}Nursing
+research: Generating and assessing evidence for nursing
+practice`</source>`{=html}`<year>`{=html}2008`</year>`{=html}`<publisher-name>`{=html}Lippincott
+Williams &
+Wilkins`</publisher-name>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B16">`{=html}`<label>`{=html}16`</label>`{=html}`<element-citation publication-type="book">`{=html}`<collab>`{=html}Merriam-Webster
+Inc`</collab>`{=html}`<source>`{=html}Webster's dictionary of synonyms
+and
+antonyms`</source>`{=html}`<year>`{=html}1996`</year>`{=html}`<publisher-name>`{=html}Smith-mark
+Publishers`</publisher-name>`{=html}`<lpage>`{=html}443`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B17">`{=html}`<label>`{=html}17`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery:
+Its History and Renaissance as an Organizing Construct Concerning
+Alcohol and Other Drug
+Problems`</article-title>`{=html}`<source>`{=html} Alcoholism Treatment
+Quarterly`</source>`{=html}`<year>`{=html}2005`</year>`{=html}`<volume>`{=html}23`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}3`</fpage>`{=html}`<lpage>`{=html}15`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B18">`{=html}`<label>`{=html}18`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Language
+and recovery advocacy: Why we worry about the
+words`</article-title>`{=html}`<source>`{=html} Recovery Rising:
+Quarterly Journal of The Faces and Voices of
+Recovery`</source>`{=html}`<volume>`{=html}2007`</volume>`{=html}`<fpage>`{=html}1`</fpage>`{=html}`<lpage>`{=html}3`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B19">`{=html}`<label>`{=html}19`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Galanter`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Spirituality
+and recovery in 12-step programs: An empirical
+model`</article-title>`{=html}`<source>`{=html} Journal of Substance
+Abuse
+Treatment`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}33`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}265`</fpage>`{=html}`<lpage>`{=html}72`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17889297`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2007.04.016`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B20">`{=html}`<label>`{=html}20`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kurtz`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+varieties of recovery
+experience`</article-title>`{=html}`<source>`{=html} International
+Journal of Self Help and Self
+Care`</source>`{=html}`<year>`{=html}2006`</year>`{=html}`<volume>`{=html}3`</volume>`{=html}`<issue>`{=html}1-2`</issue>`{=html}`<fpage>`{=html}21`</fpage>`{=html}`<lpage>`{=html}61`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B21">`{=html}`<label>`{=html}21`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Best`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gow`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Taylor`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Knox`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+from heroin or alcohol dependence: A qualitative account of the recovery
+experience in Glasgow`</article-title>`{=html}`<source>`{=html} Journal
+of Drug
+Issues`</source>`{=html}`<year>`{=html}2011`</year>`{=html}`<volume>`{=html}41`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}359`</fpage>`{=html}`<lpage>`{=html}77`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B22">`{=html}`<label>`{=html}22`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Davidson`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+Concept of Recovery as an Organizing Principle for Integrating Mental
+Health and Addiction Services`</article-title>`{=html}`<source>`{=html}
+The journal of behavioral health services &
+research`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}34`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}109`</fpage>`{=html}`<lpage>`{=html}20`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17351758`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1007/s11414-007-9053-7`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B23">`{=html}`<label>`{=html}23`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Elswick`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Fallin-Bennett`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ashford`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Werner-Wilson`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Emerging
+adults and recovery capital: Barriers and facilitators to
+recovery`</article-title>`{=html}`<source>`{=html} J Addict
+Nurs`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}29`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}78`</fpage>`{=html}`<lpage>`{=html}83`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}29864054`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1097/JAN.0000000000000218`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B24">`{=html}`<label>`{=html}24`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Rural
+women's stories of recovery from
+addiction`</article-title>`{=html}`<source>`{=html} Addict Res
+Theory`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}15`</volume>`{=html}`<issue>`{=html}5`</issue>`{=html}`<fpage>`{=html}521`</fpage>`{=html}`<lpage>`{=html}41`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B25">`{=html}`<label>`{=html}25`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}AB`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Savage`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mahmood`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Pathways
+to Long-Term Recovery: A Preliminary
+Investigation`</article-title>`{=html}`<source>`{=html} Journal of
+psychoactive
+drugs`</source>`{=html}`<year>`{=html}2002`</year>`{=html}`<volume>`{=html}34`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}305`</fpage>`{=html}`<lpage>`{=html}11`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}12422942`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/02791072.2002.10399968`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC1852519`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B26">`{=html}`<label>`{=html}26`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kearney`</surname>`{=html}`<given-names>`{=html}MH`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Truthful
+self-nurturing: A grounded formal theory of women's addiction
+recovery`</article-title>`{=html}`<source>`{=html} Qualitative Health
+Research`</source>`{=html}`<year>`{=html}1998`</year>`{=html}`<volume>`{=html}8`</volume>`{=html}`<issue>`{=html}4`</issue>`{=html}`<fpage>`{=html}495`</fpage>`{=html}`<lpage>`{=html}512`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}10558341`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1177/104973239800800405`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B27">`{=html}`<label>`{=html}27`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witbrodt`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kaskutas`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grella`</surname>`{=html}`<given-names>`{=html}CE`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}How
+do recovery definitions distinguish recovering individuals? Five
+typologies`</article-title>`{=html}`<source>`{=html} Drug Alcohol
+Depend`</source>`{=html}`<year>`{=html}2015`</year>`{=html}`<volume>`{=html}148`</volume>`{=html}`<fpage>`{=html}109`</fpage>`{=html}`<lpage>`{=html}17`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}25630961`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.drugalcdep.2014.12.036`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4330112`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B28">`{=html}`<label>`{=html}28`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Haroosh`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Freedman`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Posttraumatic
+growth and recovery from
+addiction`</article-title>`{=html}`<source>`{=html} Eur J
+Psychotraumatol`</source>`{=html}`<year>`{=html}2017`</year>`{=html}`<volume>`{=html}8`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}1369832`</fpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}29038678`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/20008198.2017.1369832`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5632763`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B29">`{=html}`<label>`{=html}29`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}AB`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}WL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+capital as prospective predictor of sustained recovery, life
+satisfaction, and stress among former poly-substance
+users`</article-title>`{=html}`<source>`{=html} SUBST USE
+MISUSE`</source>`{=html}`<year>`{=html}2008`</year>`{=html}`<volume>`{=html}43`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}27`</fpage>`{=html}`<lpage>`{=html}54`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}18189204`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/10826080701681473`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2211734`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B30">`{=html}`<label>`{=html}30`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Jury`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Smith`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Measuring
+Recovery in adult community addiction
+services`</article-title>`{=html}`<source>`{=html} New Zealand Journal
+of Psychology
+(Online)`</source>`{=html}`<year>`{=html}2016`</year>`{=html}`<volume>`{=html}45`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}13`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B31">`{=html}`<label>`{=html}31`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Galanter`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dermatis`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bunt`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Williams`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Assessment
+of spirituality and its relevance to addiction
+treatment`</article-title>`{=html}`<source>`{=html} J Subst Abuse
+Treat`</source>`{=html}`<year>`{=html}2007`</year>`{=html}`<volume>`{=html}33`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}257`</fpage>`{=html}`<lpage>`{=html}64`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}17574800`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2006.06.014`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B32">`{=html}`<label>`{=html}32`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Becker`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Life
+meaning and purpose in addiction
+recovery`</article-title>`{=html}`<source>`{=html} Addict
+Prof`</source>`{=html}`<year>`{=html}2006`</year>`{=html}`<volume>`{=html}7`</volume>`{=html}`<fpage>`{=html}56`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B33">`{=html}`<label>`{=html}33`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Neale`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tompkins`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Wheeler`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Finch`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marsden`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mitcheson`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}"You're
+all going to hate the word 'recovery'by the end of this": Service users'
+views of measuring addiction
+recovery`</article-title>`{=html}`<source>`{=html} Drug-Educ Prev
+Polic`</source>`{=html}`<year>`{=html}2015`</year>`{=html}`<volume>`{=html}22`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}26`</fpage>`{=html}`<lpage>`{=html}34`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B34">`{=html}`<label>`{=html}34`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}WL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+mobilization of community resources to support long-term addiction
+recovery`</article-title>`{=html}`<source>`{=html} J Subst Abuse
+Treat`</source>`{=html}`<year>`{=html}2009`</year>`{=html}`<volume>`{=html}36`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}146`</fpage>`{=html}`<lpage>`{=html}58`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}19161895`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jsat.2008.10.006`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B35">`{=html}`<label>`{=html}35`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}O'Sullivan`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Watt`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+Capital and Quality of Life in Stable Recovery From
+Addiction`</article-title>`{=html}`<source>`{=html} Rehabil Couns
+Bull`</source>`{=html}`<year>`{=html}2017`</year>`{=html}`<volume>`{=html}00`</volume>`{=html}`<issue>`{=html}0`</issue>`{=html}`<fpage>`{=html}1`</fpage>`{=html}`<lpage>`{=html}13`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B36">`{=html}`<label>`{=html}36`</label>`{=html}`<element-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rodgers`</surname>`{=html}`<given-names>`{=html}b`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}knafl`</surname>`{=html}`<given-names>`{=html}kA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<source>`{=html}Concept
+development in nursing : foundations, techniques, and
+applications`</source>`{=html}`<year>`{=html}2000`</year>`{=html}`<publisher-name>`{=html}Philadelphia:
+Saunders`</publisher-name>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B37">`{=html}`<label>`{=html}37`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Cano`</surname>`{=html}`<given-names>`{=html}I`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Best`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Edwards`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Lehman`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+capital pathways: Modelling the components of recovery
+wellbeing`</article-title>`{=html}`<source>`{=html} Drug Alcohol
+Depend.`</source>`{=html}`<year>`{=html}2017`</year>`{=html}`<volume>`{=html}181`</volume>`{=html}`<fpage>`{=html}11`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}29028554`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.drugalcdep.2017.09.002`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B38">`{=html}`<label>`{=html}38`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Abedi`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rizi`</surname>`{=html}`<given-names>`{=html}MN`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Nasrollah`</surname>`{=html}`<given-names>`{=html}AM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ghodoosi`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Navidian`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Addiction
+abstinence as an accessible experience: A phenomenological
+study`</article-title>`{=html}`<source>`{=html} International Journal of
+High Risk Behaviors and
+Addiction.`</source>`{=html}`<year>`{=html}2017`</year>`{=html}`<volume>`{=html}6`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B39">`{=html}`<label>`{=html}39`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Long`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Vaughn`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}"I've
+had too much done to my heart": The dilemma of addiction and recovery as
+seen through seven youngsters'
+lives`</article-title>`{=html}`<source>`{=html} J Drug
+Educ`</source>`{=html}`<year>`{=html}1999`</year>`{=html}`<volume>`{=html}29`</volume>`{=html}`<issue>`{=html}4`</issue>`{=html}`<fpage>`{=html}309`</fpage>`{=html}`<lpage>`{=html}22`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}10786410`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.2190/UJFX-RVNH-6769-CPAC`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B40">`{=html}`<label>`{=html}40`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Law`</surname>`{=html}`<given-names>`{=html}FM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Guo`</surname>`{=html}`<given-names>`{=html}GJ`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Hope
+and recovery from substance abuse for female drug offenders in
+Taiwan`</article-title>`{=html}`<source>`{=html} Int J Offender Ther
+Comp
+Criminol`</source>`{=html}`<year>`{=html}2012`</year>`{=html}`<volume>`{=html}56`</volume>`{=html}`<issue>`{=html}8`</issue>`{=html}`<fpage>`{=html}1258`</fpage>`{=html}`<lpage>`{=html}82`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}22186881`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1177/0306624X11426418`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B41">`{=html}`<label>`{=html}41`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chen`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Social
+support, spiritual program, and addiction
+recovery`</article-title>`{=html}`<source>`{=html} Int J Offender Ther
+Comp
+Criminol`</source>`{=html}`<year>`{=html}2006`</year>`{=html}`<volume>`{=html}50`</volume>`{=html}`<issue>`{=html}3`</issue>`{=html}`<fpage>`{=html}306`</fpage>`{=html}`<lpage>`{=html}23`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}16648385`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1177/0306624X05279038`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B42">`{=html}`<label>`{=html}42`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Laudet`</surname>`{=html}`<given-names>`{=html}AB`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Morgen`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}WL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+role of social supports, spirituality, religiousness, life meaning and
+affiliation with 12-step fellowships in quality of life satisfaction
+among individuals in recovery from alcohol and drug
+problems`</article-title>`{=html}`<source>`{=html} Alcohol Treat
+Q`</source>`{=html}`<year>`{=html}2006`</year>`{=html}`<volume>`{=html}24`</volume>`{=html}`<issue>`{=html}1-2`</issue>`{=html}`<fpage>`{=html}33`</fpage>`{=html}`<lpage>`{=html}73`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}16892161`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1300/J020v24n01_04`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC1526775`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B43">`{=html}`<label>`{=html}43`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Duffy`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Baldwin`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Recovery
+post treatment: plans, barriers and
+motivators`</article-title>`{=html}`<source>`{=html} Subst Abuse Treat
+Prev
+Policy`</source>`{=html}`<year>`{=html}2013`</year>`{=html}`<volume>`{=html}8`</volume>`{=html}`<fpage>`{=html}6`</fpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}23363550`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1186/1747-597X-8-6`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3573929`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B44">`{=html}`<label>`{=html}44`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Neale`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Panebianco`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Finch`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marsden`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mitcheson`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rose`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}Emerging
+consensus on measuring addiction recovery: Findings from a
+multi-stakeholder consultation
+exercise`</article-title>`{=html}`<source>`{=html} Drug-Educ Prev
+Polic`</source>`{=html}`<year>`{=html}2016`</year>`{=html}`<volume>`{=html}23`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}31`</fpage>`{=html}`<lpage>`{=html}40`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B45">`{=html}`<label>`{=html}45`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Shinebourne`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Smith`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Images
+of addiction and recovery: An interpretative phenomenological analysis
+of the experience of addiction and recovery as expressed in visual
+images`</article-title>`{=html}`<source>`{=html} Drug-Educ Prev
+Polic`</source>`{=html}`<year>`{=html}2011`</year>`{=html}`<volume>`{=html}18`</volume>`{=html}`<issue>`{=html}5`</issue>`{=html}`<fpage>`{=html}313`</fpage>`{=html}`<lpage>`{=html}22`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B46">`{=html}`<label>`{=html}46`</label>`{=html}`<element-citation publication-type="book">`{=html}`<collab>`{=html}National
+Academies of Sciences, Engineering and
+Medicine`</collab>`{=html}`<source>`{=html}Measuring Recovery from
+Substance Use or Mental Disorders: Workshop
+Summary`</source>`{=html}`<year>`{=html}2016`</year>`{=html}`<publisher-loc>`{=html}Washington,
+DC`</publisher-loc>`{=html}`<publisher-name>`{=html}The National
+Academies
+Press`</publisher-name>`{=html}`<pub-id pub-id-type="pmid">`{=html}27748089`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B47">`{=html}`<label>`{=html}47`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Neale`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Panebianco`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Finch`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marsden`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mitcheson`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rose`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}`<article-title>`{=html}Emerging
+consensus on measuring addiction recovery: findings from a
+multi-stakeholder consultation
+exercise`</article-title>`{=html}`<source>`{=html} Drugs: education,
+prevention and
+policy`</source>`{=html}`<year>`{=html}2016`</year>`{=html}`<volume>`{=html}23`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}31`</fpage>`{=html}`<lpage>`{=html}40`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B48">`{=html}`<label>`{=html}48`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Groshkova`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Best`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}White`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}The
+Assessment of Recovery Capital: Properties and psychometrics of a
+measure of addiction recovery
+strengths`</article-title>`{=html}`<source>`{=html} Drug Alcohol
+Rev`</source>`{=html}`<year>`{=html}2013`</year>`{=html}`<volume>`{=html}32`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}187`</fpage>`{=html}`<lpage>`{=html}94`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}22882622`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/j.1465-3362.2012.00489.x`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B49">`{=html}`<label>`{=html}49`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Notley`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Blyth`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Maskrey`</surname>`{=html}`<given-names>`{=html}V`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Pinto`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Holland`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}Exploring
+the concepts of abstinence and recovery through the experiences of
+long-term opiate substitution
+clients`</article-title>`{=html}`<source>`{=html} Substance
+Abuse`</source>`{=html}`<year>`{=html}2015`</year>`{=html}`<volume>`{=html}36`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<fpage>`{=html}232`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`<pub-id pub-id-type="pmid">`{=html}25127184`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/08897077.2014.941085`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B50">`{=html}`<label>`{=html}50`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kelly`</surname>`{=html}`<given-names>`{=html}JF`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hoeppner`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}`<article-title>`{=html}A
+biaxial formulation of the recovery
+construct`</article-title>`{=html}`<source>`{=html} Addict Res
+Theory`</source>`{=html}`<year>`{=html}2015`</year>`{=html}`<volume>`{=html}23`</volume>`{=html}`<issue>`{=html}1`</issue>`{=html}`<fpage>`{=html}5`</fpage>`{=html}`<lpage>`{=html}9`</lpage>`{=html}`</element-citation>`{=html}`</ref>`{=html}`</ref-list>`{=html}`</back>`{=html}
+```{=html}
+</article>
+```
+`</pmc-articleset>`{=html}

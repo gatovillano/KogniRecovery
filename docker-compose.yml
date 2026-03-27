@@ -11,12 +11,12 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: kognirecovery_dev
     ports:
-      - "5437:5432"
+      - '5437:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -29,12 +29,12 @@ services:
     container_name: kognirecovery-redis
     restart: unless-stopped
     ports:
-      - "6380:6379"
+      - '6380:6379'
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -55,14 +55,14 @@ services:
       NEO4J_dbms_security_procedures_unrestricted: apoc.*
       NEO4J_dbms_security_procedures_allowlist: apoc.*
     ports:
-      - "7475:7474"  # HTTP
-      - "7688:7687"  # Bolt
+      - '7475:7474' # HTTP
+      - '7688:7687' # Bolt
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
       - ./docker/neo4j/import:/import
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      test: ['CMD-SHELL', 'wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -101,9 +101,10 @@ services:
       - API_URL=http://localhost:3003
       - CORS_ORIGIN=*
     ports:
-      - "3003:3003"
+      - '3003:3003'
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3003/health || exit 1"]
+      test:
+        ['CMD-SHELL', 'wget --no-verbose --tries=1 --spider http://localhost:3003/health || exit 1']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -122,8 +123,8 @@ services:
       - /usr/src/app/node_modules
       - /usr/src/app/server/node_modules
     ports:
-      - "19006:19006"
-      - "8084:8081"
+      - '19006:19006'
+      - '8084:8081'
     environment:
       - NODE_ENV=development
       - EXPO_PUBLIC_API_URL=http://localhost:3003
@@ -145,7 +146,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_LISTEN_PORT: 80
     ports:
-      - "5050:80"
+      - '5050:80'
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
@@ -154,6 +155,20 @@ services:
       - kognirecovery-network
     profiles:
       - tools
+
+  # TTS Service - Piper (Recomendado: rápido y buena calidad)
+  piper-tts:
+    build:
+      context: ./docker/piper
+      dockerfile: Dockerfile
+    container_name: kognirecovery-piper
+    restart: unless-stopped
+    ports:
+      - '8008:8000'
+    networks:
+      - kognirecovery-network
+    profiles:
+      - tts
 
 volumes:
   postgres_data:

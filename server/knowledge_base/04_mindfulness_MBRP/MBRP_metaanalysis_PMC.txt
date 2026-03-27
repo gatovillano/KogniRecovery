@@ -1,0 +1,4086 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article article-type="research-article" xml:lang="en" dtd-version="1.4">
+```
+`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}J
+Addict
+Med`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}J
+Addict
+Med`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}2035`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}lwwopen`</journal-id>`{=html}`<journal-id journal-id-type="publisher-id">`{=html}ADM`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}Journal
+of Addiction
+Medicine`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="ppub">`{=html}1932-0620`</issn>`{=html}`<issn pub-type="epub">`{=html}1935-3227`</issn>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-is-collection-domain`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-collection-title`</meta-name>`{=html}`<meta-value>`{=html}Lippincott
+Open
+Access`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC5636047`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC5636047.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}5636047`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}5636047`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}28727663`</article-id>`{=html}`<article-id pub-id-type="doi">`{=html}10.1097/ADM.0000000000000338`</article-id>`{=html}`<article-id pub-id-type="publisher-id">`{=html}JAM-D-16-00219`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group subj-group-type="heading">`{=html}`<subject>`{=html}Original
+Research`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}Mindfulness-based
+Relapse Prevention for Substance Use Disorders: A Systematic Review and
+Meta-analysis`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names initials="S">`{=html}Sean`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}DPhil`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Colaiaco`</surname>`{=html}`<given-names initials="B">`{=html}Benjamin`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}MA`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Motala`</surname>`{=html}`<given-names initials="A">`{=html}Aneesa`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}BA`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Shanman`</surname>`{=html}`<given-names initials="R">`{=html}Roberta`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}MS`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Booth`</surname>`{=html}`<given-names initials="M">`{=html}Marika`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}MS`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sorbero`</surname>`{=html}`<given-names initials="M">`{=html}Melony`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}PhD`</degrees>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hempel`</surname>`{=html}`<given-names initials="S">`{=html}Susanne`</given-names>`{=html}`</name>`{=html}`<degrees>`{=html}PhD`</degrees>`{=html}`</contrib>`{=html}`</contrib-group>`{=html}`<aff>`{=html}RAND
+Corporation, Santa Monica, CA (S.G., B.C., A.M., R.S., M.B., S.H.); and
+RAND Corporation, Pittsburgh, PA
+(M.S.).`</aff>`{=html}`<author-notes>`{=html}`<corresp>`{=html}Send
+correspondence to Sean Grant, DPhil, RAND Corporation, 1776 Main Street,
+P.O. Box 2138, Santa Monica, CA 90407-2138. E-mail:
+`<email>`{=html}sgrant@rand.org`</email>`{=html}`</corresp>`{=html}`</author-notes>`{=html}`<pub-date pub-type="ppub">`{=html}`<month>`{=html}9`</month>`{=html}`<year>`{=html}2017`</year>`{=html}`</pub-date>`{=html}`<pub-date pub-type="epub">`{=html}`<day>`{=html}20`</day>`{=html}`<month>`{=html}9`</month>`{=html}`<year>`{=html}2017`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}11`</volume>`{=html}`<issue>`{=html}5`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}299708`</issue-id>`{=html}`<fpage>`{=html}386`</fpage>`{=html}`<lpage>`{=html}396`</lpage>`{=html}`<history>`{=html}`<date date-type="received">`{=html}`<day>`{=html}13`</day>`{=html}`<month>`{=html}12`</month>`{=html}`<year>`{=html}2016`</year>`{=html}`</date>`{=html}`<date date-type="accepted">`{=html}`<day>`{=html}7`</day>`{=html}`<month>`{=html}4`</month>`{=html}`<year>`{=html}2017`</year>`{=html}`</date>`{=html}`</history>`{=html}`<pub-history>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}11`</day>`{=html}`<month>`{=html}10`</month>`{=html}`<year>`{=html}2017`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}24`</day>`{=html}`<month>`{=html}10`</month>`{=html}`<year>`{=html}2017`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2025-08-22 15:25:39.257">`{=html}`<day>`{=html}22`</day>`{=html}`<month>`{=html}08`</month>`{=html}`<year>`{=html}2025`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<copyright-statement>`{=html}Copyright
+© 2017 The Author(s). Published by Wolters Kluwer Health, Inc. on behalf
+of the American Society of Addiction
+Medicine.`</copyright-statement>`{=html}`<copyright-year>`{=html}2017`</copyright-year>`{=html}`<license xmlns:xlink="http://www.w3.org/1999/xlink" license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc-nd/4.0">`{=html}`<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbyncndlicense">`{=html}https://creativecommons.org/licenses/by-nc-nd/4.0/`</ali:license_ref>`{=html}`<license-p>`{=html}This
+is an open access article distributed under the terms of the Creative
+Commons Attribution-Non Commercial-No Derivatives License 4.0
+(CCBY-NC-ND), where it is permissible to download and share the work
+provided it is properly cited. The work cannot be changed in any way or
+used commercially without permission from the journal.
+`<ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by-nc-nd/4.0">`{=html}http://creativecommons.org/licenses/by-nc-nd/4.0`</ext-link>`{=html}`</license-p>`{=html}`</license>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="adm-11-386.pdf"/>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="adm-11-386.pdf"/>`{=html}`<abstract abstract-type="toc">`{=html}
+```{=html}
+<p>
+```
+Supplemental Digital Content is available in the text
+```{=html}
+</p>
+```
+`</abstract>`{=html}`<abstract>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Objectives:
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Substance use disorder (SUD) is a prevalent health issue with serious
+personal and societal consequences. This review aims to estimate the
+effects and safety of Mindfulness-based Relapse Prevention (MBRP) for
+SUDs.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="methods">`{=html}
+```{=html}
+<title>
+```
+Methods:
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We searched electronic databases for randomized controlled trials
+evaluating MBRP for adult patients diagnosed with SUDs. Two reviewers
+independently assessed citations, extracted trial data, and assessed
+risks of bias. We conducted random-effects meta-analyses and assessed
+quality of the body of evidence (QoE) using the Grading of
+Recommendations Assessment, Development, and Evaluation approach.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="results">`{=html}
+```{=html}
+<title>
+```
+Results:
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We identified 9 randomized controlled trials comprising 901
+participants. We did not detect statistically significant differences
+between MBRP and comparators on relapse (odds ratio \[OR\] 0.72, 95%
+confidence interval \[CI\] 0.46--1.13, low QoE), frequency of use
+(standardized mean difference \[SMD\] 0.02, 95% CI −0.40 to 0.44, low
+QoE), treatment dropout (OR 0.81, 95% CI 0.40 to 1.62, very low QoE),
+depressive symptoms (SMD −0.09, 95% CI −0.39 to 0.21, low QoE), anxiety
+symptoms (SMD −0.32, 95% CI −1.16 to 0.52, very low QoE), and
+mindfulness (SMD −0.28, 95% CI −0.72 to 0.16, very low QoE). We
+identified significant differences in favor of MBRP on
+withdrawal/craving symptoms (SMD −0.13, 95% CI −0.19 to −0.08,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE) and negative consequences of substance use (SMD −0.23, 95% CI
+−0.39 to −0.07,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE). We found negligible evidence of adverse events.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="conclusion">`{=html}
+```{=html}
+<title>
+```
+Conclusions:
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We have limited confidence in estimates suggesting MBRP yields small
+effects on withdrawal/craving and negative consequences versus
+comparator interventions. We did not detect differences for any other
+outcome. Future trials should aim to minimize participant attrition to
+improve confidence in effect estimates.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</abstract>`{=html}`<kwd-group>`{=html}
+```{=html}
+<title>
+```
+Keywords
+```{=html}
+</title>
+```
+`<kwd>`{=html}meta-analysis`</kwd>`{=html}`<kwd>`{=html}mindfulness`</kwd>`{=html}`<kwd>`{=html}substance
+use disorder`</kwd>`{=html}`<kwd>`{=html}systematic
+review`</kwd>`{=html}`</kwd-group>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-license-ref`</meta-name>`{=html}`<meta-value>`{=html}CC
+BY-NC-ND`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}OPEN-ACCESS`</meta-name>`{=html}`<meta-value>`{=html}TRUE`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`</front>`{=html}
+```{=html}
+<body>
+```
+```{=html}
+<p>
+```
+Substance use disorder (SUD) is a prevalent health issue with serious
+personal and societal consequences. SUDs are often associated with
+various physical health problems
+(`<xref rid="R16" ref-type="bibr">`{=html}Cargiulo,
+2007`</xref>`{=html}; `<xref rid="R63" ref-type="bibr">`{=html}Rehm,
+2011`</xref>`{=html};
+`<xref rid="R25" ref-type="bibr">`{=html}Degenhardt and Hall,
+2012`</xref>`{=html}), comorbid with other psychiatric disorders
+(`<xref rid="R33" ref-type="bibr">`{=html}Grant et al.,
+2015a`</xref>`{=html},
+`<xref rid="R35" ref-type="bibr">`{=html}2016`</xref>`{=html}), and
+implicated in significant social and economic consequences
+(`<xref rid="R59" ref-type="bibr">`{=html}National Institute on Drug
+Abuse, 2008`</xref>`{=html};
+`<xref rid="R64" ref-type="bibr">`{=html}Rehm et al.,
+2009`</xref>`{=html}; `<xref rid="R58" ref-type="bibr">`{=html}National
+Drug Intelligence Center, 2011`</xref>`{=html};
+`<xref rid="R80" ref-type="bibr">`{=html}World Health Organization,
+2014`</xref>`{=html}). Recent substantial increases in access to care
+for SUDs have led to greater emphasis on evaluating interventions to
+identify best practices for SUD treatment in healthcare systems
+(`<xref rid="R49" ref-type="bibr">`{=html}Institute of Medicine,
+2015`</xref>`{=html}). However, few adults with SUDs actually seek and
+obtain treatment (`<xref rid="R68" ref-type="bibr">`{=html}Substance
+Abuse and Mental Health Services Administration, 2008`</xref>`{=html}),
+and the majority of these adults experience relapse within 12 months
+(`<xref rid="R55" ref-type="bibr">`{=html}McLellan et al.,
+2000`</xref>`{=html}). Consequently, improving access to, engagement
+with, and retention in interventions that specifically address the
+chronic relapsing nature of SUDs are policy priorities
+(`<xref rid="R22" ref-type="bibr">`{=html}Connors et al.,
+1996`</xref>`{=html}).
+```{=html}
+</p>
+```
+`<sec disp-level="2">`{=html}
+```{=html}
+<title>
+```
+Relapse to Substance Use
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Several mechanisms may lead to relapse to substance use, including
+stress (`<xref rid="R44" ref-type="bibr">`{=html}Hodgins et al.,
+1995`</xref>`{=html}; `<xref rid="R12" ref-type="bibr">`{=html}Brewer et
+al., 1998`</xref>`{=html}) and a failure to cope with urges or
+temptations to use (`<xref rid="R62" ref-type="bibr">`{=html}Ramo and
+Brown, 2008`</xref>`{=html}). Traditional relapse prevention is based on
+the theory that certain interactions between the individual and
+environment (eg, social influences, greater access to substances), along
+with the inability of the individual to cope with craving caused by
+these interactions, can increase the risk of relapse
+(`<xref rid="R76" ref-type="bibr">`{=html}Witkiewitz and Marlatt,
+2004`</xref>`{=html}). Practitioners delivering relapse prevention
+therapy therefore aim to help the client in identifying situations that
+trigger relapse, and also learning cognitive and behavioral skills to
+cope with these situations
+(`<xref rid="R53" ref-type="bibr">`{=html}Marlatt and Gordon,
+1985`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec disp-level="2">`{=html}
+```{=html}
+<title>
+```
+Mindfulness-based Relapse Prevention
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Mindfulness-based interventions are an increasingly utilized approach
+for addressing behavioral health issues like SUDs
+(`<xref rid="R69" ref-type="bibr">`{=html}Teasdale et al.,
+2000`</xref>`{=html}; `<xref rid="R57" ref-type="bibr">`{=html}Morone et
+al., 2008`</xref>`{=html};
+`<xref rid="R20" ref-type="bibr">`{=html}Chiesa and Serretti,
+2009`</xref>`{=html}; `<xref rid="R45" ref-type="bibr">`{=html}Hofmann
+et al., 2010`</xref>`{=html};
+`<xref rid="R54" ref-type="bibr">`{=html}McCown and Reibel,
+2010`</xref>`{=html}), either as standalone interventions or integrated
+into existing treatments (`<xref rid="R6" ref-type="bibr">`{=html}Ramel
+et al., 2004`</xref>`{=html};
+`<xref rid="R73" ref-type="bibr">`{=html}Walsh and Shapiro,
+2006`</xref>`{=html}). Primarily derived from Buddhist theory,
+"mindfulness" involves a purposeful attention to the present moment,
+with an openness to accepting things as they are
+(`<xref rid="R66" ref-type="bibr">`{=html}Segal et al.,
+2007`</xref>`{=html}). Within the context of medical treatment, for
+example, patients may foster mindfulness to identify, acknowledge, and
+ultimately disengage from dysfunctional cognitions
+(`<xref rid="R15" ref-type="bibr">`{=html}Brown and Ryan,
+2003`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Mindfulness-based Relapse Prevention (MBRP) is a recently developed
+mindfulness intervention specifically for substance use that integrates
+traditional psychotherapeutic relapse prevention techniques
+(`<xref rid="R53" ref-type="bibr">`{=html}Marlatt and Gordon,
+1985`</xref>`{=html}; `<xref rid="R17" ref-type="bibr">`{=html}Carroll,
+1996`</xref>`{=html}; `<xref rid="R50" ref-type="bibr">`{=html}Irvin et
+al., 1999`</xref>`{=html};
+`<xref rid="R51" ref-type="bibr">`{=html}Lancaster et al.,
+2006`</xref>`{=html}; `<xref rid="R11" ref-type="bibr">`{=html}Brandon
+et al., 2007`</xref>`{=html}) with mindfulness-based meditation
+practices (`<xref rid="R8" ref-type="bibr">`{=html}Bowen et al.,
+2011`</xref>`{=html}). The addition of these mindfulness meditation
+practices to traditional relapse prevention techniques is intended to
+further reduce the risk of relapse by helping patients with
+psychological discomfort that often precipitates relapse.
+Neurologically, mindfulness is hypothesized to reduce activity in
+circuitry related to craving
+(`<xref rid="R74" ref-type="bibr">`{=html}Way et al.,
+2010`</xref>`{=html}), and stimulate activity in circuitry related to
+cognitive self-regulation of behavior
+(`<xref rid="R65" ref-type="bibr">`{=html}Seeley et al.,
+2007`</xref>`{=html}; `<xref rid="R23" ref-type="bibr">`{=html}Craig,
+2009`</xref>`{=html}; `<xref rid="R81" ref-type="bibr">`{=html}Xue et
+al., 2011`</xref>`{=html};
+`<xref rid="R39" ref-type="bibr">`{=html}Hasenkamp and Barsalou,
+2012`</xref>`{=html}; `<xref rid="R40" ref-type="bibr">`{=html}Hasenkamp
+et al., 2012`</xref>`{=html}). The core components of MBRP are typically
+delivered in weekly 2-hour group sessions for 8 weeks (16 hours total
+contact time) (`<xref rid="R8" ref-type="bibr">`{=html}Bowen et al.,
+2011`</xref>`{=html},
+`<xref rid="R9" ref-type="bibr">`{=html}2014a`</xref>`{=html}). During
+these sessions, MBRP providers teach patients meditation practices
+related to a central theme for the session (Table
+`<xref ref-type="table" rid="T1">`{=html}1`</xref>`{=html}), to
+facilitate patients' awareness of and healthier responses to challenging
+emotional, cognitive, and physical states they may experience due to
+craving or withdrawal from substance use
+(`<xref rid="R8" ref-type="bibr">`{=html}Bowen et al.,
+2011`</xref>`{=html},
+`<xref rid="R9" ref-type="bibr">`{=html}2014a`</xref>`{=html}).
+```{=html}
+</p>
+```
+`<table-wrap id="T1" position="float" orientation="portrait">`{=html}`<label>`{=html}TABLE
+1`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Central Themes of Mindfulness-based Relapse Prevention Sessions
+(`<xref rid="R79" ref-type="bibr">`{=html}Witkiewitz et al.,
+2014b`</xref>`{=html})
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Week
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Theme
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Content
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+1
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Automatic pilot and relapse
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss tendency to behave mechanically or unconsciously without full
+awareness of what one is doing, specifically in relation to substance
+use (acting upon cravings and urges without awareness)
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Explore mindfulness through guided experience
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Body scan to practice paying attention to the body
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+2
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Awareness of thoughts and emotions related to triggers and craving
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Introduce ways of experiencing triggers, cravings and thoughts of using
+without "automatically" reacting
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Notice how triggers are experienced in thoughts, emotions, and
+sensations
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss how the automatic tendency to interpret and judge experience
+prevents being "fully present" and aware of helpful options
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+3
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Mindfulness practices in daily life
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Introduce practices that encourage present-moment awareness of thoughts,
+emotions, and sensations, to be used in informal, everyday challenging
+situations
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Practice recognizing what is needed and possible options for getting
+needs met in healthy ways
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+4
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Mindfulness practices in high-risk situations
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Identify past triggering situations and factors associated with relapse,
+and personal high-risk situations
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Practice ways of using mindfulness in triggering situations to stay
+present and "be with" versus reacting to the sensations, thoughts, and
+feelings that emerged
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+5
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Balancing acceptance and skillful action
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss the meaning and importance of acceptance as a means of
+supporting skillful action
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discussed skillful action versus automatic reactions
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Explored relating differently to unwanted experiences (eg, craving,
+difficult emotions, negative thoughts)
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+6
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+The role of thoughts in relapse (seeing thoughts as thoughts)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Introduce the idea of recognizing thoughts as just thoughts versus facts
+that must be believed or acted upon
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss and explore the connection between thoughts and relapse
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Complete diagram showing how triggers can lead to a chain of events
+leading to relapse or skillful action
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Practice distancing oneself from thoughts and taking a more neutral
+observer stance
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+7
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Balancing self-care and one's lifestyle
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss the importance of lifestyle balance and taking care of oneself
+to reduce vulnerability to relapse
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Identify personal warning signs for relapse, and how to best respond
+when these warning signs arise
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Complete a list of typical daily activities, identifying ones that were
+draining, nurturing, or both and
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss ways to increase nurturing and modify draining activities
+wherever possible
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Complete reminder cards listing helpful people to call and alternative
+activities to using substances
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+8
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Building social support and continuing mindfulness practices
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Participate in the body scan exercise
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Discuss the importance of building a support system
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Reflect on what they've learned about themselves through meditation and
+daily mindfulness practice
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn fn-type="other">`{=html}
+```{=html}
+<p>
+```
+Notes: Facilitators and clients reviewed home practice efforts at every
+session weeks 2 to 8.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`</sec>`{=html}`<sec disp-level="2">`{=html}
+```{=html}
+<title>
+```
+Objectives
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Rigorous studies that estimate the clinical effects and safety of
+interventions are critical before recommendations for widespread
+dissemination, such as the use of mindfulness-based interventions by
+healthcare professionals to treat SUDs
+(`<xref rid="R47" ref-type="bibr">`{=html}Institute of Medicine,
+2005`</xref>`{=html},
+`<xref rid="R49" ref-type="bibr">`{=html}2015`</xref>`{=html}).
+Meta-analytic estimates of specific effects of specific interventions
+are particularly importance for efforts to improve evidence-based
+practice such as the development of clinical practice guidelines
+(`<xref rid="R48" ref-type="bibr">`{=html}Institute of Medicine,
+2011`</xref>`{=html}). Reviews of the overall literature on mindfulness
+treatments for substance use and addiction suggest such interventions
+may be an effective tool, yet these have not involved meta-analyses of
+intervention effects (`<xref rid="R84" ref-type="bibr">`{=html}Zgierska
+et al., 2009`</xref>`{=html};
+`<xref rid="R14" ref-type="bibr">`{=html}Brewer et al.,
+2013`</xref>`{=html}; `<xref rid="R28" ref-type="bibr">`{=html}Garland
+and Froeliger, 2013`</xref>`{=html};
+`<xref rid="R77" ref-type="bibr">`{=html}Witkiewitz et al.,
+2013`</xref>`{=html}; `<xref rid="R4" ref-type="bibr">`{=html}Black,
+2014`</xref>`{=html}; `<xref rid="R21" ref-type="bibr">`{=html}Chiesa
+and Serretti, 2014`</xref>`{=html};
+`<xref rid="R78" ref-type="bibr">`{=html}Witkiewitz et al.,
+2014a`</xref>`{=html}) or include the SUDs of interest to this review
+(`<xref rid="R24" ref-type="bibr">`{=html}de Lisle et al.,
+2011`</xref>`{=html}; `<xref rid="R60" ref-type="bibr">`{=html}Oikonomou
+et al., 2016`</xref>`{=html}). MBRP specifically has been evaluated in
+several randomized controlled trials (RCTs)
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html};
+`<xref rid="R75" ref-type="bibr">`{=html}Witkiewitz and Bowen,
+2010`</xref>`{=html}; `<xref rid="R52" ref-type="bibr">`{=html}Lee et
+al., 2011`</xref>`{=html}). An up-to-date systematic review is needed to
+synthesize these findings to provide comprehensive estimates of the
+effects of MBRP on specific patient-important clinical outcomes to
+subsequently inform guidelines about whether to recommend its use in
+everyday practice.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="methods">`{=html}
+```{=html}
+<title>
+```
+METHODS
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We conducted a systematic review to identify RCTs evaluating the effects
+and safety of MBRP for adults with SUDs. This manuscript updates a
+previous review that we registered on an international prospective
+register of systematic reviews, PROSPERO (CRD42015016380), before
+completing formal screening of search results against eligibility
+criteria (`<xref rid="R34" ref-type="bibr">`{=html}Grant et al.,
+2015b`</xref>`{=html}); we identified 3 additional completed RCTs in our
+update search. The specific efficacy outcomes of interest included
+relapse to substance use (primary outcome), frequency and quantity of
+substance use, withdrawal/craving symptoms, treatment dropout,
+depressive and anxiety symptoms, negative consequences from substance
+use, and health-related quality of life. We evaluated safety via
+reported adverse events.
+```{=html}
+</p>
+```
+`<sec>`{=html}
+```{=html}
+<title>
+```
+Search Strategy
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We searched 2 trial registries (ClinicalTrials.gov and the World Health
+Organization International Clinical Trials Registry Platform) and the
+following databases from January 2000 through August 2016: Allied and
+Complementary Medicine Database, Cumulative Index to Nursing and Allied
+Health Literature, Cochrane Central, PsycINFO, PubMed, and Web of
+Science. Search strings involved variants of terms related to
+"mindfulness-based relapse prevention" and "substance use disorder" (the
+reproducible search strings are available in Online Supplement 1). We
+conducted database searches from 2000 onward because MBRP was developed
+and the first papers by its developers were published after the start of
+the 21st century (`<xref rid="R84" ref-type="bibr">`{=html}Zgierska et
+al., 2009`</xref>`{=html}; `<xref rid="R7" ref-type="bibr">`{=html}Bowen
+et al., 2010`</xref>`{=html}). In addition, we examined reference lists
+from included studies and previous reviews of mindfulness meditation for
+SUDs. We also contacted authors of included studies about any RCTs we
+may have missed, and also data not reported in manuscripts.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Eligibility Criteria
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We included parallel group, individually, or cluster-randomized
+controlled trials with adult patients (male and female) who were 18
+years of age or older. Participants must have been diagnosed with
+alcohol, opioid, stimulant, and/or cannabis use disorder; diagnoses
+included abuse or dependence using criteria from the Fourth and Fifth
+Editions of the Diagnostic and Statistical Manual of Mental Disorders
+(DSM-IV and DSM-V, respectively), or harmful use or dependence syndrome
+using the International Classification of Diseases (ICD) criteria. We
+included RCTs that evaluated MBRP as either a monotherapy or adjunctive
+therapy; we excluded RCTs evaluating other mindfulness-based
+interventions, such as mindfulness-based cognitive therapy or
+mindfulness-based stress reduction. We did not limit RCTs by comparator.
+We did not restrict eligibility by treatment duration, outcome follow-up
+period, clinical setting, or geographic location. Due to project team
+capabilities, we included studies published in English language only.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Eligibility Screening
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Two independent reviewers screened titles and abstracts of retrieved
+citations. We obtained full texts for citations judged as potentially
+eligible by at least 1 reviewer. The reviewers then assessed full texts
+against the specified eligibility criteria; we resolved any
+disagreements regarding eligibility through discussion within the review
+author team.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Data Extraction
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Two reviewers independently extracted study-level data using a form
+designed by the project team (the full data extraction form is available
+in Online Supplement 2). They also independently assessed risks of bias
+of included studies using the Cochrane Risk of Bias tool, Cochrane's
+recommended approach for assessing risks of bias in RCTs included in
+systematic reviews of interventions
+(`<xref rid="R43" ref-type="bibr">`{=html}Higgins et al.,
+2011`</xref>`{=html}), and also involvement of the developers of the
+program (`<xref rid="R7" ref-type="bibr">`{=html}Bowen et al.,
+2010`</xref>`{=html}) in the RCT to indicate whether each RCT was an
+independent replication
+(`<xref rid="R31" ref-type="bibr">`{=html}Gottfredson et al.,
+2015`</xref>`{=html}). The project lead (S.G.) extracted all outcome
+data.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Data Synthesis
+```{=html}
+</title>
+```
+`<sec>`{=html}
+```{=html}
+<title>
+```
+Random-effects Meta-analyses
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We conducted random-effects meta-analyses on the longest outcome using
+the restricted maximum-likelihood estimator method for the amount of
+heterogeneity and the Hartung-Knapp-Sidik-Jonkman adjustment for
+standard errors (`<xref rid="R37" ref-type="bibr">`{=html}Hartung,
+1999`</xref>`{=html}; `<xref rid="R38" ref-type="bibr">`{=html}Hartung
+and Knapp, 2001`</xref>`{=html};
+`<xref rid="R67" ref-type="bibr">`{=html}Sidik and Jonkman,
+2006`</xref>`{=html}), using the "metafor" package in R (Version 3.2.3)
+(`<xref rid="R71" ref-type="bibr">`{=html}Viechtbauer and Viechtbauer,
+2015`</xref>`{=html}). Effect estimates are expressed either as odds
+ratios (ORs) or Hedges g---a small study bias-adjusted estimate of the
+standardized mean difference (SMD)---along with 95% confidence intervals
+(CIs). For consistency, we coded outcome data such that an SMDs \<0 and
+ORs \< 1 favor MBRP, and we used common indices for interpreting
+clinical effect sizes: SMD ≤ −0.2 or OR ≤ 0.60 for a small clinical
+effect, SMD ≤ −0.5 or OR ≤ 0.29 for a medium clinical effect, and
+SMD ≤ −0.8 or OR ≤ 0.15 for a large clinical effect
+(`<xref rid="R19" ref-type="bibr">`{=html}Chen et al.,
+2010`</xref>`{=html}). We used the
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html}
+statistic to assess the degree of heterogeneity in each analysis
+(`<xref rid="R41" ref-type="bibr">`{=html}Higgins et al.,
+2003`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Additional Analyses
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We examined publication bias using Begg rank-correlation test for funnel
+plot asymmetry (`<xref rid="R3" ref-type="bibr">`{=html}Begg and
+Mazumdar, 1994`</xref>`{=html}) and Egger test for funnel plot asymmetry
+(`<xref rid="R27" ref-type="bibr">`{=html}Egger et al.,
+1997`</xref>`{=html}), and applied Duval trim and fill method
+(`<xref rid="R26" ref-type="bibr">`{=html}Duval and Tweedie,
+2000`</xref>`{=html}) in the presence of publication bias. To explore
+sources of heterogeneity, we conducted meta-regressions when possible to
+examine whether there were differences in effect sizes by substance
+targeted, co-intervention status, and comparison group
+(`<xref rid="R72" ref-type="bibr">`{=html}Viechtbauer et al.,
+2015`</xref>`{=html}). To explore the robustness of our meta-analyses,
+we conducted sensitivity analyses using earlier time-points than longest
+follow-up when reported, and we followed recommendations to calculate a
+prediction interval for considering the whole distribution of effects,
+and also to examine whether effects exist and are consistent across
+individual studies (`<xref rid="R42" ref-type="bibr">`{=html}Higgins et
+al., 2009`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Quality of the Body of Evidence
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We assessed the quality of the body of evidence (QoE) for each outcome
+using the Grading of Recommendations Assessment, Development, and
+Evaluation (GRADE) approach
+(`<xref rid="R2" ref-type="bibr">`{=html}Balshem et al.,
+2011`</xref>`{=html}), which rates on a 4-item scale (very low, low,
+moderate, and high) the confidence that an effect estimate is close to
+the population parameter. We specifically assessed the following aspects
+of the body of evidence underpinning each effect estimate, as recommend
+by the GRADE approach: study limitations via our risk of bias
+assessments; directness via how well studies addressed our questions of
+interest; and consistency via the magnitude of heterogeneity; precision
+via the width of confidence intervals; and publication bias (see below).
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`</sec>`{=html}`<sec sec-type="results">`{=html}
+```{=html}
+<title>
+```
+RESULTS
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We identified 97 citations through our search strategy (Fig.
+`<xref ref-type="fig" rid="F1">`{=html}1`</xref>`{=html}). Of 50 full
+texts identified as potentially eligible, we excluded 21, including 2
+terminated trials and 9 ongoing trials that would likely meet
+eligibility criteria for this review once completed (see Online
+Supplement 3). Overall, we identified nine studies (see Online
+Supplement 5) meeting inclusion criteria
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html},
+`<xref rid="R10" ref-type="bibr">`{=html}2014b`</xref>`{=html};
+`<xref rid="R13" ref-type="bibr">`{=html}Brewer et al.,
+2009`</xref>`{=html}; `<xref rid="R70" ref-type="bibr">`{=html}Uhlig,
+2009`</xref>`{=html}; `<xref rid="R52" ref-type="bibr">`{=html}Lee et
+al., 2011`</xref>`{=html};
+`<xref rid="R82" ref-type="bibr">`{=html}Zgierska, 2014`</xref>`{=html};
+`<xref rid="R46" ref-type="bibr">`{=html}Imani et al.,
+2015`</xref>`{=html}; `<xref rid="R30" ref-type="bibr">`{=html}Glasner
+et al., 2017`</xref>`{=html}).
+```{=html}
+</p>
+```
+`<fig id="F1" position="float" orientation="portrait">`{=html}`<label>`{=html}FIGURE
+1`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Flow diagram of search results.
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="adm-11-386-g001.jpg"/>`{=html}`</fig>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Description of Included Studies
+```{=html}
+</title>
+```
+`<sec sec-type="methods">`{=html}
+```{=html}
+<title>
+```
+Methods and Setting
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+All studies took place in SUD specialty care settings; participants
+typically were in outpatient care, though 1 study took place in prison
+(`<xref rid="R52" ref-type="bibr">`{=html}Lee et al.,
+2011`</xref>`{=html}) and another in a residential treatment center
+(`<xref rid="R10" ref-type="bibr">`{=html}Bowen et al.,
+2014b`</xref>`{=html}). Most RCTs took place in the United States, 1
+took place in Iran (`<xref rid="R46" ref-type="bibr">`{=html}Imani et
+al., 2015`</xref>`{=html}), and another in Taiwan (see Table
+`<xref ref-type="table" rid="T1">`{=html}1`</xref>`{=html})
+(`<xref rid="R52" ref-type="bibr">`{=html}Lee et al.,
+2011`</xref>`{=html}). All RCTs randomized participants individually (as
+opposed to cluster randomization); 1 RCT randomized participants to
+either MBRP or 1 of 2 other comparators
+(`<xref rid="R10" ref-type="bibr">`{=html}Bowen et al.,
+2014b`</xref>`{=html}), whereas all other RCTs evaluated MBRP against a
+single comparator. In all, 901 participants were randomized to receive
+either MBRP (425 participants) or a comparator intervention (476
+participants), such as treatment as usual (TAU; 291 participants),
+relapse prevention (138 participants), health education (32
+participants), or cognitive behavioral therapy (CBT) (15 participants).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="subjects">`{=html}
+```{=html}
+<title>
+```
+Participants
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Average age of participants ranged from 34 to 45 years old (median 39),
+and percentage of male participants ranged from 0% to 100% (median 72%).
+The majority of studies did not restrict participants by primary
+substance of misuse, with participants reporting use of various
+substances including alcohol, cocaine, marijuana, methamphetamines, and
+opioids. One study recruited patients meeting DSM criteria specifically
+for either alcohol or cocaine
+(`<xref rid="R13" ref-type="bibr">`{=html}Brewer et al.,
+2009`</xref>`{=html}), whereas 3 other studies only recruited
+participants dependent on stimulants
+(`<xref rid="R30" ref-type="bibr">`{=html}Glasner et al.,
+2017`</xref>`{=html}), opioids
+(`<xref rid="R46" ref-type="bibr">`{=html}Imani et al.,
+2015`</xref>`{=html}), or alcohol
+(`<xref rid="R82" ref-type="bibr">`{=html}Zgierska,
+2014`</xref>`{=html}). Many RCTs excluded patients with concurrent
+psychotic disorder, significant suicide risk, or cognitive impairments,
+though notably 43% (n = 27) of participants in 1 study had an axis I
+mood or anxiety disorder
+(`<xref rid="R30" ref-type="bibr">`{=html}Glasner et al.,
+2017`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Interventions
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Several RCTs evaluated MBRP according to the original manual
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html},
+`<xref rid="R10" ref-type="bibr">`{=html}2014b`</xref>`{=html};
+`<xref rid="R82" ref-type="bibr">`{=html}Zgierska,
+2014`</xref>`{=html}). As such, sessions in these RCTs likely included
+20 to 30 minutes of guided meditations, experiential skills-based
+practices, and discussion of practical applications, with participants
+also receiving handouts, audio-recorded mindfulness homework exercises,
+and daily craving and mood tracking sheets, as per the MBRP manual
+(`<xref rid="R8" ref-type="bibr">`{=html}Bowen et al.,
+2011`</xref>`{=html},
+`<xref rid="R9" ref-type="bibr">`{=html}2014a`</xref>`{=html}). One RCT
+evaluated the manual translated into Farsi
+(`<xref rid="R46" ref-type="bibr">`{=html}Imani et al.,
+2015`</xref>`{=html}), and the remaining RCTs shortened the MBRP manual
+to be delivered in 9 to 15 hours of total contact time
+(`<xref rid="R13" ref-type="bibr">`{=html}Brewer et al.,
+2009`</xref>`{=html}; `<xref rid="R70" ref-type="bibr">`{=html}Uhlig,
+2009`</xref>`{=html}; `<xref rid="R52" ref-type="bibr">`{=html}Lee et
+al., 2011`</xref>`{=html};
+`<xref rid="R30" ref-type="bibr">`{=html}Glasner et al.,
+2017`</xref>`{=html}). MBRP providers ranged from trained graduate-level
+therapists with experience in CBT and mindfulness meditation, to
+certified meditation instructors, to "trained instructors." We confirmed
+involvement of the MBRP developers on the study team of 5 RCTs
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html},
+`<xref rid="R10" ref-type="bibr">`{=html}2014b`</xref>`{=html};
+`<xref rid="R52" ref-type="bibr">`{=html}Lee et al.,
+2011`</xref>`{=html}; `<xref rid="R82" ref-type="bibr">`{=html}Zgierska,
+2014`</xref>`{=html}; `<xref rid="R46" ref-type="bibr">`{=html}Imani et
+al., 2015`</xref>`{=html}), and consultation with the MBRP developers in
+the development and implementation phases of another RCT
+(`<xref rid="R30" ref-type="bibr">`{=html}Glasner et al.,
+2017`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Five RCTs reported additional interventions or services received by MBRP
+participants, including TAU services the participants in the comparator
+group received (`<xref rid="R70" ref-type="bibr">`{=html}Uhlig,
+2009`</xref>`{=html}; `<xref rid="R82" ref-type="bibr">`{=html}Zgierska,
+2014`</xref>`{=html}; `<xref rid="R46" ref-type="bibr">`{=html}Imani et
+al., 2015`</xref>`{=html}), contingency management (which participants
+in the health education comparison group also received as a
+co-intervention) (`<xref rid="R30" ref-type="bibr">`{=html}Glasner et
+al., 2017`</xref>`{=html}), and "multiple other treatment programs"
+(which participants in the relapse prevention comparison group also
+received as a co-intervention)
+(`<xref rid="R10" ref-type="bibr">`{=html}Bowen et al.,
+2014b`</xref>`{=html}). Comparator interventions included relapse
+prevention, health education, cognitive behavioral therapy, and TAU (ie,
+substance use education, the Matrix Model, a predominantly 12-step
+process-orientated group, or medical management including
+pharmacotherapy and weekly individual counseling sessions).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Risks of Bias
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Regarding selection bias, the majority of studies reported adequate
+random sequence generation methods, though only 4 reported an adequate
+concealment of the allocation sequence. All studies were de facto high
+risk of performance bias due to knowledge of the allocated interventions
+by participants and providers, as blinding participants and providers to
+assigned interventions is generally not possible for behavioral
+interventions. We rated 4 RCTs as low risk of detection bias due to use
+of blinded outcome assessors, 1 RCT as high risk of detection bias due
+to lack of blinding outcome assessors, and the remaining 4 RCTs as
+unclear risk of detection bias due to insufficient information.
+Attrition bias is a significant concern for this body of evidence, as we
+rated 4 RCTs as high risk of attrition bias at all follow-up points due
+to substantial attrition rates and 1 RCT as low risk at 1 follow-up
+point and high at all others due to varying attrition rates. Lastly, we
+rated 4 RCTs as low risk of reporting bias due to complete reporting of
+all outcomes contained in a trial registration or providing all outcome
+data in response to e-mails asking for study data (our justifications
+for all risk of bias assessments can be found in Online Supplement 5).
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Effects of MBRP
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+The below analyses are summarized in Table
+`<xref ref-type="table" rid="T2">`{=html}2`</xref>`{=html} (outputs for
+all analyses and underlying data can be found in Online Supplements 4
+and 5).
+```{=html}
+</p>
+```
+`<table-wrap id="T2" position="float" orientation="portrait">`{=html}`<label>`{=html}TABLE
+2`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Evidence Table for Included Studies
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Study
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Country
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Participants
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance Use Issue
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+MBRP Program
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+MBRP Provider
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Co-intervention
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Comparator
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Longest Follow-up
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Level of Care
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+168 randomized; 41 yrs; 64% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Alcohol and drug use disorders
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Standard manual (16 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Experienced masters-level therapists
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+NR
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+4 mos
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R10" ref-type="bibr">`{=html}Bowen et al.,
+2014b`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+286 randomized; 39 yrs; 72% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance use disorders
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Standard manual (16 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Experienced masters/doctoral-level therapists
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+NR
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU; RP
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+12 mos
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R13" ref-type="bibr">`{=html}Brewer et al.,
+2009`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+36 randomized; 38 yrs; 72% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+DSM-IV criteria for alcohol/cocaine abuse/dependence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Shortened version (9 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Experienced doctoral-level therapists
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+NR
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+CBT
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Postintervention
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R30" ref-type="bibr">`{=html}Glasner et al.,
+2017`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+63 randomized; 45 yrs; 71% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+DSM-IV diagnosis of stimulant dependence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Shortened version (10 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Experienced masters-level therapist
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+CM (both MBRP and comparator)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Health education
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+1 mo
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R46" ref-type="bibr">`{=html}Imani et al.,
+2015`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Iran
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+30 randomized; 37 yrs; 100% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Opioid dependence according to DSM-IV-TR criteria
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Translated manual (16 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+NR
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU (ie, comparator)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Postintervention
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R52" ref-type="bibr">`{=html}Lee et al.,
+2011`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Taiwan
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+24 randomized; 41 yrs; 100% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Illicit drug user
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Shortened version (15 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Certified clinical psychologists
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+NR
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Residential (Prison)
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R70" ref-type="bibr">`{=html}Uhlig, 2009`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+66 randomized; 39 yrs; 73% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance dependence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Shortened version (13 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Certified meditation instructor
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU (ie, comparator)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Postintervention
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R79" ref-type="bibr">`{=html}Witkiewitz et al.,
+2014b`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+105 randomized; 34 yrs; 0% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Requiring residential addiction treatment
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Shortened Version (13 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Experienced masters-level clinicians
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Other programs (both MBRP and comparator)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+RP
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+3.5 mos
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Residential
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<xref rid="R82" ref-type="bibr">`{=html}Zgierska, 2014`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+United States
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+123 randomized; 41 yrs; 57% male
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Alcohol dependence diagnosis
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Standard Manual (16 h)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Trained instructors
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU (ie, comparator)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+TAU
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+4 mos
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outpatient
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn fn-type="abbr">`{=html}
+```{=html}
+<p>
+```
+Abbreviations: CM, contingency management; NR, not reported; RP, relapse
+prevention.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+MBRP Versus Any Comparator
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Relapse was operationalized across included studies as either any
+substance use or proportion of substance-free urine samples in the 30 or
+90 days before outcome assessments. Random-effects meta-analysis of the
+pooled RCTs yielded no significant difference on average between MBRP
+and any comparator (relapse prevention, health education, CBT, and TAU)
+for relapse to substance use (OR 0.72, 95% CI 0.46 to 1.13, 7 RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE; see Fig.
+`<xref ref-type="fig" rid="F2">`{=html}2`</xref>`{=html}). We downgraded
+the QoE for this outcome due to a high risk of attrition bias and a wide
+CI.
+```{=html}
+</p>
+```
+`<fig id="F2" position="float" orientation="portrait">`{=html}`<label>`{=html}FIGURE
+2`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Forest plot of effects on relapse at longest follow-up.
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="adm-11-386-g002.jpg"/>`{=html}`</fig>`{=html}
+```{=html}
+<p>
+```
+Random-effects meta-analysis of the pooled RCTs yielded no significant
+difference on average for the secondary outcomes frequency of use (SMD
+0.02, 95% CI −0.40 to 0.44,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 42%,
+5 RCTs, low QoE), quantity of use (SMD 0.26, 95% CI −0.13 to 0.64, 1
+RCT, very low QoE), treatment dropout (OR 0.81, 95% CI 0.40 to 1.62, 5
+RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 44%,
+very low QoE), depressive symptoms (SMD −0.09, 95% CI −0.39 to 0.21, 4
+RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE), anxiety symptoms (SMD −0.32, 95% CI −1.16 to 0.52, 4 RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 78%,
+very low QoE), and mindfulness (SMD −0.28, 95% CI −0.72 to 0.16, 6 RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 58%,
+very low QoE). We identified a small clinical effect in favor of MBRP on
+withdrawal/craving symptoms (SMD −0.13, 95% CI −0.19 to −0.08, 5 RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE), with QoE downgraded due to high risks of attrition and
+publication bias; and on negative consequences from substance use (SMD
+−0.23, 95% CI −0.39 to −0.07, 4 RCTs,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%,
+low QoE), with QoE downgraded due to high risk of attrition bias and a
+wide confidence interval. Lastly, we identified a medium clinical effect
+on health-related quality of life in favor of MBRP versus an active
+comparison group (relapse prevention) that shared the same
+co-intervention as MBRP recipients (SMD −0.64, 95% CI −1.19 to −0.09, 1
+RCT, very low QoE). However, we significantly downgraded the QoE for
+this outcome due to high risks of selection, detection, and attrition
+bias; only 1 study providing data for this outcome; evaluation of an
+adapted version of MBRP at a different stage of the clinical pathway
+than intended; and a wide CI.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Publication Bias
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We did not detect evidence of publication bias (see Table
+`<xref ref-type="table" rid="T2">`{=html}2`</xref>`{=html}) for any
+outcomes using the Begg rank correlation test for funnel plot asymmetry
+(`<xref rid="R3" ref-type="bibr">`{=html}Begg and Mazumdar,
+1994`</xref>`{=html}), and Egger test for funnel plot asymmetry
+(`<xref rid="R27" ref-type="bibr">`{=html}Egger et al.,
+1997`</xref>`{=html}). Model results including estimated missing studies
+did not substantially change results for relapse (OR 0.74, 95% CI 0.53
+to 1.05,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%),
+depressive symptoms (SMD −0.00, 95% CI −0.16 to 0.16,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%),
+anxiety symptoms (SMD −0.20, 95% CI −0.70 to 0.31,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 79%),
+negative consequences (SMD −0.21, 95% CI −0.37 to −0.05,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%),
+and mindfulness (SMD −0.18, 95% CI −0.51 to 0.15,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 51%),
+but results for withdrawal/craving symptoms (SMD −0.13, 95% CI −0.30 to
+0.04,
+`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html} = 0%)
+were no longer statistically significant when including an estimated
+missing study.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Meta-regressions
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Indirect evidence suggests that MBRP may lead to significantly greater
+reductions in depressive symptoms when targeting patients specifically
+with a stimulant use disorder rather than any SUD (SMD −0.46, 95% CI
+−0.81 to −0.11), and also greater reductions in withdrawal/craving when
+targeting patients specifically with an alcohol use disorder rather than
+any SUD (SMD −0.09, 95% CI −0.18 to −0.01). We did not detect
+differences in results by type of substance targeted for other outcomes.
+We did not detect differences in results by co-intervention status.
+Meta-regressions did not indicate that the type of comparator
+systematically affected the results for any outcome (see Table
+`<xref ref-type="table" rid="T2">`{=html}2`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Additional Analyses
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Results were not sensitive to using earlier time-points from individual
+studies than longest follow-up when reported for relapse to substance
+use, frequency of use, negative consequences, withdrawal/craving,
+anxiety symptoms, and mindfulness. However, results were not
+statistically significant in 2 of 7 sensitivity analyses for
+withdrawal/craving, whereas results were statistically significant (and
+in favor of MBRP) in 1 of 5 sensitivity analyses for depressive symptoms
+and 2 in 4 sensitivity analyses for mindfulness. The full range of the
+prediction interval for the true effect in a new study favors MBRP for
+withdrawal/craving symptoms (SMD −0.19 to −0.07) and negative
+consequences (SMD −0.45 to −0.01), whereas the prediction intervals
+range from clinical benefit to clinical harm for all other outcomes (see
+Table `<xref ref-type="table" rid="T2">`{=html}2`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec>`{=html}
+```{=html}
+<title>
+```
+Adverse Events
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Three RCTs indicated that no adverse events were reported
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html},
+`<xref rid="R10" ref-type="bibr">`{=html}2014b`</xref>`{=html};
+`<xref rid="R13" ref-type="bibr">`{=html}Brewer et al.,
+2009`</xref>`{=html}). Another RCT listed death as 1 reason for
+exclusion from analyses in follow-up assessments for standard relapse
+prevention, and one participant receiving MBRP was admitted to inpatient
+care at six-month follow-up for reasons unknown
+(`<xref rid="R10" ref-type="bibr">`{=html}Bowen et al.,
+2014b`</xref>`{=html}). Authors from another RCT indicated in
+correspondence that no serious adverse events were reported; 1
+participant receiving MBRP reported nightmares, increased anxiety, and
+trauma memories at a follow-up visit (symptoms resolved after
+medications were changed via psychiatrist consultation)
+(`<xref rid="R82" ref-type="bibr">`{=html}Zgierska,
+2014`</xref>`{=html}). The other 4 RCTs did not provide data on adverse
+events (`<xref rid="R70" ref-type="bibr">`{=html}Uhlig,
+2009`</xref>`{=html}; `<xref rid="R52" ref-type="bibr">`{=html}Lee et
+al., 2011`</xref>`{=html};
+`<xref rid="R46" ref-type="bibr">`{=html}Imani et al.,
+2015`</xref>`{=html}; `<xref rid="R30" ref-type="bibr">`{=html}Glasner
+et al., 2017`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`</sec>`{=html}`<sec sec-type="discussion">`{=html}
+```{=html}
+<title>
+```
+DISCUSSION
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+Across studies, our analyses did not indicate that MBRP has beneficial
+clinical effects beyond comparator interventions (such as relapse
+prevention, health education, CBT, and TAU) on substance use relapse. We
+also did not identify significant differences between MBRP and
+comparator interventions at longest follow-up for other substance use
+outcomes, including frequency and quantity of substance use. We also did
+not detect systematic differences in several other patient-important
+outcomes, including treatment dropout, depressive symptoms, and anxiety
+symptoms, and a purported mediator of MBRP (ie, mindfulness). Although
+we have limited confidence in results indicating that MBRP yields
+decreases in withdrawal/craving and negative consequences, the clinical
+effects were small. Although we also found clinical effects in favor of
+MBRP on health-related quality of life, we have very limited to no
+confidence in this effect estimate due to inadequacies of the body of
+evidence underlying this analysis. The majority of meta-regression
+analyses did not detect moderators of effect estimates. Whereas the
+available evidence on adverse events is also very limited, very few
+adverse events were reported, indicating that MBRP appears relatively
+safe from direct harm (Table
+`<xref ref-type="table" rid="T3">`{=html}3`</xref>`{=html}).
+```{=html}
+</p>
+```
+`<table-wrap id="T3" position="float" orientation="portrait">`{=html}`<label>`{=html}TABLE
+3`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p>
+```
+Summary of Findings Table
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Outcome
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Studies
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Summary Estimate (95% CI)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+QoE
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Publication Bias
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Meta-regressions
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Prediction Interval
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Sensitivity to Additional Analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Relapse to substance use
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 7; n = 841
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+OR 0.72 (0.46 to 1.13)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Low`<sup>`{=html}1,2`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.14,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.77;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (5) = 0.11,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.92; OR 0.74 (0.53
+to 1.05)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.44;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.99;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.42
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+OR 0.44 to 1.15
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+No significant differences across sensitivity analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Frequency of use
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 5; n = 718
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD 0.02 (−0.40 to 0.44)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Low`<sup>`{=html}1,2`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = 0.20,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.82;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (3) = 1.30,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.28; SMD 0.02
+(−0.40 to 0.44)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.07;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.46;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.20
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.74 to 0.77
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+No significant differences across sensitivity analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Quantity of use
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 1; n = 123
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD 0.26 (−0.13 to 0.64)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Very low`<sup>`{=html}1,2,7`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+No significant differences across sensitivity analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Withdrawal
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+<td rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Craving symptoms
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 5; n = 718
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.13 (−0.19 to −0.08)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Low`<sup>`{=html}1,11`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.40,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.48;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (3) = −1.09,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.35; SMD −0.13
+(−0.30 to 0.04)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.04;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.39;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.21
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.19 to −0.07
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Results not statistically significant in 2 of 7 analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Treatment dropout
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 5; n = 556
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+OR 0.81 (0.40 to 1.62)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Very low`<sup>`{=html}1,2,4`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.40,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.48;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (3) = −0.65,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.56; OR 0.81 (0.40
+to 1.62)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.97;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.23;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.28
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+OR 0.19 to 3.42
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+N/A
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Health-related quality of life
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 1; n = 105
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.64 (−1.19 to −0.09)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Very low`<sup>`{=html}1,4--9`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Insufficient evidence
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+N/A
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Negative consequences
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 4; n = 682
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.23 (−0.39 to −0.07)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Low`<sup>`{=html}1,9`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.67,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.33;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (2) = −1.78,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.22; SMD −0.21
+(−0.37 to −0.05)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.53;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.21;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.79
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.45 to −0.01
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+No significant differences across sensitivity analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Depressive symptoms
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 4; n = 622
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.09 (−0.39 to 0.21)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Low`<sup>`{=html}1,2`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.67,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.33;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (2) = −1.98,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.19; SMD −0.00
+(−0.16 to 0.16)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.03;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.51;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.21
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.49 to 0.32
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Results statistically significantly favor MBRP in 1 of 5 analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Anxiety symptoms
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 4; n = 553
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.32 (−1.16 to 0.52)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Very low`<sup>`{=html}1,2,10`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.67,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.33;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (2) = −2.18,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.16; SMD −0.20
+(−0.70 to 0.31)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.32;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.60;
+Comparator: N/A
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −2.37 to 1.74
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+No significant differences across sensitivity analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Mindfulness
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+k = 6; n = 525
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −0.28 (−0.72 to 0.16)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Very low`<sup>`{=html}1,2,10`</sup>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+`<italic toggle="yes">`{=html}τ`</italic>`{=html} = −0.20,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.72;
+`<italic toggle="yes">`{=html}t`</italic>`{=html} (4) = −1.43,
+`<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.23; SMD −0.18
+(−0.51 to 0.15)
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Substance: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.65;
+Co-int: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.12;
+Comparator: `<italic toggle="yes">`{=html}P`</italic>`{=html} = 0.93
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+SMD −1.35 to 0.78
+```{=html}
+</td>
+```
+```{=html}
+<td rowspan="1" colspan="1">
+```
+Results statistically significantly favor MBRP in 2 of 4 analyses
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn fn-type="other">`{=html}
+```{=html}
+<p>
+```
+Reasons for downgrading QoE: 1, high risk of attrition bias; 2, CI
+consistent with benefit/harm; 3, substantial statistical heterogeneity;
+4, adapted version of MBRP; 5, high risk of selection bias; 6, high risk
+of detection bias; 7, only 1 study (no replications to assess
+consistency); 8, not outpatient aftercare; 9, wide CI; 10, considerable
+statistical heterogeneity; 11, evidence of publication bias.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+OR \< 1 favors MBRP; SMD \< 0 favors MBRP.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+k, Number of studies; τ, Kendall tau for Begg rank-correlation test for
+funnel plot asymmetry; t, Egger regression test for funnel plot
+asymmetry.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}
+```{=html}
+<p>
+```
+We decided to update a previous systematic review on MBRP for SUDs
+(`<xref rid="R34" ref-type="bibr">`{=html}Grant et al.,
+2015b`</xref>`{=html}), commissioned by the Defense Centers of
+Excellence for Psychological Health and Traumatic Brain Injury to assist
+with clinical decision-making, to share the results with a wider
+audience. In addition, since that review of the evidence, more studies
+had been published in this small research area, so we updated our review
+in accordance with guidance on when to update reviews
+(`<xref rid="R29" ref-type="bibr">`{=html}Garner et al.,
+2016`</xref>`{=html}), which indicates the emergence of new studies that
+were likely to influence the direction, magnitude, and credibility of
+our previous reviews findings as important factors for embarking on a
+systematic review update. As a result of identifying 3 new trials, and
+also obtaining additional information for 5 trials through author
+correspondence, this manuscript updates our previous review in several
+important ways. First, we had sufficient power to detect a statistically
+significant result for 1 outcome included in our previous review
+(withdrawal/craving symptoms). Second, we included 5 outcomes not
+included in our previous review (quantity of substance use, negative
+consequences of substance use, depressive symptoms, anxiety symptoms,
+and mindfulness), 1 of which also demonstrated a statistically
+significant result (negative consequences of substance use). Lastly, we
+increased our GRADE ratings (ie, we had higher confidence in effect
+estimates) for our primary outcome (relapse to substance use) and 2 key
+secondary outcomes (frequency of use and withdrawal/craving symptoms).
+This updated review therefore provides more current and accurate effect
+estimates of MBRP to guide policy and practice decision-making and
+recommendations in addiction medicine
+(`<xref rid="R48" ref-type="bibr">`{=html}Institute of Medicine,
+2011`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The conclusions from this review may surprise some, as individual trials
+on MBRP for SUDs have reported positive conclusions for substance use
+outcomes. However, some positive conclusions within trial reports were
+based on analyses comparing combined data from MBRP and relapse
+prevention with TAU (`<xref rid="R10" ref-type="bibr">`{=html}Bowen et
+al., 2014b`</xref>`{=html}), or focused on select positive results
+(`<xref rid="R6" ref-type="bibr">`{=html}Bowen et al.,
+2009`</xref>`{=html}), rather than the totality of findings within a
+trial (`<xref rid="R5" ref-type="bibr">`{=html}Boutron et al.,
+2010`</xref>`{=html}). Those considering MBRP should weigh our reported
+effect estimates and our confidence in them with other factors, such as
+resource requirements, impact on health equity, acceptability to
+patients, feasibility to implement, and opportunity costs, before
+deciding whether to recommend it as a treatment in lieu of or in
+combination with other available interventions for patients with SUDs
+(`<xref rid="R1" ref-type="bibr">`{=html}Alonso-Coello et al.,
+2016`</xref>`{=html}). Furthermore, it is worth noting that we only
+examined 1 specific mindfulness intervention amongst others that would
+benefit from focused systematic reviews to inform recommendations for
+practice (`<xref rid="R83" ref-type="bibr">`{=html}Zgierska et al.,
+2008`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Limitations in the current body of evidence indicate how future trials
+can provide data for firmer conclusions about the effects of MBRP and
+more reliably inform clinical decision-making. First, most RCTs
+resembled pilot efficacy trials rather than pragmatic effectiveness
+trials, with more than half of RCTs randomizing less than 40
+participants to each trial group; larger samples are needed to reach the
+optimal information size for detecting robust results
+(`<xref rid="R36" ref-type="bibr">`{=html}Guyatt et al.,
+2011`</xref>`{=html}). For most subgroup comparisons in our review,
+there was insufficient power to statistically detect whether MBRP is
+efficacious for specific substances, more efficacious when offered
+either adjunctively or as a monotherapy, or more efficacious when
+compared with certain interventions than others. Second, attrition bias
+is a critically high-risk for this evidence base. Future researchers
+should invest more study resources into ensuring adequate follow-up
+rates. Given that much outcome data were not reported, we implore future
+researchers to pre-register trial protocols and subsequently report all
+outcomes measured in trial manuscripts to have greater statistical power
+to detect effects amongst all outcomes of interest
+(`<xref rid="R18" ref-type="bibr">`{=html}Chan et al.,
+2013`</xref>`{=html}). Lastly, researchers should write RCT reports that
+are in compliance with reporting guidelines for RCTs to allow full
+critical appraisal of all potential risks of bias, understand the
+settings and populations to which results are most applicable, and
+facilitate replication of the intervention
+(`<xref rid="R56" ref-type="bibr">`{=html}Moher et al., 2010; Grant et
+al., 2013`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec sec-type="supplementary-material">`{=html}
+```{=html}
+<title>
+```
+Supplementary Material
+```{=html}
+</title>
+```
+`<supplementary-material content-type="local-data" id="SD1" position="float" orientation="portrait">`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<title>
+```
+Supplemental Digital Content
+```{=html}
+</title>
+```
+```{=html}
+</caption>
+```
+`<media xmlns:xlink="http://www.w3.org/1999/xlink" mimetype="application" mime-subtype="pdf" xlink:href="adm-11-386-s001.docx" id="d35e1662" position="anchor" orientation="portrait"/>`{=html}`</supplementary-material>`{=html}`</sec>`{=html}`<sec sec-type="supplementary-material">`{=html}
+```{=html}
+<title>
+```
+Supplementary Material
+```{=html}
+</title>
+```
+`<supplementary-material content-type="local-data" id="SD2" position="float" orientation="portrait">`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<title>
+```
+Supplemental Digital Content
+```{=html}
+</title>
+```
+```{=html}
+</caption>
+```
+`<media xmlns:xlink="http://www.w3.org/1999/xlink" mimetype="application" mime-subtype="pdf" xlink:href="adm-11-386-s002.xlsx" id="d35e1670" position="anchor" orientation="portrait"/>`{=html}`</supplementary-material>`{=html}`</sec>`{=html}
+```{=html}
+</body>
+```
+`<back>`{=html}`<ack>`{=html}
+```{=html}
+<title>
+```
+ACKNOWLEDGMENTS
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+We gratefully acknowledge Patricia Smith and Whitney Dudley for their
+assistance on this study. We also would like to thank Dr Kristie Gore
+for her support and guidance, our project officers and points of contact
+at DCoE, Dr Marina Khusid, and Dr Paul Shekelle and Dr Tracy Simpson for
+their time and helpful suggestions. Lastly, we thank the authors of
+included trials who took the time and effort to respond to our queries
+about trial data. Any errors of fact or interpretation in this report
+remain the responsibility of the review authors.
+```{=html}
+</p>
+```
+`</ack>`{=html}`<fn-group>`{=html}`<fn fn-type="con">`{=html}
+```{=html}
+<p>
+```
+Authors' contributions: S.G., S.H., and M.S. designed the study and
+wrote the protocol. R.S. designed and conducted the literature searches.
+S.G. and A.M. designed the data collection forms. S.G. and B.C. screened
+studies for inclusion and extracted the data. S.G. and M.B. conducted
+statistical analyses. S.G. and B.C. wrote the first draft of the
+manuscript, and all authors contributed to and have approved the final
+manuscript. S.G. had full access to all of the data in the study and
+takes responsibility for the integrity of the data and the accuracy of
+the data analysis.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn fn-type="financial-disclosure">`{=html}
+```{=html}
+<p>
+```
+Funding: This research updates a previous systematic review that was
+funded through a contract from the US Defense Centers of Excellence for
+Psychological Health and Traumatic Brain Injury (DCoE) to the RAND
+Corporation to conduct evidence synthesis reviews to determine the
+efficacy and comparative effectiveness of integrative medicine
+approaches for psychological health conditions. A DCoE representative
+provided assistance during the project and commented on drafts of
+project reports, but the funder did not directly participate in the
+design and conduct of the study; collection, management, analysis, and
+interpretation of the data; and the preparation, review, and approval of
+specific manuscripts for publication. The authors are solely responsible
+for the content and the decision to submit this manuscript for
+publication. The findings and conclusions in this manuscript are those
+of the authors and do not necessarily represent the views of the
+Department of Defense Centers of Excellence for Psychological Health and
+Traumatic Brain Injury.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn fn-type="COI-statement">`{=html}
+```{=html}
+<p>
+```
+Conflicts of interest: S.G.'s spouse is a salaried-employee of Eli Lilly
+and Company, and owns stock. S.G. has accompanied his spouse on
+company-sponsored travel. All other authors declare no conflicts of
+interest.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</fn-group>`{=html}`<ref-list>`{=html}
+```{=html}
+<title>
+```
+REFERENCES
+```{=html}
+</title>
+```
+`<ref id="R1">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Alonso-Coello`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schünemann`</surname>`{=html}`<given-names>`{=html}HJ`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Moberg`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}GRADE Evidence to Decision (EtD) frameworks: a
+systematic and transparent approach to making well informed healthcare
+choices. 1: introduction`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2016`</year>`{=html};
+`<volume>`{=html}353`</volume>`{=html}:`<fpage>`{=html}i2016`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}27353417`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.i2016`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R2">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Balshem`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Helfand`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schünemann`</surname>`{=html}`<given-names>`{=html}HJ`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}GRADE guidelines: 3. Rating the quality of
+evidence`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Clin
+Epidemiol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}64`</volume>`{=html}:`<fpage>`{=html}401`</fpage>`{=html}--`<lpage>`{=html}406`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21208779`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jclinepi.2010.07.015`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R3">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Begg`</surname>`{=html}`<given-names>`{=html}CB`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mazumdar`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Operating characteristics of a rank correlation
+test for publication bias`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Biometrics`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1994`</year>`{=html};
+`<volume>`{=html}50`</volume>`{=html}:`<fpage>`{=html}1088`</fpage>`{=html}--`<lpage>`{=html}1101`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}7786990`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R4">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Black`</surname>`{=html}`<given-names>`{=html}DS`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based interventions: an antidote to
+suffering in the context of substance use, misuse, and
+addiction`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst Use
+Misuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}49`</volume>`{=html}:`<fpage>`{=html}487`</fpage>`{=html}--`<lpage>`{=html}491`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24611846`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3109/10826084.2014.860749`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R5">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Boutron`</surname>`{=html}`<given-names>`{=html}I`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dutton`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ravaud`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Reporting and interpretation of randomized
+controlled trials with statistically nonsignificant results for primary
+outcomes`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}JAMA`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}303`</volume>`{=html}:`<fpage>`{=html}2058`</fpage>`{=html}--`<lpage>`{=html}2064`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20501928`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jama.2010.651`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R6">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chawla`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Collins`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based relapse prevention for
+substance use disorders: a pilot efficacy
+trial`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst
+Abuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}30`</volume>`{=html}:`<fpage>`{=html}205`</fpage>`{=html}--`<lpage>`{=html}305`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/08897070903250084`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3280682`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19904665`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R7">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chawla`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marlatt`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based Relapse Prevention for
+Addictive Behaviors: A Clinician's Guide`</article-title>`{=html}.
+`<publisher-loc>`{=html}New York, NY`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}Guilford Press`</publisher-name>`{=html};
+`<year>`{=html}2010`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R8">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chawla`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marlatt`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based Relapse Prevention for
+Addictive Behaviors: A Clinician's Guide`</article-title>`{=html}.
+`<publisher-loc>`{=html}New York, NY`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}Guilford Press`</publisher-name>`{=html};
+`<year>`{=html}2011`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R9">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chawla`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<person-group person-group-type="editor">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Baer`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based relapse prevention for
+addictive behaviors`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Mindfulness-based
+Treatment Approaches: A Clinician's
+Guide`</italic>`{=html}`</source>`{=html}
+`<publisher-name>`{=html}Elsevier Academic
+Press`</publisher-name>`{=html}, `<edition>`{=html}2nd
+ed.`</edition>`{=html}`<publisher-loc>`{=html}San Diego,
+CA`</publisher-loc>`{=html}:
+`<year>`{=html}2014`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R10">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Clifasefi`</surname>`{=html}`<given-names>`{=html}SL`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Relative efficacy of mindfulness-based relapse
+prevention, standard relapse prevention, and treatment as usual for
+substance use disorders: a randomized clinical
+trial`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}JAMA
+Psychiatry`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}71`</volume>`{=html}:`<fpage>`{=html}547`</fpage>`{=html}--`<lpage>`{=html}556`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24647726`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jamapsychiatry.2013.4546`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4489711`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R11">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brandon`</surname>`{=html}`<given-names>`{=html}TH`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Vidrine`</surname>`{=html}`<given-names>`{=html}JI`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Litvin`</surname>`{=html}`<given-names>`{=html}EB`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Relapse and relapse
+prevention`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Annu Rev Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2007`</year>`{=html};
+`<volume>`{=html}3`</volume>`{=html}:`<fpage>`{=html}257`</fpage>`{=html}--`<lpage>`{=html}284`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}17716056`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1146/annurev.clinpsy.3.022806.091455`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R12">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brewer`</surname>`{=html}`<given-names>`{=html}DD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Catalano`</surname>`{=html}`<given-names>`{=html}RF`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Haggerty`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}A meta-analysis of predictors of continued drug
+use during and after treatment for opiate
+addiction`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Addiction`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1998`</year>`{=html};
+`<volume>`{=html}93`</volume>`{=html}:`<fpage>`{=html}73`</fpage>`{=html}--`<lpage>`{=html}92`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}9624713`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R13">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brewer`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sinha`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chen`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness training and stress reactivity in
+substance abuse: results from a randomized, controlled stage I pilot
+study`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst
+Abuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}30`</volume>`{=html}:`<fpage>`{=html}306`</fpage>`{=html}--`<lpage>`{=html}317`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/08897070903250241`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3045038`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19904666`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R14">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brewer`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Elwafi`</surname>`{=html}`<given-names>`{=html}HM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Davis`</surname>`{=html}`<given-names>`{=html}JH`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Craving to quit: psychological models and
+neurobiological mechanisms of mindfulness training as treatment for
+addictions`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Psychol Addict
+Behav`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2013`</year>`{=html};
+`<volume>`{=html}27`</volume>`{=html}:`<fpage>`{=html}366`</fpage>`{=html}--`<lpage>`{=html}379`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22642859`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0028490`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3434285`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R15">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brown`</surname>`{=html}`<given-names>`{=html}KW`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ryan`</surname>`{=html}`<given-names>`{=html}RM`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The benefits of being present: mindfulness and
+its role in psychological well-being`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Pers Soc
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2003`</year>`{=html};
+`<volume>`{=html}84`</volume>`{=html}:`<fpage>`{=html}822`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}12703651`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/0022-3514.84.4.822`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R16">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Cargiulo`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Understanding the health impact of alcohol
+dependence`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Am J Health Syst
+Pharm`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2007`</year>`{=html};
+`<volume>`{=html}64`</volume>`{=html}:`<fpage>`{=html}S5`</fpage>`{=html}--`<lpage>`{=html}S11`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.2146/ajhp060647`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}17322182`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R17">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Relapse prevention as a psychosocial treatment:
+a review of controlled clinical trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Exp Clin
+Psychopharmacol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1996`</year>`{=html};
+`<volume>`{=html}4`</volume>`{=html}:`<fpage>`{=html}46`</fpage>`{=html}--`<lpage>`{=html}54`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R18">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chan`</surname>`{=html}`<given-names>`{=html}AW`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tetzlaff`</surname>`{=html}`<given-names>`{=html}JM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gøtzsche`</surname>`{=html}`<given-names>`{=html}PC`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}SPIRIT 2013 explanation and elaboration:
+Guidance for protocols of clinical trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2013`</year>`{=html};
+`<volume>`{=html}346`</volume>`{=html}:`<fpage>`{=html}e7586`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}23303884`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.e7586`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3541470`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R19">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chen`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Cohen`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}How big is a big odds ratio? Interpreting the
+magnitudes of odds ratios in epidemiological
+studies`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Commun Stat Simul
+Comput`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}39`</volume>`{=html}:`<fpage>`{=html}860`</fpage>`{=html}--`<lpage>`{=html}864`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R20">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chiesa`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Serretti`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based stress reduction for stress
+management in healthy people: a review and
+meta-analysis`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Altern Complement
+Med`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}15`</volume>`{=html}:`<fpage>`{=html}593`</fpage>`{=html}--`<lpage>`{=html}600`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}19432513`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1089/acm.2008.0495`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R21">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chiesa`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Serretti`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Are mindfulness-based interventions effective
+for substance use disorders? A systematic review of the
+evidence`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst Use
+Misuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}49`</volume>`{=html}:`<fpage>`{=html}492`</fpage>`{=html}--`<lpage>`{=html}512`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}23461667`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3109/10826084.2013.770027`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R22">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Connors`</surname>`{=html}`<given-names>`{=html}GJ`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Maisto`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Donovan`</surname>`{=html}`<given-names>`{=html}DM`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Conceptualizations of relapse: a summary of
+psychological and psychobiological models`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Addiction`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1996`</year>`{=html};
+`<volume>`{=html}91`</volume>`{=html} `<issue>`{=html}Suppl 1 to Issue
+12`</issue>`{=html}:`<fpage>`{=html}5`</fpage>`{=html}--`<lpage>`{=html}14`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}8997777`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R23">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Craig`</surname>`{=html}`<given-names>`{=html}AD`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}How do you feel: now? the anterior insula and
+human awareness`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Nat Rev
+Neurosci`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}10`</volume>`{=html}:`<fpage>`{=html}59`</fpage>`{=html}--`<lpage>`{=html}70`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}19096369`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1038/nrn2555`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R24">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}de
+Lisle`</surname>`{=html}`<given-names>`{=html}SM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dowling`</surname>`{=html}`<given-names>`{=html}NA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Allen`</surname>`{=html}`<given-names>`{=html}JS`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness and problem gambling: a review of
+the literature`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Gambling
+Studies`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}28`</volume>`{=html}:`<fpage>`{=html}719`</fpage>`{=html}--`<lpage>`{=html}739`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1007/s10899-011-9284-7`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}22160581`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R25">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Degenhardt`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hall`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Extent of illicit drug use and dependence, and
+their contribution to the global burden of
+disease`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Lancet`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2012`</year>`{=html};
+`<volume>`{=html}379`</volume>`{=html}:`<fpage>`{=html}55`</fpage>`{=html}--`<lpage>`{=html}70`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22225671`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/S0140-6736(11)61138-0`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R26">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Duval`</surname>`{=html}`<given-names>`{=html}SJ`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tweedie`</surname>`{=html}`<given-names>`{=html}RL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Trim and fill: a simple funnel-plot-based method
+of testing and adjusting for publication bias in
+meta-analysis`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Biometrics`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2000`</year>`{=html};
+`<volume>`{=html}56`</volume>`{=html}:`<fpage>`{=html}455`</fpage>`{=html}--`<lpage>`{=html}463`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}10877304`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/j.0006-341x.2000.00455.x`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R27">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Egger`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Smith`</surname>`{=html}`<given-names>`{=html}GD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schneider`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Bias in meta-analysis detected by a simple,
+graphical test`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1997`</year>`{=html};
+`<volume>`{=html}315`</volume>`{=html}:`<fpage>`{=html}629`</fpage>`{=html}--`<lpage>`{=html}634`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}9310563`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.315.7109.629`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2127453`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R28">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Garland`</surname>`{=html}`<given-names>`{=html}EL`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Froeliger`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness training targets neurocognitive
+mechanisms of addiction at the attention-appraisal-emotion
+interface`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Front
+Psychiatry`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2013`</year>`{=html};
+`<volume>`{=html}4`</volume>`{=html}:
+`<comment>`{=html}(173)`</comment>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3389/fpsyt.2013.00173`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3887509`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}24454293`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R29">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Garner`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hopewell`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chandler`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}When and how to update systematic reviews:
+consensus and checklist`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2016`</year>`{=html};
+`<volume>`{=html}354`</volume>`{=html}:`<fpage>`{=html}i3507`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}27443385`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.i3507`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4955793`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R30">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Glasner`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mooney`</surname>`{=html}`<given-names>`{=html}LJ`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ang`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based relapse prevention for
+stimulant dependent adults: a pilot randomized clinical
+trial`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Mindfulness`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2017`</year>`{=html};
+`<volume>`{=html}8`</volume>`{=html}:`<fpage>`{=html}126`</fpage>`{=html}--`<lpage>`{=html}135`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}28191264`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1007/s12671-016-0586-9`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5300086`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R31">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gottfredson`</surname>`{=html}`<given-names>`{=html}DC`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Cook`</surname>`{=html}`<given-names>`{=html}TD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gardner`</surname>`{=html}`<given-names>`{=html}FE`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Standards of evidence for efficacy,
+effectiveness, and scale-up research in prevention science: next
+generation`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Prev
+Sci`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2015`</year>`{=html};
+`<volume>`{=html}16`</volume>`{=html}:`<fpage>`{=html}893`</fpage>`{=html}--`<lpage>`{=html}926`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}25846268`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1007/s11121-015-0555-x`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4579256`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R32">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Montgomery`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hopewell`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Letter to the Editor: new guidelines are needed
+to improve the reporting of trials in addiction
+sciences`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Addiction`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2013`</year>`{=html};
+`<volume>`{=html}108`</volume>`{=html}:`<fpage>`{=html}1687`</fpage>`{=html}--`<lpage>`{=html}1688`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}23796394`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/add.12249`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R33">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}BF`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Goldstein`</surname>`{=html}`<given-names>`{=html}RB`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Saha`</surname>`{=html}`<given-names>`{=html}TD`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Epidemiology of DSM-5 alcohol use disorder:
+results from the National Epidemiologic Survey on Alcohol and Related
+Conditions III`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}JAMA
+Psychiatry`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2015`</year>`{=html};
+`<volume>`{=html}72`</volume>`{=html}:`<fpage>`{=html}757`</fpage>`{=html}--`<lpage>`{=html}766`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}26039070`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jamapsychiatry.2015.0584`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5240584`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R34">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hempel`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Colaiaco`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<comment>`{=html}Mindfulness-based Relapse Prevention for Substance Use
+Disorders: A Systematic Review; RR-1031. RAND Corporation, Santa Monica;
+2015.`</comment>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1097/ADM.0000000000000338`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5636047`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}28727663`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R35">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}BF`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Saha`</surname>`{=html}`<given-names>`{=html}TD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ruan`</surname>`{=html}`<given-names>`{=html}WJ`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Epidemiology of DSM-5 drug use disorder: results
+from the National Epidemiologic Survey on Alcohol and Related
+Conditions: III`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}JAMA
+Psychiatry`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2016`</year>`{=html};
+`<volume>`{=html}73`</volume>`{=html}:`<fpage>`{=html}39`</fpage>`{=html}--`<lpage>`{=html}47`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}26580136`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jamapsychiatry.2015.2132`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5062605`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R36">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Guyatt`</surname>`{=html}`<given-names>`{=html}GH`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Oxman`</surname>`{=html}`<given-names>`{=html}AD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kunz`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}GRADE guidelines 6. Rating the quality of
+evidence: imprecision`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Clin
+Epidemiol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}64`</volume>`{=html}:`<fpage>`{=html}1283`</fpage>`{=html}--`<lpage>`{=html}1293`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21839614`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.jclinepi.2011.01.012`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R37">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hartung`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}An alternative method for
+meta-analysis`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Biom
+J`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1999`</year>`{=html};
+`<volume>`{=html}41`</volume>`{=html}:`<fpage>`{=html}901`</fpage>`{=html}--`<lpage>`{=html}916`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R38">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hartung`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Knapp`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}A refined method for the meta analysis of
+controlled clinical trials with binary outcome`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Stat
+Med`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2001`</year>`{=html};
+`<volume>`{=html}20`</volume>`{=html}:`<fpage>`{=html}3875`</fpage>`{=html}--`<lpage>`{=html}3889`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}11782040`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1002/sim.1009`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R39">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hasenkamp`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Barsalou`</surname>`{=html}`<given-names>`{=html}LW`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Effects of meditation experience on functional
+connectivity of distributed brain networks`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Front Hum
+Neurosci`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2012`</year>`{=html};
+`<volume>`{=html}6`</volume>`{=html}:`<fpage>`{=html}38`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22403536`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3389/fnhum.2012.00038`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3290768`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R40">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hasenkamp`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Wilson-Mendenhall`</surname>`{=html}`<given-names>`{=html}CD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Duncan`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mind wandering and attention during focused
+meditation: a fine-grained temporal analysis of fluctuating cognitive
+states`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Neuroimage`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2012`</year>`{=html};
+`<volume>`{=html}59`</volume>`{=html}:`<fpage>`{=html}750`</fpage>`{=html}--`<lpage>`{=html}760`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21782031`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.neuroimage.2011.07.008`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R41">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Higgins`</surname>`{=html}`<given-names>`{=html}JP`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Thompson`</surname>`{=html}`<given-names>`{=html}SG`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Deeks`</surname>`{=html}`<given-names>`{=html}JJ`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Measuring inconsistency in
+meta-analyses`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2003`</year>`{=html};
+`<volume>`{=html}327`</volume>`{=html}:`<fpage>`{=html}557`</fpage>`{=html}--`<lpage>`{=html}560`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}12958120`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.327.7414.557`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC192859`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R42">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Higgins`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Thompson`</surname>`{=html}`<given-names>`{=html}SG`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Spiegelhalter`</surname>`{=html}`<given-names>`{=html}DJ`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}A re-evaluation of random-effects
+meta-analysis`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J R Stat Soc Ser A Stat
+Soc`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}172`</volume>`{=html}:`<fpage>`{=html}137`</fpage>`{=html}--`<lpage>`{=html}159`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1111/j.1467-985X.2008.00552.x`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2667312`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19381330`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R43">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Higgins`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Altman`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gøtzsche`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The Cochrane Collaboration's tool for assessing
+risk of bias in randomised trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}343`</volume>`{=html}:`<fpage>`{=html}d5928`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22008217`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.d5928`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3196245`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R44">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hodgins`</surname>`{=html}`<given-names>`{=html}DC`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}el-Guebaly`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Armstrong`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Prospective and retrospective reports of mood
+states before relapse to substance use`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Consult Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1995`</year>`{=html};
+`<volume>`{=html}63`</volume>`{=html}:`<fpage>`{=html}400`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}7608352`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037//0022-006x.63.3.400`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R45">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hofmann`</surname>`{=html}`<given-names>`{=html}SG`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sawyer`</surname>`{=html}`<given-names>`{=html}AT`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witt`</surname>`{=html}`<given-names>`{=html}AA`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The effect of mindfulness-based therapy on
+anxiety and depression: a meta-analytic review`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Consult Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}78`</volume>`{=html}:`<fpage>`{=html}169`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20350028`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0018555`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2848393`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R46">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Imani`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Vahid`</surname>`{=html}`<given-names>`{=html}MKA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gharraee`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Effectiveness of mindfulness-based group therapy
+compared to the usual opioid dependence
+treatment`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Iran J
+Psychiatry`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2015`</year>`{=html};
+`<volume>`{=html}10`</volume>`{=html}:`<fpage>`{=html}175`</fpage>`{=html}--`<lpage>`{=html}184`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}26877751`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4749687`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R47">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}Institute
+of Medicine`</collab>`{=html}. `<article-title>`{=html}Complementary and
+Alternative Medicine in the United States`</article-title>`{=html}.
+`<publisher-loc>`{=html}Washington, DC`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}National Academies
+Press`</publisher-name>`{=html};
+`<year>`{=html}2005`</year>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22379647`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R48">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}Institute
+of Medicine`</collab>`{=html}. `<article-title>`{=html}Clinical Practice
+Guidelines We Can Trust`</article-title>`{=html}.
+`<publisher-loc>`{=html}Washington, DC`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}National Academies
+Press`</publisher-name>`{=html};
+`<year>`{=html}2011`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R49">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}Institute
+of Medicine`</collab>`{=html}. `<article-title>`{=html}Psychosocial
+Interventions for Mental and Substance Use Disorders: A Framework for
+Establishing Evidence-based Standards`</article-title>`{=html}.
+`<publisher-loc>`{=html}Washington, DC`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}National Academies
+Press`</publisher-name>`{=html};
+`<year>`{=html}2015`</year>`{=html}.`<pub-id pub-id-type="pmid">`{=html}26203478`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R50">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Irvin`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowers`</surname>`{=html}`<given-names>`{=html}CA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dunn`</surname>`{=html}`<given-names>`{=html}ME`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Efficacy of relapse prevention: a meta-analytic
+review`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Consult Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}1999`</year>`{=html};
+`<volume>`{=html}67`</volume>`{=html}:`<fpage>`{=html}563`</fpage>`{=html}--`<lpage>`{=html}570`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}10450627`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037//0022-006x.67.4.563`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R51">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Lancaster`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hajek`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Stead`</surname>`{=html}`<given-names>`{=html}LF`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Prevention of relapse after quitting smoking: a
+systematic review of trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Arch Intern
+Med`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2006`</year>`{=html};
+`<volume>`{=html}166`</volume>`{=html}:`<fpage>`{=html}828`</fpage>`{=html}--`<lpage>`{=html}835`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}16636207`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/archinte.166.8.828`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R52">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Lee`</surname>`{=html}`<given-names>`{=html}K-H`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}An-Fu`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Psychosocial outcomes of mindfulness-based
+relapse prevention in incarcerated substance abusers in Taiwan: a
+preliminary study`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Subst
+Use`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}16`</volume>`{=html}:`<fpage>`{=html}476`</fpage>`{=html}--`<lpage>`{=html}483`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R53">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marlatt`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Gordon`</surname>`{=html}`<given-names>`{=html}JR`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Relapse Prevention: Maintenance Strategies in
+the Treatment of Addictive Behaviors`</article-title>`{=html}.
+`<publisher-loc>`{=html}New York, NY`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}Guilford Press`</publisher-name>`{=html};
+`<year>`{=html}1985`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R54">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McCown`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Reibel`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<person-group person-group-type="editor">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Monti`</surname>`{=html}`<given-names>`{=html}DA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Beitman`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness and mindfulness-based stress
+reduction`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Integrative
+Psychiatry`</italic>`{=html}`</source>`{=html}.
+`<publisher-loc>`{=html}New York, NY`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}Oxford University
+Press`</publisher-name>`{=html}; `<year>`{=html}2010`</year>`{=html}
+`<fpage>`{=html}289`</fpage>`{=html}--`<lpage>`{=html}338`</lpage>`{=html}.
+`<comment>`{=html}494,
+xvii`</comment>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R55">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McLellan`</surname>`{=html}`<given-names>`{=html}AT`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Lewis`</surname>`{=html}`<given-names>`{=html}DC`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}O'Brien`</surname>`{=html}`<given-names>`{=html}CP`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Drug dependence, a chronic medical illness:
+implications for treatment, insurance, and outcomes
+evaluation`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}JAMA`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2000`</year>`{=html};
+`<volume>`{=html}284`</volume>`{=html}:`<fpage>`{=html}1689`</fpage>`{=html}--`<lpage>`{=html}1695`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}11015800`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1001/jama.284.13.1689`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R56">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Moher`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hopewell`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schulz`</surname>`{=html}`<given-names>`{=html}KF`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}CONSORT 2010 explanation and elaboration:
+updated guidelines for reporting parallel group randomised
+trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}BMJ`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}340`</volume>`{=html}:`<fpage>`{=html}c869`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20332511`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1136/bmj.c869`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2844943`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R57">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Morone`</surname>`{=html}`<given-names>`{=html}NE`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Greco`</surname>`{=html}`<given-names>`{=html}CM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Weiner`</surname>`{=html}`<given-names>`{=html}DK`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness meditation for the treatment of
+chronic low back pain in older adults: a randomized controlled pilot
+study`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Pain`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2008`</year>`{=html};
+`<volume>`{=html}134`</volume>`{=html}:`<fpage>`{=html}310`</fpage>`{=html}--`<lpage>`{=html}319`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}17544212`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.pain.2007.04.038`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2254507`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R58">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}National
+Drug Intelligence Center`</collab>`{=html}. `<article-title>`{=html}The
+Economic Impact of Illicit Drug Use on American
+Society`</article-title>`{=html}. `<publisher-loc>`{=html}Washington,
+DC`</publisher-loc>`{=html}: `<publisher-name>`{=html}US Department of
+Justice`</publisher-name>`{=html};
+`<year>`{=html}2011`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R59">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}National
+Institute on Drug Abuse`</collab>`{=html}.
+`<article-title>`{=html}Addiction science: from molecules to managed
+care`</article-title>`{=html}. `<publisher-loc>`{=html}Bethesda,
+MD`</publisher-loc>`{=html}: `<publisher-name>`{=html}National Institute
+on Drug Abuse`</publisher-name>`{=html};
+`<year>`{=html}2008`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R60">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Oikonomou`</surname>`{=html}`<given-names>`{=html}MT`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Arvanitis`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sokolove`</surname>`{=html}`<given-names>`{=html}RL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness training for smoking cessation: a
+meta-analysis of randomized-controlled trials`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Health
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2016`</year>`{=html};
+`<comment>`{=html}doi:10.1177/135910531663766`</comment>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1177/1359105316637667`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}27044630`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R61">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ramel`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Goldin`</surname>`{=html}`<given-names>`{=html}PR`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Carmona`</surname>`{=html}`<given-names>`{=html}PE`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The effects of mindfulness meditation on
+cognitive processes and affect in patients with past
+depression`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Cognit Ther
+Res`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2004`</year>`{=html};
+`<volume>`{=html}28`</volume>`{=html}:`<fpage>`{=html}433`</fpage>`{=html}--`<lpage>`{=html}455`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R62">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ramo`</surname>`{=html}`<given-names>`{=html}DE`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Brown`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Classes of substance abuse relapse situations: a
+comparison of adolescents and adults`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Psychol Addict
+Behav`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2008`</year>`{=html};
+`<volume>`{=html}22`</volume>`{=html}:`<fpage>`{=html}372`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}18778130`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/0893-164X.22.3.372`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3031179`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R63">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rehm`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The risks associated with alcohol use and
+alcoholism`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Alcohol Res
+Health`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}34`</volume>`{=html}:`<fpage>`{=html}135`</fpage>`{=html}--`<lpage>`{=html}143`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22330211`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3307043`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R64">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rehm`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mathers`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Popova`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Global burden of disease and injury and economic
+cost attributable to alcohol use and alcohol-use
+disorders`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}The
+Lancet`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}373`</volume>`{=html}:`<fpage>`{=html}2223`</fpage>`{=html}--`<lpage>`{=html}2233`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/S0140-6736(09)60746-7`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19560604`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R65">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Seeley`</surname>`{=html}`<given-names>`{=html}WW`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Menon`</surname>`{=html}`<given-names>`{=html}V`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schatzberg`</surname>`{=html}`<given-names>`{=html}AF`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Dissociable intrinsic connectivity networks for
+salience processing and executive control`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J
+Neurosci`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2007`</year>`{=html};
+`<volume>`{=html}27`</volume>`{=html}:`<fpage>`{=html}2349`</fpage>`{=html}--`<lpage>`{=html}2356`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}17329432`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1523/JNEUROSCI.5587-06.2007`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2680293`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R66">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Segal`</surname>`{=html}`<given-names>`{=html}Z`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Williams`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Teasdale`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The mindful way through
+depression`</article-title>`{=html}. `<publisher-loc>`{=html}New
+York`</publisher-loc>`{=html}: `<publisher-name>`{=html}The Guilford
+Press`</publisher-name>`{=html};
+`<year>`{=html}2007`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R67">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sidik`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Jonkman`</surname>`{=html}`<given-names>`{=html}JN`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Robust variance estimation for random effects
+meta-analysis`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Comput Stat Data
+Anal`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2006`</year>`{=html};
+`<volume>`{=html}50`</volume>`{=html}:`<fpage>`{=html}3681`</fpage>`{=html}--`<lpage>`{=html}3701`</lpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R68">`{=html}`<mixed-citation publication-type="book">`{=html}`<comment>`{=html}Substance
+Abuse and Mental Health Services Administration. Treatment Episode Data
+Set (TEDS): 2005: Discharges From Substance Abuse Treatment Services:
+DASIS Series: S-41. Dept of Health & Human Services publication
+No. (SMA) 08-4314, in: Services, U.D., o.H.H., (Ed.). Rockville, MD;
+2008`</comment>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R69">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Teasdale`</surname>`{=html}`<given-names>`{=html}JD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Segal`</surname>`{=html}`<given-names>`{=html}ZV`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Williams`</surname>`{=html}`<given-names>`{=html}JMG`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Prevention of relapse/recurrence in major
+depression by mindfulness-based cognitive
+therapy`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Consult Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2000`</year>`{=html};
+`<volume>`{=html}68`</volume>`{=html}:`<fpage>`{=html}615`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}10965637`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037//0022-006x.68.4.615`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R70">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Uhlig`</surname>`{=html}`<given-names>`{=html}DJ`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness based relapse prevention and the
+matrix model in substance abuse relapse
+prevention`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Dissertation Abstracts
+Int B Sci Eng`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}70`</volume>`{=html}:`<fpage>`{=html}2596`</fpage>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R71">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Viechtbauer`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Viechtbauer`</surname>`{=html}`<given-names>`{=html}MW`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<comment>`{=html}Package 'metafor'; 2015. Available at:
+`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="http://cran.r-project.org/web/packages/metafor/metafor.pdf">`{=html}http://cran.r-project.org/web/packages/metafor/metafor.pdf`</ext-link>`{=html}`</comment>`{=html}
+`<date-in-citation>`{=html}Accessed August 7,
+2016`</date-in-citation>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R72">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Viechtbauer`</surname>`{=html}`<given-names>`{=html}W`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}López-López`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sánchez-Meca`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}A comparison of procedures to test for
+moderators in mixed-effects meta-regression
+models`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Psychol
+Methods`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2015`</year>`{=html};
+`<volume>`{=html}20`</volume>`{=html}:`<fpage>`{=html}360`</fpage>`{=html}--`<lpage>`{=html}374`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}25110905`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/met0000023`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R73">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Walsh`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Shapiro`</surname>`{=html}`<given-names>`{=html}SL`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}The meeting of meditative disciplines and
+Western psychology: a mutually enriching
+dialogue`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Am
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2006`</year>`{=html};
+`<volume>`{=html}61`</volume>`{=html}:`<fpage>`{=html}227`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}16594839`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/0003-066X.61.3.227`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R74">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Way`</surname>`{=html}`<given-names>`{=html}BM`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Creswell`</surname>`{=html}`<given-names>`{=html}JD`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Eisenberger`</surname>`{=html}`<given-names>`{=html}NI`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Dispositional mindfulness and depressive
+symptomatology: correlations with limbic and self-referential neural
+activity during rest`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Emotion`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}10`</volume>`{=html}:`<fpage>`{=html}12`</fpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20141298`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0018312`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2868367`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R75">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Depression, craving, and substance use following
+a randomized trial of mindfulness-based relapse
+prevention`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Consult Clin
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2010`</year>`{=html};
+`<volume>`{=html}78`</volume>`{=html}:`<fpage>`{=html}362`</fpage>`{=html}--`<lpage>`{=html}374`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}20515211`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0019172`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3280693`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R76">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Marlatt`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Relapse prevention for alcohol and drug
+problems: that was Zen, this is Tao`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Am
+Psychol`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2004`</year>`{=html};
+`<volume>`{=html}59`</volume>`{=html}:`<fpage>`{=html}224`</fpage>`{=html}--`<lpage>`{=html}235`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}15149263`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/0003-066X.59.4.224`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R77">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Lustyk`</surname>`{=html}`<given-names>`{=html}MK`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Retraining the addicted brain: a review of
+hypothesized neurobiological mechanisms of mindfulness-based relapse
+prevention`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Psychol Addict
+Behav`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2013`</year>`{=html};
+`<volume>`{=html}27`</volume>`{=html}:`<fpage>`{=html}351`</fpage>`{=html}--`<lpage>`{=html}365`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}22775773`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/a0029258`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3699602`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R78">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bowen`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Harrop`</surname>`{=html}`<given-names>`{=html}EN`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness-based treatment to prevent addictive
+behavior relapse: theoretical models and hypothesized mechanisms of
+change`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst Use
+Misuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}49`</volume>`{=html}:`<fpage>`{=html}513`</fpage>`{=html}--`<lpage>`{=html}524`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24611847`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3109/10826084.2014.891845`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5441879`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R79">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Warner`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Sully`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Randomized trial comparing mindfulness-based
+relapse prevention with relapse prevention for women offenders at a
+residential addiction treatment center`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst Use
+Misuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2014`</year>`{=html};
+`<volume>`{=html}49`</volume>`{=html}:`<fpage>`{=html}536`</fpage>`{=html}--`<lpage>`{=html}546`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}24611849`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.3109/10826084.2013.856922`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R80">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}World
+Health Organization`</collab>`{=html}. `<article-title>`{=html}Global
+Status Report on Alcohol and Health`</article-title>`{=html}.
+`<publisher-loc>`{=html}Geneva, Switzerland`</publisher-loc>`{=html}:
+`<publisher-name>`{=html}World Health
+Organization`</publisher-name>`{=html};
+`<year>`{=html}2014`</year>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R81">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Xue`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tang`</surname>`{=html}`<given-names>`{=html}Y-Y`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Posner`</surname>`{=html}`<given-names>`{=html}MI`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Short-term meditation increases network
+efficiency of the anterior cingulate cortex`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Neuroreport`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2011`</year>`{=html};
+`<volume>`{=html}22`</volume>`{=html}:`<fpage>`{=html}570`</fpage>`{=html}--`<lpage>`{=html}574`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21691234`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1097/WNR.0b013e328348c750`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R82">`{=html}`<mixed-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Zgierska`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`</person-group>`{=html}
+`<comment>`{=html}Mindfulness Meditation for Health. ClinicalTrials.gov
+Identifier:
+`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="pmc:clinical-trial" xlink:href="NCT01056484">`{=html}NCT01056484`</ext-link>`{=html};
+2014`</comment>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R83">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Zgierska`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rabago`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Zuelsdorff`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness meditation for alcohol relapse
+prevention: a feasibility pilot study`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}J Addict
+Med`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2008`</year>`{=html};
+`<volume>`{=html}2`</volume>`{=html}:`<fpage>`{=html}165`</fpage>`{=html}--`<lpage>`{=html}173`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}21768988`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1097/ADM.0b013e31816f8546`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4106278`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R84">`{=html}`<mixed-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Zgierska`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rabago`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chawla`</surname>`{=html}`<given-names>`{=html}N`</given-names>`{=html}`</name>`{=html}`<etal/>`{=html}`</person-group>`{=html}
+`<article-title>`{=html}Mindfulness meditation for substance use
+disorders: a systematic review`</article-title>`{=html}.
+`<source>`{=html}`<italic toggle="yes">`{=html}Subst
+Abuse`</italic>`{=html}`</source>`{=html}
+`<year>`{=html}2009`</year>`{=html};
+`<volume>`{=html}30`</volume>`{=html}:`<fpage>`{=html}266`</fpage>`{=html}--`<lpage>`{=html}294`</lpage>`{=html}.`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1080/08897070903250019`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2800788`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19904664`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`</ref-list>`{=html}`</back>`{=html}
+```{=html}
+</article>
+```
+`</pmc-articleset>`{=html}

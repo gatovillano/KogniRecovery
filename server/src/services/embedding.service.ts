@@ -50,8 +50,8 @@ class EmbeddingsService {
   private dimension: number;
 
   constructor() {
-    this.modelName = 'Xenova/all-MiniLM-L6-v2';
-    this.dimension = 384; // Dimensión para all-MiniLM-L6-v2
+    this.modelName = 'Xenova/paraphrase-MiniLM-L3-v2';
+    this.dimension = 384; // Dimensión para paraphrase-MiniLM-L3-v2
   }
 
   /**
@@ -79,7 +79,9 @@ class EmbeddingsService {
         tokens: text.length / 4,
       };
     } catch (error) {
-      console.warn('⚠️ Falló el embedding local (posible error de red). Usando Mock embedding por ahora...');
+      console.warn(
+        '⚠️ Falló el embedding local (posible error de red). Usando Mock embedding por ahora...'
+      );
 
       // Fallback: Generar un vector determinista basado en el texto
       const mockEmbedding = new Array(this.dimension).fill(0).map((_, i) => {
@@ -95,16 +97,21 @@ class EmbeddingsService {
   }
 
   /**
-   * Genera embeddings para múltiples textos
+   * Genera embeddings para múltiples textos en batches paralelos
    */
-  async generateEmbeddings(texts: string[]): Promise<EmbeddingResult[]> {
+  async generateEmbeddings(texts: string[], batchSize: number = 4): Promise<EmbeddingResult[]> {
     try {
       const results: EmbeddingResult[] = [];
 
-      // Procesar secuencialmente o en pequeños batches para evitar bloqueos
-      for (const text of texts) {
-        const result = await this.generateEmbedding(text);
-        results.push(result);
+      // Procesar en batches paralelos para aprovechar mejor la CPU
+      for (let i = 0; i < texts.length; i += batchSize) {
+        const batch = texts.slice(i, i + batchSize);
+        const batchResults = await Promise.all(batch.map((text) => this.generateEmbedding(text)));
+        results.push(...batchResults);
+
+        if (i % (batchSize * 5) === 0 && i > 0) {
+          console.log(`   📊 Embeddings progreso: ${results.length}/${texts.length}`);
+        }
       }
 
       return results;
@@ -142,9 +149,8 @@ class EmbeddingsService {
     }
 
     // Construir texto con contexto
-    const contextualText = contextualParts.length > 0
-      ? `[Contexto: ${contextualParts.join(' | ')}] ${text}`
-      : text;
+    const contextualText =
+      contextualParts.length > 0 ? `[Contexto: ${contextualParts.join(' | ')}] ${text}` : text;
 
     return this.generateEmbedding(contextualText);
   }

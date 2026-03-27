@@ -1,0 +1,4402 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article xml:lang="en" article-type="research-article" dtd-version="1.4">
+```
+`<processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">`{=html}`<restricted-by>`{=html}pmc`</restricted-by>`{=html}`</processing-meta>`{=html}`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}Clin
+Psychol (New
+York)`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}Clin
+Psychol (New
+York)`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}319`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}nihpa`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}Clinical
+psychology : a publication of the Division of Clinical Psychology of the
+American Psychological
+Association`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="ppub">`{=html}0969-5893`</issn>`{=html}`<issn pub-type="epub">`{=html}1468-2850`</issn>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-is-collection-domain`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-collection-title`</meta-name>`{=html}`<meta-value>`{=html}NIHPA
+Author
+Manuscripts`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC10572095`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC10572095.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}10572095`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}10572095`</article-id>`{=html}`<article-id pub-id-type="manuscript-id">`{=html}NIHMS1856819`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}37840853`</article-id>`{=html}`<article-id pub-id-type="doi">`{=html}10.1037/cps0000131`</article-id>`{=html}`<article-id pub-id-type="manuscript-id-alternative">`{=html}NIHMS1856819`</article-id>`{=html}`<article-id pub-id-type="manuscript-id-alternative">`{=html}NIHPA1856819`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group subj-group-type="heading">`{=html}`<subject>`{=html}Article`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}An
+Evaluation of Cognitive Behavioral Therapy for Substance Use Disorder: A
+Systematic Review and Application of the Society of Clinical Psychology
+Criteria for Empirically Supported
+Treatments`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Boness`</surname>`{=html}`<given-names initials="CL">`{=html}Cassandra
+L.`</given-names>`{=html}`</name>`{=html}`<xref rid="A1" ref-type="aff">`{=html}1`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Votaw`</surname>`{=html}`<given-names initials="VR">`{=html}Victoria
+R.`</given-names>`{=html}`</name>`{=html}`<xref rid="A1" ref-type="aff">`{=html}1`</xref>`{=html}`<xref rid="A2" ref-type="aff">`{=html}2`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schwebel`</surname>`{=html}`<given-names initials="FJ">`{=html}Frank
+J.`</given-names>`{=html}`</name>`{=html}`<xref rid="A1" ref-type="aff">`{=html}1`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Moniz-Lewis`</surname>`{=html}`<given-names initials="DIK">`{=html}David
+I.K.`</given-names>`{=html}`</name>`{=html}`<xref rid="A2" ref-type="aff">`{=html}2`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McHugh`</surname>`{=html}`<given-names initials="RK">`{=html}R.
+Kathryn`</given-names>`{=html}`</name>`{=html}`<xref rid="A3" ref-type="aff">`{=html}3`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names initials="K">`{=html}Katie`</given-names>`{=html}`</name>`{=html}`<xref rid="A1" ref-type="aff">`{=html}1`</xref>`{=html}`<xref rid="A2" ref-type="aff">`{=html}2`</xref>`{=html}`</contrib>`{=html}`</contrib-group>`{=html}`<aff id="A1">`{=html}`<label>`{=html}1`</label>`{=html}Center
+on Alcohol, Substance use, And Addictions (CASAA), University of New
+Mexico`</aff>`{=html}`<aff id="A2">`{=html}`<label>`{=html}2`</label>`{=html}Department
+of Psychology, University of New
+Mexico`</aff>`{=html}`<aff id="A3">`{=html}`<label>`{=html}3`</label>`{=html}McLean
+Hospital and Harvard Medical School, Harvard
+University`</aff>`{=html}`<author-notes>`{=html}`<corresp id="CR1">`{=html}Correspondence
+concerning this article should be addressed to Cassandra L. Boness,
+Center on Alcohol, Substance use, And Addictions, 2650 Yale Blvd SE,
+Albuquerque, NM 87106.
+`<email>`{=html}cboness@unm.edu`</email>`{=html}`</corresp>`{=html}`</author-notes>`{=html}`<pub-date pub-type="ppub">`{=html}`<month>`{=html}6`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</pub-date>`{=html}`<pub-date pub-type="epub">`{=html}`<day>`{=html}27`</day>`{=html}`<month>`{=html}2`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}30`</volume>`{=html}`<issue>`{=html}2`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}447246`</issue-id>`{=html}`<fpage>`{=html}129`</fpage>`{=html}`<lpage>`{=html}142`</lpage>`{=html}`<pub-history>`{=html}`<event event-type="nihms-submitted">`{=html}`<date>`{=html}`<day>`{=html}11`</day>`{=html}`<month>`{=html}12`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2024`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}01`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2024`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-released-under-embargo">`{=html}`<date>`{=html}`<day>`{=html}18`</day>`{=html}`<month>`{=html}10`</month>`{=html}`<year>`{=html}2023`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2024-06-15 15:25:31.883">`{=html}`<day>`{=html}15`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2024`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<license>`{=html}`<license-p>`{=html}This
+file is available for text mining. It may also be used consistent with
+the principles of fair use under the copyright
+law.`</license-p>`{=html}`</license>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="nihms-1856819.pdf"/>`{=html}`<abstract id="ABS1">`{=html}
+```{=html}
+<p id="P1">
+```
+Cognitive behavioral therapy (CBT) is a commonly used treatment for
+substance use disorders (SUDs) but has not been evaluated using the
+American Psychological Association's "Tolin Criteria" for determining
+the empirical basis of psychological treatments. The current systematic
+review evaluated five meta-analyses of CBT for SUD. One meta-analysis
+had sufficient quality to be considered in the evaluation of effect
+sizes. CBT produced small to moderate effects on substance use when
+compared to inactive treatment and was most effective at early follow-up
+(1--6 months post-treatment) compared to late follow-up (8+ months
+post-treatment). Sensitivity analyses including all five meta-analyses
+found similar results. A "strong recommendation" was provided for CBT as
+an empirically supported treatment for SUD, based on effects on
+substance use, quality of evidence, and consideration of contextual
+factors (e.g., efficacy in diverse populations).
+```{=html}
+</p>
+```
+`</abstract>`{=html}`<kwd-group>`{=html}`<kwd>`{=html}cognitive
+behavioral therapy`</kwd>`{=html}`<kwd>`{=html}substance
+use`</kwd>`{=html}`<kwd>`{=html}substance use
+disorder`</kwd>`{=html}`<kwd>`{=html}empirically supported
+treatment`</kwd>`{=html}`<kwd>`{=html}research-supported
+treatment`</kwd>`{=html}`</kwd-group>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-manuscript`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`</front>`{=html}
+```{=html}
+<body>
+```
+`<sec id="S1">`{=html}
+```{=html}
+<title>
+```
+Introduction
+```{=html}
+</title>
+```
+```{=html}
+<p id="P2">
+```
+Substance use disorders (SUDs) are heterogeneous conditions
+characterized by the recurrent use of a substance that results in harm,
+distress, or impairment. According to the 2019 National Survey on Drug
+Use and Health, approximately 7.7% of United States individuals aged 18
+or older had a substance use disorder in the past year
+(`<xref rid="R35" ref-type="bibr">`{=html}Substance Abuse and Mental
+Health Services Administration, 2020`</xref>`{=html}). Heavy and
+prolonged substance use is associated with a range of consequences,
+including physical (e.g., death, injury, infection), psychological
+(e.g., exacerbation of other mental health symptoms), social (e.g.,
+family stress), and economic (e.g., unemployment or underemployment)
+problems (`<xref rid="R1" ref-type="bibr">`{=html}American Psychiatric
+Association, 2013`</xref>`{=html};
+`<xref rid="R13" ref-type="bibr">`{=html}Compton et al.,
+2007`</xref>`{=html}; `<xref rid="R37" ref-type="bibr">`{=html}Schulte &
+Hser, 2013`</xref>`{=html};
+`<xref rid="R40" ref-type="bibr">`{=html}Substance Abuse and Mental
+Health Services Administration \[SAMHSA\], 2013`</xref>`{=html}). To
+reduce and address substance-related risk and impairment, it is
+imperative to identify empirically supported
+treatments`<sup>`{=html}`<xref rid="FN3" ref-type="fn">`{=html}1`</xref>`{=html}`</sup>`{=html}
+for
+SUDs`<sup>`{=html}`<xref rid="FN4" ref-type="fn">`{=html}2`</xref>`{=html}`</sup>`{=html}.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P3">
+```
+Cognitive behavioral therapy (CBT) is a psychosocial treatment that is
+premised on learning principles. CBT aims to reduce symptoms and improve
+functioning through targeting behavioral and cognitive processes that
+underlie or contribute to psychological disorders. Specifically, CBT for
+SUD frames the use of substances as a behavior that can be both
+positively and negatively reinforced and is influenced by social and
+other environmental contexts. CBT for SUD focuses on intervening upon
+these processes through increasing awareness of antecedents and
+consequences of use, building skills that address internal or external
+antecedents, and leveraging behavior change principles to reduce or
+eliminate substance use (e.g., through introducing rewarding
+alternatives to substance use)
+(`<xref rid="R8" ref-type="bibr">`{=html}Carroll & Kiluk,
+2017`</xref>`{=html}; `<xref rid="R25" ref-type="bibr">`{=html}McCrady,
+2000`</xref>`{=html}; `<xref rid="R27" ref-type="bibr">`{=html}McHugh et
+al., 2010`</xref>`{=html}). CBT for SUD can be used as a monotherapy or
+as adjunct (e.g., to treatment as usual, pharmacotherapy, or other
+behavioral interventions like Contingency Management).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P4">
+```
+A large and growing body of literature indicates CBT is an efficacious
+treatment for a variety of SUDs, both as a monotherapy and an adjunct,
+with effect sizes ranging from small to large depending on the substance
+(`<xref rid="R8" ref-type="bibr">`{=html}Carroll & Kiluk,
+2017`</xref>`{=html}; `<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al., 2019`</xref>`{=html};
+`<xref rid="R27" ref-type="bibr">`{=html}McHugh et al.,
+2010`</xref>`{=html}). Data from the 2020 National Survey of Substance
+Abuse Treatment Services, which surveys United States treatment
+facilities, suggests that a notable number of facilities indicated
+frequently using relapse prevention (96%) or CBT (94%) in the treatment
+of SUD (`<xref rid="R35" ref-type="bibr">`{=html}SAMHSA,
+2020`</xref>`{=html}). The Veteran's Administration
+(`<xref rid="R46" ref-type="bibr">`{=html}Veteran's Administration,
+n.d.`</xref>`{=html}) and National Institute on Drug Abuse (NIDA;
+`<xref rid="R29" ref-type="bibr">`{=html}National Institute on Drug
+Abuse, 2018`</xref>`{=html}) both recommend CBT for SUD as an
+evidence-based approach to addiction treatment. The apparent
+acceptability of CBT (as well as relapse prevention, which includes many
+of the same principles) and widespread utilization among providers and
+facilities would suggest real world efficacy and indicates the need for
+formal recognition as an evidence-based treatment.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P5">
+```
+The Society of Clinical Psychology (Division 12 of the American
+Psychological Association) is a leader in evaluating the empirical basis
+of psychological treatments. Although CBT for SUD has not yet been
+evaluated, per the Division 12 website, Motivational Enhancement Therapy
+plus CBT is an empirically supported treatment for "mixed substance
+abuse/dependence" (strong research
+support).`<sup>`{=html}`<xref rid="FN5" ref-type="fn">`{=html}3`</xref>`{=html}`</sup>`{=html}
+Other researchers have applied the Division 12 criteria to CBT and
+relapse prevention for SUD and concluded that these treatments met
+criteria for empirically-supported treatments, but these evaluations
+were not formally adopted by Division 12, rendering this information
+invisible to clients, providers, insurance companies, among other key
+parties (`<xref rid="R25" ref-type="bibr">`{=html}McCrady,
+2000`</xref>`{=html}; `<xref rid="R26" ref-type="bibr">`{=html}McGovern
+& Carroll, 2003`</xref>`{=html}). Furthermore, these designations are
+based on outdated criteria for evaluating empirically supported
+treatments (`<xref rid="R10" ref-type="bibr">`{=html}Chambless & Hollon,
+1998`</xref>`{=html}; `<xref rid="R11" ref-type="bibr">`{=html}Chambless
+& Ollendick,
+2001`</xref>`{=html}).`<sup>`{=html}`<xref rid="FN6" ref-type="fn">`{=html}4`</xref>`{=html}`</sup>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p id="P6">
+```
+In 2015, the criteria for empirically supported treatments were revised
+and updated to account for the increased volume of treatment outcome
+research as well as improved methodological rigor and evaluation tools
+(see `<xref rid="R45" ref-type="bibr">`{=html}Tolin, McKay, et al.,
+2015`</xref>`{=html} for discussion of specific updates made). The
+criteria require more stringent evidence for the efficacy of treatments,
+as well as explicit consideration of key contextual factors such as
+efficacy among people from diverse backgrounds and cost. The Society for
+Clinical Psychology subsequently adopted these revised criteria,
+referred to as the "Tolin Criteria," and established procedures for
+updating empirically supported treatment designations under the Tolin
+Criteria. To date, the Tolin Criteria have been applied to Exposure and
+Response Prevention for Obsessive-Compulsive Disorder
+(`<xref rid="R45" ref-type="bibr">`{=html}Tolin, Melnyk, et al.,
+2015`</xref>`{=html}), Cognitive Behavioral Therapy for Insomnia
+(`<xref rid="R6" ref-type="bibr">`{=html}Boness et al.,
+2020`</xref>`{=html}), and Contingency Management for Substance Use
+Disorders (`<xref rid="R32" ref-type="bibr">`{=html}Pfund et al.,
+2021`</xref>`{=html}). The adoption of the Tolin Criteria by the Society
+of Clinical Psychology and the subsequent application of the criteria to
+specific treatments is important because the Society of Clinical
+Psychology is seen as an authority on evidence-based treatment.
+Therapists and other key parties, such as insurance companies, use this
+information to inform treatment selection and reimbursement, for
+example. Taken together, there is a need to directly evaluate CBT for
+SUDs alone (i.e., in the absence of Motivational Enhancement Therapy)
+per the Tolin Criteria, which has the potential to provide more rigorous
+and contextualized recommendation than have been previously applied to
+CBT for SUD.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P7">
+```
+The purpose of the present evaluation was to apply the Tolin Criteria to
+CBT for SUD and to provide an evaluation of the quality of the evidence
+for CBT as an empirically supported treatment for SUD. Here, CBT is
+defined as a multisession intervention that targets cognitive,
+affective, behavioral, and/or environmental risks for substance use and
+provides training in skills to help an individual achieve and maintain
+substance use abstinence, moderation, or reduced substance-related harm.
+Consistent with prior meta-analyses in the areas of CBT for substance
+use (e.g., `<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}), relapse prevention (RP) and coping skills
+training cognitive-behavioral interventions were also considered, given
+such treatments use critical CBT elements, such as functional analysis,
+avoidance of high-risk situations, and drug refusal skills, among
+others. Although there are other efficacious cognitive and behavioral
+treatments for SUD (e.g., mindfulness-based interventions, contingency
+management, motivational interviewing; see
+`<xref rid="R33" ref-type="bibr">`{=html}Ray et al.,
+2019`</xref>`{=html} for a more comprehensive overview of SUD
+treatments), these were not considered in the present manuscript, given
+their hypothesized active ingredients and mechanisms of behavior change
+are sufficiently different from CBT to warrant separate evaluations.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S2">`{=html}
+```{=html}
+<title>
+```
+Methods
+```{=html}
+</title>
+```
+```{=html}
+<p id="P8">
+```
+The present evaluation followed the methods and procedures recommended
+by the APA Division 12 Committee on Science and Practice
+(`<xref rid="R5" ref-type="bibr">`{=html}Boness et al.,
+2021`</xref>`{=html}) and are described in further detail below. The
+Preferred Reporting Items for Systematic Reviews and Meta-Analyses
+(PRISMA) guidelines (`<xref rid="R30" ref-type="bibr">`{=html}Page et
+al., 2021`</xref>`{=html}) were also followed. Although the evaluation
+was not formally pre-registered, the authors submitted a letter of
+interest (LOI) to the Committee on Science and Practice to evaluate CBT
+for substance use disorder on September 23, 2021. The LOI was approved
+on October 1, 2021.
+```{=html}
+</p>
+```
+`<sec id="S3">`{=html}
+```{=html}
+<title>
+```
+Search Strategy
+```{=html}
+</title>
+```
+```{=html}
+<p id="P9">
+```
+Seven databases, including Scopus, MEDLINE, ScienceDirect, PsycINFO,
+Social Sciences Citation Index, Science Citation Index, and Academic
+Search Premier were searched to identify meta-analyses of CBT for SUDs
+on September 24, 2021. Search terms included the following: (TI
+(("Cognitive Behavior\* Therapy" or "CBT" or "relapse prevention" or
+"coping skills training" or "skills training") AND (addiction or alcohol
+or drug or substance or abuse or dependence or cocaine or opioid or
+cannabis or marijuana or heroin or cocaine or amphetamine or
+prescription drug))) AND ((TI (Review or "Systematic Review" or
+"Quantitative Review" or "meta analysis") OR (SU(Review or "Systematic
+Review" or "Quantitative Review" or "meta analysis"))) NOT TI
+("qualitative review" or "narrative review") where TI = title and SU =
+subject. The search was restricted to the University of Missouri's
+peer-reviewed library collections, "reviews" from the "filter by format"
+option was selected. There were no restrictions on year of
+publication`<sup>`{=html}`<xref rid="FN7" ref-type="fn">`{=html}5`</xref>`{=html}`</sup>`{=html}
+or language.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P10">
+```
+Inclusion criteria included being a quantitative review focused on CBT
+for substance use disorders, substance use, or substance-related
+problems among adults. Exclusion criteria included lack of reporting on
+substance use-related outcomes (e.g., quantity, frequency of use) and a
+sole focus on CBT + pharmacotherapy. To limit the scope and draw
+targeted conclusions, quantitative reviews that only focused solely on
+CBT for nicotine dependence were excluded, given that meta-analyses
+examining CBT for substance use have generally excluded trials focused
+on nicotine dependence (e.g.,
+`<xref rid="R15" ref-type="bibr">`{=html}Dutra et al.,
+2008`</xref>`{=html}; `<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al., 2019`</xref>`{=html}). Quantitative reviews focused only on
+Behavioral Couples Therapy were also excluded. Although Behavioral
+Couples Therapy is a form of CBT, modules administered and hypothesized
+mechanisms of change differ between traditional (individual or group)
+CBT and Behavioral Couples Therapy
+(`<xref rid="R27" ref-type="bibr">`{=html}McHugh et al.,
+2010`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S4">`{=html}
+```{=html}
+<title>
+```
+Study Selection
+```{=html}
+</title>
+```
+```{=html}
+<p id="P11">
+```
+`<xref rid="F1" ref-type="fig">`{=html}Figure 1`</xref>`{=html} displays
+a flowchart of the study selection process. The initial search yielded
+44 records (43 unique articles and one erratum) after removing
+duplicates. The authors (CB and VV) double-coded each of the 44
+meta-analyses as eligible, not eligible, or possibly eligible based on
+their title and abstracts. For meta-analyses coded as eligible or
+possibly eligible, full texts were obtained and read to further
+determine eligibility. All discrepancies were resolved via consensus.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P12">
+```
+Of the 44 possibly eligible records, 12 were excluded because they were
+not focused on CBT for substance use as a standalone intervention (e.g.,
+they focused on other interventions for substance use or primarily on
+pharmacotherapy or CBT + pharmacotherapy), 22 were excluded for not
+being a meta-analysis, and 12 were excluded for not reporting on
+substance-related outcomes (e.g., they primarily enrolled individuals
+with behavioral addictions \[e.g., gambling\] or other psychological
+disorders \[e.g., depression, trauma\] and therefore did not report on
+substance-related outcomes). This resulted in two eligible
+meta-analyses. Backward searches of these meta-analyses were also
+conducted, resulting in 7 additional possibly eligible manuscripts. Upon
+full-text review, 3 of these were eligible. This resulted in 5 eligible
+meta-analyses for inclusion in the current evaluation. A full list of
+ineligible records with the primary reason for exclusion can be found in
+`<xref rid="SD1" ref-type="supplementary-material">`{=html}Supplemental
+Table 1`</xref>`{=html}.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S5">`{=html}
+```{=html}
+<title>
+```
+Data Extraction and Coding
+```{=html}
+</title>
+```
+```{=html}
+<p id="P13">
+```
+For each of the 5 eligible meta-analyses, two authors (CB and VV)
+independently double-coded the PICOTS (population, intervention,
+comparison, outcomes, timeline, setting) criteria (e.g.,
+`<xref rid="R36" ref-type="bibr">`{=html}Schardt et al.,
+2007`</xref>`{=html}). PICOTS allows for a full consideration of review
+characteristics (see `<xref rid="T1" ref-type="table">`{=html}Table
+1`</xref>`{=html}) and assists the reader in evaluating the
+appropriateness of the eligible reviews included for answering the
+clinical question of interest. Discrepancies among coders were resolved
+by consensus between CB and VV. Effect sizes and confidence intervals
+were also extracted by two coders (VV and FS) for all meta-analyses.
+Specifically, VV and FS independently extracted all effect sizes related
+to substance use quantity and frequency and psychosocial outcomes (if
+available) for each comparator group and each follow-up time frame
+reported. If a given meta-analysis reported separate effect sizes for
+primary substances of use and method of substance use data collection
+(i.e., biologically verified, self-reported), these are also extracted;
+however, many of these effect sizes were reported by only one
+meta-analysis and/or meta-analyses of "low" or "critically low" quality
+(see below), and therefore were not included in the evaluation. A third
+coder (CB) was responsible for comparing effect sizes and resolving
+discrepancies.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S6">`{=html}
+```{=html}
+<title>
+```
+Methodological Quality
+```{=html}
+</title>
+```
+```{=html}
+<p id="P14">
+```
+For each meta-analysis, authors (DM and CB) double-coded the
+methodological quality using the Assessing the Methodological Quality of
+Systematic Reviews 2 (AMSTAR2;
+`<xref rid="R38" ref-type="bibr">`{=html}Shea et al.,
+2017`</xref>`{=html}). AMSTAR2 is a tool for critically evaluating
+systematic reviews of randomized and nonrandomized studies of health
+care interventions and includes 16 domains (see
+`<xref rid="T2" ref-type="table">`{=html}Table 2`</xref>`{=html}). For
+each domain, authors coded "Yes" or "No," and for some items, "Partial
+Yes." "Yes" or "Partial Yes" indicates a positive result on the stated
+domain, and a code of "No" indicates a negative result. Consistent with
+the procedures of `<xref rid="R6" ref-type="bibr">`{=html}Boness et
+al. (2020)`</xref>`{=html}, several domains were deemed critical: (a)
+including components of PICOTS in the research questions and inclusion
+criteria, (b) using a comprehensive search strategy, (c) describing the
+included studies in adequate detail, (d) using appropriate methods for
+statistical combination of results, (e) accounting for risk of bias in
+individual studies, and (f) providing explanation for a discussion for
+any heterogeneity observed in the results. Coding "No" in any critical
+domain reflected a critical
+weakness.`<sup>`{=html}`<xref rid="FN8" ref-type="fn">`{=html}6`</xref>`{=html}`</sup>`{=html}
+```{=html}
+</p>
+```
+```{=html}
+<p id="P15">
+```
+Independent coders indicated their overall confidence
+(`<italic toggle="yes">`{=html}critically low`</italic>`{=html},
+`<italic toggle="yes">`{=html}low`</italic>`{=html},
+`<italic toggle="yes">`{=html}moderate`</italic>`{=html}, and
+`<italic toggle="yes">`{=html}high`</italic>`{=html}) in the results of
+each meta-analysis based on the pattern of results of AMSTAR2, including
+consideration of critical and non-critical domains. A rating of "High"
+was assigned if the meta-analysis had zero or one non-critical weakness,
+"Moderate" if no critical weaknesses and more than one non-critical
+weakness, "Low" if one critical weakness with or without non-critical
+weaknesses, and "Critically Low" if more than one critical flaw with or
+without non-critical weaknesses. Discrepancies among coders were
+resolved between DM, CB, and VV. Those rated as low or critically low
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 4) were excluded
+from the main effect size estimates but were considered in supplemental
+sensitivity analyses, consistent with the Tolin Criteria guidance
+document (`<xref rid="R5" ref-type="bibr">`{=html}Boness et al.,
+2021`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S7">`{=html}
+```{=html}
+<title>
+```
+Data Analysis
+```{=html}
+</title>
+```
+```{=html}
+<p id="P16">
+```
+Because only a single meta-analysis
+(`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}) had sufficient quality for inclusion, per AMSTAR2,
+effect sizes were not statistically aggregated across separate
+meta-analyses. However, because
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html} reported four outcomes (early \[1--6 months\] and
+late \[8+ months\] follow-up substance use frequency and early and late
+follow-up substance use quantity) for three separate comparator groups
+(minimal treatment \[e.g., waitlist, brief psychoeducation\],
+non-specific therapy \[e.g., treatment as usual, supportive therapy,
+drug counseling\], and specific therapy \[e.g., Motivational
+Interviewing, Contingency Management\]), two separate sets of effect
+sizes are reported. First, all comparator groups for each outcome are
+reported separately. Second, averaged effect sizes across the
+non-specific and specific comparator groups are reported for each of the
+three outcomes to understand how effect sizes differ for inactive versus
+active treatments. In this second set of effect sizes, an average across
+substance use quantity and frequency was taken to indicate overall
+substance use effect sizes. All estimates used Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html} and
+`<xref rid="R12" ref-type="bibr">`{=html}Cohen's (1988)`</xref>`{=html}
+guidelines for classifying small effects as
+`<italic toggle="yes">`{=html}g`</italic>`{=html} = 0.2, medium effects
+as `<italic toggle="yes">`{=html}g`</italic>`{=html} = 0.5, and large
+effects as `<italic toggle="yes">`{=html}g`</italic>`{=html} = 0.8.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec id="S8">`{=html}
+```{=html}
+<title>
+```
+Results
+```{=html}
+</title>
+```
+`<sec id="S9">`{=html}
+```{=html}
+<title>
+```
+Search Results and Meta-Analysis Characteristics
+```{=html}
+</title>
+```
+```{=html}
+<p id="P17">
+```
+First, effect sizes are reported by comparator group for each of the
+four outcomes (early and late follow-up substance use frequency and
+quantity). These estimates are displayed in
+`<xref rid="F2" ref-type="fig">`{=html}Figure 2`</xref>`{=html}, and all
+raw effect size estimates are provided in
+`<xref rid="SD1" ref-type="supplementary-material">`{=html}Supplemental
+Table 2`</xref>`{=html}. Of note, for the late follow-up substance use
+quantity outcome, the only effect size reported was for the specific
+treatment comparator group, given these data were not reported in trials
+examining minimal and non-specific comparator groups.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S10">`{=html}
+```{=html}
+<title>
+```
+Overall Effect Sizes
+```{=html}
+</title>
+```
+```{=html}
+<p id="P18">
+```
+Regarding the overall pattern of results from
+`<xref rid="R23" ref-type="bibr">`{=html}Magill and colleagues
+(2019)`</xref>`{=html}, CBT was most effective at early follow-up
+(defined as 1--6 months post-treatment) compared to late follow-up
+(defined as 8+ months post-treatment) and had the largest effect sizes
+when compared to minimal (inactive) treatment. Effect sizes for
+substance use quantity were generally larger than substance use
+frequency.
+```{=html}
+</p>
+```
+`<sec id="S11">`{=html}
+```{=html}
+<title>
+```
+CBT Compared to Minimal Treatment
+```{=html}
+</title>
+```
+```{=html}
+<p id="P19">
+```
+In the minimal comparator group, effect sizes for early follow-up
+substance use frequency
+(`<italic toggle="yes">`{=html}g=`</italic>`{=html}.58, 95%
+CI=.15--1.01; `<italic toggle="yes">`{=html}k`</italic>`{=html} = 4) and
+quantity (`<italic toggle="yes">`{=html}g`</italic>`{=html}=.67: 95%
+CI=.41--.98; `<italic toggle="yes">`{=html}k`</italic>`{=html} = 2) were
+medium in magnitude (\>0.50) and the effect size for late follow-up
+frequency was still small to medium
+(`<italic toggle="yes">`{=html}g`</italic>`{=html}=.44, 95% CI=.02--.86;
+`<italic toggle="yes">`{=html}k`</italic>`{=html} = 2) in magnitude.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S12">`{=html}
+```{=html}
+<title>
+```
+CBT Compared to Non-Specific Treatments
+```{=html}
+</title>
+```
+```{=html}
+<p id="P20">
+```
+Unsurprisingly, effect sizes decreased in magnitude when looking at
+non-specific (inactive; e.g., waitlist, psychoeducation) treatments as
+comparator groups. For the non-specific treatment comparator group,
+effect sizes ranged from 0.18 (substance use frequency; 95% CI
+=.02--.35; `<italic toggle="yes">`{=html}k`</italic>`{=html} = 9) to
+0.42 (substance use quantity; 95% CI =.03--.81;
+`<italic toggle="yes">`{=html}k`</italic>`{=html} = 2) for early
+follow-up. At late follow-up, the effect size for substance use
+frequency was 0.05 (95% CI = −.09--.19;
+`<italic toggle="yes">`{=html}k`</italic>`{=html} = 7). There was no
+late follow-up substance use quantity reported for the non-specific
+comparator group. Thus, although smaller in overall magnitude compared
+to the minimal treatment group, CBT still had small to moderate effects
+at early-follow up when non-specific treatment was used as the
+comparator group.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S13">`{=html}
+```{=html}
+<title>
+```
+CBT Compared to Specific Treatments
+```{=html}
+</title>
+```
+```{=html}
+<p id="P21">
+```
+Similarly, for the specific treatment comparator group, effect sizes
+were all close to zero regardless of the follow-up period. It is worth
+noting that `<xref rid="R23" ref-type="bibr">`{=html}Magill and
+colleagues (2019)`</xref>`{=html} found heterogeneous effects of CBT on
+early follow-up use frequency in contrast to minimal treatment
+(`<italic toggle="yes">`{=html}I`</italic>`{=html}`<sup>`{=html}2`</sup>`{=html}
+= 59%, `<italic toggle="yes">`{=html}k`</italic>`{=html} = 4) and in
+contract to a non-specific therapy (I`<sup>`{=html}2`</sup>`{=html} =
+45%; `<italic toggle="yes">`{=html}k`</italic>`{=html} = 9).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S14">`{=html}
+```{=html}
+<title>
+```
+CBT Compared to Inactive vs. Active Treatments
+```{=html}
+</title>
+```
+```{=html}
+<p id="P22">
+```
+For ease of comparison in the supplemental analyses (described later),
+effect sizes between the non-specific and specific treatment comparator
+groups (to indicate active treatment effect sizes) and between substance
+use quantity and frequency (to indicate overall substance use effect
+sizes) were averaged. These results are displayed in
+`<xref rid="F3" ref-type="fig">`{=html}Figure 3`</xref>`{=html}. The
+general patterns previously reported are also true here. For example,
+all effect sizes are larger when the minimal (inactive) group is used as
+the comparator versus the active treatment group. Worth noting, however,
+is that there is a moderate effect of CBT on early follow-up quantity
+when compared to active treatments.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec id="S15">`{=html}
+```{=html}
+<title>
+```
+Sensitivity Analyses
+```{=html}
+</title>
+```
+```{=html}
+<p id="P23">
+```
+As a sensitivity analysis, the four reviews of low or critically low
+quality were considered. Effect sizes were first converted to a
+consistent metric (Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html}) and then combined by
+taking the mean of the effect sizes reported for a given outcome. In
+aggregating effect sizes, the approach taken in the CBT for Insomnia
+(CBT-I) evaluation (`<xref rid="R6" ref-type="bibr">`{=html}Boness et
+al., 2020`</xref>`{=html}) was maintained, resulting in average (rather
+than weighted) effect sizes. This may also be useful for minimizing, to
+the extent possible, bias in the precision of the overall effect sizes
+due to non-independence. Although it is difficult to know the full
+extent of non-independence on an estimate's variance,
+`<xref rid="SD1" ref-type="supplementary-material">`{=html}Supplemental
+Table 3`</xref>`{=html} is included as an index of the extent to which
+the meta-analyses considered eligible for the purposes of this
+evaluation included the same primary study in their effect estimates.
+Variance estimates are expected to be minimally biased, given most of
+the estimates reported below were derived from single meta-analyses.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P24">
+```
+Combined effect sizes are reported for substance use outcomes at four
+time points: 1) combined post-treatment and follow-up, 2)
+post-treatment, 3) early follow-up (1--6 months post-treatment), and 4)
+late follow-up (6+ months post-treatment). As previously mentioned, the
+comparison groups examined included inactive and active treatments.
+```{=html}
+</p>
+```
+`<sec id="S16">`{=html}
+```{=html}
+<title>
+```
+Combined Post-Treatment and Follow-Up
+```{=html}
+</title>
+```
+```{=html}
+<p id="P25">
+```
+For combined post-treatment and follow-up substance use, only effect
+sizes from `<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray
+(2009)`</xref>`{=html} were used. Although these outcomes were reported
+for Windsor et al. (2015) and
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html}, Windsor et al. (2015) included the pre-post
+comparison in their aggregate and
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} reported on this outcome in the
+`<italic toggle="yes">`{=html}r`</italic>`{=html} metric but did not
+report on total sample size for each effect so we could not convert
+`<italic toggle="yes">`{=html}r`</italic>`{=html} to Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html} for inclusion. Based
+on `<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray
+(2009)`</xref>`{=html}, the combined post-treatment and follow-up effect
+for CBT on substance use was large in magnitude
+(`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.80, 95%
+CI=0.45--1.14) when compared to an inactive comparison group and very
+small (`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.14, 95%
+CI=0.13--0.15) when compared to an active treatment comparison group.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S17">`{=html}
+```{=html}
+<title>
+```
+Post-Treatment
+```{=html}
+</title>
+```
+```{=html}
+<p id="P26">
+```
+The only study that reported on post-treatment substance use was Dutra
+et al. (2009). This study suggested a small to moderate effect of CBT on
+substance use at post-treatment compared to an inactive control
+comparison group
+(`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.30, 95%
+CI=0.27--0.33).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S18">`{=html}
+```{=html}
+<title>
+```
+Early Follow-Up
+```{=html}
+</title>
+```
+```{=html}
+<p id="P27">
+```
+For early follow-up substance use,
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} and
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html} reported on this outcome. However, because
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} did not report on total sample size for the
+effect, it was not possible to convert
+`<italic toggle="yes">`{=html}r`</italic>`{=html} to Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html} for inclusion. Thus,
+the estimate for the effect of CBT on substance use at early follow-up
+is equivalent to what is reported in the main analyses above such that
+there is a small effect of CBT on substance use when compared to active
+treatment (`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.15, 95%
+CI=0.06--0.24) and a moderate to large effect of CBT on substance use
+when compared to inactive, or minimal treatment
+(`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.63, 95%
+CI=0.57--0.69).
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S19">`{=html}
+```{=html}
+<title>
+```
+Late Follow-Up
+```{=html}
+</title>
+```
+```{=html}
+<p id="P28">
+```
+For late follow-up substance use,
+`<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray
+(2009)`</xref>`{=html} and
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html} report on this outcome. Of note,
+`<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray
+(2009)`</xref>`{=html} reported effect sizes by comparison group types
+(but across all follow-up periods) and by follow-up periods (but across
+all comparison group types), and therefore we could not separate late
+follow-up substance use estimates into inactive versus active treatment
+comparison. Thus, comparison groups were combined across inactive
+(minimal) and active comparison groups for
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html}. The overall effect of CBT on substance use
+at late follow-up across all comparison groups was small
+(`<italic toggle="yes">`{=html}g`</italic>`{=html}=0.17, 95%
+CI=0.08--0.25)
+```{=html}
+</p>
+```
+```{=html}
+<p id="P29">
+```
+Together, these supplemental analyses support the main analyses such
+that CBT's effects on substance use are larger in magnitude when
+inactive (minimal) versus active treatment is the comparison group and
+these effects tend to diminish with time.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec id="S20">`{=html}
+```{=html}
+<title>
+```
+Quality of the Evidence
+```{=html}
+</title>
+```
+```{=html}
+<p id="P30">
+```
+Based on these effect size results, the quality of the evidence for CBT
+in reducing substance use among those with SUD is of moderate quality
+(see `<xref rid="T3" ref-type="table">`{=html}Table 3`</xref>`{=html})
+per the Grading of Recommendations Assessment, Development and
+Evaluation (GRADE) system
+(`<xref rid="R2" ref-type="bibr">`{=html}Atkins et al.,
+2004`</xref>`{=html}; `<xref rid="R16" ref-type="bibr">`{=html}Guyatt et
+al., 2008`</xref>`{=html}). The GRADE system aims to guide the quality
+of the evidence and strengths of treatment recommendations
+comprehensively by including consideration of: methodological quality of
+the evidence; the importance of the outcome that the treatment improves;
+the magnitude of the treatment effect, and the precision of its
+estimate; the burden, costs, and potential risks associated with the
+therapy; and other consumer values that might be expected to influence
+decision processes regarding a treatment.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P31">
+```
+A designation of moderate quality, per GRADE, was made because only one
+meta-analysis of adequate quality was included in the overall evaluation
+of the evidence (`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}), and this study was considered to have "moderate"
+quality per AMSTAR2, suggesting it had some limitations but not major
+flaws. However, it's important to note that even those excluded based on
+quality produced similar results when included as part of sensitivity
+analyses. When considering the effect estimates extracted from
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html}, confidence intervals were wide in some
+cases.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S21">`{=html}
+```{=html}
+<title>
+```
+Additional Contextual Factors
+```{=html}
+</title>
+```
+```{=html}
+<p id="P32">
+```
+In addition to the quality of the evidence rating, the GRADE system also
+allows consideration of additional contextual factors in the overall
+treatment recommendation. In the case of CBT for SUD, the quality of the
+evidence is strengthened by several additional contextual factors (see
+`<xref rid="T4" ref-type="table">`{=html}Table 4`</xref>`{=html}).
+First, CBT for SUD generates an effect size and pattern of effects
+(i.e., decreasing treatment effects over time, within studies) similar
+to other well-studied treatments, such as Motivational Enhancement
+Therapy and Contingency Management
+(`<xref rid="R4" ref-type="bibr">`{=html}Benishek et al.,
+2014`</xref>`{=html}; `<xref rid="R32" ref-type="bibr">`{=html}Pfund et
+al., 2021`</xref>`{=html};
+`<xref rid="R39" ref-type="bibr">`{=html}Smedslund et al.,
+2011`</xref>`{=html}), but CBT has strong evidence for flexibility and
+scalability via technology-delivered CBT (e.g., Computer Based Training
+for CBT or CBT4CBT; `<xref rid="R7" ref-type="bibr">`{=html}Carroll et
+al., 2008`</xref>`{=html}). Although not included in the meta-analyses
+reviewed here, there is evidence that technology-delivered CBT for
+alcohol use as a standalone intervention demonstrates efficacy over
+minimal treatment (small effect size), and technology-delivered CBT for
+alcohol use as an adjunct to treatment as usual demonstrates efficacy
+over treatment as usual alone (small effect size)
+(`<xref rid="R21" ref-type="bibr">`{=html}Kiluk et al.,
+2019`</xref>`{=html}). Technology-delivered CBT has also demonstrated
+efficacy for substances beyond alcohol, including cocaine use disorder
+and cannabis use disorder
+(`<xref rid="R7" ref-type="bibr">`{=html}Carroll et al.,
+2008`</xref>`{=html},
+`<xref rid="R9" ref-type="bibr">`{=html}2014`</xref>`{=html}). The
+effect sizes observed for technology-delivered CBT on substance use
+outcomes are similar to effect sizes for all technology-delivered
+substance use treatments, including CBT and non-CBT interventions (e.g.,
+Motivational Interviewing)
+(`<xref rid="R34" ref-type="bibr">`{=html}Rooke et al.,
+2010`</xref>`{=html}; `<xref rid="R43" ref-type="bibr">`{=html}Tait et
+al., 2013`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P33">
+```
+There is additional evidence that CBT for SUD exerts effects through
+hypothesized mechanisms of behavior change, including increased coping
+skills and self-efficacy. However, it is currently unclear the extent to
+which these mechanisms are unique to CBT versus common mechanisms of
+psychosocial treatments for substance use
+(`<xref rid="R24" ref-type="bibr">`{=html}Magill et al.,
+2020`</xref>`{=html}). `<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} also found a medium effect
+(`<italic toggle="yes">`{=html}r`</italic>`{=html}=0.48) for relapse
+prevention (combining all follow-up timepoints and combining pre- to
+post-treatment effects and all comparator groups) on psychosocial
+adjustment outcomes. Notably, the definition of psychosocial adjustment
+outcomes included measures of purported mechanisms of change, such as
+self-efficacy, coping skills, and social and problem-solving skills.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P34">
+```
+Further strengthening the GRADE rating is that CBT for SUD is generally
+efficacious across several patient populations, including those with
+varying primary substance used (e.g., cannabis, alcohol, cocaine), those
+with co-occurring disorders (e.g., borderline personality disorder,
+posttraumatic stress disorder), those receiving adjunctive
+pharmacotherapy, and those in varying settings (e.g., community sample,
+specialty substance use or mental health clinic, medical setting,
+college setting, criminal legal system, etc.)
+(`<xref rid="R15" ref-type="bibr">`{=html}Dutra et al.,
+2008`</xref>`{=html}; `<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al., 2019`</xref>`{=html}), demonstrating the flexibility of this
+intervention. Several meta-analyses in the present evaluation explicitly
+examined these patient factors as moderators of CBT effects or conducted
+subgroup analyses. `<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html} concluded that primary substance was not
+associated with early follow-up substance use frequency effect size
+(they only examined effect size with enough heterogeneity and a large
+enough sample size to examine subgroup effects). Conversely,
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} found that relapse prevention was more
+efficacious for alcohol and polysubstance use than smoking or cocaine
+use, while `<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray
+(2009)`</xref>`{=html} found that effect sizes for CBT across substance
+type were similar (and small), except for cannabis, for which the effect
+size was moderate. Although the primary quantitative review we examined
+(`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}) excluded those with adjunctive pharmacotherapy,
+therefore indicating the efficacy of CBT alone, meta-analyses that
+included adjunctive interventions found that CBT + pharmacotherapy
+generally had greater effect sizes than CBT alone
+(`<xref rid="R18" ref-type="bibr">`{=html}Irvin et al.,
+1999`</xref>`{=html}; `<xref rid="R22" ref-type="bibr">`{=html}Magill &
+Ray, 2009`</xref>`{=html}). Other patient population factors that were
+examined as moderators or using a subgroup approach, but were not
+significantly related to effect sizes, included treatment setting
+(`<xref rid="R18" ref-type="bibr">`{=html}Irvin et al.,
+1999`</xref>`{=html}), co-occurring psychological disorders
+(`<xref rid="R22" ref-type="bibr">`{=html}Magill & Ray,
+2009`</xref>`{=html}), and treatment format (i.e., group vs. individual)
+(`<xref rid="R18" ref-type="bibr">`{=html}Irvin et al.,
+1999`</xref>`{=html}; `<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al., 2019`</xref>`{=html}). However,
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html} did find that for CBT effects on early
+follow-up use frequency in contrast to a non-specific therapy, older age
+was associated with smaller effect sizes
+(`<italic toggle="yes">`{=html}b`</italic>`{=html} = −.072,
+`<italic toggle="yes">`{=html}p`</italic>`{=html} = .044), suggesting
+that those of older age may benefit less from CBT for SUD.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S22">`{=html}
+```{=html}
+<title>
+```
+Overall Treatment Recommendation
+```{=html}
+</title>
+```
+```{=html}
+<p id="P35">
+```
+Taken together (see `<xref rid="T3" ref-type="table">`{=html}Tables
+3`</xref>`{=html} and
+`<xref rid="T4" ref-type="table">`{=html}4`</xref>`{=html}), there is
+moderate quality evidence that CBT produces small to moderate effects on
+substance use among people with various types of SUDs when compared to
+inactive treatment. This remains true even when effect sizes from
+studies considered to have low or critically low quality are considered.
+There is also some evidence, although from a dated study that is
+considered to have "critically low" quality, that CBT for SUD may
+influence psychosocial/functional outcomes. Although there is only
+moderate quality evidence for the efficacy of CBT in treating SUD,
+consideration of additional contextual factors such as flexibility in
+CBT delivery modality and evidence for efficacy across patient
+populations bolsters the overall recommendation. As such, based on the
+criteria outlined by `<xref rid="R44" ref-type="bibr">`{=html}Tolin and
+colleagues (2015)`</xref>`{=html}, the current status of the literature
+merits a "strong" recommendation of CBT for SUD (see
+`<xref rid="T5" ref-type="table">`{=html}Table 5`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec id="S23">`{=html}
+```{=html}
+<title>
+```
+Discussion
+```{=html}
+</title>
+```
+```{=html}
+<p id="P36">
+```
+Results of the present evaluation suggest that CBT for SUD has strong
+research support per the Tolin Criteria. Notably, this evaluation builds
+upon the prior Society of Clinical Psychology evaluation of Motivational
+Enhancement Therapy plus CBT, which used the
+`<xref rid="R10" ref-type="bibr">`{=html}Chambless and Hollon
+(1998)`</xref>`{=html} criteria, by indicating that CBT alone is an
+effective intervention for SUDs, even when using more rigorous and
+updated criteria. Importantly, CBT for SUD generates an effect similar
+to well-studied treatments, can be flexibly delivered via
+technology-based CBT, exerts effects on substance use via hypothesized
+mechanisms of change, and demonstrates efficacy across various patient
+populations. Given the Society of Clinical Psychology has yet to
+evaluate CBT for SUD, this evaluation provides a much-needed examination
+of the status of CBT for SUD as an empirically supported treatment.
+Formal recognition may help encourage insurance reimbursement for CBT
+and inspire further dissemination of and training in CBT.
+```{=html}
+</p>
+```
+`<sec id="S24">`{=html}
+```{=html}
+<title>
+```
+Limitations of the Current Literature and Future Directions
+```{=html}
+</title>
+```
+```{=html}
+<p id="P37">
+```
+Despite finding strong research support for CBT for SUD, several factors
+limited the quality of the evidence and confidence in results and,
+accordingly, precluded the ability to recommend "very strong" research
+support for CBT for SUD. Perhaps most notably, there is a need for
+increased rigor in future meta-analytic work; this includes ensuring
+that included studies are described in adequate detail (including
+specific components of CBT for SUD that were implemented, fully
+describing the population represented by the effect sizes including any
+co-occurring diagnoses, details on therapist characteristics across
+primary studies, etc.), use appropriate methods for statistical
+combination of results, and account for potential risk of bias when
+interpreting results. Given the eligible meta-analyses required primary
+studies to be randomized clinical trials, future meta-analyses may
+consider the inclusion of studies conducted in more naturalistic
+settings`<sup>`{=html}`<xref rid="FN9" ref-type="fn">`{=html}7`</xref>`{=html}`</sup>`{=html}.
+Similarly, CBT for SUD has been studied by research groups with mixed
+allegiance to the treatment (i.e., one or more authors developed the
+intervention and/or engage in supervision or training the therapists
+delivering the intervention;
+`<xref rid="R14" ref-type="bibr">`{=html}Dragioti et al.,
+2015`</xref>`{=html}). It may be especially important for research teams
+without allegiance to the treatment to contribute to this literature,
+particularly meta-analytic investigations.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P38">
+```
+Second, the impact of CBT for SUD on psychosocial outcomes was mixed and
+limited. One included meta-analysis indicated that CBT for SUDs
+influences psychosocial/functional outcomes, but this study was dated
+and considered to have "critically low" quality. Studies examining the
+impact of CBT for SUD on psychosocial outcomes in the broader literature
+have also been inconclusive. For example, a recent meta-analysis of
+substance use interventions on emotional outcomes indicated that CBT was
+not statistically significantly associated with reductions in emotional
+distress, and that mindfulness-based and affect-regulation interventions
+had greater efficacy in reducing emotional distress than CBT
+(`<xref rid="R20" ref-type="bibr">`{=html}Kang et al.,
+2019`</xref>`{=html}). However, a relatively small number of studies
+examining CBT (`<italic toggle="yes">`{=html}k`</italic>`{=html} = 4)
+were evaluated, as compared to the studies evaluating mindfulness-based
+(`<italic toggle="yes">`{=html}k`</italic>`{=html} = 11) and
+affect-regulation (`<italic toggle="yes">`{=html}k`</italic>`{=html} =
+6) interventions. Thus, future work should aim to broaden the types of
+outcomes included in trials of CBT (e.g., quality of life, affective
+symptoms; see `<xref rid="R48" ref-type="bibr">`{=html}Witkiewitz et
+al., 2021`</xref>`{=html};
+`<xref rid="R47" ref-type="bibr">`{=html}Witkiewitz & Tucker,
+2020`</xref>`{=html}), particularly given the importance of
+biopsychosocial outcomes in defining recovery from SUD
+(`<xref rid="R17" ref-type="bibr">`{=html}Hagman et al.,
+2022`</xref>`{=html};
+`<xref rid="R47" ref-type="bibr">`{=html}Witkiewitz & Tucker,
+2020`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P39">
+```
+Critically, we are unable to conclusively comment on the evidence for
+the efficacy of CBT for SUD among historically marginalized and excluded
+populations, including those from racially and ethnically diverse
+communities. Windsor et al. (2015) compared the effect of CBT on
+substance use outcomes for studies with predominantly non-Hispanic and
+White participants versus studies with predominantly Hispanic and/or
+Black participants. This meta-analysis concluded that effects sizes of
+CBT versus comparison groups were similar for studies enrolling
+predominantly non-Hispanic and White, and Hispanic and/or Black samples.
+However, although the effect sizes of CBT pre- to post-intervention were
+large and statistically significant in both groups, these effects were
+larger (indicating greater change) for studies enrolling predominantly
+non-Hispanic and White versus Hispanic and/or Black samples. Windsor et
+al. (2015) also identified significant weaknesses in the literature,
+including a paucity of studies comparing retention and engagement rates
+by racial and ethnic identity and few studies enrolling primarily
+Hispanic and/or Black samples. In addition,
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html} found that the percentage of participants who
+identified as White was not associated with early follow-up substance
+use frequency effect size (they only examined effect sizes with enough
+heterogeneity and a large enough sample size to examine subgroup
+effects). Overall, there is insufficient evidence that CBT for SUD has
+demonstrated good effects with marginalized populations. Further, there
+exists more general criticisms of the use of CBT as an approach among
+marginalized groups because it has been developed and tested in
+overwhelmingly White samples and overlooks cultural values that are
+likely to be held by marginalized groups (e.g., interdependence over
+personal independence; see Hays, 2009). Cultural adaptations of CBT,
+including modifications of setting, language, and content, to improve
+access, acceptability and efficacy in marginalized groups have shown
+initial promise but will require additional research (e.g.,
+`<xref rid="R19" ref-type="bibr">`{=html}Jordan et al.,
+2021`</xref>`{=html}; `<xref rid="R31" ref-type="bibr">`{=html}Paris et
+al., 2018`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P40">
+```
+Lastly, additional clarity is needed regarding the conditions under
+which CBT for SUD might be most effective. There were somewhat mixed
+findings regarding the efficacy of CBT by specific SUD type. One
+meta-analysis concluded that relapse prevention was more efficacious for
+alcohol and polysubstance use than smoking or cocaine use
+(`<xref rid="R18" ref-type="bibr">`{=html}Irvin et al.,
+1999`</xref>`{=html}). Another found that CBT was most effective for
+cannabis (with similar effect sizes across all other substances;
+`<xref rid="R22" ref-type="bibr">`{=html}Magill and Ray,
+2009`</xref>`{=html}), while another indicated no differences in effect
+sizes by primary SUD (`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al., 2019`</xref>`{=html}). Future work might clarify which patient
+populations benefit most from CBT, based on primary SUD. Such research
+might help inform which individuals could benefit from targeted
+adjunctive interventions to CBT, given evidence that CBT plus
+pharmacotherapy or psychosocial interventions might have greater
+efficacy than CBT alone (`<xref rid="R18" ref-type="bibr">`{=html}Irvin
+et al., 1999`</xref>`{=html};
+`<xref rid="R22" ref-type="bibr">`{=html}Magill & Ray,
+2009`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P41">
+```
+Although we concluded that CBT for SUD can be flexibly delivered via
+technology-based CBT, the published effect sizes for
+technology-delivered CBT are smaller than the primary effect sizes
+reported here (for in-person group and individual CBT) (see
+`<xref rid="R21" ref-type="bibr">`{=html}Kiluk et al.,
+2019`</xref>`{=html}). A meta-analysis of CBT for alcohol use disorder
+indicated that technology-delivered CBT effect sizes are substantially
+larger when used as an adjunct to usual care, as opposed to a standalone
+intervention (`<xref rid="R21" ref-type="bibr">`{=html}Kiluk et al.,
+2019`</xref>`{=html}). Given that technology-delivered CBT as a
+standalone intervention has advantages, such as cost-effectiveness and
+the ability to be widely disseminated, future research should continue
+to examine patient populations who can achieve success via
+technology-delivered CBT.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S25">`{=html}
+```{=html}
+<title>
+```
+Limitations of the Present Evaluation
+```{=html}
+</title>
+```
+```{=html}
+<p id="P42">
+```
+Several methodological limitations qualify the results of this
+evaluation. First, our search strategy was limited to the search terms
+and databases used, and we may have overlooked additional relevant
+meta-analyses. To limit the scope of the review, we excluded
+quantitative reviews that focused solely on CBT for nicotine use
+disorder. Although most of the meta-analyses we included also excluded
+studies focused on CBT for nicotine use disorder,
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html} did include those focusing on tobacco and
+nicotine use disorder. Future work should continue to examine CBT as an
+established empirically supported treatment for tobacco and nicotine use
+disorder.
+```{=html}
+</p>
+```
+```{=html}
+<p id="P43">
+```
+Although the effects of an intervention on functional outcomes are a
+consideration when providing an overall treatment recommendation, we
+chose to only include quantitative reviews that reported substance use
+outcomes. It is possible that broadening our inclusion criteria to
+include meta-analyses focusing on psychosocial outcomes only (without
+requiring substance use outcomes) via CBT for SUD may have provided
+additional evidence regarding this consideration. Future investigations
+that include meta-analysis focused on biopsychosocial outcomes are
+important for evaluating CBT for SUD given recent updates to the
+definition of recovery from SUD (e.g.,
+`<xref rid="R17" ref-type="bibr">`{=html}Hagman et al.,
+2022`</xref>`{=html};
+`<xref rid="R47" ref-type="bibr">`{=html}Witkiewitz & Tucker,
+2020`</xref>`{=html}). Similarly, we chose to focus only on traditional
+CBT for SUD, thus excluding integrated CBT approaches for co-occurring
+psychological disorders, given these approaches typically integrate
+additional skills (e.g., exposure for anxiety disorders). This may
+further limit our understanding of the impact of CBT on psychosocial
+outcomes, given these studies are potentially more likely to evaluate
+psychosocial outcomes and identify effects on psychosocial outcomes
+(`<xref rid="R28" ref-type="bibr">`{=html}Mehta et al.,
+2021`</xref>`{=html}; `<xref rid="R42" ref-type="bibr">`{=html}Swan et
+al., 2020`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P44">
+```
+In the present evaluation, only a single meta-analysis
+(`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}) had sufficient quality for inclusion, and
+therefore future meta-analytic investigations of adequate quality will
+be a useful test of the robustness of the overall efficacy of CBT for
+SUD. However, for several reasons, we believe that evaluating this
+single meta-analysis is sufficient to render a "strong" research support
+recommendation for CBT for SUD. First, applying the Tolin Criteria to a
+single meta-analysis is acceptable, with recommendations that
+investigators conduct an original meta-analysis to evaluate research
+support in the absence of a pre-existing meta-analysis
+(`<xref rid="R5" ref-type="bibr">`{=html}Boness et al.,
+2021`</xref>`{=html}). Second, the evaluated meta-analysis
+(`<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html}) was conducted relatively recently and included 30
+randomized trials published between 1982--2018, capturing a large body
+of empirical research on CBT for SUD. Lastly, it is unlikely that only
+evaluating one meta-analysis led to a misestimation of effects, given
+that the pattern of effects (i.e., larger effects when CBT was compared
+to inactive vs. active treatment; decreasing treatment effects over
+time, within studies) was similar across primary and sensitivity
+analyses and is similar to meta-analyses of other psychosocial
+treatments for SUD (`<xref rid="R4" ref-type="bibr">`{=html}Benishek et
+al., 2014`</xref>`{=html};
+`<xref rid="R32" ref-type="bibr">`{=html}Pfund et al.,
+2021`</xref>`{=html}; `<xref rid="R39" ref-type="bibr">`{=html}Smedslund
+et al., 2011`</xref>`{=html}).
+```{=html}
+</p>
+```
+```{=html}
+<p id="P45">
+```
+More generally, there may be limitations of the Tolin Criteria as
+currently written. These limitations have been discussed elsewhere
+(e.g., `<xref rid="R6" ref-type="bibr">`{=html}Boness et al.,
+2020`</xref>`{=html}; Pfund et al., in press) but include, for example,
+the appropriateness of AMSTAR2 for evaluating meta-analytic quality and
+the challenges of aggregating across meta-analyses rather than primary
+studies which may obscure important information such as patient
+characteristics or treatment delivery settings. Thus, use of the Tolin
+Criteria for determining the status of treatments in terms of their
+evidence base, although an improvement in some ways, may still have
+important limitations that need to be addressed in future iterations and
+applications of the criteria.
+```{=html}
+</p>
+```
+`</sec>`{=html}`<sec id="S26">`{=html}
+```{=html}
+<title>
+```
+Conclusions
+```{=html}
+</title>
+```
+```{=html}
+<p id="P46">
+```
+Despite these limitations, our rigorous evaluation of meta-analyses
+examining CBT for SUD suggests this intervention has strong research
+support. This recommendation provides further support for the widespread
+dissemination of and training in CBT for SUD, in addition to
+underscoring the necessity of additional evaluation of the
+cost-effectiveness of CBT and advocacy around addiction treatment policy
+and funding. However, future research is needed to identify patient
+characteristics that might moderate response to CBT for SUD, such as
+primary SUD type, and under which circumstances CBT should be used as a
+standalone versus an adjunct intervention. Future clinical trial and
+meta-analytic work would be needed to support a "very strong" research
+support recommendation, including research conducted by researchers
+without a strong allegiance to the treatment and meta-analytic work with
+greater transparency and rigor, as well as research that aims to
+delineate the effects of CBT for SUD among underserved and understudied
+populations.
+```{=html}
+</p>
+```
+`</sec>`{=html}`</sec>`{=html}`<sec sec-type="supplementary-material" id="SM1">`{=html}
+```{=html}
+<title>
+```
+Supplementary Material
+```{=html}
+</title>
+```
+`<supplementary-material id="SD1" position="float" content-type="local-data" orientation="portrait">`{=html}`<label>`{=html}Supplemental
+Material`</label>`{=html}`<media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="NIHMS1856819-supplement-Supplemental_Material.pdf" id="d64e797" position="anchor" orientation="portrait"/>`{=html}`</supplementary-material>`{=html}`</sec>`{=html}
+```{=html}
+</body>
+```
+`<back>`{=html}`<ack id="S27">`{=html}
+```{=html}
+<p id="P47">
+```
+This research was partially supported by the National Institutes of
+Health, award numbers K08AA030301 (PI: Boness), F31AA029266 (PI: Votaw),
+and T32AA018108 (PI: Witkiewitz).
+```{=html}
+</p>
+```
+`</ack>`{=html}`<fn-group>`{=html}`<fn fn-type="COI-statement" id="FN1">`{=html}
+```{=html}
+<p id="P48">
+```
+Dr. Boness is a member of the Division 12 Committee on Science and
+Practice and played a key role in the development of the "Tolin
+Criteria" manual. To mitigate this conflict, Dr. Boness was not involved
+in the evaluation or discussion of this evaluation report by the
+Division 12 Committee on Science and Practice. Dr. Witkiewitz was the
+primary author of a randomized controlled trial of relapse prevention, a
+form of CBT for substance use, which is a treatment included in our
+evaluation: Witkiewitz, K., Warner, K., Sully, B., Barricks, A.,
+Stauffer, C., Steckler, G., Thompson, B., & Luoma, J. (2014). Randomized
+trial comparing mindfulness-based relapse prevention with relapse
+prevention for women offenders at a residential addiction treatment
+center. `<italic toggle="yes">`{=html}Substance Use and Misuse,
+49`</italic>`{=html}, 536--546. doi:
+`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="10.3109/10826084.2013.856922" ext-link-type="doi">`{=html}10.3109/10826084.2013.856922`</ext-link>`{=html}.
+To mitigate any potential impacts of Dr. Witkiewitz's conflict of
+interest, she has not contributed to any coding of the included
+quantitative reviews. All other authors declare no conflicts.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN2">`{=html}
+```{=html}
+<p id="P49">
+```
+This manuscript corresponds to a formal evaluation which has been
+approved by the American Psychological Association, Division 12 (Society
+of Clinical Psychology), Committee on Science and Practice and is
+available at osf.io/rbx8s
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN3">`{=html}`<label>`{=html}1`</label>`{=html}
+```{=html}
+<p id="P50">
+```
+Also sometimes referred to as evidence-based treatment, empirically
+validated treatment, or research-supported treatment.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN4">`{=html}`<label>`{=html}2`</label>`{=html}
+```{=html}
+<p id="P51">
+```
+However, it is key to note that SUDs are likely best addressed through a
+multifaceted approach that also considers other factors such as housing,
+food insecurity, criminal legal system reform, and health inequities.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN5">`{=html}`<label>`{=html}3`</label>`{=html}
+```{=html}
+<p id="P52">
+```
+See also (`<xref rid="R25" ref-type="bibr">`{=html}McCrady,
+2000`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN6">`{=html}`<label>`{=html}4`</label>`{=html}
+```{=html}
+<p id="P53">
+```
+For an overview of changes to the criteria see
+`<xref rid="R44" ref-type="bibr">`{=html}Tolin and colleagues
+(2015)`</xref>`{=html} and
+`<xref rid="R6" ref-type="bibr">`{=html}Boness and colleagues
+(2020)`</xref>`{=html}.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN7">`{=html}`<label>`{=html}5`</label>`{=html}
+```{=html}
+<p id="P54">
+```
+Although `<xref rid="R44" ref-type="bibr">`{=html}Tolin et al.,
+2015`</xref>`{=html} recommends only including reviews from the past two
+years, this restriction was not applied here given the most recent
+review on CBT for SUD was published in 2019.
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN8">`{=html}`<label>`{=html}6`</label>`{=html}
+```{=html}
+<p id="P55">
+```
+More detailed information on what is considered a "yes" versus a
+"partial yes" versus a "no" for each AMSTAR2 item can be found in
+`<xref rid="R5" ref-type="bibr">`{=html}Boness and colleagues
+(2021)`</xref>`{=html} or the original AMSTAR2 documentation
+(`<xref rid="R38" ref-type="bibr">`{=html}Shea et al.,
+2017`</xref>`{=html}).
+```{=html}
+</p>
+```
+`</fn>`{=html}`<fn id="FN9">`{=html}`<label>`{=html}7`</label>`{=html}
+```{=html}
+<p id="P56">
+```
+It was unclear whether `<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al., 1999`</xref>`{=html} required randomized clinical trials or not.
+All other eligible meta-analyses required primary studies to be
+randomized clinical trials.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</fn-group>`{=html}`<ref-list>`{=html}
+```{=html}
+<title>
+```
+References
+```{=html}
+</title>
+```
+`<ref id="R1">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}American
+Psychiatric Association`</collab>`{=html}.
+(`<year>`{=html}2013`</year>`{=html}). `<source>`{=html}Diagnostic and
+statistical manual of mental disorders`</source>`{=html}
+(`<edition>`{=html}5th ed.`</edition>`{=html}).
+`<publisher-name>`{=html}American Psychiatric
+Association`</publisher-name>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R2">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Atkins`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Eccles`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Flottorp`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Guyatt`</surname>`{=html}`<given-names>`{=html}GH`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Henry`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hill`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Liberati`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}O'Connell`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Oxman`</surname>`{=html}`<given-names>`{=html}AD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Phillips`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Schünemann`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Edejer`</surname>`{=html}`<given-names>`{=html}TT-T`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Vist`</surname>`{=html}`<given-names>`{=html}GE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Williams`</surname>`{=html}`<given-names>`{=html}JW`</given-names>`{=html}`</name>`{=html},
+& `<collab>`{=html}The GRADE Working Group`</collab>`{=html}.
+(`<year>`{=html}2004`</year>`{=html}). `<article-title>`{=html}Systems
+for grading the quality of evidence and the strength of recommendations
+I: Critical appraisal of existing approaches The GRADE Working
+Group`</article-title>`{=html}. `<source>`{=html}BMC Health Services
+Research`</source>`{=html},
+`<volume>`{=html}4`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}38`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1186/1472-6963-4-38`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}15615589`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC545647`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R3">`{=html}`<mixed-citation publication-type="webpage">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Boness`</surname>`{=html}`<given-names>`{=html}CL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Votaw`</surname>`{=html}`<given-names>`{=html}V`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Schwebel`</surname>`{=html}`<given-names>`{=html}FJ`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Moniz-Lewis`</surname>`{=html}`<given-names>`{=html}DI`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McHugh`</surname>`{=html}`<given-names>`{=html}R.
+K., PhD`</given-names>`{=html}`</name>`{=html}, &
+`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2022`</year>`{=html},
+`<month>`{=html}January`</month>`{=html}
+`<day>`{=html}13`</day>`{=html}). `<source>`{=html}An Evaluation of
+Cognitive Behavioral Therapy for Substance Use: An Application of
+Tolin's Criteria for Empirically Supported Treatments`</source>`{=html}.
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://osf.io/rbx8s/" ext-link-type="uri">`{=html}https://osf.io/rbx8s/`</ext-link>`{=html}`</comment>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/cps0000131`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC10572095`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}37840853`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R4">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Benishek`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Dugosh`</surname>`{=html}`<given-names>`{=html}KL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kirby`</surname>`{=html}`<given-names>`{=html}KC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Matejkowski`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Clements`</surname>`{=html}`<given-names>`{=html}NT`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Seymour`</surname>`{=html}`<given-names>`{=html}BL`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Festinger`</surname>`{=html}`<given-names>`{=html}DS`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2014`</year>`{=html}).
+`<article-title>`{=html}Prize-based contingency management for the
+treatment of substance abusers: A meta-analysis: Prize-based contingency
+management meta-analysis`</article-title>`{=html}.
+`<source>`{=html}Addiction`</source>`{=html},
+`<volume>`{=html}109`</volume>`{=html}(`<issue>`{=html}9`</issue>`{=html}),
+`<fpage>`{=html}1426`</fpage>`{=html}--`<lpage>`{=html}1436`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1111/add.12589`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}24750232`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4203362`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R5">`{=html}`<mixed-citation publication-type="book">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Boness`</surname>`{=html}`<given-names>`{=html}CL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hershenberg`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Grasso`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kaye`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Mackintosh`</surname>`{=html}`<given-names>`{=html}M-A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nason`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Shah`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Raffa`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}). `<source>`{=html}The Society of
+Clinical Psychology's Manual for the Evaluation of Psychological
+Treatments Using the Tolin Criteria`</source>`{=html}
+`<comment>`{=html}\[Preprint\].`</comment>`{=html}
+`<publisher-name>`{=html}Open Science
+Framework`</publisher-name>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.31219/osf.io/8hcsz`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R6">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Boness`</surname>`{=html}`<given-names>`{=html}CL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hershenberg`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kaye`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Mackintosh`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Grasso`</surname>`{=html}`<given-names>`{=html}DJ`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Noser`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Raffa`</surname>`{=html}`<given-names>`{=html}SD`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2020`</year>`{=html}). `<article-title>`{=html}An
+evaluation of cognitive behavioral therapy for insomnia: A systematic
+review and application of Tolin's Criteria for empirically supported
+treatments`</article-title>`{=html}. `<source>`{=html}Clinical
+Psychology: Science and Practice`</source>`{=html},
+`<volume>`{=html}27`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}).
+`<pub-id pub-id-type="doi">`{=html}10.1037/h0101780`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7939024`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33692609`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R7">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ball`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Martino`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nich`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Babuscio`</surname>`{=html}`<given-names>`{=html}TA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nuro`</surname>`{=html}`<given-names>`{=html}KF`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gordon`</surname>`{=html}`<given-names>`{=html}MA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Portnoy`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Rounsaville`</surname>`{=html}`<given-names>`{=html}BJ`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2008`</year>`{=html}).
+`<article-title>`{=html}Computer-Assisted Delivery of
+Cognitive-Behavioral Therapy for Addiction: A Randomized Trial of
+CBT4CBT`</article-title>`{=html}. `<source>`{=html}American Journal of
+Psychiatry`</source>`{=html},
+`<volume>`{=html}165`</volume>`{=html}(`<issue>`{=html}7`</issue>`{=html}),
+`<fpage>`{=html}881`</fpage>`{=html}--`<lpage>`{=html}888`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1176/appi.ajp.2008.07111835`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}18450927`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2562873`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R8">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2017`</year>`{=html}). `<article-title>`{=html}Cognitive
+behavioral interventions for alcohol and drug use disorders: Through the
+stage model and back again`</article-title>`{=html}.
+`<source>`{=html}Psychology of Addictive Behaviors`</source>`{=html},
+`<volume>`{=html}31`</volume>`{=html}(`<issue>`{=html}8`</issue>`{=html}),
+`<fpage>`{=html}847`</fpage>`{=html}--`<lpage>`{=html}861`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1037/adb0000311`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}28857574`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5714654`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R9">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nich`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gordon`</surname>`{=html}`<given-names>`{=html}MA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Portnoy`</surname>`{=html}`<given-names>`{=html}GA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Marino`</surname>`{=html}`<given-names>`{=html}DR`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Ball`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2014`</year>`{=html}).
+`<article-title>`{=html}Computer-Assisted Delivery of
+Cognitive-Behavioral Therapy: Efficacy and Durability of CBT4CBT Among
+Cocaine-Dependent Individuals Maintained on
+Methadone`</article-title>`{=html}. `<source>`{=html}American Journal of
+Psychiatry`</source>`{=html},
+`<volume>`{=html}171`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}436`</fpage>`{=html}--`<lpage>`{=html}444`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1176/appi.ajp.2013.13070987`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}24577287`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4042674`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R10">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chambless`</surname>`{=html}`<given-names>`{=html}DL`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Hollon`</surname>`{=html}`<given-names>`{=html}SD`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}1998`</year>`{=html}). `<article-title>`{=html}Defining
+empirically supported therapies`</article-title>`{=html}.
+`<source>`{=html}Journal of Consulting and Clinical
+Psychology`</source>`{=html},
+`<volume>`{=html}66`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}7`</fpage>`{=html}--`<lpage>`{=html}18`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1037/0022-006X.66.1.7`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}9489259`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R11">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Chambless`</surname>`{=html}`<given-names>`{=html}DL`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Ollendick`</surname>`{=html}`<given-names>`{=html}TH`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2001`</year>`{=html}).
+`<article-title>`{=html}Empirically Supported Psychological
+Interventions: Controversies and Evidence`</article-title>`{=html}.
+`<source>`{=html}Annual Review of Psychology`</source>`{=html},
+`<volume>`{=html}52`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}685`</fpage>`{=html}--`<lpage>`{=html}716`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1146/annurev.psych.52.1.685`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}11148322`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R12">`{=html}`<mixed-citation publication-type="book">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Cohen`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}1988`</year>`{=html}). `<source>`{=html}Statistical
+power analysis for the behavioral sciences`</source>`{=html}.
+`<publisher-name>`{=html}Routledge
+Academic`</publisher-name>`{=html}.`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R13">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Compton`</surname>`{=html}`<given-names>`{=html}WM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Thomas`</surname>`{=html}`<given-names>`{=html}YF`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Stinson`</surname>`{=html}`<given-names>`{=html}FS`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Grant`</surname>`{=html}`<given-names>`{=html}BF`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2007`</year>`{=html}).
+`<article-title>`{=html}Prevalence, Correlates, Disability, and
+Comorbidity of DSM-IV Drug Abuse and Dependence in the United States:
+Results From the National Epidemiologic Survey on Alcohol and Related
+Conditions`</article-title>`{=html}. `<source>`{=html}Archives of
+General Psychiatry`</source>`{=html},
+`<volume>`{=html}64`</volume>`{=html}(`<issue>`{=html}5`</issue>`{=html}),
+`<fpage>`{=html}566`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1001/archpsyc.64.5.566`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}17485608`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R14">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dragioti`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Dimoliatis`</surname>`{=html}`<given-names>`{=html}I`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Fountoulakis`</surname>`{=html}`<given-names>`{=html}KN`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Evangelou`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2015`</year>`{=html}). `<article-title>`{=html}A
+systematic appraisal of allegiance effect in randomized controlled
+trials of psychotherapy`</article-title>`{=html}.
+`<source>`{=html}Annals of General Psychiatry`</source>`{=html},
+`<volume>`{=html}14`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}25`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1186/s12991-015-0063-1`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}26379758`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC4570291`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R15">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Dutra`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Stathopoulou`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Basden`</surname>`{=html}`<given-names>`{=html}SL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Leyro`</surname>`{=html}`<given-names>`{=html}TM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Powers`</surname>`{=html}`<given-names>`{=html}MB`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Otto`</surname>`{=html}`<given-names>`{=html}MW`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2008`</year>`{=html}). `<article-title>`{=html}A
+Meta-Analytic Review of Psychosocial Interventions for Substance Use
+Disorders`</article-title>`{=html}. `<source>`{=html}American Journal of
+Psychiatry`</source>`{=html},
+`<volume>`{=html}165`</volume>`{=html}(`<issue>`{=html}2`</issue>`{=html}),
+`<fpage>`{=html}179`</fpage>`{=html}--`<lpage>`{=html}187`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1176/appi.ajp.2007.06111851`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}18198270`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R16">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Guyatt`</surname>`{=html}`<given-names>`{=html}GH`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Oxman`</surname>`{=html}`<given-names>`{=html}AD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Vist`</surname>`{=html}`<given-names>`{=html}GE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kunz`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Falck-Ytter`</surname>`{=html}`<given-names>`{=html}Y`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Alonso-Coello`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Schünemann`</surname>`{=html}`<given-names>`{=html}HJ`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2008`</year>`{=html}). `<article-title>`{=html}GRADE: An
+emerging consensus on rating quality of evidence and strength of
+recommendations`</article-title>`{=html}.
+`<source>`{=html}BMJ`</source>`{=html},
+`<volume>`{=html}336`</volume>`{=html}(`<issue>`{=html}7650`</issue>`{=html}),
+`<fpage>`{=html}924`</fpage>`{=html}--`<lpage>`{=html}926`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1136/bmj.39489.470347.AD`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}18436948`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2335261`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R17">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Hagman`</surname>`{=html}`<given-names>`{=html}BT`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Falk`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Litten`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Koob`</surname>`{=html}`<given-names>`{=html}GF`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2022`</year>`{=html}). `<article-title>`{=html}Defining
+Recovery From Alcohol Use Disorder: Development of an NIAAA Research
+Definition`</article-title>`{=html}. `<source>`{=html}American Journal
+of Psychiatry`</source>`{=html},
+`<comment>`{=html}appi.ajp.21090963.`</comment>`{=html}
+`<pub-id pub-id-type="doi">`{=html}10.1176/appi.ajp.21090963`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}35410494`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R18">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Irvin`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Bowers`</surname>`{=html}`<given-names>`{=html}CA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Dunn`</surname>`{=html}`<given-names>`{=html}ME`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Wang`</surname>`{=html}`<given-names>`{=html}MC`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}1999`</year>`{=html}). `<article-title>`{=html}Efficacy
+of relapse prevention: A meta-analytic review`</article-title>`{=html}.
+`<source>`{=html}Journal of Consulting and Clinical
+Psychology`</source>`{=html},
+`<volume>`{=html}67`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}563`</fpage>`{=html}--`<lpage>`{=html}570`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1037/0022-006X.67.4.563`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}10450627`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R19">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Jordan`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Babuscio`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nich`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}). `<article-title>`{=html}A
+feasibility study providing substance use treatment in the Black
+church`</article-title>`{=html}. `<source>`{=html}Journal of Substance
+Abuse Treatment`</source>`{=html},
+`<volume>`{=html}124`</volume>`{=html},
+`<fpage>`{=html}108218`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1016/j.jsat.2020.108218`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33771290`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R20">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kang`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Fairbairn`</surname>`{=html}`<given-names>`{=html}CE`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Ariss`</surname>`{=html}`<given-names>`{=html}TA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2019`</year>`{=html}). `<article-title>`{=html}A
+meta-analysis of the effect of substance use interventions on emotion
+outcomes`</article-title>`{=html}. `<source>`{=html}Journal of
+Consulting and Clinical Psychology`</source>`{=html},
+`<volume>`{=html}87`</volume>`{=html}(`<issue>`{=html}12`</issue>`{=html}),
+`<fpage>`{=html}1106`</fpage>`{=html}--`<lpage>`{=html}1123`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1037/ccp0000450`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31724427`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6859954`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R21">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Walthers`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Bernstein`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tonigan`</surname>`{=html}`<given-names>`{=html}JS`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Magill`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2019`</year>`{=html}).
+`<article-title>`{=html}Technology-Delivered Cognitive-Behavioral
+Interventions for Alcohol Use: A Meta-Analysis`</article-title>`{=html}.
+`<source>`{=html}Alcoholism: Clinical and Experimental
+Research`</source>`{=html},
+`<volume>`{=html}43`</volume>`{=html}(`<issue>`{=html}11`</issue>`{=html}),
+`<fpage>`{=html}2285`</fpage>`{=html}--`<lpage>`{=html}2295`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1111/acer.14189`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31566787`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6824956`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R22">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Magill`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2009`</year>`{=html}).
+`<article-title>`{=html}Cognitive-Behavioral Treatment With Adult
+Alcohol and Illicit Drug Users: A Meta-Analysis of Randomized Controlled
+Trials`</article-title>`{=html}. `<source>`{=html}Journal of Studies on
+Alcohol and Drugs`</source>`{=html},
+`<volume>`{=html}70`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}516`</fpage>`{=html}--`<lpage>`{=html}527`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.15288/jsad.2009.70.516`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19515291`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2696292`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R23">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Magill`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hoadley`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Bernstein`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tonigan`</surname>`{=html}`<given-names>`{=html}JS`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2019`</year>`{=html}). `<article-title>`{=html}A
+Meta-Analysis of Cognitive-Behavioral Therapy for Alcohol or Other Drug
+Use Disorders: Treatment Efficacy by Contrast
+Condition`</article-title>`{=html}. `<source>`{=html}Journal of
+Consulting & Clinical Psychology`</source>`{=html},
+`<volume>`{=html}87`</volume>`{=html}(`<issue>`{=html}12`</issue>`{=html}),
+`<fpage>`{=html}1093`</fpage>`{=html}--`<lpage>`{=html}1105.
+a9h`</lpage>`{=html}.`<pub-id pub-id-type="pmid">`{=html}31599606`</pub-id>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1037/ccp0000447`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6856400`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R24">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Magill`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tonigan`</surname>`{=html}`<given-names>`{=html}JS`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Walthers`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2020`</year>`{=html}). `<article-title>`{=html}The
+search for mechanisms of cognitive behavioral therapy for alcohol or
+other drug use disorders: A systematic review`</article-title>`{=html}.
+`<source>`{=html}Behaviour Research and Therapy`</source>`{=html},
+`<volume>`{=html}131`</volume>`{=html}.
+`<comment>`{=html}edselp.`</comment>`{=html}
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://libproxy.unm.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=edselp&amp;AN=S0005796720300991&amp;site=eds-live&amp;scope=site" ext-link-type="uri">`{=html}https://libproxy.unm.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=edselp&AN=S0005796720300991&site=eds-live&scope=site`</ext-link>`{=html}`</comment>`{=html}`<pub-id pub-id-type="doi" assigning-authority="pmc">`{=html}10.1016/j.brat.2020.103648`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7329023`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}32474226`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R25">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McCrady`</surname>`{=html}`<given-names>`{=html}BS`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2000`</year>`{=html}). `<article-title>`{=html}Alcohol
+use disorders and the Division 12 Task Force of the American
+Psychological Association`</article-title>`{=html}.
+`<source>`{=html}Psychology of Addictive Behaviors`</source>`{=html},
+`<volume>`{=html}14`</volume>`{=html}(`<issue>`{=html}3`</issue>`{=html}),
+`<fpage>`{=html}267`</fpage>`{=html}--`<lpage>`{=html}276`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1037/0893-164X.14.3.267`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}10998952`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R26">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McGovern`</surname>`{=html}`<given-names>`{=html}MP`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2003`</year>`{=html}).
+`<article-title>`{=html}Evidence-based practices for substance use
+disorders`</article-title>`{=html}. `<source>`{=html}Psychiatric Clinics
+of North America`</source>`{=html},
+`<volume>`{=html}26`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}991`</fpage>`{=html}--`<lpage>`{=html}1010`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1016/S0193-953X(03)00073-X`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}14711132`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3678283`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R27">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}McHugh`</surname>`{=html}`<given-names>`{=html}RK`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hearon`</surname>`{=html}`<given-names>`{=html}BA`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Otto`</surname>`{=html}`<given-names>`{=html}MW`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2010`</year>`{=html}). `<article-title>`{=html}Cognitive
+Behavioral Therapy for Substance Use Disorders`</article-title>`{=html}.
+`<source>`{=html}Psychiatric Clinics of North America`</source>`{=html},
+`<volume>`{=html}33`</volume>`{=html}(`<issue>`{=html}3`</issue>`{=html}),
+`<fpage>`{=html}511`</fpage>`{=html}--`<lpage>`{=html}525`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1016/j.psc.2010.04.012`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}20599130`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC2897895`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R28">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mehta`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hoadley`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Magill`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}).
+`<article-title>`{=html}Cognitive-Behavioral Interventions Targeting
+Alcohol or Other Drug Use and Co-Occurring Mental Health Disorders: A
+Meta-Analysis`</article-title>`{=html}. `<source>`{=html}Alcohol and
+Alcoholism`</source>`{=html},
+`<volume>`{=html}56`</volume>`{=html}(`<issue>`{=html}5`</issue>`{=html}),
+`<fpage>`{=html}535`</fpage>`{=html}--`<lpage>`{=html}544`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1093/alcalc/agab016`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33778869`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8406071`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R29">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}National
+Institute on Drug Abuse`</collab>`{=html}.
+(`<year>`{=html}2018`</year>`{=html}).
+`<source>`{=html}Cognitive-Behavioral Therapy`</source>`{=html}.
+`<publisher-name>`{=html}National Institute on Drug
+Abuse`</publisher-name>`{=html}.
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://nida.nih.gov/publications/principles-drug-addiction-treatment-research-based-guide-third-edition/evidence-based-approaches-to-drug-addiction-treatment/behavioral-therapies/cognitive-behavioral-therapy" ext-link-type="uri">`{=html}https://nida.nih.gov/publications/principles-drug-addiction-treatment-research-based-guide-third-edition/evidence-based-approaches-to-drug-addiction-treatment/behavioral-therapies/cognitive-behavioral-therapy`</ext-link>`{=html}`</comment>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R30">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Page`</surname>`{=html}`<given-names>`{=html}MJ`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McKenzie`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Bossuyt`</surname>`{=html}`<given-names>`{=html}PM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Boutron`</surname>`{=html}`<given-names>`{=html}I`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hoffmann`</surname>`{=html}`<given-names>`{=html}TC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Mulrow`</surname>`{=html}`<given-names>`{=html}CD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Shamseer`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tetzlaff`</surname>`{=html}`<given-names>`{=html}JM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Akl`</surname>`{=html}`<given-names>`{=html}EA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Brennan`</surname>`{=html}`<given-names>`{=html}SE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Chou`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Glanville`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Grimshaw`</surname>`{=html}`<given-names>`{=html}JM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hróbjartsson`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Lalu`</surname>`{=html}`<given-names>`{=html}MM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Li`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Loder`</surname>`{=html}`<given-names>`{=html}EW`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Mayo-Wilson`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McDonald`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+...
+`<name name-style="western">`{=html}`<surname>`{=html}Moher`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}). `<article-title>`{=html}The
+PRISMA 2020 statement: An updated guideline for reporting systematic
+reviews`</article-title>`{=html}.
+`<source>`{=html}BMJ`</source>`{=html},
+`<fpage>`{=html}n71`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1136/bmj.n71`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33782057`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8005924`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R31">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Paris`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Silva`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Añez-Nava`</surname>`{=html}`<given-names>`{=html}L`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Jaramillo`</surname>`{=html}`<given-names>`{=html}Y`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kiluk`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gordon`</surname>`{=html}`<given-names>`{=html}MA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Nich`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Frankforter`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Devore`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ball`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Carroll`</surname>`{=html}`<given-names>`{=html}KM`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2018`</year>`{=html}).
+`<article-title>`{=html}Culturally Adapted, Web-Based Cognitive
+Behavioral Therapy for Spanish-Speaking Individuals With Substance Use
+Disorders: A Randomized Clinical Trial`</article-title>`{=html}.
+`<source>`{=html}American Journal of Public Health`</source>`{=html},
+`<volume>`{=html}108`</volume>`{=html}(`<issue>`{=html}11`</issue>`{=html}),
+`<fpage>`{=html}1535`</fpage>`{=html}--`<lpage>`{=html}1542`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.2105/AJPH.2018.304571`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30252519`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6187780`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R32">`{=html}`<mixed-citation publication-type="book">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Pfund`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Ginley`</surname>`{=html}`<given-names>`{=html}MK`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Boness`</surname>`{=html}`<given-names>`{=html}CL`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Zajac`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Rash`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}). `<source>`{=html}Evaluation of
+Contingency Management (CM) for Substance Use Disorder
+(SUD)`</source>`{=html}
+`<comment>`{=html}\[Preprint\].`</comment>`{=html}
+`<publisher-name>`{=html}Open Science
+Framework`</publisher-name>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.31219/osf.io/zme9n`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R33">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Ray`</surname>`{=html}`<given-names>`{=html}LA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Bujarski`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Grodin`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hartwell`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Green`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Venegas`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Lim`</surname>`{=html}`<given-names>`{=html}AC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Gillis`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Miotto`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2019`</year>`{=html}).
+`<article-title>`{=html}State-of-the-art behavioral and pharmacological
+treatments for alcohol use disorder`</article-title>`{=html}.
+`<source>`{=html}The American Journal of Drug and Alcohol
+Abuse`</source>`{=html},
+`<volume>`{=html}45`</volume>`{=html}(`<issue>`{=html}2`</issue>`{=html}),
+`<fpage>`{=html}124`</fpage>`{=html}--`<lpage>`{=html}140`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1080/00952990.2018.1528265`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30373394`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6430676`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R34">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Rooke`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Thorsteinsson`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Karpin`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Copeland`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Allsop`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2010`</year>`{=html}).
+`<article-title>`{=html}Computer-delivered interventions for alcohol and
+tobacco use: A meta-analysis: Computer interventions for substance
+use`</article-title>`{=html}.
+`<source>`{=html}Addiction`</source>`{=html},
+`<volume>`{=html}105`</volume>`{=html}(`<issue>`{=html}8`</issue>`{=html}),
+`<fpage>`{=html}1381`</fpage>`{=html}--`<lpage>`{=html}1390`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1111/j.1360-0443.2010.02975.x`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}20528806`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R35">`{=html}`<mixed-citation publication-type="webpage">`{=html}`<collab>`{=html}SAMHSA`</collab>`{=html}.
+(`<year>`{=html}2020`</year>`{=html}). `<source>`{=html}National Survey
+of Substance Abuse Treatment Services (N-SSATS)`</source>`{=html}.
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.samhsa.gov/data/sites/default/files/reports/rpt35313/2020_NSSATS_FINAL.pdf" ext-link-type="uri">`{=html}https://www.samhsa.gov/data/sites/default/files/reports/rpt35313/2020_NSSATS_FINAL.pdf`</ext-link>`{=html}`</comment>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R36">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schardt`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Adams`</surname>`{=html}`<given-names>`{=html}MB`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Owens`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Keitz`</surname>`{=html}`<given-names>`{=html}S`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Fontelo`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2007`</year>`{=html}).
+`<article-title>`{=html}Utilization of the PICO framework to improve
+searching PubMed for clinical questions`</article-title>`{=html}.
+`<source>`{=html}BMC Medical Informatics and Decision
+Making`</source>`{=html},
+`<volume>`{=html}7`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}16`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1186/1472-6947-7-16`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}17573961`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC1904193`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R37">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Schulte`</surname>`{=html}`<given-names>`{=html}MT`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Hser`</surname>`{=html}`<given-names>`{=html}Y-I`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2013`</year>`{=html}). `<article-title>`{=html}Substance
+Use and Associated Health Conditions throughout the
+Lifespan`</article-title>`{=html}. `<source>`{=html}Public Health
+Reviews`</source>`{=html},
+`<volume>`{=html}35`</volume>`{=html}(`<issue>`{=html}2`</issue>`{=html}),
+`<fpage>`{=html}3`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1007/BF03391702`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5373082`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}28366975`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R38">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Shea`</surname>`{=html}`<given-names>`{=html}BJ`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Reeves`</surname>`{=html}`<given-names>`{=html}BC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Wells`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Thuku`</surname>`{=html}`<given-names>`{=html}M`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hamel`</surname>`{=html}`<given-names>`{=html}C`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Moran`</surname>`{=html}`<given-names>`{=html}J`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Moher`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tugwell`</surname>`{=html}`<given-names>`{=html}P`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Welch`</surname>`{=html}`<given-names>`{=html}V`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Kristjansson`</surname>`{=html}`<given-names>`{=html}E`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Henry`</surname>`{=html}`<given-names>`{=html}DA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2017`</year>`{=html}). `<article-title>`{=html}AMSTAR 2:
+A critical appraisal tool for systematic reviews that include randomised
+or non-randomised studies of healthcare interventions, or
+both`</article-title>`{=html}. `<source>`{=html}BMJ`</source>`{=html},
+`<fpage>`{=html}j4008`</fpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1136/bmj.j4008`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}28935701`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5833365`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R39">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Smedslund`</surname>`{=html}`<given-names>`{=html}G`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Berg`</surname>`{=html}`<given-names>`{=html}RC`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hammerstrøm`</surname>`{=html}`<given-names>`{=html}KT`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Steiro`</surname>`{=html}`<given-names>`{=html}A`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Leiknes`</surname>`{=html}`<given-names>`{=html}KA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Dahl`</surname>`{=html}`<given-names>`{=html}HM`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Karlsen`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2011`</year>`{=html}).
+`<article-title>`{=html}Motivational interviewing for substance
+abuse`</article-title>`{=html}. `<source>`{=html}Campbell Systematic
+Reviews`</source>`{=html},
+`<volume>`{=html}7`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}1`</fpage>`{=html}--`<lpage>`{=html}126`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.4073/csr.2011.6`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8939890`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}21563163`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R40">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}Substance
+Abuse and Mental Health Services Administration`</collab>`{=html}.
+(`<year>`{=html}2013`</year>`{=html}). `<source>`{=html}The DAWN Report:
+Highlights of the 2011 Drug Abuse Warning Network (DAWN) Findings on
+Drug-Related Emergency Department Visits`</source>`{=html}.
+`<publisher-name>`{=html}Center for Behavioral Health Statistics and
+Quality`</publisher-name>`{=html}.`<pub-id pub-id-type="pmid">`{=html}27631059`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R41">`{=html}`<mixed-citation publication-type="book">`{=html}`<collab>`{=html}Substance
+Abuse and Mental Health Services Administration`</collab>`{=html}.
+(`<year>`{=html}2021`</year>`{=html}). `<source>`{=html}Key substance
+use and mental health indicators in the United States: Results from the
+2020 National Survey on Drug Use and Health (HHS Publication
+No. PEP21--07-01--003, NSDUH Series H-56)`</source>`{=html}.
+`<publisher-name>`{=html}Center for Behavioral Health Statistics and
+Quality, Substance Abuse and Mental Health Services
+Administration`</publisher-name>`{=html}.
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.samhsa.gov/data/" ext-link-type="uri">`{=html}https://www.samhsa.gov/data/`</ext-link>`{=html}`</comment>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R42">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Swan`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Votaw`</surname>`{=html}`<given-names>`{=html}VR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Stein`</surname>`{=html}`<given-names>`{=html}ER`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2020`</year>`{=html}). `<article-title>`{=html}The Role
+of Affect in Psychosocial Treatments for Substance Use
+Disorders`</article-title>`{=html}. `<source>`{=html}Current Addiction
+Reports`</source>`{=html},
+`<volume>`{=html}7`</volume>`{=html}(`<issue>`{=html}2`</issue>`{=html}),
+`<fpage>`{=html}108`</fpage>`{=html}--`<lpage>`{=html}116`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1007/s40429-020-00304-0`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}34327114`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8317473`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R43">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tait`</surname>`{=html}`<given-names>`{=html}RJ`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Spijkerman`</surname>`{=html}`<given-names>`{=html}R`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Riper`</surname>`{=html}`<given-names>`{=html}H`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2013`</year>`{=html}). `<article-title>`{=html}Internet
+and computer based interventions for cannabis use: A
+meta-analysis`</article-title>`{=html}. `<source>`{=html}Drug and
+Alcohol Dependence`</source>`{=html},
+`<volume>`{=html}133`</volume>`{=html}(`<issue>`{=html}2`</issue>`{=html}),
+`<fpage>`{=html}295`</fpage>`{=html}--`<lpage>`{=html}304`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1016/j.drugalcdep.2013.05.012`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}23747236`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R44">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tolin`</surname>`{=html}`<given-names>`{=html}DF`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}McKay`</surname>`{=html}`<given-names>`{=html}D`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Forman`</surname>`{=html}`<given-names>`{=html}EM`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Klonsky`</surname>`{=html}`<given-names>`{=html}ED`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Thombs`</surname>`{=html}`<given-names>`{=html}BD`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2015`</year>`{=html}).
+`<article-title>`{=html}Empirically Supported Treatment: Recommendations
+for a New Model`</article-title>`{=html}. `<source>`{=html}Clinical
+Psychology: Science and Practice`</source>`{=html},
+`<volume>`{=html}22`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}317`</fpage>`{=html}--`<lpage>`{=html}338`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1111/cpsp.12122`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R45">`{=html}`<mixed-citation publication-type="webpage">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Tolin`</surname>`{=html}`<given-names>`{=html}DF`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Melnyk`</surname>`{=html}`<given-names>`{=html}T`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Marx`</surname>`{=html}`<given-names>`{=html}B`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2015`</year>`{=html}). `<source>`{=html}Exposure and
+response prevention for obsessive-compulsive disorder`</source>`{=html}.
+`<comment>`{=html}Retrieved from.`</comment>`{=html}
+`<comment>`{=html}`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.div12.org/wp-content/uploads/2019/10/Treatment-Review-ERP-for-OCD.pdf" ext-link-type="uri">`{=html}https://www.div12.org/wp-content/uploads/2019/10/Treatment-Review-ERP-for-OCD.pdf`</ext-link>`{=html}`</comment>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R46">`{=html}`<mixed-citation publication-type="webpage">`{=html}`<collab>`{=html}Veteran's
+Administration`</collab>`{=html}.
+(`<comment>`{=html}n.d.`</comment>`{=html}). `<source>`{=html}Substance
+Use Treatment---Mental Health`</source>`{=html}
+`<comment>`{=html}\[General Information\].`</comment>`{=html}
+`<comment>`{=html}Retrieved`</comment>`{=html}
+`<date-in-citation>`{=html}August 16,
+2022`</date-in-citation>`{=html}`<comment>`{=html}, from
+`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.mentalhealth.va.gov/MENTALHEALTH/substance-use/treatment.asp" ext-link-type="uri">`{=html}https://www.mentalhealth.va.gov/MENTALHEALTH/substance-use/treatment.asp`</ext-link>`{=html}`</comment>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R47">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Tucker`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2020`</year>`{=html}).
+`<article-title>`{=html}Abstinence Not Required: Expanding the
+Definition of Recovery from Alcohol Use
+Disorder`</article-title>`{=html}. `<source>`{=html}Alcoholism: Clinical
+and Experimental Research`</source>`{=html},
+`<volume>`{=html}44`</volume>`{=html}(`<issue>`{=html}1`</issue>`{=html}),
+`<fpage>`{=html}36`</fpage>`{=html}--`<lpage>`{=html}40`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1111/acer.14235`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31709568`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6980896`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`<ref id="R48">`{=html}`<mixed-citation publication-type="journal">`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Witkiewitz`</surname>`{=html}`<given-names>`{=html}K`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Wilson`</surname>`{=html}`<given-names>`{=html}AD`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Roos`</surname>`{=html}`<given-names>`{=html}CR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Swan`</surname>`{=html}`<given-names>`{=html}JE`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Votaw`</surname>`{=html}`<given-names>`{=html}VR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Stein`</surname>`{=html}`<given-names>`{=html}ER`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Pearson`</surname>`{=html}`<given-names>`{=html}MR`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Edwards`</surname>`{=html}`<given-names>`{=html}KA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Tonigan`</surname>`{=html}`<given-names>`{=html}JS`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Hallgren`</surname>`{=html}`<given-names>`{=html}KA`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Montes`</surname>`{=html}`<given-names>`{=html}KS`</given-names>`{=html}`</name>`{=html},
+`<name name-style="western">`{=html}`<surname>`{=html}Maisto`</surname>`{=html}`<given-names>`{=html}SA`</given-names>`{=html}`</name>`{=html},
+&
+`<name name-style="western">`{=html}`<surname>`{=html}Tucker`</surname>`{=html}`<given-names>`{=html}JA`</given-names>`{=html}`</name>`{=html}
+(`<year>`{=html}2021`</year>`{=html}). `<article-title>`{=html}Can
+Individuals With Alcohol Use Disorder Sustain Non-abstinent Recovery?
+Non-abstinent Outcomes 10 Years After Alcohol Use Disorder
+Treatment`</article-title>`{=html}. `<source>`{=html}Journal of
+Addiction Medicine`</source>`{=html},
+`<volume>`{=html}15`</volume>`{=html}(`<issue>`{=html}4`</issue>`{=html}),
+`<fpage>`{=html}303`</fpage>`{=html}--`<lpage>`{=html}310`</lpage>`{=html}.
+`<pub-id pub-id-type="doi">`{=html}10.1097/ADM.0000000000000760`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33060466`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8044251`</pub-id>`{=html}`</mixed-citation>`{=html}`</ref>`{=html}`</ref-list>`{=html}`</back>`{=html}`<floats-group>`{=html}`<fig position="float" id="F1" orientation="portrait">`{=html}`<label>`{=html}Figure
+1.`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P57">
+```
+Flow Chart for Cognitive Behavioral Therapy for Substance Use Search
+Process. This figure illustrates the search process for locating reviews
+eligible for inclusion in the treatment evaluation.
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="nihms-1856819-f0001.jpg"/>`{=html}`</fig>`{=html}`<fig position="float" id="F2" orientation="portrait">`{=html}`<label>`{=html}Figure
+2.`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P58">
+```
+Effect size estimates (Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html}) with 95% confidence
+intervals for `<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html} for each comparator group type.
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="nihms-1856819-f0002.jpg"/>`{=html}`</fig>`{=html}`<fig position="float" id="F3" orientation="portrait">`{=html}`<label>`{=html}Figure
+3.`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P59">
+```
+Effect size estimates (Hedge's
+`<italic toggle="yes">`{=html}g`</italic>`{=html}) with 95% confidence
+intervals for `<xref rid="R23" ref-type="bibr">`{=html}Magill et al.,
+2019`</xref>`{=html} for minimal versus active treatment comparator
+groups. Treatment (Active) represents an aggregate of effect sizes for
+the original non-specific and specific treatment comparator groups.
+"Use" is the average of quantity and frequency, where available.
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+`<graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="float" orientation="portrait" xlink:href="nihms-1856819-f0003.jpg"/>`{=html}`</fig>`{=html}`<table-wrap position="float" id="T1" orientation="portrait">`{=html}`<label>`{=html}Table
+1`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P60">
+```
+Description of Reviews Included in the CBT for SUD Treatment Evaluation
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="rows">
+```
+```{=html}
+<colgroup span="1">
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+</colgroup>
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Study
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Intervention(s)
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Number of Studies
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Population
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Setting
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Comparison Condition
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Outcome
+```{=html}
+</th>
+```
+```{=html}
+<th align="center" valign="middle" rowspan="1" colspan="1">
+```
+Time Points
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R15" ref-type="bibr">`{=html}Dutra et al.,
+2008`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Psychosocial treatments for SUDs, including CBT and RP
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+18 (13 CBT; 5 RP)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Adults with illicit SUDs, including cannabis
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 4), cocaine
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 4), opioids
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 4), polysubstance
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 6); also included
+participants with co-occurring borderline personality disorder, bipolar
+disorder, and posttraumatic stress disorder
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Non-intensive outpatient treatment
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Inactive or active treatment
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Self-reported or biologically-verified substance use
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Post-treatment
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et al.,
+1999`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+RP (individual, group, or couples format; with or without an adjunctive
+treatment)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+26
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Alcohol (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 10),
+smoking (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 8), or
+other substance use, including polysubstance use
+`<italic toggle="yes">`{=html}(n`</italic>`{=html} = 5) and cocaine use
+`<italic toggle="yes">`{=html}(n`</italic>`{=html} = 3)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Inpatient; outpatient
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Pre-post change within person; waitlist or no-additional treatment
+control; active intervention
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Self-reported or biologically-verified substance use; psychosocial
+adjustment
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Post-treatment; 1-month, 3-month, 6-month, and 12-months post-treatment
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R22" ref-type="bibr">`{=html}Magill & Ray,
+2009`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+CBT, RP, or coping-skills training (individual or group format; with or
+without an adjunctive treatment)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+53
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Adults with SUDs, including alcohol
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 23),
+cocaine/stimulants (`<italic toggle="yes">`{=html}n`</italic>`{=html} =
+11), polydrug (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 11),
+cannabis (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 6),
+opioids (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 2); "...64%
+of studies allowed nonsubstance-related co-occurring diagnoses
+(exclusive of suicidal or homicidal ideation and active psychosis)"
+(p. 520)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+NS
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Active treatment; passive treatment or usual service; no treatment; no
+CBT adjunct
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Self-reported or biologically-verified substance use
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Post-treatment to 4 months post-treatment; 6--12 months post-treatment
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. 2019`</xref>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+CBT or RP (individual or group format)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+30 (across 32 study sites)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Adults with SUDs or problematic use, including alcohol
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 15), cannabis
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 3), opioids
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 2), stimulants
+(`<italic toggle="yes">`{=html}n`</italic>`{=html} = 6), and polydrug
+`<italic toggle="yes">`{=html}(n`</italic>`{=html} = 6)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Community sample; specialty substance use or mental health clinic;
+Medical setting; College setting; Criminal legal setting; Other setting
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Minimal treatment; Non-specific therapy; Other specific therapy
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Self-reported or biologically-verified substance use
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Early (1--6 months) post-treatment; Late post-treatment (8+ months)
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Windsor et al., 2015
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+CBT (individual, group, or combined)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+16
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Adults (≥70% White or Black and/or Hispanic) with substance use,
+including cocaine (`<italic toggle="yes">`{=html}n`</italic>`{=html} =
+3), cannabis (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 3),
+alcohol (`<italic toggle="yes">`{=html}n`</italic>`{=html} = 6),
+alcohol + other drugs (`<italic toggle="yes">`{=html}n`</italic>`{=html}
+= 4)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+NS
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Comparison treatment; pre-post change within person
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Substance use
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Post-treatment; Average follow-up from baseline (1--24 months)
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn id="TFN1">`{=html}
+```{=html}
+<p id="P61">
+```
+`<italic toggle="yes">`{=html}Note`</italic>`{=html}. CBT = Cognitive
+Behavioral Therapy; RP = Relapse Prevention; SUD = Substance Use
+Disorder; NS = not specified. 734
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<table-wrap position="float" id="T2" orientation="portrait">`{=html}`<label>`{=html}Table
+2`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P62">
+```
+AMSTAR2 Results for Eligible Studies
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<colgroup span="1">
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+</colgroup>
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="center" valign="top" rowspan="1" colspan="1">
+```
+Item
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R18" ref-type="bibr">`{=html}Irvin et
+al. (1999)`</xref>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R15" ref-type="bibr">`{=html}Dutra et
+al. (2008)`</xref>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R22" ref-type="bibr">`{=html}Magill & Ray
+(2009)`</xref>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Windsor et al. (2015)
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+`<xref rid="R23" ref-type="bibr">`{=html}Magill et
+al. (2019)`</xref>`{=html}
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<bold>`{=html}1. Did the research questions and inclusion criteria for
+the review include the components of PICO?`</bold>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+2.  Did the report of the review contain an explicit statement that the
+    review methods were established prior to the conduct of the review
+    and did the report justify any significant deviations from the
+    protocol?
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+    3.  Did the review authors explain their selection of the study
+        designs for inclusion in the review?
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        </tr>
+        ```
+        ```{=html}
+        <tr>
+        ```
+        ```{=html}
+        <td align="left" valign="top" rowspan="1" colspan="1">
+        ```
+        `<bold>`{=html}4. Did the review authors use a comprehensive
+        literature search strategy?`</bold>`{=html}
+
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+5.  Did the review authors perform study selection in duplicate?
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+    6.  Did the review authors perform data extraction in duplicate?
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        </tr>
+        ```
+        ```{=html}
+        <tr>
+        ```
+        ```{=html}
+        <td align="left" valign="top" rowspan="1" colspan="1">
+        ```
+        7.  Did the review authors provide a list of excluded studies
+            and justify the exclusions?
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            <td align="center" valign="top" rowspan="1" colspan="1">
+            ```
+            N
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            <td align="center" valign="top" rowspan="1" colspan="1">
+            ```
+            N
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            <td align="center" valign="top" rowspan="1" colspan="1">
+            ```
+            N
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            <td align="center" valign="top" rowspan="1" colspan="1">
+            ```
+            N
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            <td align="center" valign="top" rowspan="1" colspan="1">
+            ```
+            N
+            ```{=html}
+            </td>
+            ```
+            ```{=html}
+            </tr>
+            ```
+            ```{=html}
+            <tr>
+            ```
+            ```{=html}
+            <td align="left" valign="top" rowspan="1" colspan="1">
+            ```
+            `<bold>`{=html}8. Did the review authors describe the
+            included studies in adequate detail?`</bold>`{=html}
+
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+PY
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+9.  Did the review authors use a satisfactory technique for assessing
+    the risk of bias (RoB) in individual studies that were included in
+    the review?
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1"/>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1"/>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1"/>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1"/>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1"/>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+     RCT
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+     NRSI
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    NA
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    NA
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    NA
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    NA
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+    10. Did the review authors report on the sources of funding for the
+        studies included in the review?
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        </tr>
+        ```
+        ```{=html}
+        <tr>
+        ```
+        ```{=html}
+        <td align="left" valign="top" rowspan="1" colspan="1">
+        ```
+        `<bold>`{=html}11. If meta-analysis was performed did the review
+        authors use appropriate methods for statistical combination of
+        results?`</bold>`{=html}
+
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1"/>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1"/>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+ RCT
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+ NRSI
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+NA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+NA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+NA
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+NA
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+12. If meta-analysis was performed, did the review authors assess the
+    potential impact of RoB in individual studies on the results of the
+    meta-analysis or other evidence synthesis?
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    N
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+    `<bold>`{=html}13. Did the review authors account for RoB in
+    individual studies when interpreting/ discussing the results of the
+    review?`</bold>`{=html}
+
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+`<bold>`{=html}14. Did the review authors provide a satisfactory
+explanation for, and discussion of, any heterogeneity observed in the
+results of the review?`</bold>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+N
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Y
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+15. If they performed quantitative synthesis did the review authors
+    carry out an adequate investigation of publication bias (small study
+    bias) and discuss its likely impact on the results of the review?
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    <td align="center" valign="top" rowspan="1" colspan="1">
+    ```
+    Y
+    ```{=html}
+    </td>
+    ```
+    ```{=html}
+    </tr>
+    ```
+    ```{=html}
+    <tr>
+    ```
+    ```{=html}
+    <td align="left" valign="top" rowspan="1" colspan="1">
+    ```
+    16. Did the review authors report any potential sources of conflict
+        of interest, including any funding they received for conducting
+        the review?
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        N
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        <td align="center" valign="top" rowspan="1" colspan="1">
+        ```
+        Y
+        ```{=html}
+        </td>
+        ```
+        ```{=html}
+        </tr>
+        ```
+        ```{=html}
+        <tr style="border-top: solid 1px">
+        ```
+        ```{=html}
+        <td align="left" valign="top" rowspan="1" colspan="1">
+        ```
+        `<bold>`{=html} `<italic toggle="yes">`{=html}Overall
+        Rating`</italic>`{=html} `</bold>`{=html}
+
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Critically low
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Critically low
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Low
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Critically low
+```{=html}
+</td>
+```
+```{=html}
+<td align="center" valign="top" rowspan="1" colspan="1">
+```
+Moderate
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn id="TFN2">`{=html}
+```{=html}
+<p id="P63">
+```
+`<italic toggle="yes">`{=html}Note`</italic>`{=html}. Y=yes, PY=partial
+yes, N=no, NA=not applicable, PICO: (P=population, I=intervention,
+C=comparator group, O=outcome), RCT=randomized controlled trial,
+NRSI=non-randomized studies of interventions. Bold = critical weaknesses
+if coded "no."
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<table-wrap position="float" id="T3" orientation="portrait">`{=html}`<label>`{=html}Table
+3`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P64">
+```
+Judging the Quality of the Evidence for CBT for SUD
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<colgroup span="1">
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+</colgroup>
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Quality
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Criteria
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ `<italic toggle="yes">`{=html}High quality`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+All of the
+following:`<list list-type="bullet" id="L20">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P66">
+```
+There is a wide range of studies included in the analyses with no major
+limitations.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P67">
+```
+There is little variation between studies.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P68">
+```
+The summary estimate has a narrow confidence interval.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+✓ `<italic toggle="yes">`{=html}Moderate quality`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+At least one of the
+following:`<list list-type="bullet" id="L21">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P70">
+```
+There are only a few studies, and some have limitations but not major
+flaws.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P71">
+```
+There is some variation between studies, or the confidence interval of
+the summary estimate is wide.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ `<italic toggle="yes">`{=html}Low quality`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Any of the
+following:`<list list-type="bullet" id="L22">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P73">
+```
+The studies have major flaws.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P74">
+```
+There is important variation between studies.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P75">
+```
+The confidence interval of the summary estimate is very wide.
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn id="TFN3">`{=html}
+```{=html}
+<p id="P76">
+```
+`<italic toggle="yes">`{=html}Note`</italic>`{=html}. This table
+represents one component of the full GRADE criteria.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<table-wrap position="float" id="T4" orientation="portrait">`{=html}`<label>`{=html}Table
+4`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P77">
+```
+Additional contextual factors considered in increasing or decreasing the
+GRADE recommendation for CBT for SUD
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<colgroup span="1">
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+</colgroup>
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Positive
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Negative
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Treatment appears superior to other established and effective
+treatment(s)
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ There are other psychological treatments that have well-documented and
+much larger effects
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+✓ The treatment generates an effect that is similar to other
+well-studied treatments and has strong evidence for flexibility via
+technology-delivered CBT
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ The treatment generates an effect that is similar to other
+well-studied treatments, but requires a very large number of sessions or
+length of time to generate the same effect at a much higher cost
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+✓ Evidence supports the purported mechanism or active ingredient(s) of
+treatment
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Evidence fails to support the purported mechanism or active
+ingredient(s) of treatment
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Treatment has demonstrated good effects with marginalized groups
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Treatment has demonstrated weak effects with marginalized groups
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Treatment has been studied by a wide array of researchers without
+strong allegiance to the treatment
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Treatment has been studied by a narrow array of researchers with
+strong allegiance to the treatment
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+✓ Other: Demonstrated efficacy across several patient populations
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ Other:
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn id="TFN4">`{=html}
+```{=html}
+<p id="P78">
+```
+`<italic toggle="yes">`{=html}Note`</italic>`{=html}. This table
+identifies additional positive contextual factors to consider in the
+overall GRADE treatment recommendation that are supported by the CBT for
+SUD literature and was adapted from
+`<xref rid="R44" ref-type="bibr">`{=html}Tolin et al.,
+2015`</xref>`{=html}. Lack of identification of a positive or negative
+assessment of a contextual factor indicates that there is not enough
+data to make a firm conclusion in this category for CBT for SUD.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<table-wrap position="float" id="T5" orientation="portrait">`{=html}`<label>`{=html}Table
+5`</label>`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<p id="P79">
+```
+Overall Treatment Recommendation for CBT for SUD
+```{=html}
+</p>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<table frame="hsides" rules="groups">
+```
+```{=html}
+<colgroup span="1">
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+<col align="left" valign="middle" span="1"/>
+```
+```{=html}
+</colgroup>
+```
+```{=html}
+<thead>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Recommendation
+```{=html}
+</th>
+```
+```{=html}
+<th align="left" valign="top" rowspan="1" colspan="1">
+```
+Criteria
+```{=html}
+</th>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</thead>
+```
+```{=html}
+<tbody>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ `<italic toggle="yes">`{=html}Very strong
+recommendation`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+All of the
+following:`<list list-type="bullet" id="L23">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P81">
+```
+There is high-quality evidence that the treatment produces a clinically
+meaningful effect on symptoms of the disorder being treated
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P82">
+```
+There is high-quality evidence that the treatment produces a clinically
+meaningful effect on functional outcomes
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P83">
+```
+There is high-quality evidence that the treatment produces a clinically
+meaningful effect on symptoms and/or functional outcomes at least three
+months after treatment discontinuation
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P84">
+```
+At least one well-conducted study has demonstrated effectiveness in
+nonresearch settings
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+✔ `<italic toggle="yes">`{=html}Strong recommendation`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+At least one of the
+following:`<list list-type="bullet" id="L24">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P86">
+```
+There is moderate- to high-quality evidence that the treatment produces
+a clinically meaningful effect on symptoms of the disorder being treated
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P87">
+```
+There is moderate- to high-quality evidence that the treatment produces
+a clinically meaningful effect on functional outcomes
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+□ `<italic toggle="yes">`{=html}Weak recommendation`</italic>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+<td align="left" valign="top" rowspan="1" colspan="1">
+```
+Any of the
+following:`<list list-type="bullet" id="L25">`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P89">
+```
+There is only low- or very low-quality evidence that the treatment
+produces a clinically meaningful effect on symptoms of the disorder
+being treated
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P90">
+```
+There is only low- or very low-quality evidence that the treatment
+produces a clinically meaningful effect on as well as on functional
+outcomes
+```{=html}
+</p>
+```
+`</list-item>`{=html}`<list-item>`{=html}
+```{=html}
+<p id="P91">
+```
+There is moderate- to high-quality evidence that the effect of the
+treatment, although statistically significant, may not be of a magnitude
+that is clinically meaningful
+```{=html}
+</p>
+```
+`</list-item>`{=html}`</list>`{=html}
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</tbody>
+```
+```{=html}
+</table>
+```
+`<table-wrap-foot>`{=html}`<fn id="TFN5">`{=html}
+```{=html}
+<p id="P92">
+```
+`<italic toggle="yes">`{=html}Note`</italic>`{=html}. This table was
+adapted from `<xref rid="R44" ref-type="bibr">`{=html}Tolin et al.,
+2015`</xref>`{=html}.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</table-wrap-foot>`{=html}`</table-wrap>`{=html}`<boxed-text id="BX1" position="float" orientation="portrait">`{=html}
+```{=html}
+<caption>
+```
+```{=html}
+<title>
+```
+Public Health Statement:
+```{=html}
+</title>
+```
+```{=html}
+</caption>
+```
+```{=html}
+<p id="P93">
+```
+Substance use disorder is a significant public health problem globally.
+This systematic review and treatment evaluation found that cognitive
+behavioral therapy's effects on substance use are larger in magnitude
+when inactive (minimal) versus active treatment is the comparison group
+and that these effects tend to diminish with time. Cognitive behavioral
+therapy is therefore considered an evidence-based treatment for
+substance use disorder according to current evidence-based treatment
+guidelines.
+```{=html}
+</p>
+```
+`</boxed-text>`{=html}`</floats-group>`{=html}
+```{=html}
+</article>
+```
+`</pmc-articleset>`{=html}

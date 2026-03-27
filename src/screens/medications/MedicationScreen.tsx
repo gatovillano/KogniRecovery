@@ -29,6 +29,7 @@ import { api } from '@services/api';
 import { MEDICATION_ENDPOINTS } from '@services/endpoints';
 import { ApiResponse } from '../../types/api';
 import Icon from '@expo/vector-icons/Ionicons';
+import { Header } from '@components';
 import {
   scheduleMedicationNotification,
   cancelMedicationNotification,
@@ -76,7 +77,7 @@ const formatTime = (timeStr: string): string => {
 
 const getProgressPercent = (medications: Medication[]): number => {
   if (medications.length === 0) return 0;
-  const taken = medications.filter(m => m.is_taken).length;
+  const taken = medications.filter((m) => m.is_taken).length;
   return Math.round((taken / medications.length) * 100);
 };
 
@@ -112,16 +113,26 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
   const isTaken = !!medication.is_taken;
 
   return (
-    <Animated.View style={[styles.medicationCard, {
-      backgroundColor: theme.colors.card,
-      borderColor: isTaken ? theme.colors.success + '40' : theme.colors.border,
-      borderWidth: isTaken ? 1.5 : 1,
-      transform: [{ scale: scaleAnim }],
-    }]}>
+    <Animated.View
+      style={[
+        styles.medicationCard,
+        {
+          backgroundColor: theme.colors.card,
+          borderColor: isTaken ? theme.colors.success + '40' : theme.colors.border,
+          borderWidth: isTaken ? 1.5 : 1,
+          transform: [{ scale: scaleAnim }],
+        },
+      ]}
+    >
       {/* Indicador lateral de estado */}
-      <View style={[styles.statusBar, {
-        backgroundColor: isTaken ? theme.colors.success : theme.colors.border,
-      }]} />
+      <View
+        style={[
+          styles.statusBar,
+          {
+            backgroundColor: isTaken ? theme.colors.success : theme.colors.border,
+          },
+        ]}
+      />
 
       <View style={styles.cardBody}>
         {/* Info del medicamento */}
@@ -145,7 +156,12 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
               </Text>
             </View>
 
-            <View style={[styles.timeBadge, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+            <View
+              style={[
+                styles.timeBadge,
+                { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+              ]}
+            >
               <Icon name="time-outline" size={13} color={theme.colors.textSecondary} />
               <Text style={[styles.timeText, { color: theme.colors.textSecondary }]}>
                 {formatTime(medication.schedule_time)}
@@ -156,9 +172,7 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
           {isTaken && (
             <View style={styles.takenBadge}>
               <Icon name="checkmark-circle" size={13} color={theme.colors.success} />
-              <Text style={[styles.takenText, { color: theme.colors.success }]}>
-                Tomado hoy
-              </Text>
+              <Text style={[styles.takenText, { color: theme.colors.success }]}>Tomado hoy</Text>
             </View>
           )}
         </View>
@@ -166,21 +180,20 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
         {/* Acciones */}
         <View style={styles.cardActions}>
           <TouchableOpacity
-            style={[styles.toggleBtn, {
-              backgroundColor: isTaken ? theme.colors.success : theme.colors.primary,
-              opacity: toggling ? 0.6 : 1,
-            }]}
+            style={[
+              styles.toggleBtn,
+              {
+                backgroundColor: isTaken ? theme.colors.success : theme.colors.primary,
+                opacity: toggling ? 0.6 : 1,
+              },
+            ]}
             onPress={handleToggle}
             disabled={toggling}
           >
             {toggling ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Icon
-                name={isTaken ? 'close-outline' : 'checkmark-outline'}
-                size={22}
-                color="#fff"
-              />
+              <Icon name={isTaken ? 'close-outline' : 'checkmark-outline'} size={22} color="#fff" />
             )}
           </TouchableOpacity>
 
@@ -255,7 +268,7 @@ export const MedicationScreen: React.FC = () => {
         const meds = response.data || [];
         setMedications(meds);
         // Reprogramar notificaciones con la lista actualizada
-        rescheduleAllMedications(meds).catch(e =>
+        rescheduleAllMedications(meds).catch((e) =>
           console.warn('[Notif] No se pudo reprogramar:', e)
         );
       }
@@ -275,10 +288,8 @@ export const MedicationScreen: React.FC = () => {
         { date: today }
       );
       if (response?.success) {
-        setMedications(prev =>
-          prev.map(m =>
-            m.id === id ? { ...m, is_taken: response.data.taken } : m
-          )
+        setMedications((prev) =>
+          prev.map((m) => (m.id === id ? { ...m, is_taken: response.data.taken } : m))
         );
       }
     } catch (error) {
@@ -311,14 +322,11 @@ export const MedicationScreen: React.FC = () => {
           form
         );
       } else {
-        response = await api.post<ApiResponse<Medication>>(
-          MEDICATION_ENDPOINTS.CREATE,
-          form
-        );
+        response = await api.post<ApiResponse<Medication>>(MEDICATION_ENDPOINTS.CREATE, form);
       }
       if (response?.success) {
         // Programar / reprogramar notificación diaria
-        scheduleMedicationNotification(response.data).then(id => {
+        scheduleMedicationNotification(response.data).then((id) => {
           if (id) {
             console.log(`[Notif] Notificación programada: ${id}`);
           } else {
@@ -347,13 +355,11 @@ export const MedicationScreen: React.FC = () => {
           style: 'destructive',
           onPress: async () => {
             try {
-              const response = await api.delete<ApiResponse<any>>(
-                MEDICATION_ENDPOINTS.DELETE(id)
-              );
+              const response = await api.delete<ApiResponse<any>>(MEDICATION_ENDPOINTS.DELETE(id));
               if (response?.success) {
                 // Cancelar notificación asociada
                 cancelMedicationNotification(id);
-                setMedications(prev => prev.filter(m => m.id !== id));
+                setMedications((prev) => prev.filter((m) => m.id !== id));
               }
             } catch (error) {
               Alert.alert('Error', 'No se pudo eliminar el medicamento.');
@@ -392,7 +398,7 @@ export const MedicationScreen: React.FC = () => {
 
   // ── Cálculos de progreso ───────────────────────────────────────────────────
 
-  const takenCount = medications.filter(m => m.is_taken).length;
+  const takenCount = medications.filter((m) => m.is_taken).length;
   const totalCount = medications.length;
   const progressPercent = getProgressPercent(medications);
   const allTaken = totalCount > 0 && takenCount === totalCount;
@@ -406,7 +412,12 @@ export const MedicationScreen: React.FC = () => {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   const renderProgressHeader = () => (
-    <View style={[styles.progressCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+    <View
+      style={[
+        styles.progressCard,
+        { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+      ]}
+    >
       <View style={styles.progressHeader}>
         <View>
           <Text style={[styles.progressTitle, { color: theme.colors.text }]}>
@@ -417,13 +428,23 @@ export const MedicationScreen: React.FC = () => {
           </Text>
         </View>
 
-        <View style={[styles.progressCircle, {
-          backgroundColor: allTaken ? theme.colors.success + '20' : theme.colors.primary + '15',
-          borderColor: allTaken ? theme.colors.success : theme.colors.primary,
-        }]}>
-          <Text style={[styles.progressPercent, {
-            color: allTaken ? theme.colors.success : theme.colors.primary,
-          }]}>
+        <View
+          style={[
+            styles.progressCircle,
+            {
+              backgroundColor: allTaken ? theme.colors.success + '20' : theme.colors.primary + '15',
+              borderColor: allTaken ? theme.colors.success : theme.colors.primary,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.progressPercent,
+              {
+                color: allTaken ? theme.colors.success : theme.colors.primary,
+              },
+            ]}
+          >
             {progressPercent}%
           </Text>
         </View>
@@ -432,10 +453,13 @@ export const MedicationScreen: React.FC = () => {
       {/* Barra de progreso */}
       <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
         <Animated.View
-          style={[styles.progressFill, {
-            backgroundColor: allTaken ? theme.colors.success : theme.colors.primary,
-            width: `${progressPercent}%` as any,
-          }]}
+          style={[
+            styles.progressFill,
+            {
+              backgroundColor: allTaken ? theme.colors.success : theme.colors.primary,
+              width: `${progressPercent}%` as any,
+            },
+          ]}
         />
       </View>
 
@@ -443,8 +467,8 @@ export const MedicationScreen: React.FC = () => {
         {totalCount === 0
           ? 'Agrega tu primer medicamento'
           : allTaken
-          ? '✅ ¡Completaste todos tus medicamentos!'
-          : `${takenCount} de ${totalCount} tomados`}
+            ? '✅ ¡Completaste todos tus medicamentos!'
+            : `${takenCount} de ${totalCount} tomados`}
       </Text>
     </View>
   );
@@ -471,12 +495,7 @@ export const MedicationScreen: React.FC = () => {
   );
 
   const renderMedicationModal = () => (
-    <Modal
-      visible={showModal}
-      transparent
-      animationType="slide"
-      onRequestClose={closeModal}
-    >
+    <Modal visible={showModal} transparent animationType="slide" onRequestClose={closeModal}>
       <View style={styles.modalOverlay}>
         <View style={[styles.modalContainer, { backgroundColor: theme.colors.card }]}>
           {/* Header */}
@@ -495,17 +514,22 @@ export const MedicationScreen: React.FC = () => {
               <Text style={[styles.fieldLabel, { color: theme.colors.textSecondary }]}>
                 Nombre del medicamento *
               </Text>
-              <View style={[styles.inputContainer, {
-                backgroundColor: theme.colors.surface,
-                borderColor: theme.colors.border,
-              }]}>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
                 <Icon name="medical-outline" size={18} color={theme.colors.primary} />
                 <TextInput
                   style={[styles.textInput, { color: theme.colors.text }]}
                   placeholder="Ej: Sertralina, Clonazepam..."
                   placeholderTextColor={theme.colors.textSecondary + '80'}
                   value={form.name}
-                  onChangeText={txt => setForm(f => ({ ...f, name: txt }))}
+                  onChangeText={(txt) => setForm((f) => ({ ...f, name: txt }))}
                   autoCapitalize="words"
                 />
               </View>
@@ -516,17 +540,22 @@ export const MedicationScreen: React.FC = () => {
               <Text style={[styles.fieldLabel, { color: theme.colors.textSecondary }]}>
                 Dosis y presentación *
               </Text>
-              <View style={[styles.inputContainer, {
-                backgroundColor: theme.colors.surface,
-                borderColor: theme.colors.border,
-              }]}>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
                 <Icon name="flask-outline" size={18} color={theme.colors.primary} />
                 <TextInput
                   style={[styles.textInput, { color: theme.colors.text }]}
                   placeholder="Ej: 50mg, 1 comprimido, 5ml..."
                   placeholderTextColor={theme.colors.textSecondary + '80'}
                   value={form.dosage}
-                  onChangeText={txt => setForm(f => ({ ...f, dosage: txt }))}
+                  onChangeText={(txt) => setForm((f) => ({ ...f, dosage: txt }))}
                 />
               </View>
             </View>
@@ -539,47 +568,66 @@ export const MedicationScreen: React.FC = () => {
               <Text style={[styles.fieldHint, { color: theme.colors.textSecondary }]}>
                 Formato 24 horas: HH:MM (ej: 08:30, 14:00, 22:00)
               </Text>
-              <View style={[styles.inputContainer, {
-                backgroundColor: theme.colors.surface,
-                borderColor: theme.colors.border,
-              }]}>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
                 <Icon name="time-outline" size={18} color={theme.colors.primary} />
                 <TextInput
                   style={[styles.textInput, { color: theme.colors.text }]}
                   placeholder="08:00"
                   placeholderTextColor={theme.colors.textSecondary + '80'}
                   value={form.schedule_time}
-                  onChangeText={txt => setForm(f => ({ ...f, schedule_time: txt }))}
+                  onChangeText={(txt) => setForm((f) => ({ ...f, schedule_time: txt }))}
                   keyboardType="numbers-and-punctuation"
                   maxLength={5}
                 />
               </View>
 
               {/* Horarios rápidos */}
-              <Text style={[styles.fieldLabel, { color: theme.colors.textSecondary, marginTop: 12 }]}>
+              <Text
+                style={[styles.fieldLabel, { color: theme.colors.textSecondary, marginTop: 12 }]}
+              >
                 Horarios comunes
               </Text>
               <View style={styles.quickTimes}>
-                {['06:00', '08:00', '10:00', '12:00', '14:00', '18:00', '20:00', '22:00'].map(time => (
-                  <TouchableOpacity
-                    key={time}
-                    style={[styles.quickTimeBtn, {
-                      backgroundColor: form.schedule_time === time
-                        ? theme.colors.primary
-                        : theme.colors.surface,
-                      borderColor: form.schedule_time === time
-                        ? theme.colors.primary
-                        : theme.colors.border,
-                    }]}
-                    onPress={() => setForm(f => ({ ...f, schedule_time: time }))}
-                  >
-                    <Text style={[styles.quickTimeText, {
-                      color: form.schedule_time === time ? '#fff' : theme.colors.text,
-                    }]}>
-                      {time}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {['06:00', '08:00', '10:00', '12:00', '14:00', '18:00', '20:00', '22:00'].map(
+                  (time) => (
+                    <TouchableOpacity
+                      key={time}
+                      style={[
+                        styles.quickTimeBtn,
+                        {
+                          backgroundColor:
+                            form.schedule_time === time
+                              ? theme.colors.primary
+                              : theme.colors.surface,
+                          borderColor:
+                            form.schedule_time === time
+                              ? theme.colors.primary
+                              : theme.colors.border,
+                        },
+                      ]}
+                      onPress={() => setForm((f) => ({ ...f, schedule_time: time }))}
+                    >
+                      <Text
+                        style={[
+                          styles.quickTimeText,
+                          {
+                            color: form.schedule_time === time ? '#fff' : theme.colors.text,
+                          },
+                        ]}
+                      >
+                        {time}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                )}
               </View>
             </View>
           </ScrollView>
@@ -596,10 +644,13 @@ export const MedicationScreen: React.FC = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.saveButton, {
-                backgroundColor: theme.colors.primary,
-                opacity: saving ? 0.7 : 1,
-              }]}
+              style={[
+                styles.saveButton,
+                {
+                  backgroundColor: theme.colors.primary,
+                  opacity: saving ? 0.7 : 1,
+                },
+              ]}
               onPress={handleSaveMedication}
               disabled={saving}
             >
@@ -623,34 +674,13 @@ export const MedicationScreen: React.FC = () => {
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {/* Header */}
-      <View style={[styles.header, {
-        backgroundColor: theme.colors.surface,
-        paddingTop: insets.top + 12,
-        borderBottomColor: theme.colors.border,
-      }]}>
-        <View style={styles.headerContent}>
-          <View style={styles.headerTitleGroup}>
-            <View style={[styles.headerIcon, { backgroundColor: theme.colors.primary + '15' }]}>
-              <Icon name="medkit-outline" size={22} color={theme.colors.primary} />
-            </View>
-            <View>
-              <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
-                Medicamentos
-              </Text>
-              <Text style={[styles.headerSubtitle, { color: theme.colors.textSecondary }]}>
-                Registro de tomas diarias
-              </Text>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            style={[styles.addHeaderBtn, { backgroundColor: theme.colors.primary }]}
-            onPress={openCreateModal}
-          >
-            <Icon name="add" size={22} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header
+        title="Medicamentos"
+        subtitle="Registro de tomas diarias"
+        icon="medkit-outline"
+        actionIcon="add"
+        onAction={openCreateModal}
+      />
 
       {/* Contenido */}
       {loading ? (
@@ -663,9 +693,12 @@ export const MedicationScreen: React.FC = () => {
       ) : (
         <Animated.ScrollView
           style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}
-          contentContainerStyle={[styles.scrollContent, {
-            paddingBottom: insets.bottom + 24,
-          }]}
+          contentContainerStyle={[
+            styles.scrollContent,
+            {
+              paddingBottom: insets.bottom + 24,
+            },
+          ]}
           showsVerticalScrollIndicator={false}
         >
           {/* Tarjeta de progreso */}
@@ -685,7 +718,7 @@ export const MedicationScreen: React.FC = () => {
                 </TouchableOpacity>
               </View>
 
-              {medications.map(medication => (
+              {medications.map((medication) => (
                 <MedicationCard
                   key={medication.id}
                   medication={medication}
@@ -699,10 +732,13 @@ export const MedicationScreen: React.FC = () => {
 
               {/* Botón agregar al final */}
               <TouchableOpacity
-                style={[styles.addMoreBtn, {
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }]}
+                style={[
+                  styles.addMoreBtn,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
                 onPress={openCreateModal}
               >
                 <Icon name="add-circle-outline" size={20} color={theme.colors.primary} />
@@ -714,13 +750,19 @@ export const MedicationScreen: React.FC = () => {
           )}
 
           {/* Info footer */}
-          <View style={[styles.infoBox, {
-            backgroundColor: theme.colors.primary + '10',
-            borderColor: theme.colors.primary + '30',
-          }]}>
+          <View
+            style={[
+              styles.infoBox,
+              {
+                backgroundColor: theme.colors.primary + '10',
+                borderColor: theme.colors.primary + '30',
+              },
+            ]}
+          >
             <Icon name="information-circle-outline" size={20} color={theme.colors.primary} />
             <Text style={[styles.infoText, { color: theme.colors.textSecondary }]}>
-              El registro se reinicia cada día. Marca cada medicamento al tomarlo para mantener un seguimiento preciso.
+              El registro se reinicia cada día. Marca cada medicamento al tomarlo para mantener un
+              seguimiento preciso.
             </Text>
           </View>
         </Animated.ScrollView>
@@ -737,50 +779,6 @@ export const MedicationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-
-  // Header
-  header: {
-    borderBottomWidth: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 16,
-  },
-  headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  headerTitleGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  headerIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    letterSpacing: -0.3,
-  },
-  headerSubtitle: {
-    fontSize: 12,
-    marginTop: 1,
-  },
-  addHeaderBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
   },
 
   // Loading

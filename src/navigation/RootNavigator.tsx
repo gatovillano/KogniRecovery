@@ -76,7 +76,7 @@ export const RootNavigator: React.FC = () => {
         }
 
         // Pequeño delay para simular verificación de token
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
       } catch (e) {
         console.warn('Error during bootstrap:', e);
       } finally {
@@ -96,14 +96,10 @@ export const RootNavigator: React.FC = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {!isAuthenticated ? (
         // Stack de autenticación
-        <Stack.Screen name="Auth">
-          {() => <AuthNavigator />}
-        </Stack.Screen>
+        <Stack.Screen name="Auth">{() => <AuthNavigator />}</Stack.Screen>
       ) : (
         // Navegación principal con tabs
-        <Stack.Screen name="Main">
-          {() => <MainTabNavigator />}
-        </Stack.Screen>
+        <Stack.Screen name="Main" component={MainTabNavigator} />
       )}
     </Stack.Navigator>
   );

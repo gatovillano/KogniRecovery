@@ -10,6 +10,15 @@ import * as messageModel from '../models/message.model.js';
 import { AuthRequest } from '../middleware/auth.js';
 import * as profileModel from '../models/profile.model.js';
 import { langGraphAgent } from '../services/langgraph.service.js';
+import { neo4jService } from '../services/neo4j.service.js';
+import { ttsService } from '../services/index.js';
+
+const DEFAULT_TITLES = ['nueva conversación', 'nuevo chat', 'new chat', 'new conversation'];
+
+const isDefaultTitle = (title: string | null | undefined): boolean => {
+  if (!title) return true;
+  return DEFAULT_TITLES.includes(title.toLowerCase().trim());
+};
 
 // =====================================================
 // CONVERSACIONES
@@ -31,7 +40,7 @@ export const createConversation = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -41,24 +50,21 @@ export const createConversation = async (
     const conversation = await conversationModel.createConversation(userId, {
       title,
       scenario_type,
-      context
+      context,
     });
 
     // Crear primer mensaje del sistema
-    await messageModel.createMessage(
-      conversation.id,
-      userId,
-      {
-        role: 'assistant',
-        content: 'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
-        active_scenario: scenario_type || 'apoyo_emocional'
-      }
-    );
+    await messageModel.createMessage(conversation.id, userId, {
+      role: 'assistant',
+      content:
+        'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
+      active_scenario: scenario_type || 'apoyo_emocional',
+    });
 
     res.status(201).json({
       success: true,
       data: conversation,
-      message: 'Conversación creada'
+      message: 'Conversación creada',
     });
   } catch (error) {
     next(error);
@@ -81,7 +87,7 @@ export const getConversations = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -89,7 +95,11 @@ export const getConversations = async (
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
 
-    const { conversations, total } = await conversationModel.getUserConversations(userId, page, limit);
+    const { conversations, total } = await conversationModel.getUserConversations(
+      userId,
+      page,
+      limit
+    );
 
     res.json({
       success: true,
@@ -99,9 +109,9 @@ export const getConversations = async (
           page,
           limit,
           total,
-          pages: Math.ceil(total / limit)
-        }
-      }
+          pages: Math.ceil(total / limit),
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -124,7 +134,7 @@ export const getActiveConversation = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -135,19 +145,16 @@ export const getActiveConversation = async (
       // Crear nueva conversación automáticamente
       conversation = await conversationModel.createConversation(userId, {
         title: 'Nueva conversación',
-        scenario_type: 'apoyo_emocional'
+        scenario_type: 'apoyo_emocional',
       });
 
       // Agregar mensaje de bienvenida
-      await messageModel.createMessage(
-        conversation.id,
-        userId,
-        {
-          role: 'assistant',
-          content: 'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
-          active_scenario: 'apoyo_emocional'
-        }
-      );
+      await messageModel.createMessage(conversation.id, userId, {
+        role: 'assistant',
+        content:
+          'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
+        active_scenario: 'apoyo_emocional',
+      });
     }
 
     // Obtener mensajes
@@ -157,8 +164,8 @@ export const getActiveConversation = async (
       success: true,
       data: {
         ...conversation,
-        messages
-      }
+        messages,
+      },
     });
   } catch (error) {
     next(error);
@@ -182,7 +189,7 @@ export const getConversationById = async (
     if (!conversation) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' },
       });
       return;
     }
@@ -194,8 +201,8 @@ export const getConversationById = async (
       success: true,
       data: {
         ...conversation,
-        messages
-      }
+        messages,
+      },
     });
   } catch (error) {
     next(error);
@@ -216,12 +223,17 @@ export const closeConversation = async (
     if (!id) throw new Error('ID de conversación requerido');
     const { satisfaction, helpfulness, relevance } = req.body;
 
-    const conversation = await conversationModel.closeConversation(id as string, satisfaction, helpfulness, relevance);
+    const conversation = await conversationModel.closeConversation(
+      id as string,
+      satisfaction,
+      helpfulness,
+      relevance
+    );
 
     if (!conversation) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' },
       });
       return;
     }
@@ -229,7 +241,7 @@ export const closeConversation = async (
     res.json({
       success: true,
       data: conversation,
-      message: 'Conversación cerrada'
+      message: 'Conversación cerrada',
     });
   } catch (error) {
     next(error);
@@ -244,10 +256,7 @@ export const closeConversation = async (
  * POST /api/v1/chatbot/conversations/:id/messages
  * Enviar mensaje a la conversación
  */
-export const sendMessage = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const sendMessage = async (req: Request, res: Response): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
     const userId = authReq.user?.userId;
@@ -256,7 +265,7 @@ export const sendMessage = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -266,7 +275,7 @@ export const sendMessage = async (
     if (!content) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Contenido del mensaje requerido' }
+        error: { code: 'VALIDATION_ERROR', message: 'Contenido del mensaje requerido' },
       });
       return;
     }
@@ -276,7 +285,7 @@ export const sendMessage = async (
     if (!conversation) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' },
       });
       return;
     }
@@ -288,28 +297,48 @@ export const sendMessage = async (
     const crisisResult = await messageModel.detectCrisis(content);
 
     // Guardar mensaje del usuario
-    const userMessage = await messageModel.createMessage(conversationId as string, userId as string, {
-      role: 'user',
-      content,
-      metadata: {
-        emotion_detected: emotionResult.emotion,
-        emotion_confidence: emotionResult.confidence,
-        is_crisis: crisisResult.isCrisis
+    const userMessage = await messageModel.createMessage(
+      conversationId as string,
+      userId as string,
+      {
+        role: 'user',
+        content,
+        metadata: {
+          emotion: emotionResult.emotion,
+          crisis: crisisResult.isCrisis,
+          ...context,
+        },
       }
-    });
+    );
+
+    // Sincronizar mensaje HUMAN con Neo4j
+    try {
+      await neo4jService.addMessageToHistory(
+        userId as string,
+        conversationId as string,
+        'user',
+        content
+      );
+    } catch (err) {
+      console.error('⚠️ [NEO4J] Error al guardar mensaje usuario:', err);
+    }
 
     // Actualizar conversación
     await conversationModel.updateConversationActivity(conversationId as string);
 
     // Generar título automático si es el primer mensaje o tiene el título por defecto
-    if (conversation.title === 'Nueva conversación' || !conversation.title) {
-      langGraphAgent.generateConversationTitle(userId as string, content)
-        .then(newTitle => {
+    if (isDefaultTitle(conversation.title)) {
+      langGraphAgent
+        .generateConversationTitle(userId as string, content)
+        .then(async (newTitle) => {
           if (newTitle) {
-            conversationModel.updateConversation(conversationId as string, { title: newTitle });
+            await conversationModel.updateConversation(conversationId as string, {
+              title: newTitle,
+            });
+            console.log(`✅ Título actualizado: "${conversation.title}" → "${newTitle}"`);
           }
         })
-        .catch(err => console.error('❌ Error generando título automático:', err));
+        .catch((err) => console.error('❌ Error generando título automático:', err));
     }
 
     // Guardar intención
@@ -319,7 +348,7 @@ export const sendMessage = async (
       emotion_detected: emotionResult.emotion,
       emotion_confidence: emotionResult.confidence,
       is_crisis_indicator: crisisResult.isCrisis,
-      is_relapse_risk: false
+      is_relapse_risk: false,
     });
 
     // Guardar contexto relevante
@@ -361,23 +390,39 @@ export const sendMessage = async (
     const suggestions = ['¿Cómo te sientes ahora?', '¿Quieres hablar más?', '¿Hay otra cosa?'];
 
     // Guardar respuesta del asistente
-    const assistantMessage = await messageModel.createMessage(conversationId as string, userId as string, {
-      role: 'assistant',
-      content: responseContent,
-      active_scenario: scenario,
-      metadata: {
-        generated_scenario: scenario,
-        user_emotion: emotionResult.emotion,
-        sources: [langgraphResult.retrievedContext],
-        suggestions: suggestions
+    const assistantMessage = await messageModel.createMessage(
+      conversationId as string,
+      userId as string,
+      {
+        role: 'assistant',
+        content: responseContent,
+        active_scenario: scenario,
+        metadata: {
+          generated_scenario: scenario,
+          user_emotion: emotionResult.emotion,
+          sources: [langgraphResult.retrievedContext],
+          suggestions: suggestions,
+        },
       }
-    });
+    );
+
+    // Sincronizar con Neo4j para persistencia de grafo
+    try {
+      await neo4jService.addMessageToHistory(
+        userId as string,
+        conversationId as string,
+        'assistant',
+        responseContent
+      );
+    } catch (err) {
+      console.error('⚠️ [NEO4J] Error al guardar mensaje asistente:', err);
+    }
 
     // Verificar si es crisis y actualizar conversación
     if (crisisResult.isCrisis) {
       await conversationModel.updateConversation(conversationId as string, {
         contains_crisk: true,
-        escalated_to_emergency: crisisResult.crisisType === 'emergency'
+        escalated_to_emergency: crisisResult.crisisType === 'emergency',
       });
     }
 
@@ -389,14 +434,14 @@ export const sendMessage = async (
         scenario,
         emotion: emotionResult,
         crisis_detected: crisisResult,
-        suggestions: suggestions
-      }
+        suggestions: suggestions,
+      },
     });
   } catch (error: any) {
     console.error('❌ Error en sendMessage:', error);
     res.status(500).json({
       success: false,
-      error: { code: 'INTERNAL_ERROR', message: error?.message || 'Error processing message' }
+      error: { code: 'INTERNAL_ERROR', message: error?.message || 'Error processing message' },
     });
   }
 };
@@ -405,10 +450,7 @@ export const sendMessage = async (
  * POST /api/v1/chatbot/conversations/:id/stream
  * Transmisión de mensaje en tiempo real (Streaming)
  */
-export const streamMessage = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const streamMessage = async (req: Request, res: Response): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
     const userId = authReq.user?.userId;
@@ -432,18 +474,34 @@ export const streamMessage = async (
       role: 'user',
       content,
     });
+
+    // Sincronizar mensaje HUMAN con Neo4j
+    try {
+      await neo4jService.addMessageToHistory(
+        userId as string,
+        conversationId as string,
+        'user',
+        content
+      );
+    } catch (err) {
+      console.error('⚠️ [NEO4J] Error al guardar mensaje usuario en stream:', err);
+    }
     await conversationModel.updateConversationActivity(conversationId as string);
 
     // Obtener información de la conversación para verificar el título
     const conversation = await conversationModel.getConversationById(conversationId as string);
-    if (conversation && (conversation.title === 'Nueva conversación' || !conversation.title)) {
-      langGraphAgent.generateConversationTitle(userId as string, content)
-        .then(newTitle => {
+    if (conversation && isDefaultTitle(conversation.title)) {
+      langGraphAgent
+        .generateConversationTitle(userId as string, content)
+        .then(async (newTitle) => {
           if (newTitle) {
-            conversationModel.updateConversation(conversationId as string, { title: newTitle });
+            await conversationModel.updateConversation(conversationId as string, {
+              title: newTitle,
+            });
+            console.log(`✅ Título actualizado (stream): "${conversation.title}" → "${newTitle}"`);
           }
         })
-        .catch(err => console.error('❌ Error generando título automático en stream:', err));
+        .catch((err) => console.error('❌ Error generando título automático en stream:', err));
     }
 
     // Obtener contexto del usuario
@@ -456,22 +514,43 @@ export const streamMessage = async (
     };
 
     // Iniciar streaming desde el agente
-    const stream = langGraphAgent.executeAgentStream(conversationId as string, userId as string, content, userContext);
-    
+    const stream = langGraphAgent.executeAgentStream(
+      conversationId as string,
+      userId as string,
+      content,
+      userContext
+    );
+
     let completeResponse = '';
 
-    for await (const chunk of stream) {
-      completeResponse += chunk;
-      // Enviar chunk al cliente en formato SSE
-      res.write(`data: ${JSON.stringify({ text: chunk })}\n\n`);
+    for await (const event of stream) {
+      if (event.type === 'token') {
+        completeResponse += event.content;
+      }
+      // Enviar el evento completo al cliente en formato SSE
+      res.write(`data: ${JSON.stringify(event)}\n\n`);
     }
 
     // Al finalizar el stream, guardar la respuesta completa en la DB
-    await messageModel.createMessage(conversationId as string, userId as string, {
-      role: 'assistant',
-      content: completeResponse,
-      active_scenario: 'apoyo_emocional',
-    });
+    if (completeResponse) {
+      await messageModel.createMessage(conversationId as string, userId as string, {
+        role: 'assistant',
+        content: completeResponse,
+        active_scenario: 'apoyo_emocional',
+      });
+
+      // Sincronizar mensaje ASSISTANT con Neo4j
+      try {
+        await neo4jService.addMessageToHistory(
+          userId as string,
+          conversationId as string,
+          'assistant',
+          completeResponse
+        );
+      } catch (err) {
+        console.error('⚠️ [NEO4J] Error al guardar mensaje asistente en stream:', err);
+      }
+    }
 
     res.write('data: [DONE]\n\n');
     res.end();
@@ -500,7 +579,7 @@ export const getScenarios = async (
 
     res.json({
       success: true,
-      data: scenarios
+      data: scenarios,
     });
   } catch (error) {
     next(error);
@@ -523,42 +602,43 @@ export const changeScenario = async (
     if (!scenario_type) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Tipo de escenario requerido' }
+        error: { code: 'VALIDATION_ERROR', message: 'Tipo de escenario requerido' },
       });
       return;
     }
 
     const conversation = await conversationModel.updateConversation(id as string, {
-      scenario_type
+      scenario_type,
     });
 
     if (!conversation) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' },
       });
       return;
     }
 
     // Agregar mensaje del sistema sobre cambio de escenario
     const scenarioMessages: Record<string, string> = {
-      'apoyo_emocional': 'Cambiando a modo de apoyo emocional. Estoy aquí para escucharte.',
-      'crisis': 'He detectado que quizás necesitas apoyo urgente. Estoy aquí para ayudarte.',
-      'motivacion': '¡Vamos a找回 tu motivación! Cuéntame sobre tus metas.',
-      'psicoeducacion': '我可以 explicarte más sobre el tema. ¿Qué quieres saber?',
-      'prevencion_recaida': 'Hablemos sobre estrategias para prevenir una recaída. ¿Qué situaciones te preocupan?'
+      apoyo_emocional: 'Cambiando a modo de apoyo emocional. Estoy aquí para escucharte.',
+      crisis: 'He detectado que quizás necesitas apoyo urgente. Estoy aquí para ayudarte.',
+      motivacion: '¡Vamos a找回 tu motivación! Cuéntame sobre tus metas.',
+      psicoeducacion: '我可以 explicarte más sobre el tema. ¿Qué quieres saber?',
+      prevencion_recaida:
+        'Hablemos sobre estrategias para prevenir una recaída. ¿Qué situaciones te preocupan?',
     };
 
     await messageModel.createMessage(id as string, conversation.user_id, {
       role: 'assistant',
       content: scenarioMessages[scenario_type] || 'Cambiando a un nuevo modo de conversación.',
-      active_scenario: scenario_type
+      active_scenario: scenario_type,
     });
 
     res.json({
       success: true,
       data: conversation,
-      message: 'Escenario cambiado'
+      message: 'Escenario cambiado',
     });
   } catch (error) {
     next(error);
@@ -583,7 +663,7 @@ export const getQuickResponses = async (
 
     res.json({
       success: true,
-      data: responses
+      data: responses,
     });
   } catch (error) {
     next(error);
@@ -610,7 +690,7 @@ export const getChatbotStats = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -619,7 +699,7 @@ export const getChatbotStats = async (
 
     res.json({
       success: true,
-      data: stats
+      data: stats,
     });
   } catch (error) {
     next(error);
@@ -642,7 +722,7 @@ export const getUserContextHistory = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -652,9 +732,61 @@ export const getUserContextHistory = async (
 
     res.json({
       success: true,
-      data: history
+      data: history,
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+// =====================================================
+// TTS (TEXT-TO-SPEECH)
+// =====================================================
+
+/**
+ * POST /api/v1/chatbot/messages/:id/tts
+ * Generar audio para un mensaje específico
+ */
+export const getMessageSpeech = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const messageId = req.params.id as string;
+    const { language, speaker } = req.body;
+
+    // Obtener el mensaje de la base de datos
+    const message = await messageModel.getMessageById(messageId);
+
+    if (!message) {
+      res.status(404).json({
+        success: false,
+        error: { code: 'NOT_FOUND', message: 'Mensaje no encontrado' },
+      });
+      return;
+    }
+
+    // Generar el audio usando el servicio TTS
+    try {
+      const audioBuffer = await ttsService.generateSpeech(message.content, language, speaker);
+
+      // Configurar cabeceras para el audio
+      res.setHeader('Content-Type', 'audio/wav');
+      res.setHeader('Content-Disposition', `attachment; filename="speech-${messageId}.wav"`);
+      res.send(audioBuffer);
+    } catch (ttsError: any) {
+      console.warn('⚠️ TTS service unavailable, returning 503:', ttsError.message);
+      res.status(503).json({
+        error: {
+          code: 'SERVICE_UNAVAILABLE',
+          message: 'Text-to-speech service is temporarily unavailable. Please try again later.',
+        },
+      });
+      return;
+    }
+  } catch (error) {
+    console.error('❌ Error en getMessageSpeech:', error);
     next(error);
   }
 };

@@ -23,3 +23,7 @@ export { default as ragService } from './rag.service.js';
 // Servicios de Alertas (Sprint 3)
 export * from './alert.service.js';
 export { default as alertService } from './alert.service.js';
+
+// Servicio de TTS (Sprint 4)
+export * from './tts.service.js';
+export { default as ttsService } from './tts.service.js';

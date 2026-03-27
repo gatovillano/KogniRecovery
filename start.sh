@@ -24,7 +24,7 @@ fi
 # 1. LEVANTAR BASES DE DATOS EN DOCKER
 # =====================================================
 echo ""
-echo "🐳 Levantando bases de datos en Docker..."
+echo "🐳 Levantando bases de datos y servicios de apoyo en Docker..."
 $DOCKER_CMD up -d postgres redis neo4j
 
 echo "🛑 Asegurando que el contenedor de la API no esté corriendo en Docker..."
@@ -59,6 +59,7 @@ echo "-------------------------------------------------------"
 echo "   🐘 PostgreSQL: localhost:5437"
 echo "   🔴 Redis:      localhost:6380"
 echo "   🔵 Neo4j:      localhost:7688 (Bolt) | localhost:7475 (Web)"
+echo "   🎙️  TTS API:    localhost:8006 (externo)"
 echo "-------------------------------------------------------"
 
 # =====================================================
@@ -90,7 +91,7 @@ sleep 5
 # 4. INICIAR EXPO EN EL HOST
 # =====================================================
 echo ""
-echo "📱 Iniciando Expo (Expo Go compatible)..."
+echo "Iniciando Expo (Expo Go compatible)..."
 npx expo start
 
 # =====================================================

@@ -1,14 +1,38 @@
 import { MemorySaver, StateGraph, START, END, Annotation } from '@langchain/langgraph';
+import { ToolNode, toolsCondition } from '@langchain/langgraph/prebuilt';
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage, BaseMessage, AIMessage } from '@langchain/core/messages';
 import * as UserModel from '../models/user.model.js';
 import * as messageModel from '../models/message.model.js';
 import { decrypt } from '../utils/encryption.js';
-import { searchService, SearchResult } from './search.service.js';
 import { ai as aiDefaultConfig } from '../config/neo4j.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { embeddingsService, chunkingService, EmbeddingChunk } from './embedding.service.js';
+import { getLUAProSystemPrompt } from '../config/prompts.js';
+import { knowledgeGraphSearchTool } from './skills/graph_skill/scripts/graph_tool.js';
+import { ragSearchTool } from './skills/document_skill/scripts/rag_tool.js';
+import { listDocumentsTool } from './skills/document_skill/scripts/list_tool.js';
+import { getDocumentContentTool } from './skills/document_skill/scripts/document_tool.js';
+import { substanceDoseTool } from './skills/substance_skill/scripts/dose_tool.js';
+import {
+  saveNoteTool,
+  listNotesTool,
+  deleteNoteTool,
+} from './skills/note_skill/scripts/note_tool.js';
+import { neo4jService } from './neo4j.service.js';
+
+// Herramientas (Skills) del Agente
+const TOOLS = [
+  knowledgeGraphSearchTool,
+  ragSearchTool,
+  listDocumentsTool,
+  getDocumentContentTool,
+  substanceDoseTool,
+  saveNoteTool,
+  listNotesTool,
+  deleteNoteTool,
+];
 
 // Estado del Agente
 export const AgentState = Annotation.Root({
@@ -39,16 +63,17 @@ export class LangGraphAgentService {
   private checkpointer = new MemorySaver();
 
   constructor() {
-    this.initVectorStore().catch(console.error);
+    // Inicialización diferida - solo cuando se necesite
+    // this.initVectorStore().catch(console.error);
   }
 
   /**
    * Inicializa la base de conocimientos desde la carpeta knowledge_base
    */
-  private async initVectorStore() {
+  public async initVectorStore() {
     try {
       const kbPath = path.resolve(process.cwd(), 'knowledge_base');
-      
+
       const loadFiles = async (dir: string): Promise<{ pageContent: string; metadata: any }[]> => {
         let results: { pageContent: string; metadata: any }[] = [];
         const files = await fs.readdir(dir, { withFileTypes: true });
@@ -68,15 +93,73 @@ export class LangGraphAgentService {
       let allChunks: EmbeddingChunk[] = [];
 
       for (const doc of docs) {
-        const chunks = chunkingService.chunkDocument(doc.pageContent, doc.metadata.source, { file: doc.metadata.source });
+        const chunks = chunkingService.chunkDocument(doc.pageContent, doc.metadata.source, {
+          file: doc.metadata.source,
+        });
         allChunks = allChunks.concat(chunks);
       }
 
       this.knowledgeBaseChunks = await embeddingsService.embedChunks(allChunks);
-      console.log(`✅ Base de conocimientos local inicializada con ${this.knowledgeBaseChunks.length} chunks.`);
+      console.log(
+        `✅ Base de conocimientos local inicializada con ${this.knowledgeBaseChunks.length} chunks.`
+      );
     } catch (error) {
       console.error('❌ Error al inicializar el knowledge base:', error);
     }
+  }
+
+  /**
+   * Realiza una búsqueda semántica en la base de conocimientos local
+   */
+  public async searchKnowledgeBase(query: string, topK: number = 3): Promise<string> {
+    // Inicialización diferida deshabilitada - usar initVectorStore() manualmente si es necesario
+    // if (this.knowledgeBaseChunks.length === 0) {
+    //   await this.initVectorStore();
+    // }
+
+    if (this.knowledgeBaseChunks.length === 0) {
+      return 'Base de conocimientos no inicializada. Use initVectorStore() primero.';
+    }
+
+    const queryResult = await embeddingsService.generateEmbedding(query);
+    const queryEmb = queryResult.embedding;
+
+    const scoredChunks = this.knowledgeBaseChunks
+      .filter((c) => c.embedding)
+      .map((chunk) => ({
+        chunk,
+        score: embeddingsService.cosineSimilarity(queryEmb, chunk.embedding!),
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, topK);
+
+    if (scoredChunks.length === 0) return 'No se encontraron resultados relevantes.';
+
+    return scoredChunks
+      .map((r) => `[FUENTE: ${r.chunk.source}] (Score: ${r.score.toFixed(4)})\n${r.chunk.content}`)
+      .join('\n\n---\n\n');
+  }
+
+  /**
+   * Lista todos los documentos disponibles
+   */
+  public async listKnowledgeBaseDocuments(): Promise<string[]> {
+    const kbPath = path.resolve(process.cwd(), 'knowledge_base');
+    const getFiles = async (dir: string): Promise<string[]> => {
+      let results: string[] = [];
+      const files = await fs.readdir(dir, { withFileTypes: true });
+      for (const file of files) {
+        const fullPath = path.join(dir, file.name);
+        const relPath = path.relative(kbPath, fullPath);
+        if (file.isDirectory()) {
+          results = results.concat(await getFiles(fullPath));
+        } else if (file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+          results.push(relPath);
+        }
+      }
+      return results;
+    };
+    return getFiles(kbPath);
   }
 
   /**
@@ -86,7 +169,8 @@ export class LangGraphAgentService {
     const user = await UserModel.findById(userId);
 
     // Prioridad: 1) API key del usuario, 2) OPENAI_API_KEY, 3) LLM_API_KEY genérica
-    let apiKey = process.env.OPENAI_API_KEY || process.env.LLM_API_KEY || aiDefaultConfig.openaiApiKey;
+    let apiKey =
+      process.env.OPENAI_API_KEY || process.env.LLM_API_KEY || aiDefaultConfig.openaiApiKey;
     let modelName = process.env.LLM_MODEL || aiDefaultConfig.modelName || 'gpt-4o-mini';
     let provider = process.env.LLM_PROVIDER || 'openai';
     let configuration: any = {};
@@ -106,25 +190,29 @@ export class LangGraphAgentService {
         defaultHeaders: {
           'HTTP-Referer': 'https://kognirecovery.com',
           'X-Title': 'KogniRecovery',
-          'Authorization': `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
       };
     } else if (provider.toLowerCase() !== 'openai' && process.env.LLM_BASE_URL) {
       // Proveedor genérico compatible con OpenAI
-      configuration = { 
+      configuration = {
         baseURL: process.env.LLM_BASE_URL,
         apiKey: apiKey,
         defaultHeaders: {
-          'Authorization': `Bearer ${apiKey}`,
-        }
+          Authorization: `Bearer ${apiKey}`,
+        },
       };
     }
 
     if (!apiKey) {
-      throw new Error('No API key configured for LLM. Set OPENAI_API_KEY or LLM_API_KEY in server .env');
+      throw new Error(
+        'No API key configured for LLM. Set OPENAI_API_KEY or LLM_API_KEY in server .env'
+      );
     }
 
-    console.log(`🤖 Inicializando LLM para usuario ${userId}: Provider=${provider}, Model=${modelName}, BaseURL=${configuration.baseURL || 'default (OpenAI)'}, Key=${apiKey.substring(0, 5)}...`);
+    console.log(
+      `🤖 Inicializando LLM para usuario ${userId}: Provider=${provider}, Model=${modelName}, BaseURL=${configuration.baseURL || 'default (OpenAI)'}, Key=${apiKey.substring(0, 5)}...`
+    );
 
     const llmConfig: any = {
       apiKey: apiKey,
@@ -134,50 +222,61 @@ export class LangGraphAgentService {
       temperature: 0.7,
       maxTokens: 8192,
       streaming: true,
-      configuration: configuration
+      configuration: configuration,
     };
 
     return new ChatOpenAI(llmConfig);
   }
 
   /**
-   * Nodo: Recuperar información de la base unificada de conocimientos
+   * Nodo: Agente Inteligente (Decide si usar herramientas o responder)
    */
-  private async retrieveNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
-    const lastMessage = state.messages[state.messages.length - 1];
-    if (!lastMessage || !(lastMessage instanceof HumanMessage)) return {};
+  private async agentNode(
+    state: typeof AgentState.State
+  ): Promise<Partial<typeof AgentState.State>> {
+    const llm = await this.getUserLLM(state.userId);
+    const llmWithTools = llm.bindTools(TOOLS);
 
-    const query = lastMessage.content.toString();
-    const queryResult = await embeddingsService.generateEmbedding(query);
-    const queryEmb = queryResult.embedding;
+    // Asegurar que el usuario existe en el Grafo (Neo4j)
+    try {
+      await neo4jService.upsertUser({
+        id: state.userId,
+        pais: state.userContext?.pais || 'Chile',
+        nombre: state.userContext?.nombre || 'Paciente',
+      });
+    } catch (err) {
+      console.error('⚠️ [NEO4J] Falló upsertUser:', err);
+    }
 
-    // Calcular similitud coseno con todos los chunks
-    const scoredChunks = this.knowledgeBaseChunks
-      .filter(c => c.embedding)
-      .map(chunk => ({
-        chunk,
-        score: embeddingsService.cosineSimilarity(queryEmb, chunk.embedding!)
-      }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3); // top 3
+    // Leer historial y preferencias para el prompt
+    const history = await messageModel.getContextHistory(state.userId, 'preference');
+    const memoryContext = history.map((h) => `- ${h.key}: ${JSON.stringify(h.value)}`).join('\n');
 
-    const docsStr = scoredChunks.map(r => r.chunk.content).join('\n\n');
+    const sysPrompt = getLUAProSystemPrompt({
+      userContext: state.userContext,
+      retrievedDocs: state.retrievedDocs || '',
+      memoryContext: memoryContext,
+      webSearchContext: '',
+    });
 
-    console.log(`[RETRIEVE] Query: "${query}" | Chunks found: ${scoredChunks.length} | Top score: ${scoredChunks[0]?.score?.toFixed(4) || 'N/A'}`);
+    const messages = [new SystemMessage(sysPrompt), ...state.messages];
 
-    return { retrievedDocs: docsStr };
+    const response = await llmWithTools.invoke(messages);
+    return { messages: [response] };
   }
 
   /**
    * Nodo: Memoria Avanzada
    * Extrae insights del usuario o lee memoria histórica
    */
-  private async memoryNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+  private async memoryNode(
+    state: typeof AgentState.State
+  ): Promise<Partial<typeof AgentState.State>> {
     const lastMessage = state.messages[state.messages.length - 1];
-    
+
     // Leer preferencias previas
     const history = await messageModel.getContextHistory(state.userId, 'preference');
-    const memoryContext = history.map(h => `- ${h.key}: ${JSON.stringify(h.value)}`).join('\n');
+    const memoryContext = history.map((h) => `- ${h.key}: ${JSON.stringify(h.value)}`).join('\n');
 
     // Extraer nueva memoria del usuario si es posible
     if (lastMessage && lastMessage instanceof HumanMessage) {
@@ -190,14 +289,18 @@ Mensaje: "${lastMessage.content}"`;
       try {
         const response = await llm.invoke([new SystemMessage(extractionPrompt)]);
         const contentStr = response.content.toString();
-        const jsonMatch = contentStr.match(/\\[.*\\]/s) || contentStr.match(/\\{.*\\}/s);
-        
+        const jsonMatch = contentStr.match(/\[.*\]/s) || contentStr.match(/\{.*\}/s);
+
         if (jsonMatch) {
           const extracted = JSON.parse(jsonMatch[0]);
           const data = Array.isArray(extracted) ? extracted : [extracted];
-          console.log(`[MEMORY] Extracted ${data.length} new insights:`, JSON.stringify(data, null, 2));
+          console.log(
+            `[MEMORY] Extracted ${data.length} new insights:`,
+            JSON.stringify(data, null, 2)
+          );
           for (const item of data) {
             if (item.key && item.value) {
+              // 1. Persistir en MySQL (Contexto inmediato)
               await messageModel.saveContextHistory(
                 state.userId,
                 'preference',
@@ -206,6 +309,24 @@ Mensaje: "${lastMessage.content}"`;
                 undefined,
                 5
               );
+
+              // 2. Persistir en Neo4j (Exploración de conocimiento)
+              try {
+                const query = `
+                  MATCH (u:Usuario {id: $userId})
+                  MERGE (attr:Atributo {nombre: $key})
+                  MERGE (u)-[r:TIENE_PREFERENCIA]->(attr)
+                  SET r.valor = $value, r.actualizado = datetime()
+                `;
+                await neo4jService.executeWrite(query, {
+                  userId: state.userId,
+                  key: item.key,
+                  value: item.value,
+                });
+                console.log(`[NEO4J] Insight guardado: ${item.key}=${item.value}`);
+              } catch (err) {
+                console.error('⚠️ [NEO4J] Error persistiendo insight:', err);
+              }
             }
           }
         }
@@ -216,45 +337,14 @@ Mensaje: "${lastMessage.content}"`;
 
     const fullContext = {
       ...state.userContext,
-      historicalMemory: memoryContext
+      historicalMemory: memoryContext,
     };
 
     return { userContext: fullContext };
   }
 
   /**
-   * Nodo: Generación (LLM principal)
-   */
-  private async generateNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
-    try {
-      const llm = await this.getUserLLM(state.userId);
-      
-      const sysPrompt = `Eres LÚA 🌙, el asistente empático de acompañamiento de KogniRecovery.
-Estás diseñado para apoyar a usuarios en recuperación de adicciones.
-
-Contexto del usuario:
-${JSON.stringify(state.userContext)}
-
-Información Científica y de Respaldo Recuperada de RAG:
-${state.retrievedDocs}
-
-Responde de manera empática, con respaldo científico si aplica, y tomando en cuenta la memoria y contexto del usuario.`;
-
-      const instructions = new SystemMessage(sysPrompt);
-      const messages = [instructions, ...state.messages];
-      
-      const response = await llm.invoke(messages);
-      return { messages: [response] };
-    } catch (err: any) {
-      console.error('❌ Error en generateNode (probablemente falte una API Key):', err);
-      // Fallback seguro si no hay LLM configurado o falla OpenAI
-      const fallbackResponse = new AIMessage("Soy LÚA 🌙 y estoy aquí para escucharte. (Nota: Hubo un inconveniente al generar la respuesta con la IA. Por favor, verifica tu configuración de modelo o la conexión).");
-      return { messages: [fallbackResponse] };
-    }
-  }
-
-  /**
-   * Compila y ejecuta el grafo
+   * Compila y ejecuta el grafo basado en herramientas
    */
   public async executeAgent(
     conversationId: string,
@@ -262,32 +352,36 @@ Responde de manera empática, con respaldo científico si aplica, y tomando en c
     messageContent: string,
     userContextParams: any
   ) {
+    const toolNode = new ToolNode(TOOLS);
+
     const workflow = new StateGraph(AgentState)
-      .addNode('retrieve', this.retrieveNode.bind(this))
+      .addNode('agent', this.agentNode.bind(this))
+      .addNode('tools', toolNode)
       .addNode('memory', this.memoryNode.bind(this))
-      .addNode('generate', this.generateNode.bind(this))
-      .addEdge(START, 'retrieve')
-      .addEdge('retrieve', 'memory')
-      .addEdge('memory', 'generate')
-      .addEdge('generate', END);
+      .addEdge(START, 'agent')
+      .addConditionalEdges('agent', toolsCondition)
+      .addEdge('tools', 'agent')
+      .addEdge('agent', 'memory')
+      .addEdge('memory', END);
 
     const app = workflow.compile({ checkpointer: this.checkpointer });
-    
+
     const threadId = conversationId;
     const config = { configurable: { thread_id: threadId } };
 
+    const historyMessages = await this.getHistoryMessages(conversationId);
     const initialState = {
-      messages: [new HumanMessage(messageContent)],
+      messages: [...historyMessages, new HumanMessage(messageContent)],
       userId,
       conversationId,
-      userContext: userContextParams
+      userContext: userContextParams,
     };
 
     const finalState = await app.invoke(initialState, config);
     const finalMessages = finalState.messages;
     const lastMsg = finalMessages[finalMessages.length - 1];
-    
-    // Asegurarse de que el contenido es string (LangChain puede devolver arrays en algunos modelos)
+
+    // Asegurarse de que el contenido es string
     let contentStr = '';
     if (lastMsg && typeof lastMsg.content === 'string') {
       contentStr = lastMsg.content;
@@ -302,7 +396,7 @@ Responde de manera empática, con respaldo científico si aplica, y tomando en c
   }
 
   /**
-   * Ejecuta el agente con soporte de streaming
+   * Ejecuta el agente con soporte de streaming y eventos de herramientas
    */
   public async *executeAgentStream(
     conversationId: string,
@@ -310,113 +404,87 @@ Responde de manera empática, con respaldo científico si aplica, y tomando en c
     messageContent: string,
     userContextParams: any
   ) {
-    // 1. Cargar Memoria Histórica y Preferencias (Nodo de Memoria Simplificado)
-    const history = await messageModel.getContextHistory(userId, 'preference');
-    const memoryContext = history.map(h => `- ${h.key}: ${JSON.stringify(h.value)}`).join('\n');
-    
-    // 2. Recuperar Documentos Médicos (RAG)
-    const queryResult = await embeddingsService.generateEmbedding(messageContent);
-    const queryEmb = queryResult.embedding;
-    const scoredChunks = this.knowledgeBaseChunks
-      .filter(c => c.embedding)
-      .map(chunk => ({
-        chunk,
-        score: embeddingsService.cosineSimilarity(queryEmb, chunk.embedding!)
-      }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3);
-    let docsStr = scoredChunks.map(r => r.chunk.content).join('\n\n');
-    console.log(`[STREAMING][RETRIEVE] Query: "${messageContent}" | Top score: ${scoredChunks[0]?.score?.toFixed(4) || 'N/A'}`);
+    const toolNode = new ToolNode(TOOLS);
 
-    // 2.5 Búsqueda Web Automática si el RAG es insuficiente o el tema es muy específico
-    let webSearchContext = '';
-    const shouldSearchWeb = scoredChunks.length === 0 || (scoredChunks.length > 0 && (scoredChunks[0]?.score ?? 0) < 0.35);
-    
-    if (shouldSearchWeb) {
-      console.log(`🔍 RAG insuficiente (score best: ${scoredChunks[0]?.score || 0}). Iniciando búsqueda web científica...`);
-      const searchResults = await searchService.searchScientific(messageContent);
-      
-      if (searchResults.length > 0) {
-        // Filtrar solo las más confiables para el prompt principal
-        const trustedResults = searchResults.filter(r => r.isTrusted).slice(0, 2);
-        const otherResults = searchResults.filter(r => !r.isTrusted).slice(0, 1);
-        
-        webSearchContext = [...trustedResults, ...otherResults].map(r => 
-          `[FUENTE: ${r.isTrusted ? 'VERIFICADA' : 'EXTERNA'}] ${r.title}\nURL: ${r.url}\nResumen: ${r.content}`
-        ).join('\n\n');
+    const workflow = new StateGraph(AgentState)
+      .addNode('agent', this.agentNode.bind(this))
+      .addNode('tools', toolNode)
+      .addNode('memory', this.memoryNode.bind(this))
+      .addEdge(START, 'agent')
+      .addConditionalEdges('agent', toolsCondition)
+      .addEdge('tools', 'agent')
+      .addEdge('agent', 'memory')
+      .addEdge('memory', END);
+
+    const app = workflow.compile({ checkpointer: this.checkpointer });
+
+    const config = {
+      configurable: { thread_id: conversationId },
+      recursionLimit: 25,
+    };
+
+    const historyMessages = await this.getHistoryMessages(conversationId);
+    const initialState = {
+      messages: [...historyMessages, new HumanMessage(messageContent)],
+      userId,
+      conversationId,
+      userContext: userContextParams,
+    };
+
+    console.log(`🚀 Iniciando stream de eventos para usuario ${userId}...`);
+
+    const eventStream = app.streamEvents(initialState, {
+      version: 'v2',
+      ...config,
+    });
+
+    for await (const event of eventStream) {
+      const eventType = event.event;
+
+      // Token del modelo de chat
+      if (eventType === 'on_chat_model_stream') {
+        const content = event.data?.chunk?.content;
+        if (content) {
+          yield { type: 'token', content };
+        }
       }
-    }
 
-    // 3. Preparar Prompt con Contexto Completo
-    const sysPrompt = `Eres LÚA 🌙, el asistente empático de acompañamiento de KogniRecovery.
-Estás diseñado para apoyar a usuarios en recuperación de adicciones con base científica.
+      // Inicio de herramienta
+      else if (eventType === 'on_tool_start') {
+        yield {
+          type: 'tool_start',
+          tool: event.name,
+          input: event.data?.input,
+        };
+      }
 
-Contexto del usuario:
-${JSON.stringify(userContextParams)}
-
-Memoria del usuario (lo que sabemos de conversaciones previas):
-${memoryContext || 'Aún no tenemos registros históricos de preferencias.'}
-
-Información Científica (Local):
-${docsStr || 'No se encontró información específica en la base local.'}
-
-Información de Respaldo Externa (Búsqueda Web):
-${webSearchContext || 'No se realizó búsqueda externa.'}
-
-Instrucciones Críticas de Calidad:
-- Cita siempre tus fuentes si provienen de la búsqueda externa.
-- Da prioridad absoluta a las fuentes marcadas como [VERIFICADA] (NIH, WHO, Mayo Clinic, etc.).
-- Si usas fuentes [EXTERNA], menciona que es información complementaria y no sustituye consejo médico.
-- Si no encuentras información confiable, admítelo honestamente y ofrece apoyo empático basado en principios generales de recuperación.`;
-
-    const messages = [
-      new SystemMessage(sysPrompt),
-      new HumanMessage(messageContent)
-    ];
-
-    const llm = await this.getUserLLM(userId);
-    const stream = await llm.stream(messages);
-    
-    // 4. Iniciar Stream y simultáneamente extraer nuevos insights (en segundo plano)
-    // No esperamos a la extracción para no retrasar los tokens
-    this.extractAndSaveInsights(userId, messageContent).catch(err => 
-      console.error('Error in background insight extraction:', err)
-    );
-
-    for await (const chunk of stream) {
-      if (chunk.content) {
-        yield chunk.content as string;
+      // Fin de herramienta
+      else if (eventType === 'on_tool_end') {
+        yield {
+          type: 'tool_end',
+          tool: event.name,
+          output: event.data?.output,
+        };
       }
     }
   }
 
   /**
-   * Método de utilidad para extraer y guardar insights en segundo plano
+   * Recupera el historial de la conversación desde la DB para contexto
    */
-  private async extractAndSaveInsights(userId: string, content: string) {
-    const llm = await this.getUserLLM(userId);
-    const extractionPrompt = `Eres un extractor de memoria clínica. 
-Extrae datos relevantes sobre el usuario de su mensaje, si los hay (preferencias, sustancia adictiva principal, nombre, triggers, objetivos).
-Devuelve en formato JSON: { "key": "nombre de la preferencia", "value": "valor" } o devuelve [] si no hay datos.
-Mensaje: "${content}"`;
-
+  private async getHistoryMessages(conversationId: string, limit = 10): Promise<BaseMessage[]> {
     try {
-      const response = await llm.invoke([new SystemMessage(extractionPrompt)]);
-      const contentStr = response.content.toString();
-      const jsonMatch = contentStr.match(/\[.*\]/s) || contentStr.match(/\{.*\}/s);
-      
-      if (jsonMatch) {
-        const extracted = JSON.parse(jsonMatch[0]);
-        const data = Array.isArray(extracted) ? extracted : [extracted];
-        console.log(`[STREAMING][MEMORY] Extracted ${data.length} new insights from "${content}":`, JSON.stringify(data, null, 2));
-        for (const item of data) {
-          if (item.key && item.value) {
-            await messageModel.saveContextHistory(userId, 'preference', item.key, item.value, undefined, 5);
-          }
+      const dbMessages = await messageModel.getMessageHistory(conversationId, limit);
+      return dbMessages.map((m) => {
+        if (m.role === 'assistant') {
+          return new AIMessage(m.content);
+        } else {
+          return new HumanMessage(m.content);
         }
-      }
-    } catch (e) {
-      // Silencioso
+      });
+    } catch (error) {
+      console.error('❌ Error al cargar historial:', error);
+      return [];
     }
   }
 
@@ -428,14 +496,14 @@ Mensaje: "${content}"`;
       const llm = await this.getUserLLM(userId);
       const prompt = `Genera un título muy corto (máximo 4 palabras) y descriptivo para una sesión de chat basada en este mensaje del usuario: "${firstMessage}". 
 Responde ÚNICAMENTE con el título en español, sin comillas, sin puntos finales y sin preámbulos.`;
-      
+
       const response = await llm.invoke([new HumanMessage(prompt)]);
       let title = response.content.toString().trim();
-      
+
       // Limpiar por si acaso el LLM ignora las instrucciones
       title = title.replace(/["'./]/g, '');
       if (title.length > 50) title = title.substring(0, 47) + '...';
-      
+
       return title;
     } catch (error) {
       console.error('❌ Error al generar título de conversación:', error);

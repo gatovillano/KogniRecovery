@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+  Dimensions,
+  Linking,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@theme/ThemeContext';
-import { Card, Button } from '@components';
+import { Card, Button, Header } from '@components';
 import { useCheckIn } from '@hooks/useCheckIn';
 import { api } from '@services/api';
 import { MainTabNavigationProp } from '@navigation/types';
 import { DashboardData, ApiResponse } from '../../types/api';
-import { JOURNAL_ENDPOINTS } from '@services/endpoints';
+import { JOURNAL_ENDPOINTS, SOS_CONFIG } from '@services/endpoints';
 import Icon from '@expo/vector-icons/Ionicons';
+import { BarChart, LineChart } from 'react-native-chart-kit';
+
+const screenWidth = Dimensions.get('window').width;
 
 // Tipo para las entradas del feed unificado
 interface FeedEntry {
@@ -30,14 +42,29 @@ const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: str
   social: { label: 'Entorno Social', icon: 'people-outline', color: '#007AFF' },
   activity: { label: 'Actividad', icon: 'analytics-outline', color: '#FF9500' },
   analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#FF3B30' },
-  habit_completion: { label: 'Hábito Completado', icon: 'checkmark-circle-outline', color: '#34C759' },
+  habit_completion: {
+    label: 'Hábito Completado',
+    icon: 'checkmark-circle-outline',
+    color: '#34C759',
+  },
 };
 
 export const DashboardScreen: React.FC = () => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<MainTabNavigationProp>();
-  const { todayCheckIn, checkIns, stats, streaks, hasCheckedInToday, getCurrentStreak, loadTodayCheckIn, loadCheckIns, loadStats, loadStreaks } = useCheckIn();
+  const {
+    todayCheckIn,
+    checkIns,
+    stats,
+    streaks,
+    hasCheckedInToday,
+    getCurrentStreak,
+    loadTodayCheckIn,
+    loadCheckIns,
+    loadStats,
+    loadStreaks,
+  } = useCheckIn();
   const [refreshing, setRefreshing] = useState(false);
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [feedData, setFeedData] = useState<FeedEntry[]>([]);
@@ -45,6 +72,11 @@ export const DashboardScreen: React.FC = () => {
   const [loadingFeed, setLoadingFeed] = useState(false);
   const [loadingHabits, setLoadingHabits] = useState(false);
   const [totalSpent, setTotalSpent] = useState<number | null>(null);
+
+  // States for consumption charts
+  const [weeklyConsumption, setWeeklyConsumption] = useState<any[]>([]);
+  const [dailyQuantity, setDailyQuantity] = useState<any[]>([]);
+  const [loadingConsumption, setLoadingConsumption] = useState(false);
 
   // Cargar datos del dashboard
   const loadDashboardData = async () => {
@@ -72,7 +104,9 @@ export const DashboardScreen: React.FC = () => {
   const loadFeed = async () => {
     setLoadingFeed(true);
     try {
-      const response = await api.get<ApiResponse<FeedEntry[]>>(JOURNAL_ENDPOINTS.FEED, { limit: 5 });
+      const response = await api.get<ApiResponse<FeedEntry[]>>(JOURNAL_ENDPOINTS.FEED, {
+        limit: 5,
+      });
       if (response && response.success) {
         setFeedData(response.data || []);
       }
@@ -87,7 +121,9 @@ export const DashboardScreen: React.FC = () => {
     setLoadingHabits(true);
     try {
       const today = new Date().toISOString().split('T')[0];
-      const response = await api.get<ApiResponse<any[]>>(`${JOURNAL_ENDPOINTS.HABITS_STATUS}?date=${today}`);
+      const response = await api.get<ApiResponse<any[]>>(
+        `${JOURNAL_ENDPOINTS.HABITS_STATUS}?date=${today}`
+      );
       if (response && response.success) {
         setHabitsStatus(response.data || []);
       }
@@ -103,16 +139,38 @@ export const DashboardScreen: React.FC = () => {
       const today = new Date().toISOString().split('T')[0];
       const response = await api.post<ApiResponse<any>>(JOURNAL_ENDPOINTS.HABIT_TOGGLE, {
         habit_id: habitId,
-        date: today
+        date: today,
       });
       if (response && response.success) {
         // Actualización optimista
-        setHabitsStatus(prev => prev.map(h => 
-          h.id === habitId ? { ...h, is_completed: !h.is_completed } : h
-        ));
+        setHabitsStatus((prev) =>
+          prev.map((h) => (h.id === habitId ? { ...h, is_completed: !h.is_completed } : h))
+        );
       }
     } catch (error) {
       console.error('Error toggling habit:', error);
+    }
+  };
+
+  const loadConsumptionStats = async () => {
+    setLoadingConsumption(true);
+    try {
+      const weeklyRes = await api.get<ApiResponse<any[]>>('/consumption/stats/weekly');
+      if (weeklyRes?.success && weeklyRes.data) {
+        setWeeklyConsumption(weeklyRes.data);
+      }
+
+      const todayDate = new Date().toISOString().split('T')[0];
+      const dailyRes = await api.get<ApiResponse<any[]>>(
+        `/consumption/stats/daily?date=${todayDate}`
+      );
+      if (dailyRes?.success && dailyRes.data) {
+        setDailyQuantity(dailyRes.data);
+      }
+    } catch (error) {
+      console.error('Error loading consumption stats:', error);
+    } finally {
+      setLoadingConsumption(false);
     }
   };
 
@@ -127,37 +185,48 @@ export const DashboardScreen: React.FC = () => {
       loadFeed();
       loadHabitsStatus();
       loadExpensesSummary();
+      loadConsumptionStats();
     }, [loadTodayCheckIn, loadCheckIns, loadStats, loadStreaks])
   );
 
   const onRefresh = async () => {
     setRefreshing(true);
     await Promise.all([
-      loadDashboardData(), 
-      loadTodayCheckIn(), 
-      loadCheckIns(1, 10), 
-      loadStats(30), 
+      loadDashboardData(),
+      loadTodayCheckIn(),
+      loadCheckIns(1, 10),
+      loadStats(30),
       loadStreaks(),
       loadFeed(),
       loadHabitsStatus(),
-      loadExpensesSummary()
+      loadExpensesSummary(),
+      loadConsumptionStats(),
     ]);
     setRefreshing(false);
   };
 
   const currentStreak = getCurrentStreak();
-  const longestStreak = streaks.find(s => s.streak_type === 'checkin_completed')?.longest_streak || 0;
-  
+  const longestStreak =
+    streaks.find((s) => s.streak_type === 'checkin_completed')?.longest_streak || 0;
+
   const latestCheckIn = todayCheckIn || (checkIns?.length > 0 ? checkIns[0] : null);
 
   const renderFeedItem = (entry: FeedEntry) => {
-    const config = FEED_TYPE_CONFIG[entry.type] || { label: 'Registro', icon: 'document-outline', color: '#8E8E93' };
+    const config = FEED_TYPE_CONFIG[entry.type] || {
+      label: 'Registro',
+      icon: 'document-outline',
+      color: '#8E8E93',
+    };
     const entryDate = new Date(entry.entry_date + 'T12:00:00');
-    const formattedDate = entryDate.toLocaleDateString('es-CL', { weekday: 'short', day: 'numeric', month: 'short' });
+    const formattedDate = entryDate.toLocaleDateString('es-CL', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+    });
 
     return (
-      <TouchableOpacity 
-        key={entry.id} 
+      <TouchableOpacity
+        key={entry.id}
         style={[styles.feedItemShort, { backgroundColor: theme.colors.card }]}
         onPress={() => navigation.navigate('CheckIn')}
         activeOpacity={0.7}
@@ -166,18 +235,30 @@ export const DashboardScreen: React.FC = () => {
           <Icon name={config.icon as any} size={18} color={config.color} />
         </View>
         <View style={styles.feedContentShort}>
-          <Text style={[styles.feedLabel, { color: theme.colors.textSecondary }]}>{config.label}</Text>
+          <Text style={[styles.feedLabel, { color: theme.colors.textSecondary }]}>
+            {config.label}
+          </Text>
           <Text style={[styles.feedTextShort, { color: theme.colors.text }]} numberOfLines={1}>
-            {entry.type === 'checkin' ? `Ánimo: ${entry.data.mood_score}/10` : 
-             entry.type === 'note' ? entry.data.content :
-             entry.type === 'habit' ? (entry.data.protective_habits || entry.data.risk_habits) :
-             entry.type === 'social' ? entry.data.people_description :
-             entry.type === 'activity' ? entry.data.activity_name :
-             entry.type === 'analysis' ? 'Análisis de situación' :
-             entry.type === 'habit_completion' ? entry.data.habit_name : 'Registro diario'}
+            {entry.type === 'checkin'
+              ? `Ánimo: ${entry.data.mood_score}/10`
+              : entry.type === 'note'
+                ? entry.data.content
+                : entry.type === 'habit'
+                  ? entry.data.protective_habits || entry.data.risk_habits
+                  : entry.type === 'social'
+                    ? entry.data.people_description
+                    : entry.type === 'activity'
+                      ? entry.data.activity_name
+                      : entry.type === 'analysis'
+                        ? 'Análisis de situación'
+                        : entry.type === 'habit_completion'
+                          ? entry.data.habit_name
+                          : 'Registro diario'}
           </Text>
         </View>
-        <Text style={[styles.feedDate, { color: theme.colors.textSecondary }]}>{formattedDate}</Text>
+        <Text style={[styles.feedDate, { color: theme.colors.textSecondary }]}>
+          {formattedDate}
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -188,49 +269,62 @@ export const DashboardScreen: React.FC = () => {
         colors={[theme.colors.primary + '15', theme.colors.background]}
         style={StyleSheet.absoluteFill}
       />
+      <Header
+        title={
+          dashboardData?.profile?.first_name
+            ? `Hola ${dashboardData.profile.first_name}`
+            : 'Bienvenidx'
+        }
+        subtitle={new Date().toLocaleDateString('es-CL', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+        })}
+        icon="home-outline"
+        actionIcon="person-circle-outline"
+        onAction={() => navigation.navigate('Profile')}
+        absolute
+      />
       <ScrollView
-        style={{ flex: 1, paddingTop: insets.top }}
+        style={{ flex: 1, paddingTop: insets.top + 80 }}
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 110 }]}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.colors.primary} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.primary}
+          />
         }
       >
-        {/* Header de Bienvenida */}
-        <View style={styles.header}>
-          <View style={styles.headerTop}>
-            <View>
-              <Text style={[styles.welcomeSub, { color: theme.colors.textSecondary }]}>
-                {new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })}
-              </Text>
-              <Text style={[styles.title, { color: theme.colors.text }]}>
-                ¡{dashboardData?.profile?.first_name ? `Hola ${dashboardData.profile.first_name}` : 'Bienvenido'}!
-              </Text>
-            </View>
-            <TouchableOpacity 
-              style={[styles.profileButton, { backgroundColor: theme.colors.card }]}
-              onPress={() => navigation.navigate('Profile')}
-            >
-              <Icon name="person-circle-outline" size={32} color={theme.colors.primary} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
         {/* Fila de Tarjetas de Acción (SOS y Alertas) */}
         <View style={styles.actionCardsRow}>
-          <TouchableOpacity 
-            style={[styles.actionCard, { backgroundColor: theme.colors.error + '10', borderColor: theme.colors.error + '30', borderWidth: 1 }]}
-            onPress={() => { /* Acción de SOS */ }}
+          <TouchableOpacity
+            style={[
+              styles.actionCard,
+              {
+                backgroundColor: theme.colors.error + '10',
+                borderColor: theme.colors.error + '30',
+                borderWidth: 1,
+              },
+            ]}
+            onPress={() => {
+              Linking.openURL(`tel:${SOS_CONFIG.PHONE}`);
+            }}
             activeOpacity={0.8}
           >
             <View style={[styles.iconCircle, { backgroundColor: theme.colors.error + '20' }]}>
               <Icon name="megaphone" size={20} color={theme.colors.error} />
             </View>
-            <Text style={[styles.actionCardText, { color: theme.colors.error }]}>PEDIR AYUDA (SOS)</Text>
+            <Text style={[styles.actionCardText, { color: theme.colors.error }]}>
+              PEDIR AYUDA (SOS)
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={[styles.actionCard, { backgroundColor: theme.colors.card, ...theme.shadows.sm }]}
-            onPress={() => { /* Navegar a notificaciones */ }}
+            onPress={() => {
+              /* Navegar a notificaciones */
+            }}
             activeOpacity={0.8}
           >
             <View style={[styles.iconCircle, { backgroundColor: theme.colors.primary + '10' }]}>
@@ -249,67 +343,98 @@ export const DashboardScreen: React.FC = () => {
 
         {/* Resumen del Día */}
         <View style={styles.summaryGrid}>
-          <Card style={styles.summaryCard} padding="md">
-            <Icon name="flame" size={24} color={theme.colors.accent} />
-            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>{currentStreak}</Text>
-            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Racha</Text>
-          </Card>
-          <Card style={styles.summaryCard} padding="md">
-            <Icon name="leaf" size={24} color={theme.colors.success} />
-            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
-              {habitsStatus.filter(h => h.is_completed).length}/{habitsStatus.length || 0}
-            </Text>
-            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Hábitos</Text>
-          </Card>
-          <Card style={styles.summaryCard} padding="md">
-            <Icon name="pulse" size={24} color={theme.colors.primary} />
-            <Text style={[styles.summaryValue, { color: theme.colors.text }]}>{latestCheckIn?.mood_score || '-'}/10</Text>
-            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
-          </Card>
-          <Card 
-            style={styles.summaryCard} 
-            padding="md"
-            onPress={() => navigation.navigate('CheckIn', { screen: 'SubstanceExpense' } as any)}
-          >
-            <Icon name="wallet" size={24} color={theme.colors.error} />
-            <Text style={[styles.summaryValue, { color: theme.colors.text, fontSize: 14 }]}>
-              {totalSpent !== null ? `$${totalSpent.toLocaleString('es-CL')}` : '-'}
-            </Text>
-            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Gastos</Text>
-          </Card>
+          <View style={styles.summaryRow}>
+            <Card style={styles.summaryCard} padding="md">
+              <Icon name="flame" size={24} color={theme.colors.accent} />
+              <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
+                {currentStreak}
+              </Text>
+              <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
+                Racha
+              </Text>
+            </Card>
+            <Card style={styles.summaryCard} padding="md">
+              <Icon name="leaf" size={24} color={theme.colors.success} />
+              <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
+                {habitsStatus.filter((h) => h.is_completed).length}/{habitsStatus.length || 0}
+              </Text>
+              <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
+                Hábitos
+              </Text>
+            </Card>
+          </View>
+          <View style={styles.summaryRow}>
+            <Card style={styles.summaryCard} padding="md">
+              <Icon name="pulse" size={24} color={theme.colors.primary} />
+              <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
+                {latestCheckIn?.mood_score || '-'}/10
+              </Text>
+              <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
+                Ánimo
+              </Text>
+            </Card>
+            <Card
+              style={styles.summaryCard}
+              padding="md"
+              onPress={() => navigation.navigate('CheckIn', { screen: 'SubstanceExpense' } as any)}
+            >
+              <Icon name="wallet" size={24} color={theme.colors.error} />
+              <Text style={[styles.summaryValue, { color: theme.colors.text, fontSize: 14 }]}>
+                {totalSpent !== null ? `$${totalSpent.toLocaleString('es-CL')}` : '-'}
+              </Text>
+              <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
+                Gastos
+              </Text>
+            </Card>
+          </View>
         </View>
 
         {/* Hábitos de Hoy */}
         {habitsStatus.length > 0 && (
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Hábitos de Hoy</Text>
+              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+                Hábitos de Hoy
+              </Text>
               <TouchableOpacity onPress={() => navigation.navigate('CheckIn')}>
                 <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Gestionar</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.habitsRow}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 12 }}>
-                {habitsStatus.map(habit => (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 12 }}
+              >
+                {habitsStatus.map((habit) => (
                   <TouchableOpacity
                     key={habit.id}
                     style={[
                       styles.habitBubble,
-                      { 
-                        backgroundColor: habit.is_completed ? theme.colors.primary : theme.colors.card,
-                        borderColor: habit.is_completed ? theme.colors.primary : theme.colors.border,
-                        borderWidth: 1
-                      }
+                      {
+                        backgroundColor: habit.is_completed
+                          ? theme.colors.primary
+                          : theme.colors.card,
+                        borderColor: habit.is_completed
+                          ? theme.colors.primary
+                          : theme.colors.border,
+                        borderWidth: 1,
+                      },
                     ]}
                     onPress={() => toggleHabit(habit.id)}
                     activeOpacity={0.8}
                   >
-                    <Icon 
-                      name={habit.habit_type === 'positive' ? 'add-circle' : 'remove-circle'} 
-                      size={16} 
-                      color={habit.is_completed ? 'white' : theme.colors.textSecondary} 
+                    <Icon
+                      name={habit.habit_type === 'positive' ? 'add-circle' : 'remove-circle'}
+                      size={16}
+                      color={habit.is_completed ? 'white' : theme.colors.textSecondary}
                     />
-                    <Text style={[styles.habitBubbleText, { color: habit.is_completed ? 'white' : theme.colors.text }]}>
+                    <Text
+                      style={[
+                        styles.habitBubbleText,
+                        { color: habit.is_completed ? 'white' : theme.colors.text },
+                      ]}
+                    >
                       {habit.name}
                     </Text>
                   </TouchableOpacity>
@@ -327,25 +452,25 @@ export const DashboardScreen: React.FC = () => {
               <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Ver todo</Text>
             </TouchableOpacity>
           </View>
-          
+
           <Card variant="elevated" padding="sm" style={styles.feedCard}>
             {loadingFeed ? (
-              <View style={styles.loadingContainer}><Text style={{ color: theme.colors.textSecondary }}>Cargando bitácora...</Text></View>
-            ) : feedData.length > 0 ? (
-              <View>
-                {feedData.map(renderFeedItem)}
+              <View style={styles.loadingContainer}>
+                <Text style={{ color: theme.colors.textSecondary }}>Cargando bitácora...</Text>
               </View>
+            ) : feedData.length > 0 ? (
+              <View>{feedData.map(renderFeedItem)}</View>
             ) : (
               <View style={styles.emptyFeed}>
                 <Icon name="calendar-outline" size={40} color={theme.colors.textSecondary + '40'} />
                 <Text style={[styles.noData, { color: theme.colors.textSecondary }]}>
                   No hay registros recientes.
                 </Text>
-                <Button 
-                  title="Añadir primero" 
-                  size="sm" 
-                  variant="outline" 
-                  onPress={() => navigation.navigate('CheckIn')} 
+                <Button
+                  title="Añadir primero"
+                  size="sm"
+                  variant="outline"
+                  onPress={() => navigation.navigate('CheckIn')}
                   style={{ marginTop: 12 }}
                 />
               </View>
@@ -355,10 +480,19 @@ export const DashboardScreen: React.FC = () => {
 
         {/* Widget de Cravings Activos (TERMINOLOGÍA ACTUALIZADA: Impulsos/Consumo) */}
         {dashboardData?.active_cravings && dashboardData.active_cravings.length > 0 && (
-          <Card style={{ backgroundColor: theme.colors.warning + '10', borderColor: theme.colors.warning + '30', borderWidth: 1 }} padding="md">
+          <Card
+            style={{
+              backgroundColor: theme.colors.warning + '10',
+              borderColor: theme.colors.warning + '30',
+              borderWidth: 1,
+            }}
+            padding="md"
+          >
             <View style={styles.cravingHeader}>
               <Icon name="alert-circle" size={24} color={theme.colors.warning} />
-              <Text style={[styles.widgetTitle, { color: theme.colors.text, marginLeft: 8 }]}>Impulsos Detectados</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text, marginLeft: 8 }]}>
+                Impulsos Detectados
+              </Text>
             </View>
             <Text style={[styles.cravingCount, { color: theme.colors.warning }]}>
               Tienes {dashboardData.active_cravings.length} impulsos registrados hoy
@@ -374,11 +508,136 @@ export const DashboardScreen: React.FC = () => {
           </Card>
         )}
 
+        {/* Sección de Estadísticas de Consumo */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+              Análisis de Consumo
+            </Text>
+          </View>
+
+          {loadingConsumption ? (
+            <Card variant="elevated" padding="md" style={{ alignItems: 'center' }}>
+              <Text style={{ color: theme.colors.textSecondary, textAlign: 'center' }}>
+                Cargando estadísticas...
+              </Text>
+            </Card>
+          ) : (
+            <>
+              {/* Gráfico de Variación Semanal */}
+              {weeklyConsumption.length > 0 && (
+                <Card variant="elevated" padding="md" style={{ gap: 10 }}>
+                  <Text
+                    style={{ fontSize: 13, fontWeight: '600', color: theme.colors.textSecondary }}
+                  >
+                    Variación en la semana (Frecuencia)
+                  </Text>
+                  <BarChart
+                    data={{
+                      labels: weeklyConsumption.map((d) => {
+                        const date = new Date(d.date + 'T12:00:00');
+                        return ['D', 'L', 'M', 'M', 'J', 'V', 'S'][date.getDay()];
+                      }),
+                      datasets: [
+                        {
+                          data: weeklyConsumption.map((d) => (d.has_consumed ? 1 : 0)),
+                        },
+                      ],
+                    }}
+                    width={screenWidth - 70}
+                    height={160}
+                    yAxisLabel=""
+                    yAxisSuffix=""
+                    fromZero={true}
+                    withInnerLines={false}
+                    chartConfig={{
+                      backgroundColor: theme.colors.card,
+                      backgroundGradientFrom: theme.colors.card,
+                      backgroundGradientTo: theme.colors.card,
+                      decimalPlaces: 0,
+                      color: (opacity = 1) =>
+                        weeklyConsumption.some((d) => d.has_consumed)
+                          ? theme.colors.error
+                          : theme.colors.primary,
+                      labelColor: (opacity = 1) => theme.colors.textSecondary,
+                      barPercentage: 0.6,
+                    }}
+                    style={{ borderRadius: 12, marginLeft: -20 }}
+                  />
+                  <Text
+                    style={{ fontSize: 11, color: theme.colors.textSecondary, textAlign: 'center' }}
+                  >
+                    1 = Consumo registrado, 0 = Sin consumo
+                  </Text>
+                </Card>
+              )}
+
+              {/* Gráfico de Cantidades Diarias */}
+              {dailyQuantity.length > 0 && (
+                <Card variant="elevated" padding="md" style={{ gap: 10, marginTop: 10 }}>
+                  <Text
+                    style={{ fontSize: 13, fontWeight: '600', color: theme.colors.textSecondary }}
+                  >
+                    Cantidades hoy (Variación por Hora)
+                  </Text>
+                  <LineChart
+                    data={{
+                      labels: dailyQuantity
+                        .filter((d) => parseInt(d.hour) % 4 === 0)
+                        .map((d) => `${d.hour}:00`),
+                      datasets: [
+                        {
+                          data: dailyQuantity
+                            .filter((d) => parseInt(d.hour) % 4 === 0)
+                            .map((d) => Number(d.total_quantity) || 0),
+                        },
+                      ],
+                    }}
+                    width={screenWidth - 50}
+                    height={160}
+                    yAxisLabel=""
+                    yAxisSuffix=""
+                    fromZero={true}
+                    withInnerLines={false}
+                    chartConfig={{
+                      backgroundColor: theme.colors.card,
+                      backgroundGradientFrom: theme.colors.card,
+                      backgroundGradientTo: theme.colors.card,
+                      decimalPlaces: 1,
+                      color: (opacity = 1) => theme.colors.accent,
+                      labelColor: (opacity = 1) => theme.colors.textSecondary,
+                      propsForDots: {
+                        r: '3',
+                        strokeWidth: '1',
+                        stroke: theme.colors.accent,
+                      },
+                    }}
+                    bezier
+                    style={{ borderRadius: 12, marginLeft: -20 }}
+                  />
+                </Card>
+              )}
+
+              {weeklyConsumption.length === 0 && dailyQuantity.length === 0 && (
+                <Card variant="elevated" padding="md" style={{ alignItems: 'center' }}>
+                  <Text style={{ color: theme.colors.textSecondary, textAlign: 'center' }}>
+                    Registra consumos individuales para ver tus estadísticas.
+                  </Text>
+                </Card>
+              )}
+            </>
+          )}
+        </View>
+
         {/* Muro Familiar */}
         <Card variant="elevated" padding="md">
           <View style={styles.widgetHeader}>
             <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>Muro Familiar</Text>
-            <TouchableOpacity onPress={() => { /* Navegar a Familia */ }}>
+            <TouchableOpacity
+              onPress={() => {
+                /* Navegar a Familia */
+              }}
+            >
               <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>Ver todo</Text>
             </TouchableOpacity>
           </View>
@@ -399,7 +658,10 @@ export const DashboardScreen: React.FC = () => {
                     <Text style={[styles.wallSender, { color: theme.colors.text }]}>
                       {item.sender_name} {item.emoji}
                     </Text>
-                    <Text style={[styles.wallText, { color: theme.colors.textSecondary }]} numberOfLines={1}>
+                    <Text
+                      style={[styles.wallText, { color: theme.colors.textSecondary }]}
+                      numberOfLines={1}
+                    >
                       {item.message}
                     </Text>
                   </View>
@@ -517,6 +779,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   summaryGrid: {
+    gap: 12,
+  },
+  summaryRow: {
     flexDirection: 'row',
     gap: 12,
   },

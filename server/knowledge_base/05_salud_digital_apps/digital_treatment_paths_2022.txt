@@ -1,0 +1,630 @@
+```{=html}
+<?xml version="1.0"  ?>
+```
+\<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN"
+"https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"\>`<pmc-articleset>`{=html}
+```{=html}
+<article xml:lang="en" article-type="editorial" dtd-version="1.4">
+```
+`<processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">`{=html}`<restricted-by>`{=html}pmc`</restricted-by>`{=html}`</processing-meta>`{=html}`<front>`{=html}`<journal-meta>`{=html}`<journal-id journal-id-type="nlm-ta">`{=html}Int
+J Environ Res Public
+Health`</journal-id>`{=html}`<journal-id journal-id-type="iso-abbrev">`{=html}Int
+J Environ Res Public
+Health`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain-id">`{=html}876`</journal-id>`{=html}`<journal-id journal-id-type="pmc-domain">`{=html}ijerph`</journal-id>`{=html}`<journal-id journal-id-type="publisher-id">`{=html}ijerph`</journal-id>`{=html}`<journal-title-group>`{=html}`<journal-title>`{=html}International
+Journal of Environmental Research and Public
+Health`</journal-title>`{=html}`</journal-title-group>`{=html}`<issn pub-type="ppub">`{=html}1661-7827`</issn>`{=html}`<issn pub-type="epub">`{=html}1660-4601`</issn>`{=html}`<publisher>`{=html}`<publisher-name>`{=html}Multidisciplinary
+Digital Publishing Institute
+(MDPI)`</publisher-name>`{=html}`</publisher>`{=html}`</journal-meta>`{=html}`<article-meta>`{=html}`<article-id pub-id-type="pmcid">`{=html}PMC9224394`</article-id>`{=html}`<article-id pub-id-type="pmcid-ver">`{=html}PMC9224394.1`</article-id>`{=html}`<article-id pub-id-type="pmcaid">`{=html}9224394`</article-id>`{=html}`<article-id pub-id-type="pmcaiid">`{=html}9224394`</article-id>`{=html}`<article-id pub-id-type="pmid">`{=html}35742572`</article-id>`{=html}`<article-id pub-id-type="doi">`{=html}10.3390/ijerph19127322`</article-id>`{=html}`<article-id pub-id-type="publisher-id">`{=html}ijerph-19-07322`</article-id>`{=html}`<article-version article-version-type="pmc-version">`{=html}1`</article-version>`{=html}`<article-categories>`{=html}`<subj-group subj-group-type="heading">`{=html}`<subject>`{=html}Editorial`</subject>`{=html}`</subj-group>`{=html}`</article-categories>`{=html}`<title-group>`{=html}`<article-title>`{=html}Digital
+Treatment Paths for Substance Use Disorders
+(SUDs)`</article-title>`{=html}`</title-group>`{=html}`<contrib-group>`{=html}`<contrib contrib-type="author">`{=html}`<contrib-id contrib-id-type="orcid" authenticated="true">`{=html}https://orcid.org/0000-0003-0699-7422`</contrib-id>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Bonfiglio`</surname>`{=html}`<given-names initials="NS">`{=html}Natale
+Salvatore`</given-names>`{=html}`</name>`{=html}`<xref rid="af1-ijerph-19-07322" ref-type="aff">`{=html}1`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<contrib-id contrib-id-type="orcid" authenticated="true">`{=html}https://orcid.org/0000-0002-1998-4818`</contrib-id>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Mascia`</surname>`{=html}`<given-names initials="ML">`{=html}Maria
+Lidia`</given-names>`{=html}`</name>`{=html}`<xref rid="af2-ijerph-19-07322" ref-type="aff">`{=html}2`</xref>`{=html}`<xref rid="c1-ijerph-19-07322" ref-type="corresp">`{=html}*`</xref>`{=html}`</contrib>`{=html}`<contrib contrib-type="author">`{=html}`<contrib-id contrib-id-type="orcid" authenticated="true">`{=html}https://orcid.org/0000-0002-0982-3893`</contrib-id>`{=html}`<name name-style="western">`{=html}`<surname>`{=html}Penna`</surname>`{=html}`<given-names initials="MP">`{=html}Maria
+Pietronilla`</given-names>`{=html}`</name>`{=html}`<xref rid="af2-ijerph-19-07322" ref-type="aff">`{=html}2`</xref>`{=html}`</contrib>`{=html}`</contrib-group>`{=html}`<aff id="af1-ijerph-19-07322">`{=html}`<label>`{=html}1`</label>`{=html}Department
+of Psychology "Renzo Canestrari", University of Bologna, 40126 Bologna,
+Italy;
+`<email>`{=html}s.bonfiglio@unibo.it`</email>`{=html}`</aff>`{=html}`<aff id="af2-ijerph-19-07322">`{=html}`<label>`{=html}2`</label>`{=html}Department
+of Pedagogy, Psychology, Philosophy, University of Cagliari, 09123
+Cagliari, Italy;
+`<email>`{=html}penna@unica.it`</email>`{=html}`</aff>`{=html}`<author-notes>`{=html}`<corresp id="c1-ijerph-19-07322">`{=html}`<label>`{=html}*`</label>`{=html}Correspondence:
+`<email>`{=html}marialidia.mascia@unica.it`</email>`{=html}`</corresp>`{=html}`</author-notes>`{=html}`<pub-date pub-type="epub">`{=html}`<day>`{=html}15`</day>`{=html}`<month>`{=html}6`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</pub-date>`{=html}`<pub-date pub-type="collection">`{=html}`<month>`{=html}6`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</pub-date>`{=html}`<volume>`{=html}19`</volume>`{=html}`<issue>`{=html}12`</issue>`{=html}`<issue-id pub-id-type="pmc-issue-id">`{=html}410832`</issue-id>`{=html}`<elocation-id>`{=html}7322`</elocation-id>`{=html}`<history>`{=html}`<date date-type="received">`{=html}`<day>`{=html}03`</day>`{=html}`<month>`{=html}6`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`<date date-type="accepted">`{=html}`<day>`{=html}10`</day>`{=html}`<month>`{=html}6`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</history>`{=html}`<pub-history>`{=html}`<event event-type="pmc-release">`{=html}`<date>`{=html}`<day>`{=html}15`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-live">`{=html}`<date>`{=html}`<day>`{=html}24`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`<event event-type="pmc-last-change">`{=html}`<date iso-8601-date="2022-06-26 05:18:29.847">`{=html}`<day>`{=html}26`</day>`{=html}`<month>`{=html}06`</month>`{=html}`<year>`{=html}2022`</year>`{=html}`</date>`{=html}`</event>`{=html}`</pub-history>`{=html}`<permissions>`{=html}`<copyright-statement>`{=html}©
+2022 by the
+authors.`</copyright-statement>`{=html}`<copyright-year>`{=html}2022`</copyright-year>`{=html}`<license>`{=html}`<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbylicense">`{=html}https://creativecommons.org/licenses/by/4.0/`</ali:license_ref>`{=html}`<license-p>`{=html}Licensee
+MDPI, Basel, Switzerland. This article is an open access article
+distributed under the terms and conditions of the Creative Commons
+Attribution (CC BY) license
+(`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by/4.0/">`{=html}https://creativecommons.org/licenses/by/4.0/`</ext-link>`{=html}).`</license-p>`{=html}`</license>`{=html}`</permissions>`{=html}`<self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="ijerph-19-07322.pdf"/>`{=html}`<custom-meta-group>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-qastatus`</meta-name>`{=html}`<meta-value>`{=html}0`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-live`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-embargo`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-status-released`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-open-access`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-olf`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-manuscript`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-legally-suppressed`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-pdf`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-has-supplement`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-pdf-only`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-suppress-copyright`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-real-version`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-is-scanned-article`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-preprint`</meta-name>`{=html}`<meta-value>`{=html}no`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-prop-in-epmc`</meta-name>`{=html}`<meta-value>`{=html}yes`</meta-value>`{=html}`</custom-meta>`{=html}`<custom-meta>`{=html}`<meta-name>`{=html}pmc-license-ref`</meta-name>`{=html}`<meta-value>`{=html}CC
+BY`</meta-value>`{=html}`</custom-meta>`{=html}`</custom-meta-group>`{=html}`</article-meta>`{=html}`</front>`{=html}
+```{=html}
+<body>
+```
+```{=html}
+<p>
+```
+Today, there is a considerable expansion in the number of new digital
+tools and systems for mental health assessment, intervention, support,
+prevention, and treatment. Many studies highlight the effectiveness and
+importance of digital tools in various areas of healthcare and
+preventive interventions for issues such as substance use disorders,
+mental health disorders, and disorders with comorbidities.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In 2018, an estimated 269 million people worldwide have used illicit
+drugs at least once in the past year, corresponding to 5.4% of the world
+population aged 15 to 64. Based on these data, the global number of
+people who will use illicit drugs will increase by 11% by 2030, reaching
+299 million people. This projection reflects population growth only
+\[`<xref rid="B1-ijerph-19-07322" ref-type="bibr">`{=html}1`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Many studies suggest that adolescence and young adulthood (15--34 years
+old) are critical periods for drug use initiation
+\[`<xref rid="B2-ijerph-19-07322" ref-type="bibr">`{=html}2`</xref>`{=html}\].
+Therefore, treatment and preventive interventions directly involving
+these age groups would help in inhibit the estimated growth of substance
+use.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+In general, due to various obstacles, only about 20% of people suffering
+from substance use disorders can access available treatments
+\[`<xref rid="B3-ijerph-19-07322" ref-type="bibr">`{=html}3`</xref>`{=html}\].
+Additionally, almost one in five adults suffer from a mental disorder at
+some point in their lives
+\[`<xref rid="B4-ijerph-19-07322" ref-type="bibr">`{=html}4`</xref>`{=html}\]
+and nearly 13% of drug users are estimated to suffer from mental
+disorders, meaning that their drug use is harmful to the point of drug
+addiction and/or need for treatment
+\[`<xref rid="B2-ijerph-19-07322" ref-type="bibr">`{=html}2`</xref>`{=html}\].
+Studies have also shown that problems related to substance use tend to
+persist for patients with severe mental illnesses
+\[`<xref rid="B5-ijerph-19-07322" ref-type="bibr">`{=html}5`</xref>`{=html}\].
+People who suffer from mental problems and use drugs are unlikely to
+access treatment services because of stigma, lack of treatment services
+in their area, and so on. Therefore, it is important to reach as many
+people as possible to give them pathways to recovery. Digital services
+and tools could facilitate access to healthcare, especially for
+adolescents and young adults who can be reached because they are
+familiar with new technologies or are more technologically literate and
+mainly involved in using new technologies
+\[`<xref rid="B6-ijerph-19-07322" ref-type="bibr">`{=html}6`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+One solution to fill possible gaps and create easier access to
+treatment, especially for younger people with substance abuse problems,
+can be found in the use of technology in healthcare. The convergence of
+digital technologies with the fields of healthcare, referred to as
+digital health, has enabled the development and deployment of
+technological tools to monitor and promote accessible healthcare. The
+field of digital health is active, innovative, and constantly evolving,
+offering a rich array of digital tools aimed at providing therapeutic
+treatments and ensuring effective screening, monitoring, diagnosis, and
+treatment. Digital health employs smartphone applications, chat bots,
+and wearable devices such as bracelets, patches, glasses equipped with
+artificial intelligence, and other digital tools for collecting
+physiological parameters.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Different types of interventions using digital tools are growing in
+popularity. Digital technology has rapidly pervaded and transformed the
+daily lives of people as the capabilities and reach of technology have
+expanded. There is an accompanying proliferation of digital technologies
+specifically developed for use in patient care
+\[`<xref rid="B7-ijerph-19-07322" ref-type="bibr">`{=html}7`</xref>`{=html}\].
+Data support the use of digital interventions for substance abuse
+disorders
+\[`<xref rid="B8-ijerph-19-07322" ref-type="bibr">`{=html}8`</xref>`{=html},`<xref rid="B9-ijerph-19-07322" ref-type="bibr">`{=html}9`</xref>`{=html}\],
+particularly because of how internet-based technologies have the
+capacity to merge the efficacy of evidence-based treatments with the
+advantages of wide-reaching interventions to improve access to substance
+use care
+\[`<xref rid="B10-ijerph-19-07322" ref-type="bibr">`{=html}10`</xref>`{=html}\].
+Some treatments are fully automated and independent of human support
+(self-directed or unguided interventions), while others require the
+involvement of a therapist or technician (guided interventions)
+\[`<xref rid="B11-ijerph-19-07322" ref-type="bibr">`{=html}11`</xref>`{=html}\].
+It is possible to use software and digital platforms structured as
+training programs to carry out more focused interventions for specific
+substance use issues and symptoms, such as cravings
+\[`<xref rid="B12-ijerph-19-07322" ref-type="bibr">`{=html}12`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The advantages of these tools have been emphasised during the COVID-19
+pandemic, during which the difficulty of accessing mental health
+services has increased. Digital solutions have received more interest
+and have offered accessible, affordable, personalised, and other
+attractive benefits of digital health interventions in many areas
+\[`<xref rid="B13-ijerph-19-07322" ref-type="bibr">`{=html}13`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The most common mental health intervention strategies make use of
+smartphone apps
+\[`<xref rid="B14-ijerph-19-07322" ref-type="bibr">`{=html}14`</xref>`{=html}\].
+They are growing steadily, as smartphones are becoming increasingly
+prevalent in developing countries and are already used by about three
+billion people around the world. Through apps, it is possible to cover
+all phases of psychological care, including prevention, diagnosis,
+treatment, face-to-face therapy, and relapse prevention
+\[`<xref rid="B15-ijerph-19-07322" ref-type="bibr">`{=html}15`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Sophisticated technological tools, such as virtual reality (VR) and
+augmented reality (AR), are also being successfully used for the
+assessment and treatment of mental disorders
+\[`<xref rid="B16-ijerph-19-07322" ref-type="bibr">`{=html}16`</xref>`{=html}\].
+They have the advantage of immersing the user in highly realistic
+environments to reproduce treatment-specific conditions and realities.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Treatments delivered via digital platforms have the advantage of being
+largely accessible at different groups of people within a population
+\[`<xref rid="B17-ijerph-19-07322" ref-type="bibr">`{=html}17`</xref>`{=html}\].
+Digital health interventions present many advantages, such as
+interactivity, 24/7 availability that allows "on-demand" access to
+therapeutic support, self-directed software tools that can overcome some
+of the striking disparities in treatment access, and consistently
+high-quality treatment that transcends borders
+\[`<xref rid="B18-ijerph-19-07322" ref-type="bibr">`{=html}18`</xref>`{=html}\].
+Digital interventions can teach people effective and scientifically
+validated skills to recognise and change unhealthy thoughts and
+behaviours and provide tools to help people apply these skills to their
+everyday lives.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+The application of digital technologies to better assess, understand,
+and treat substance use disorders is a particularly active area of
+scientific research
+\[`<xref rid="B17-ijerph-19-07322" ref-type="bibr">`{=html}17`</xref>`{=html}\].
+In general, the potential advantages of technology in enhancing
+healthcare and mental health care to treat substance use disorders and
+their psychiatric comorbidities have been recognised and appreciated in
+several recent reviews
+\[`<xref rid="B19-ijerph-19-07322" ref-type="bibr">`{=html}19`</xref>`{=html},`<xref rid="B20-ijerph-19-07322" ref-type="bibr">`{=html}20`</xref>`{=html},`<xref rid="B21-ijerph-19-07322" ref-type="bibr">`{=html}21`</xref>`{=html},`<xref rid="B22-ijerph-19-07322" ref-type="bibr">`{=html}22`</xref>`{=html},`<xref rid="B23-ijerph-19-07322" ref-type="bibr">`{=html}23`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Moreover, a body of literature and some specific meta-analyses underline
+the effectiveness of these approaches to health and mental health. Fu
+and colleagues
+\[`<xref rid="B24-ijerph-19-07322" ref-type="bibr">`{=html}24`</xref>`{=html}\]
+show the effectiveness of digital psychological interventions (delivered
+in several formats, including via websites, smartphone apps, computer,
+audio-devices, and text messages) for mental health problems (depression
+and substance misuse comorbidity). The authors obtained a pooled Hedge's
+g effect size of 0.60, comparing the effects of digital psychological
+interventions with a control group, with a substantial heterogeneity
+between studies.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Effectiveness and treatment moderators of internet interventions for
+adult problem drinking are demonstrated in the meta-analysis conducted
+by Riper and colleagues
+\[`<xref rid="B25-ijerph-19-07322" ref-type="bibr">`{=html}25`</xref>`{=html}\].
+The meta-analysis revealed a small significant difference in mean weekly
+substance use in favor of internet-assisted intervention participants as
+compared controls, with a pooled Hedge's g effect size of 0.26 and a
+moderate heterogeneity, indicating that the effect was greater in some
+trials than in others.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Oh and colleagues
+\[`<xref rid="B26-ijerph-19-07322" ref-type="bibr">`{=html}26`</xref>`{=html}\]
+highlight the potential for digital interventions to prevent alcohol
+consumption among pregnant women and women planning to become pregnant,
+thanks to text messaging service or automated internet intervention or
+interactive sessions. The authors reported a decrease in alcohol
+consumption during pregnancy compared to the control group with an Odds
+Ratio (OR) of 0.62. Moreover, computer-based interventions (OR of 0.59)
+and text messaging (OR of 0.8) proved to be effective for preventing
+alcohol consumption using a stratified analysis aimed at examining the
+influence of different intervention platforms.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Boumparis and colleagues
+\[`<xref rid="B3-ijerph-19-07322" ref-type="bibr">`{=html}3`</xref>`{=html}\]
+published a meta-analysis about the effectiveness of short- and
+long-term effects of digital prevention and treatment interventions for
+cannabis use reduction. The authors reported that prevention
+interventions compared to non-active control conditions showed a small
+significant effect (pooled Hedge's g = 0.33) on cannabis use at
+post-treatment, with high heterogeneity.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Other meta-analyses confirm the effectiveness of stand-alone digital
+technology interventions for screening and treating common mental
+disorders
+\[`<xref rid="B27-ijerph-19-07322" ref-type="bibr">`{=html}27`</xref>`{=html}\]
+and of stand-alone smartphone apps for mental health, showing also
+significant effects on smoking of apps compared to control groups
+\[`<xref rid="B28-ijerph-19-07322" ref-type="bibr">`{=html}28`</xref>`{=html}\].
+Sin and colleagues
+\[`<xref rid="B27-ijerph-19-07322" ref-type="bibr">`{=html}27`</xref>`{=html}\]
+reported how, comparing digital interventions with inactive controls or
+other comparable interventions, digital interventions showed Standard
+Mean Difference (SMD) of −0.30 for depression, −0.37 for anxiety, −0.43
+for stress, −0.16 for social functioning, and 0.40 for wellbeing. Weisel
+and colleagues (2019) reported a significant effect of smartphone apps
+compared to controls for depression with a pooled Hedge's g = 0.33 and
+moderate heterogeneity.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+Thanks to the widespread use of technologies, the development, design,
+and use of health and digital therapeutic health tools have become
+possible. These tools can prove useful in overcoming barriers related to
+access to healthcare, especially among younger people. They represent a
+solution for remote monitoring and real-time health surveillance. In
+addition, digital health tools can act as a bridge between users and
+health systems, which promotes greater awareness of patients' health
+statuses and provides reliable and more easily accessible information.
+Compared with traditional clinical practices, digital health tools and
+resources result in lower costs. Finally, by allowing people to access
+healthcare from wherever they choose, these tools can help those in need
+overcome shame and social stigma and break down the barriers to asking
+for help. Due to the considerable heterogeneity observed in the
+literature about digitals mental health tools, more studies are needed
+to demonstrate the effectiveness of digital health and to implement
+standardised digital intervention programs to improve their
+reproducibility and efficiency
+\[`<xref rid="B24-ijerph-19-07322" ref-type="bibr">`{=html}24`</xref>`{=html}\].
+```{=html}
+</p>
+```
+```{=html}
+</body>
+```
+`<back>`{=html}`<fn-group>`{=html}`<fn>`{=html}
+```{=html}
+<p>
+```
+`<bold>`{=html}Publisher's Note:`</bold>`{=html} MDPI stays neutral with
+regard to jurisdictional claims in published maps and institutional
+affiliations.
+```{=html}
+</p>
+```
+`</fn>`{=html}`</fn-group>`{=html}`<notes notes-type="COI-statement">`{=html}
+```{=html}
+<title>
+```
+Conflicts of Interest
+```{=html}
+</title>
+```
+```{=html}
+<p>
+```
+The authors declare no conflict of interest.
+```{=html}
+</p>
+```
+`</notes>`{=html}`<ref-list>`{=html}
+```{=html}
+<title>
+```
+References
+```{=html}
+</title>
+```
+`<ref id="B1-ijerph-19-07322">`{=html}`<label>`{=html}1.`</label>`{=html}`<element-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}
+`<collab>`{=html}United Nations Office on Drugs and
+Crime`</collab>`{=html} `</person-group>`{=html}`<source>`{=html}World
+Drug Report 2021 (Set of 5
+Booklets)`</source>`{=html}`<publisher-name>`{=html}United
+Nations`</publisher-name>`{=html}`<publisher-loc>`{=html}Vienna,
+Austria`</publisher-loc>`{=html}`<year>`{=html}2022`</year>`{=html}`<isbn>`{=html}9789211483611`</isbn>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B2-ijerph-19-07322">`{=html}`<label>`{=html}2.`</label>`{=html}`<element-citation publication-type="webpage">`{=html}`<person-group person-group-type="author">`{=html}
+`<collab>`{=html}UNODC`</collab>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Booklet 2: Global
+Overview of Drug
+Demand`</article-title>`{=html}`<year>`{=html}2021`</year>`{=html}`<comment>`{=html}Available
+online:
+`<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://scholar.google.com/scholar?hl=it&amp;as_sdt=0%2C5&amp;q=UNODC+%282021%29+Booklet+2%3A+Global+overview+of+drug+demand+and+drug+supply.+In%3A+World+Drug+Report+2021.+United+Nations+publication&amp;btnG=" ext-link-type="uri">`{=html}https://scholar.google.com/scholar?hl=it&as_sdt=0%2C5&q=UNODC+%282021%29+Booklet+2%3A+Global+overview+of+drug+demand+and+drug+supply.+In%3A+World+Drug+Report+2021.+United+Nations+publication&btnG=`</ext-link>`{=html}`</comment>`{=html}`<date-in-citation content-type="access-date" iso-8601-date="2022-05-31">`{=html}(accessed
+on 31 May
+2022)`</date-in-citation>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B3-ijerph-19-07322">`{=html}`<label>`{=html}3.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Boumparis`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Loheide-Niesmann`</surname>`{=html}`<given-names>`{=html}L.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Blankers`</surname>`{=html}`<given-names>`{=html}M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ebert`</surname>`{=html}`<given-names>`{=html}D.D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Korf`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Schaub`</surname>`{=html}`<given-names>`{=html}M.P.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Spijkerman`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Tait`</surname>`{=html}`<given-names>`{=html}R.J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Riper`</surname>`{=html}`<given-names>`{=html}H.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Short- and long-term
+effects of digital prevention and treatment interventions for cannabis
+use reduction: A systematic review and
+meta-analysis`</article-title>`{=html}`<source>`{=html}Drug Alcohol.
+Depend.`</source>`{=html}`<year>`{=html}2019`</year>`{=html}`<volume>`{=html}200`</volume>`{=html}`<fpage>`{=html}82`</fpage>`{=html}`<lpage>`{=html}94`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.drugalcdep.2019.03.016`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31112834`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B4-ijerph-19-07322">`{=html}`<label>`{=html}4.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Steel`</surname>`{=html}`<given-names>`{=html}Z.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Marnane`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Iranpour`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Chey`</surname>`{=html}`<given-names>`{=html}T.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Jackson`</surname>`{=html}`<given-names>`{=html}J.W.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Patel`</surname>`{=html}`<given-names>`{=html}V.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Silove`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}The global prevalence of
+common mental disorders: A systematic review and meta-analysis
+1980--2013`</article-title>`{=html}`<source>`{=html}Int. J.
+Epidemiol.`</source>`{=html}`<year>`{=html}2014`</year>`{=html}`<volume>`{=html}43`</volume>`{=html}`<fpage>`{=html}476`</fpage>`{=html}`<lpage>`{=html}493`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1093/ije/dyu038`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}24648481`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC3997379`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B5-ijerph-19-07322">`{=html}`<label>`{=html}5.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Drake`</surname>`{=html}`<given-names>`{=html}R.E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Mercer-Mcfadden`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Mueser`</surname>`{=html}`<given-names>`{=html}K.T.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Mchugo`</surname>`{=html}`<given-names>`{=html}Q.J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bond`</surname>`{=html}`<given-names>`{=html}Q.R.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Review of Integrated
+Mental Health and Substance Abuse Treatment for Patients with Dual
+Disorders`</article-title>`{=html}`<source>`{=html}Schizophr.
+Bull.`</source>`{=html}`<year>`{=html}1998`</year>`{=html}`<volume>`{=html}24`</volume>`{=html}`<fpage>`{=html}589`</fpage>`{=html}`<lpage>`{=html}608`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1093/oxfordjournals.schbul.a033351`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}9853791`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B6-ijerph-19-07322">`{=html}`<label>`{=html}6.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Lehtimaki`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Martic`</surname>`{=html}`<given-names>`{=html}J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Wahl`</surname>`{=html}`<given-names>`{=html}B.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Foster`</surname>`{=html}`<given-names>`{=html}K.T.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Schwalbe`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Evidence on Digital
+Mental Health Interventions for Adolescents and Young People: Systematic
+Overview`</article-title>`{=html}`<source>`{=html}JMIR Ment.
+Health`</source>`{=html}`<year>`{=html}2021`</year>`{=html}`<volume>`{=html}8`</volume>`{=html}`<fpage>`{=html}e25847`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2196/25847`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33913817`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC8120421`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B7-ijerph-19-07322">`{=html}`<label>`{=html}7.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Batra`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Baker`</surname>`{=html}`<given-names>`{=html}R.A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Wang`</surname>`{=html}`<given-names>`{=html}T.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Forma`</surname>`{=html}`<given-names>`{=html}F.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Dibiasi`</surname>`{=html}`<given-names>`{=html}F.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Peters-Strickland`</surname>`{=html}`<given-names>`{=html}T.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Digital health
+technology for use in patients with serious mental illness: A systematic
+review of the literature`</article-title>`{=html}`<source>`{=html}Med.
+Devices Evid.
+Res.`</source>`{=html}`<year>`{=html}2017`</year>`{=html}`<volume>`{=html}10`</volume>`{=html}`<fpage>`{=html}237`</fpage>`{=html}`<lpage>`{=html}251`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2147/MDER.S144158`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5633292`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}29042823`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B8-ijerph-19-07322">`{=html}`<label>`{=html}8.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Hirschtritt`</surname>`{=html}`<given-names>`{=html}M.E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Insel`</surname>`{=html}`<given-names>`{=html}T.R.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Digital Technologies in
+Psychiatry: Present and
+Future`</article-title>`{=html}`<source>`{=html}Focus`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}16`</volume>`{=html}`<fpage>`{=html}251`</fpage>`{=html}`<lpage>`{=html}258`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1176/appi.focus.20180001`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31975919`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6493099`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B9-ijerph-19-07322">`{=html}`<label>`{=html}9.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Marsch`</surname>`{=html}`<given-names>`{=html}L.A.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Digital health and
+addiction`</article-title>`{=html}`<source>`{=html}Curr. Opin. Syst.
+Biol.`</source>`{=html}`<year>`{=html}2020`</year>`{=html}`<volume>`{=html}20`</volume>`{=html}`<fpage>`{=html}1`</fpage>`{=html}`<lpage>`{=html}7`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.coisb.2020.07.004`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}32885099`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7462117`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B10-ijerph-19-07322">`{=html}`<label>`{=html}10.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bandawar`</surname>`{=html}`<given-names>`{=html}M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Narasimha`</surname>`{=html}`<given-names>`{=html}V.L.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Chand`</surname>`{=html}`<given-names>`{=html}P.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Use of digital
+technology in addiction
+disorders`</article-title>`{=html}`<source>`{=html}Indian J.
+Psychiatry`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}60`</volume>`{=html}`<fpage>`{=html}S534`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.4103/PSYCHIATRY.INDIANJPSYCHIATRY_21_18`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}29540927`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5844168`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B11-ijerph-19-07322">`{=html}`<label>`{=html}11.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Andersson`</surname>`{=html}`<given-names>`{=html}G.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Using the Internet to
+provide cognitive behaviour
+therapy`</article-title>`{=html}`<source>`{=html}Behav. Res.
+Ther.`</source>`{=html}`<year>`{=html}2009`</year>`{=html}`<volume>`{=html}47`</volume>`{=html}`<fpage>`{=html}175`</fpage>`{=html}`<lpage>`{=html}180`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.brat.2009.01.010`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}19230862`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B12-ijerph-19-07322">`{=html}`<label>`{=html}12.`</label>`{=html}`<element-citation publication-type="confproc">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bonfiglio`</surname>`{=html}`<given-names>`{=html}N.S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Parodi`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Rollo`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Renati`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Pessa`</surname>`{=html}`<given-names>`{=html}E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Penna`</surname>`{=html}`<given-names>`{=html}M.P.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Use of training with BCI
+(Brain Computer Interface) in the management of
+impulsivity`</article-title>`{=html}`<source>`{=html}Proceedings of the
+2020 IEEE International Symposium on Medical Measurements and
+Applications (MeMeA)`</source>`{=html}`<conf-loc>`{=html}Bari,
+Italy`</conf-loc>`{=html}`<conf-date>`{=html}1 June--1 July
+2020`</conf-date>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1109/MEMEA49120.2020.9137202`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B13-ijerph-19-07322">`{=html}`<label>`{=html}13.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Balcombe`</surname>`{=html}`<given-names>`{=html}L.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}De
+Leo`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bustin`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Digital Mental Health
+Amid
+COVID-19`</article-title>`{=html}`<source>`{=html}Encyclopedia`</source>`{=html}`<year>`{=html}2021`</year>`{=html}`<volume>`{=html}1`</volume>`{=html}`<fpage>`{=html}1047`</fpage>`{=html}`<lpage>`{=html}1057`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.3390/encyclopedia1040080`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B14-ijerph-19-07322">`{=html}`<label>`{=html}14.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ma
+Baños`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Herrero`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Vara`</surname>`{=html}`<given-names>`{=html}M.D.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}What is the Current and
+Future Status of Digital Mental Health
+Interventions?`</article-title>`{=html}`<source>`{=html}Span. J.
+Psychol.`</source>`{=html}`<year>`{=html}2022`</year>`{=html}`<volume>`{=html}25`</volume>`{=html}`<fpage>`{=html}E5`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1017/SJP.2022.2`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}35105398`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B15-ijerph-19-07322">`{=html}`<label>`{=html}15.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Chandrashekar`</surname>`{=html}`<given-names>`{=html}P.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Do mental health mobile
+apps work: Evidence and recommendations for designing high-efficacy
+mental health mobile
+apps`</article-title>`{=html}`<source>`{=html}mHealth`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}4`</volume>`{=html}`<fpage>`{=html}6`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.21037/mhealth.2018.03.02`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}29682510`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC5897664`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B16-ijerph-19-07322">`{=html}`<label>`{=html}16.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Emmelkamp`</surname>`{=html}`<given-names>`{=html}P.M.G.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Meyerbröker`</surname>`{=html}`<given-names>`{=html}K.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Virtual Reality Therapy
+in Mental Health`</article-title>`{=html}`<source>`{=html}Annu.
+Rev. Clin.
+Psychol.`</source>`{=html}`<year>`{=html}2021`</year>`{=html}`<volume>`{=html}17`</volume>`{=html}`<fpage>`{=html}495`</fpage>`{=html}`<lpage>`{=html}519`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1146/annurev-clinpsy-081219-115923`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}33606946`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B17-ijerph-19-07322">`{=html}`<label>`{=html}17.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Marsch`</surname>`{=html}`<given-names>`{=html}L.A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Campbell`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Campbell`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Chen`</surname>`{=html}`<given-names>`{=html}C.H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ertin`</surname>`{=html}`<given-names>`{=html}E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ghitza`</surname>`{=html}`<given-names>`{=html}U.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Lambert-Harris`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Hassanpour`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Holtyn`</surname>`{=html}`<given-names>`{=html}A.F.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Hser`</surname>`{=html}`<given-names>`{=html}Y.I.`</given-names>`{=html}`</name>`{=html}
+`<etal/>`{=html} `</person-group>`{=html}`<article-title>`{=html}The
+application of digital health to the assessment and treatment of
+substance use disorders: The past, current, and future role of the
+National Drug Abuse Treatment Clinical Trials
+Network`</article-title>`{=html}`<source>`{=html}J. Subst. Abuse
+Treat.`</source>`{=html}`<year>`{=html}2020`</year>`{=html}`<volume>`{=html}112`</volume>`{=html}`<fpage>`{=html}4`</fpage>`{=html}`<lpage>`{=html}11`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.jsat.2020.02.005`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7134325`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}32220409`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B18-ijerph-19-07322">`{=html}`<label>`{=html}18.`</label>`{=html}`<element-citation publication-type="book">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Hixon`</surname>`{=html}`<given-names>`{=html}L.L.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Integration and
+Innovation in Aged Care Organisations: Three Studies in New South
+Wales`</article-title>`{=html}`<source>`{=html}Ph.D. Thesis`</source>`{=html}`<publisher-name>`{=html}University
+Of Technology`</publisher-name>`{=html}`<publisher-loc>`{=html}Sydney,
+Austria`</publisher-loc>`{=html}`<year>`{=html}2015`</year>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B19-ijerph-19-07322">`{=html}`<label>`{=html}19.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Eilert`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Wogan`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Leen`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Richards`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Internet-Delivered
+Interventions for Depression and Anxiety Symptoms in Children and Young
+People: Systematic Review and
+Meta-analysis`</article-title>`{=html}`<source>`{=html}JMIR Pediatr.
+Parent`</source>`{=html}`<year>`{=html}2022`</year>`{=html}`<volume>`{=html}5`</volume>`{=html}`<fpage>`{=html}e33551`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2196/33551`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}35551071`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC9136650`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B20-ijerph-19-07322">`{=html}`<label>`{=html}20.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Dugdale`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Elison-Davies`</surname>`{=html}`<given-names>`{=html}S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Semper`</surname>`{=html}`<given-names>`{=html}H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ward`</surname>`{=html}`<given-names>`{=html}J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Davies`</surname>`{=html}`<given-names>`{=html}G.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Are Computer-Based
+Treatment Programs Effective at Reducing Symptoms of Substance Misuse
+and Mental Health Difficulties within Adults? A Systematic
+Review`</article-title>`{=html}`<source>`{=html}J. Dual
+Diagn.`</source>`{=html}`<year>`{=html}2019`</year>`{=html}`<volume>`{=html}15`</volume>`{=html}`<fpage>`{=html}291`</fpage>`{=html}`<lpage>`{=html}311`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1080/15504263.2019.1652381`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31476983`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B21-ijerph-19-07322">`{=html}`<label>`{=html}21.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Steinkamp`</surname>`{=html}`<given-names>`{=html}J.M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Goldblatt`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Borodovsky`</surname>`{=html}`<given-names>`{=html}J.T.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}LaVertu`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Kronish`</surname>`{=html}`<given-names>`{=html}I.M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Marsch`</surname>`{=html}`<given-names>`{=html}L.A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Schuman-Olivier`</surname>`{=html}`<given-names>`{=html}Z.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Technological
+Interventions for Medication Adherence in Adult Mental Health and
+Substance Use Disorders: A Systematic
+Review`</article-title>`{=html}`<source>`{=html}JMIR Ment.
+Health`</source>`{=html}`<year>`{=html}2019`</year>`{=html}`<volume>`{=html}6`</volume>`{=html}`<fpage>`{=html}e12493`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2196/12493`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30860493`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6434404`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B22-ijerph-19-07322">`{=html}`<label>`{=html}22.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Tofighi`</surname>`{=html}`<given-names>`{=html}B.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Abrantes`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Stein`</surname>`{=html}`<given-names>`{=html}M.D.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}The Role of
+Technology-Based Interventions for Substance Use Disorders in Primary
+Care: A Review of the
+Literature`</article-title>`{=html}`<source>`{=html}Med. Clin. N.
+Am.`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}102`</volume>`{=html}`<fpage>`{=html}715`</fpage>`{=html}`<lpage>`{=html}731`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.mcna.2018.02.011`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}29933825`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6563611`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B23-ijerph-19-07322">`{=html}`<label>`{=html}23.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Wang`</surname>`{=html}`<given-names>`{=html}K.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Varma`</surname>`{=html}`<given-names>`{=html}D.S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Prosperi`</surname>`{=html}`<given-names>`{=html}M.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}A systematic review of
+the effectiveness of mobile apps for monitoring and management of mental
+health symptoms or disorders`</article-title>`{=html}`<source>`{=html}J.
+Psychiatr.
+Res.`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}107`</volume>`{=html}`<fpage>`{=html}73`</fpage>`{=html}`<lpage>`{=html}78`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/j.jpsychires.2018.10.006`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30347316`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B24-ijerph-19-07322">`{=html}`<label>`{=html}24.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Fu`</surname>`{=html}`<given-names>`{=html}Z.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Burger`</surname>`{=html}`<given-names>`{=html}H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Arjadi`</surname>`{=html}`<given-names>`{=html}R.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bockting`</surname>`{=html}`<given-names>`{=html}C.L.H.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Effectiveness of digital
+psychological interventions for mental health problems in low-income and
+middle-income countries: A systematic review and
+meta-analysis`</article-title>`{=html}`<source>`{=html}Lancet
+Psychiatry`</source>`{=html}`<year>`{=html}2020`</year>`{=html}`<volume>`{=html}7`</volume>`{=html}`<fpage>`{=html}851`</fpage>`{=html}`<lpage>`{=html}864`</lpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1016/S2215-0366(20)30256-X`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}32866459`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7455253`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B25-ijerph-19-07322">`{=html}`<label>`{=html}25.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Riper`</surname>`{=html}`<given-names>`{=html}H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Hoogendoorn`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Cuijpers`</surname>`{=html}`<given-names>`{=html}P.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Karyotaki`</surname>`{=html}`<given-names>`{=html}E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Boumparis`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Mira`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Andersson`</surname>`{=html}`<given-names>`{=html}G.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Berman`</surname>`{=html}`<given-names>`{=html}A.H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bertholet`</surname>`{=html}`<given-names>`{=html}N.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Bischof`</surname>`{=html}`<given-names>`{=html}G.`</given-names>`{=html}`</name>`{=html}
+`<etal/>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Effectiveness and
+treatment moderators of internet interventions for adult problem
+drinking: An individual patient data meta-analysis of 19 randomised
+controlled trials`</article-title>`{=html}`<source>`{=html}PLoS
+Med.`</source>`{=html}`<year>`{=html}2018`</year>`{=html}`<volume>`{=html}15`</volume>`{=html}`<elocation-id>`{=html}e1002714`</elocation-id>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1371/journal.pmed.1002714`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}30562347`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6298657`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B26-ijerph-19-07322">`{=html}`<label>`{=html}26.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Oh`</surname>`{=html}`<given-names>`{=html}S.S.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Moon`</surname>`{=html}`<given-names>`{=html}J.Y.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Chon`</surname>`{=html}`<given-names>`{=html}D.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Mita`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Lawrence`</surname>`{=html}`<given-names>`{=html}J.A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Park`</surname>`{=html}`<given-names>`{=html}E.-C.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Kawachi`</surname>`{=html}`<given-names>`{=html}I.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Effectiveness of Digital
+Interventions for Preventing Alcohol Consumption in Pregnancy:
+Systematic Review and
+Meta-analysis`</article-title>`{=html}`<source>`{=html}J. Med. Internet
+Res.`</source>`{=html}`<year>`{=html}2022`</year>`{=html}`<volume>`{=html}24`</volume>`{=html}`<fpage>`{=html}e35554`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2196/35554`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}35404257`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC9039809`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B27-ijerph-19-07322">`{=html}`<label>`{=html}27.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Sin`</surname>`{=html}`<given-names>`{=html}J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Galeazzi`</surname>`{=html}`<given-names>`{=html}G.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}McGregor`</surname>`{=html}`<given-names>`{=html}E.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Collom`</surname>`{=html}`<given-names>`{=html}J.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Taylor`</surname>`{=html}`<given-names>`{=html}A.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Barrett`</surname>`{=html}`<given-names>`{=html}B.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Lawrence`</surname>`{=html}`<given-names>`{=html}V.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Henderson`</surname>`{=html}`<given-names>`{=html}C.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Digital Interventions
+for Screening and Treating Common Mental Disorders or Symptoms of Common
+Mental Illness in Adults: Systematic Review and
+Meta-analysis`</article-title>`{=html}`<source>`{=html}J. Med. Internet
+Res.`</source>`{=html}`<year>`{=html}2020`</year>`{=html}`<volume>`{=html}22`</volume>`{=html}`<fpage>`{=html}e20581`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.2196/20581`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}32876577`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC7495259`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`<ref id="B28-ijerph-19-07322">`{=html}`<label>`{=html}28.`</label>`{=html}`<element-citation publication-type="journal">`{=html}`<person-group person-group-type="author">`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Weisel`</surname>`{=html}`<given-names>`{=html}K.K.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Fuhrmann`</surname>`{=html}`<given-names>`{=html}L.M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Berking`</surname>`{=html}`<given-names>`{=html}M.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Baumeister`</surname>`{=html}`<given-names>`{=html}H.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Cuijpers`</surname>`{=html}`<given-names>`{=html}P.`</given-names>`{=html}`</name>`{=html}
+`<name name-style="western">`{=html}`<surname>`{=html}Ebert`</surname>`{=html}`<given-names>`{=html}D.D.`</given-names>`{=html}`</name>`{=html}
+`</person-group>`{=html}`<article-title>`{=html}Standalone smartphone
+apps for mental health-a systematic review and
+meta-analysis`</article-title>`{=html}`<source>`{=html}npj Digit.
+Med.`</source>`{=html}`<year>`{=html}2019`</year>`{=html}`<volume>`{=html}2`</volume>`{=html}`<fpage>`{=html}118`</fpage>`{=html}`<pub-id pub-id-type="doi">`{=html}10.1038/s41746-019-0188-8`</pub-id>`{=html}`<pub-id pub-id-type="pmid">`{=html}31815193`</pub-id>`{=html}`<pub-id pub-id-type="pmcid">`{=html}PMC6889400`</pub-id>`{=html}`</element-citation>`{=html}`</ref>`{=html}`</ref-list>`{=html}`</back>`{=html}
+```{=html}
+</article>
+```
+`</pmc-articleset>`{=html}

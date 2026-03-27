@@ -11,27 +11,36 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@theme/ThemeContext';
-import { MainTabParamList, ProfileStackParamList, CheckInStackParamList } from './types';
+import {
+  MainTabParamList,
+  ProfileStackParamList,
+  CheckInStackParamList,
+  NotesStackParamList,
+} from './types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
 // Importar pantallas
-import { 
-  DashboardScreen, 
-  CheckInScreen, 
-  ChatbotScreen, 
-  ProfileScreen, 
-  AISettingsScreen, 
-  IntelligenceProfileScreen, 
+import {
+  DashboardScreen,
+  CheckInScreen,
+  ChatbotScreen,
+  ProfileScreen,
+  AISettingsScreen,
+  IntelligenceProfileScreen,
   MedicationScreen,
+  NotesScreen,
+  NoteDetailScreen,
   ProgressScreen,
-  SubstanceExpenseScreen
+  SubstanceExpenseScreen,
+  SubstanceDoseScreen,
 } from '@screens';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
+const NotesStack = createNativeStackNavigator<NotesStackParamList>();
 
 /**
  * Navegador de Perfil (Stack)
@@ -67,6 +76,30 @@ const ProfileNavigator: React.FC = () => {
   );
 };
 
+/**
+ * Navegador de Notas (Stack)
+ */
+const NotesNavigator: React.FC = () => {
+  const { theme } = useTheme();
+
+  return (
+    <NotesStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <NotesStack.Screen name="NotesHome" component={NotesScreen} />
+      <NotesStack.Screen
+        name="NoteDetail"
+        component={NoteDetailScreen}
+        options={{
+          animation: 'slide_from_right',
+        }}
+      />
+    </NotesStack.Navigator>
+  );
+};
+
 const CheckInStack = createNativeStackNavigator<CheckInStackParamList>();
 
 /**
@@ -81,18 +114,10 @@ const CheckInNavigator: React.FC = () => {
         headerShown: false,
       }}
     >
-      <CheckInStack.Screen
-        name="CheckInHome"
-        component={CheckInScreen}
-      />
-      <CheckInStack.Screen
-        name="Progress"
-        component={ProgressScreen}
-      />
-      <CheckInStack.Screen
-        name="SubstanceExpense"
-        component={SubstanceExpenseScreen}
-      />
+      <CheckInStack.Screen name="CheckInHome" component={CheckInScreen} />
+      <CheckInStack.Screen name="Progress" component={ProgressScreen} />
+      <CheckInStack.Screen name="SubstanceExpense" component={SubstanceExpenseScreen} />
+      <CheckInStack.Screen name="SubstanceDose" component={SubstanceDoseScreen} />
     </CheckInStack.Navigator>
   );
 };
@@ -116,6 +141,11 @@ const TAB_CONFIG = {
     iconFilled: 'medkit',
     label: 'Medics',
   },
+  Notes: {
+    icon: 'document-text-outline',
+    iconFilled: 'document-text',
+    label: 'Notas',
+  },
   Chatbot: {
     icon: 'chatbubble-outline',
     iconFilled: 'chatbubble',
@@ -137,16 +167,22 @@ const TabIcon: React.FC<{
   color: string;
   size: number;
 }> = ({ name, focused, color, size }) => {
-  return <Icon name={focused ? name.replace('-outline', '') as any : name as any} size={size} color={color} />;
+  return (
+    <Icon
+      name={focused ? (name.replace('-outline', '') as any) : (name as any)}
+      size={size}
+      color={color}
+    />
+  );
 };
 
 export const MainTabNavigator: React.FC = () => {
   const { theme, isDark } = useTheme();
 
   const insets = useSafeAreaInsets();
-  
+
   // Calcular padding inferior basado en insets para evitar solapamientos con botones de Android/iOS
-  const tabPaddingBottom = insets.bottom > 0 ? insets.bottom : (Platform.OS === 'ios' ? 30 : 12);
+  const tabPaddingBottom = insets.bottom > 0 ? insets.bottom : Platform.OS === 'ios' ? 30 : 12;
   const tabHeight = (Platform.OS === 'ios' ? 64 : 60) + tabPaddingBottom;
 
   const screenOptions = {
@@ -165,6 +201,7 @@ export const MainTabNavigator: React.FC = () => {
       shadowRadius: 4,
     },
     tabBarHideOnKeyboard: true, // Evita solapamientos raros cuando el teclado está activo o transicionando
+    tabBarShowLabel: false,
     tabBarLabelStyle: {
       fontSize: 12,
       fontWeight: '500' as const,
@@ -180,12 +217,7 @@ export const MainTabNavigator: React.FC = () => {
         component={DashboardScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <TabIcon
-              name={TAB_CONFIG.Dashboard.icon}
-              focused={focused}
-              color={color}
-              size={size}
-            />
+            <TabIcon name={TAB_CONFIG.Dashboard.icon} focused={focused} color={color} size={size} />
           ),
           tabBarLabel: TAB_CONFIG.Dashboard.label,
         }}
@@ -195,12 +227,7 @@ export const MainTabNavigator: React.FC = () => {
         component={CheckInNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <TabIcon
-              name={TAB_CONFIG.CheckIn.icon}
-              focused={focused}
-              color={color}
-              size={size}
-            />
+            <TabIcon name={TAB_CONFIG.CheckIn.icon} focused={focused} color={color} size={size} />
           ),
           tabBarLabel: TAB_CONFIG.CheckIn.label,
         }}
@@ -221,16 +248,21 @@ export const MainTabNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen
+        name="Notes"
+        component={NotesNavigator}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon name={TAB_CONFIG.Notes.icon} focused={focused} color={color} size={size} />
+          ),
+          tabBarLabel: TAB_CONFIG.Notes.label,
+        }}
+      />
+      <Tab.Screen
         name="Chatbot"
         component={ChatbotScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <TabIcon
-              name={TAB_CONFIG.Chatbot.icon}
-              focused={focused}
-              color={color}
-              size={size}
-            />
+            <TabIcon name={TAB_CONFIG.Chatbot.icon} focused={focused} color={color} size={size} />
           ),
           tabBarLabel: TAB_CONFIG.Chatbot.label,
         }}
@@ -240,12 +272,7 @@ export const MainTabNavigator: React.FC = () => {
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <TabIcon
-              name={TAB_CONFIG.Profile.icon}
-              focused={focused}
-              color={color}
-              size={size}
-            />
+            <TabIcon name={TAB_CONFIG.Profile.icon} focused={focused} color={color} size={size} />
           ),
           tabBarLabel: TAB_CONFIG.Profile.label,
         }}

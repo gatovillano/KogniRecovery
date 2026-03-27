@@ -20,10 +20,11 @@
  * />
  */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   Modal,
   FlatList,
@@ -49,6 +50,8 @@ export interface SelectProps {
   disabled?: boolean;
   style?: ViewStyle;
   labelStyle?: TextStyle;
+  searchable?: boolean;
+  searchPlaceholder?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -61,16 +64,28 @@ export const Select: React.FC<SelectProps> = ({
   disabled = false,
   style,
   labelStyle,
+  searchable = false,
+  searchPlaceholder = 'Buscar...',
 }) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [animation] = useState(new Animated.Value(0));
+  const [searchQuery, setSearchQuery] = useState('');
 
   const selectedOption = options.find((opt) => opt.value === value);
+
+  const filteredOptions = useMemo(() => {
+    if (!searchable || !searchQuery.trim()) return options;
+    const query = searchQuery.toLowerCase().trim();
+    return options.filter(
+      (opt) => opt.label.toLowerCase().includes(query) || opt.value.toLowerCase().includes(query)
+    );
+  }, [options, searchQuery, searchable]);
 
   const openSelect = () => {
     if (!disabled) {
       setIsOpen(true);
+      setSearchQuery('');
       Animated.timing(animation, {
         toValue: 1,
         duration: 200,
@@ -84,7 +99,10 @@ export const Select: React.FC<SelectProps> = ({
       toValue: 0,
       duration: 200,
       useNativeDriver: true,
-    }).start(() => setIsOpen(false));
+    }).start(() => {
+      setIsOpen(false);
+      setSearchQuery('');
+    });
   };
 
   const handleSelect = (optionValue: string) => {
@@ -122,8 +140,8 @@ export const Select: React.FC<SelectProps> = ({
       borderColor: error
         ? theme.colors.error
         : disabled
-        ? theme.colors.border
-        : theme.colors.border,
+          ? theme.colors.border
+          : theme.colors.border,
       borderRadius: theme.borderRadius.md,
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.md,
@@ -178,17 +196,8 @@ export const Select: React.FC<SelectProps> = ({
       {error && <Text style={getErrorStyle()}>{error}</Text>}
 
       <Modal visible={isOpen} transparent animationType="none" onRequestClose={closeSelect}>
-        <Animated.View
-          style={[
-            styles.modalOverlay,
-            { opacity: backdropOpacity },
-          ]}
-        >
-          <TouchableOpacity
-            style={styles.overlayTouch}
-            onPress={closeSelect}
-            activeOpacity={1}
-          />
+        <Animated.View style={[styles.modalOverlay, { opacity: backdropOpacity }]}>
+          <TouchableOpacity style={styles.overlayTouch} onPress={closeSelect} activeOpacity={1} />
         </Animated.View>
         <Animated.View
           style={[
@@ -203,8 +212,32 @@ export const Select: React.FC<SelectProps> = ({
           <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
             {label || placeholder}
           </Text>
+          {searchable && (
+            <View
+              style={[
+                styles.searchContainer,
+                { borderColor: theme.colors.border, backgroundColor: theme.colors.background },
+              ]}
+            >
+              <Text style={{ marginRight: 8, fontSize: 16 }}>🔍</Text>
+              <TextInput
+                style={[styles.searchInput, { color: theme.colors.text }]}
+                placeholder={searchPlaceholder}
+                placeholderTextColor={theme.colors.textSecondary}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                autoCorrect={false}
+                autoCapitalize="none"
+              />
+              {searchQuery.length > 0 && (
+                <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
+                  <Text style={{ color: theme.colors.textSecondary, fontSize: 16 }}>✕</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
           <FlatList
-            data={options}
+            data={filteredOptions}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => (
               <TouchableOpacity
@@ -213,9 +246,7 @@ export const Select: React.FC<SelectProps> = ({
                   styles.option,
                   {
                     backgroundColor:
-                      item.value === value
-                        ? theme.colors.primary + '20'
-                        : 'transparent',
+                      item.value === value ? theme.colors.primary + '20' : 'transparent',
                   },
                 ]}
               >
@@ -223,18 +254,13 @@ export const Select: React.FC<SelectProps> = ({
                   style={[
                     styles.optionText,
                     {
-                      color:
-                        item.value === value
-                          ? theme.colors.primary
-                          : theme.colors.text,
+                      color: item.value === value ? theme.colors.primary : theme.colors.text,
                     },
                   ]}
                 >
                   {item.label}
                 </Text>
-                {item.value === value && (
-                  <Text style={{ color: theme.colors.primary }}>✓</Text>
-                )}
+                {item.value === value && <Text style={{ color: theme.colors.primary }}>✓</Text>}
               </TouchableOpacity>
             )}
             style={styles.optionsList}
@@ -283,5 +309,23 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 12,
+    height: 40,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    padding: 0,
+  },
+  clearButton: {
+    padding: 4,
+    marginLeft: 4,
   },
 });

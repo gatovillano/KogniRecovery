@@ -5,7 +5,7 @@
 
 set -e
 
-ASSETS_DIR="src/assets"
+ASSETS_DIR="assets"
 mkdir -p "$ASSETS_DIR"
 
 # Crear un PNG de 1x1 pixel transparente usando base64

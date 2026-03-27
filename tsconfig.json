@@ -4,78 +4,29 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@components": [
-        "src/components"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@screens": [
-        "src/screens"
-      ],
-      "@screens/*": [
-        "src/screens/*"
-      ],
-      "@services": [
-        "src/services"
-      ],
-      "@services/*": [
-        "src/services/*"
-      ],
-      "@navigation": [
-        "src/navigation"
-      ],
-      "@navigation/*": [
-        "src/navigation/*"
-      ],
-      "@store": [
-        "src/store"
-      ],
-      "@store/*": [
-        "src/store/*"
-      ],
-      "@utils": [
-        "src/utils"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@types": [
-        "src/types"
-      ],
-      "@types/*": [
-        "src/types/*"
-      ],
-      "@assets": [
-        "src/assets"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@theme": [
-        "src/theme"
-      ],
-      "@theme/*": [
-        "src/theme/*"
-      ],
-      "@hooks": [
-        "src/hooks"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ]
+      "@/*": ["src/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@screens": ["src/screens"],
+      "@screens/*": ["src/screens/*"],
+      "@services": ["src/services"],
+      "@services/*": ["src/services/*"],
+      "@navigation": ["src/navigation"],
+      "@navigation/*": ["src/navigation/*"],
+      "@store": ["src/store"],
+      "@store/*": ["src/store/*"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"],
+      "@types": ["src/types"],
+      "@types/*": ["src/types/*"],
+      "@assets": ["assets"],
+      "@assets/*": ["assets/*"],
+      "@theme": ["src/theme"],
+      "@theme/*": ["src/theme/*"],
+      "@hooks": ["src/hooks"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "build"]
 }

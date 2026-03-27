@@ -17,3 +17,4 @@ export { DatePicker } from './DatePicker';
 export { Slider } from './Slider';
 export { Stepper } from './Stepper';
 export { Avatar } from './Avatar';
+export { Header } from './Header';

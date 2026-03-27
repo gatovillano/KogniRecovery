@@ -236,7 +236,7 @@ export const updateActivityEntry = async (id: string, userId: string, data: { ac
 
 export interface FeedEntry {
   id: string;
-  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion';
+  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion' | 'substance_dose';
   entry_date: string;
   created_at: string;
   data: Record<string, any>;
@@ -290,6 +290,14 @@ export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEn
     SELECT id, 'analysis' AS type, entry_date::text, created_at::text,
       json_build_object('trigger_situation', trigger_situation, 'action_taken', action_taken) AS data
     FROM consumption_analysis WHERE user_id = $1
+
+    UNION ALL
+
+    SELECT id, 'substance_dose' AS type, dose_time::date::text AS entry_date, created_at::text,
+      json_build_object('substance_name', substance_name, 'quantity', quantity, 'unit', unit,
+        'dose_time', dose_time::text, 'craving_intensity', craving_intensity,
+        'feelings', feelings, 'context_notes', context_notes) AS data
+    FROM substance_doses WHERE user_id = $1
 
     ORDER BY entry_date DESC, created_at DESC
     LIMIT $2

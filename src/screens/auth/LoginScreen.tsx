@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@theme/ThemeContext';
@@ -51,7 +51,7 @@ export const LoginScreen: React.FC = () => {
         colors={[theme.colors.primary + '20', theme.colors.background]}
         style={StyleSheet.absoluteFill}
       />
-      
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
@@ -62,7 +62,7 @@ export const LoginScreen: React.FC = () => {
             {
               paddingTop: Math.max(insets.top, 60),
               paddingBottom: Math.max(insets.bottom, 24),
-            }
+            },
           ]}
           keyboardShouldPersistTaps="handled"
         >
@@ -70,9 +70,7 @@ export const LoginScreen: React.FC = () => {
             <View style={[styles.logoIcon, { backgroundColor: theme.colors.primary }]}>
               <Icon name="heart" size={40} color="white" />
             </View>
-            <Text style={[styles.title, { color: theme.colors.text }]}>
-              KogniRecovery
-            </Text>
+            <Text style={[styles.title, { color: theme.colors.text }]}>KogniRecovery</Text>
             <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
               Acompañándote en cada paso de tu recuperación
             </Text>
@@ -98,7 +96,10 @@ export const LoginScreen: React.FC = () => {
                 secureTextEntry
                 autoComplete="password"
               />
-              <TouchableOpacity style={styles.forgotPassword}>
+              <TouchableOpacity
+                style={styles.forgotPassword}
+                onPress={() => navigation.navigate('ForgotPassword')}
+              >
                 <Text style={{ color: theme.colors.primary, fontWeight: '700', fontSize: 13 }}>
                   ¿Olvidaste tu contraseña?
                 </Text>

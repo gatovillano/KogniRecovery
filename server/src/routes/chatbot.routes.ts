@@ -23,6 +23,7 @@ router.post('/conversations/:id/scenario', chatbotController.changeScenario);
 // Rutas de mensajes
 router.post('/conversations/:id/messages', chatbotController.sendMessage);
 router.post('/conversations/:id/stream', chatbotController.streamMessage);
+router.get('/messages/:id/tts', chatbotController.getMessageSpeech);
 
 // Rutas de escenarios
 router.get('/scenarios', chatbotController.getScenarios);

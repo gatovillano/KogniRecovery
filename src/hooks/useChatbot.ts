@@ -3,8 +3,9 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { api } from '../services/api';
+import { Audio } from 'expo-av';
 
 export interface Message {
   id: string;
@@ -206,12 +207,28 @@ export const useChatbot = () => {
           if (trimmedLine.startsWith('data: ')) {
             const dataStr = trimmedLine.replace('data: ', '');
             try {
-              const data = JSON.parse(dataStr);
-              if (data.text) {
-                streamedContent += data.text;
-                // Actualizar el mensaje del asistente en tiempo real
+              const event = JSON.parse(dataStr);
+              
+              if (event.type === 'token') {
+                streamedContent += event.content;
                 setMessages(prev => prev.map(m => 
                   m.id === assistantMsgId ? { ...m, content: streamedContent } : m
+                ));
+              } else if (event.type === 'tool_start') {
+                // Agregar información de herramienta al metadata
+                setMessages(prev => prev.map(m => 
+                  m.id === assistantMsgId ? { 
+                    ...m, 
+                    metadata: { ...m.metadata, active_tool: event.tool } 
+                  } : m
+                ));
+              } else if (event.type === 'tool_end') {
+                // Limpiar herramienta activa al terminar
+                setMessages(prev => prev.map(m => 
+                  m.id === assistantMsgId ? { 
+                    ...m, 
+                    metadata: { ...m.metadata, active_tool: null } 
+                  } : m
                 ));
               }
             } catch (e) {
@@ -384,6 +401,72 @@ export const useChatbot = () => {
     return sendMessage(quickResponse.trigger_phrase);
   }, [sendMessage]);
 
+  // --- TTS ---
+  const [playingMessageId, setPlayingMessageId] = useState<string | null>(null);
+  const soundRef = useRef<Audio.Sound | null>(null);
+
+  const playSpeech = useCallback(async (messageId: string) => {
+    try {
+      // Si ya está sonando este mensaje, detenerlo
+      if (playingMessageId === messageId) {
+        if (soundRef.current) {
+          await soundRef.current.stopAsync();
+          await soundRef.current.unloadAsync();
+          soundRef.current = null;
+          setPlayingMessageId(null);
+        }
+        return;
+      }
+
+      // Detener cualquier sonido actual
+      if (soundRef.current) {
+        await soundRef.current.unloadAsync();
+        soundRef.current = null;
+      }
+
+      setPlayingMessageId(messageId);
+
+      const baseUrl = api.getApiConfig().baseUrl;
+      const tokens = api.getAuthTokens();
+      
+      const audioUrl = `${baseUrl}/chatbot/messages/${messageId}/tts`;
+
+      const { sound } = await Audio.Sound.createAsync(
+        { 
+          uri: audioUrl, 
+          headers: { 
+            'Authorization': tokens ? `Bearer ${tokens.accessToken}` : '',
+            'Content-Type': 'application/json' 
+          } 
+        },
+        { shouldPlay: true }
+      );
+
+      soundRef.current = sound;
+
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          setPlayingMessageId(null);
+          sound.unloadAsync();
+          soundRef.current = null;
+        }
+      });
+
+    } catch (err) {
+      console.error('Error playing speech:', err);
+      setPlayingMessageId(null);
+    }
+  }, [playingMessageId]);
+
+  // Limpiar sonido al desmontar
+  useEffect(() => {
+    return () => {
+      if (soundRef.current) {
+        soundRef.current.unloadAsync();
+      }
+    };
+  }, []);
+
   // Cargar datos iniciales
   useEffect(() => {
     const loadData = async () => {
@@ -416,6 +499,9 @@ export const useChatbot = () => {
     useQuickResponse,
     contextHistory,
     loadContextHistory,
+    playSpeech,
+    isPlaying: !!playingMessageId,
+    playingMessageId,
   };
 };
 

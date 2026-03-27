@@ -288,6 +288,14 @@ export const API_CONFIG = {
 } as const;
 
 // ============================================
+// Configuración SOS / Emergencia
+// ============================================
+
+export const SOS_CONFIG = {
+  PHONE: process.env.EXPO_PUBLIC_SOS_PHONE || '4141',
+} as const;
+
+// ============================================
 // Endpoints de Bitácora (Journal)
 // ============================================
 export const JOURNAL_ENDPOINTS = {
@@ -343,6 +351,29 @@ export const SUBSTANCE_EXPENSE_ENDPOINTS = {
   DELETE: (id: string) => buildUrl(`/substance-expenses/${id}`),
 } as const;
 
+// ============================================
+// Endpoints de Notas (agent + user)
+// ============================================
+export const NOTES_ENDPOINTS = {
+  /** Lista de notas */
+  LIST: buildUrl('/notes'),
+
+  /** Crear nota */
+  CREATE: buildUrl('/notes'),
+
+  /** Obtener nota específica */
+  GET: (id: string) => buildUrl(`/notes/${id}`),
+
+  /** Actualizar nota */
+  UPDATE: (id: string) => buildUrl(`/notes/${id}`),
+
+  /** Eliminar nota */
+  DELETE: (id: string) => buildUrl(`/notes/${id}`),
+
+  /** Fijar/desfijar nota */
+  TOGGLE_PIN: (id: string) => buildUrl(`/notes/${id}/pin`),
+} as const;
+
 export default {
   AUTH_ENDPOINTS,
   USER_ENDPOINTS,
@@ -358,4 +389,6 @@ export default {
   API_CONFIG,
   JOURNAL_ENDPOINTS,
   SUBSTANCE_EXPENSE_ENDPOINTS,
+  NOTES_ENDPOINTS,
+  SOS_CONFIG,
 };

@@ -4,29 +4,43 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@theme/ThemeContext';
 import { Button } from '@components';
 import { useChatbot, Message } from '@hooks/useChatbot';
 import Markdown from 'react-native-markdown-display';
+import { Ionicons } from '@expo/vector-icons';
 
 export const ChatbotScreen: React.FC = () => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const { 
-    messages, 
-    sendMessage, 
-    quickResponses, 
-    scenarios, 
-    activeConversation, 
+  const {
+    messages,
+    sendMessage,
+    quickResponses,
+    scenarios,
+    activeConversation,
     conversations,
     loadConversations,
     loading,
-    sending, 
+    sending,
     createConversation,
     loadActiveConversation,
-    loadConversation
+    loadConversation,
+    playSpeech,
+    playingMessageId,
   } = useChatbot();
   const [inputText, setInputText] = useState('');
   const [historyVisible, setHistoryVisible] = useState(false);
@@ -57,82 +71,180 @@ export const ChatbotScreen: React.FC = () => {
 
   const renderMessage = ({ item }: { item: Message }) => {
     const isUser = item.role === 'user';
-    
+    const isThinking = !isUser && item.content === 'Pensando...';
+    const activeTool = item.metadata?.active_tool;
+
+    // Mapeo de nombres de herramientas a mensajes amigables
+    const toolMessages: Record<string, string> = {
+      knowledge_graph_search: 'Consultando tu historial...',
+      rag_search: 'Buscando en documentos médicos...',
+      list_documents: 'Explorando archivos...',
+      get_document_content: 'Leyendo documento completo...',
+    };
+
     return (
-      <View style={[
-        styles.messageContainer,
-        isUser ? styles.userMessageContainer : styles.assistantMessageContainer
-      ]}>
-        <View style={[
-          styles.messageBubble,
-          isUser 
-            ? { backgroundColor: theme.colors.primary, maxWidth: '85%', borderRadius: 16 }
-            : { backgroundColor: 'transparent', maxWidth: '100%', paddingHorizontal: 0 }
-        ]}>
+      <View
+        style={[
+          styles.messageContainer,
+          isUser ? styles.userMessageContainer : styles.assistantMessageContainer,
+        ]}
+      >
+        <View
+          style={[
+            styles.messageBubble,
+            isUser
+              ? { backgroundColor: theme.colors.primary, maxWidth: '85%', borderRadius: 16 }
+              : { backgroundColor: 'transparent', maxWidth: '100%', paddingHorizontal: 0 },
+          ]}
+        >
           {isUser ? (
-            <Text style={[
-              styles.messageText,
-              { color: '#FFFFFF' }
-            ]}>
-              {item.content}
-            </Text>
+            <Text style={[styles.messageText, { color: '#FFFFFF' }]}>{item.content}</Text>
           ) : (
-            <Markdown 
-              style={{
-                body: { color: theme.colors.text, fontSize: 16, lineHeight: 24 },
-                paragraph: { marginBottom: 12, color: theme.colors.text },
-                bullet_list: { marginBottom: 12 },
-                ordered_list: { marginBottom: 12 },
-                bullet_list_icon: { color: theme.colors.text },
-                ordered_list_icon: { color: theme.colors.text },
-                code_block: { backgroundColor: theme.colors.surface, padding: 10, borderRadius: 8, color: theme.colors.primary },
-                fence: { backgroundColor: theme.colors.surface, padding: 10, borderRadius: 8, color: theme.colors.primary },
-                strong: { fontWeight: 'bold', color: theme.colors.text },
-                em: { fontStyle: 'italic', color: theme.colors.text },
-                heading1: { color: theme.colors.text, fontSize: 24, fontWeight: 'bold', marginVertical: 12 },
-                heading2: { color: theme.colors.text, fontSize: 20, fontWeight: 'bold', marginVertical: 10 },
-                heading3: { color: theme.colors.text, fontSize: 18, fontWeight: 'bold', marginVertical: 8 },
-                text: { color: theme.colors.text },
-                link: { color: theme.colors.primary, textDecorationLine: 'underline' },
-                blockquote: {
-                  backgroundColor: theme.colors.surface,
-                  borderLeftColor: theme.colors.primary,
-                  borderLeftWidth: 4,
-                  paddingHorizontal: 16,
-                  paddingVertical: 8,
-                  marginVertical: 10,
-                  borderRadius: 4,
-                },
-                code_inline: {
-                  backgroundColor: theme.colors.surface,
-                  color: theme.colors.secondary,
-                  paddingHorizontal: 4,
-                  borderRadius: 4,
-                },
-                hr: {
-                  backgroundColor: theme.colors.border,
-                  height: 1,
-                  marginVertical: 16,
-                },
-              }}
-            >
-              {item.content || '...'}
-            </Markdown>
+            <View>
+              {isThinking ? (
+                <View style={styles.thinkingContainer}>
+                  <ActivityIndicator size="large" color={theme.colors.primary} />
+                  <Text style={[styles.thinkingText, { color: theme.colors.textSecondary }]}>
+                    {activeTool
+                      ? toolMessages[activeTool] || `Ejecutando ${activeTool}...`
+                      : 'LÚA está pensando...'}
+                  </Text>
+                </View>
+              ) : (
+                <>
+                  <Markdown
+                    style={{
+                      body: { color: theme.colors.text, fontSize: 16, lineHeight: 24 },
+                      paragraph: { marginBottom: 12, color: theme.colors.text },
+                      bullet_list: { marginBottom: 12 },
+                      ordered_list: { marginBottom: 12 },
+                      bullet_list_icon: { color: theme.colors.text },
+                      ordered_list_icon: { color: theme.colors.text },
+                      code_block: {
+                        backgroundColor: theme.colors.surface,
+                        padding: 10,
+                        borderRadius: 8,
+                        color: theme.colors.primary,
+                      },
+                      fence: {
+                        backgroundColor: theme.colors.surface,
+                        padding: 10,
+                        borderRadius: 8,
+                        color: theme.colors.primary,
+                      },
+                      strong: { fontWeight: 'bold', color: theme.colors.text },
+                      em: { fontStyle: 'italic', color: theme.colors.text },
+                      heading1: {
+                        color: theme.colors.text,
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                        marginVertical: 12,
+                      },
+                      heading2: {
+                        color: theme.colors.text,
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        marginVertical: 10,
+                      },
+                      heading3: {
+                        color: theme.colors.text,
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        marginVertical: 8,
+                      },
+                      text: { color: theme.colors.text },
+                      link: { color: theme.colors.primary, textDecorationLine: 'underline' },
+                      blockquote: {
+                        backgroundColor: theme.colors.surface,
+                        borderLeftColor: theme.colors.primary,
+                        borderLeftWidth: 4,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        marginVertical: 10,
+                        borderRadius: 4,
+                      },
+                      code_inline: {
+                        backgroundColor: theme.colors.surface,
+                        color: theme.colors.secondary,
+                        paddingHorizontal: 4,
+                        borderRadius: 4,
+                      },
+                      hr: {
+                        backgroundColor: theme.colors.border,
+                        height: 1,
+                        marginVertical: 16,
+                      },
+                    }}
+                  >
+                    {item.content || '...'}
+                  </Markdown>
+                  {activeTool && (
+                    <View
+                      style={[
+                        styles.activeToolBadge,
+                        {
+                          backgroundColor: theme.colors.primary + '30',
+                          borderColor: theme.colors.primary + '50',
+                          borderWidth: 1,
+                        },
+                      ]}
+                    >
+                      <ActivityIndicator
+                        size="small"
+                        color={theme.colors.primary}
+                        style={{ transform: [{ scale: 1 }] }}
+                      />
+                      <Text style={[styles.activeToolText, { color: theme.colors.primary }]}>
+                        {toolMessages[activeTool] || `Ejecutando ${activeTool}...`}
+                      </Text>
+                    </View>
+                  )}
+                </>
+              )}
+            </View>
           )}
-          <Text style={[
-            styles.messageTime,
-            { color: isUser ? 'rgba(255,255,255,0.7)' : theme.colors.textSecondary }
-          ]}>
-            {new Date(item.created_at).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}
+          <Text
+            style={[
+              styles.messageTime,
+              { color: isUser ? 'rgba(255,255,255,0.7)' : theme.colors.textSecondary },
+            ]}
+          >
+            {new Date(item.created_at).toLocaleTimeString('es-CL', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
           </Text>
+
+          {!isUser && !isThinking && (
+            <TouchableOpacity
+              style={[styles.ttsButton, { backgroundColor: theme.colors.surface }]}
+              onPress={() => playSpeech(item.id)}
+            >
+              <Ionicons
+                name={playingMessageId === item.id ? 'stop-circle' : 'volume-medium'}
+                size={20}
+                color={theme.colors.primary}
+              />
+              <Text style={[styles.ttsText, { color: theme.colors.primary }]}>
+                {playingMessageId === item.id ? 'Detener' : 'Escuchar'}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );
   };
 
-  const renderQuickResponse = ({ item }: { item: { trigger_phrase: string; response_text: string } }) => (
+  const renderQuickResponse = ({
+    item,
+  }: {
+    item: { trigger_phrase: string; response_text: string };
+  }) => (
     <TouchableOpacity
-      style={[styles.quickResponseButton, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}
+      style={[
+        styles.quickResponseButton,
+        { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
+      ]}
       onPress={() => handleQuickResponse(item.trigger_phrase)}
     >
       <Text style={[styles.quickResponseText, { color: theme.colors.text }]}>
@@ -142,18 +254,23 @@ export const ChatbotScreen: React.FC = () => {
   );
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0} 
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       {/* Header */}
-      <View style={[styles.header, {
-        backgroundColor: theme.colors.surface,
-        borderBottomColor: theme.colors.border,
-        paddingTop: Math.max(insets.top, 16),
-      }]}>
-        <TouchableOpacity 
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: theme.colors.surface,
+            borderBottomColor: theme.colors.border,
+            paddingTop: Math.max(insets.top, 16),
+          },
+        ]}
+      >
+        <TouchableOpacity
           onPress={() => {
             loadConversations();
             setHistoryVisible(true);
@@ -162,17 +279,15 @@ export const ChatbotScreen: React.FC = () => {
         >
           <Text style={{ fontSize: 24 }}>📜</Text>
         </TouchableOpacity>
-        
+
         <View style={styles.headerInfo}>
-          <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
-            🌙 LÚA
-          </Text>
+          <Text style={[styles.headerTitle, { color: theme.colors.text }]}>🌙 LÚA</Text>
           <Text style={[styles.headerSubtitle, { color: theme.colors.textSecondary }]}>
             Tu asistente de apoyo
           </Text>
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => createConversation('Nuevo chat', 'apoyo_emocional')}
           style={styles.headerButton}
         >
@@ -193,8 +308,8 @@ export const ChatbotScreen: React.FC = () => {
         ListFooterComponent={
           <View style={styles.emptyContainer}>
             <Text style={[styles.emptyText, { color: theme.colors.textSecondary }]}>
-              ¡Hola! Soy LÚA 🌙, estoy aquí para apoyarte en tu proceso de recuperación. 
-              ¿Cómo te sientes hoy?
+              ¡Hola! Soy LÚA 🌙, estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te
+              sientes hoy?
             </Text>
           </View>
         }
@@ -215,9 +330,21 @@ export const ChatbotScreen: React.FC = () => {
       )}
 
       {/* Input */}
-      <View style={[styles.inputContainer, { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.border }]}>
+      <View
+        style={[
+          styles.inputContainer,
+          { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.border },
+        ]}
+      >
         <TextInput
-          style={[styles.input, { backgroundColor: theme.colors.background, color: theme.colors.text, borderColor: theme.colors.border }]}
+          style={[
+            styles.input,
+            {
+              backgroundColor: theme.colors.background,
+              color: theme.colors.text,
+              borderColor: theme.colors.border,
+            },
+          ]}
           placeholder="Escribe tu mensaje..."
           placeholderTextColor={theme.colors.textSecondary}
           value={inputText}
@@ -228,14 +355,12 @@ export const ChatbotScreen: React.FC = () => {
         <TouchableOpacity
           style={[
             styles.sendButton,
-            { backgroundColor: inputText.trim() ? theme.colors.primary : theme.colors.border }
+            { backgroundColor: inputText.trim() ? theme.colors.primary : theme.colors.border },
           ]}
           onPress={handleSend}
           disabled={!inputText.trim() || sending}
         >
-          <Text style={styles.sendButtonText}>
-            {sending ? '...' : '➤'}
-          </Text>
+          <Text style={styles.sendButtonText}>{sending ? '...' : '➤'}</Text>
         </TouchableOpacity>
       </View>
 
@@ -244,21 +369,25 @@ export const ChatbotScreen: React.FC = () => {
         <View style={[styles.historyOverlay, { backgroundColor: 'rgba(0,0,0,0.5)' }]}>
           <View style={[styles.historyContainer, { backgroundColor: theme.colors.surface }]}>
             <View style={styles.historyHeader}>
-              <Text style={[styles.historyTitle, { color: theme.colors.text }]}>Tus hilos de chat</Text>
+              <Text style={[styles.historyTitle, { color: theme.colors.text }]}>
+                Tus hilos de chat
+              </Text>
               <TouchableOpacity onPress={() => setHistoryVisible(false)}>
                 <Text style={{ fontSize: 24, color: theme.colors.text }}>✕</Text>
               </TouchableOpacity>
             </View>
-            
+
             <FlatList
               data={conversations}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={[
-                    styles.historyItem, 
+                    styles.historyItem,
                     { borderBottomColor: theme.colors.border },
-                    activeConversation?.id === item.id && { backgroundColor: theme.colors.primary + '10' }
+                    activeConversation?.id === item.id && {
+                      backgroundColor: theme.colors.primary + '10',
+                    },
                   ]}
                   onPress={async () => {
                     setHistoryVisible(false);
@@ -437,6 +566,47 @@ const styles = StyleSheet.create({
   historyItemDate: {
     fontSize: 12,
     marginTop: 4,
+  },
+  thinkingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    gap: 12,
+  },
+  thinkingText: {
+    fontSize: 15,
+    fontStyle: 'italic',
+  },
+  activeToolBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginTop: 8,
+    gap: 6,
+    alignSelf: 'flex-start',
+  },
+  activeToolText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  ttsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 15,
+    marginTop: 8,
+    gap: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
+  },
+  ttsText: {
+    fontSize: 12,
+    fontWeight: '500',
   },
 });
 
