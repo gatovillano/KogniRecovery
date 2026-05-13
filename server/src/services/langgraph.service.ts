@@ -165,7 +165,7 @@ export class LangGraphAgentService {
   /**
    * Obtiene el modelo LLM configurado por el usuario
    */
-  private async getUserLLM(userId: string) {
+  public async getUserLLM(userId: string) {
     const user = await UserModel.findById(userId);
 
     // Prioridad: 1) API key del usuario, 2) OPENAI_API_KEY, 3) LLM_API_KEY genérica

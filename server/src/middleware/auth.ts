@@ -15,6 +15,7 @@ import * as UserModel from '../models/user.model.js';
 
 export interface JwtPayload {
   userId: string;
+  id: string; // alias for compatibility
   email: string;
   role: string;
   iat: number;
@@ -68,11 +69,24 @@ export const authenticate = async (
     const token = parts[1];
 
     try {
-      const decoded = jwt.verify(token, jwtConfig.secret!) as unknown as JwtPayload;
-      
+      // Verify token and decode payload (using any to avoid strict type issues)
+      const secret = jwtConfig.secret || process.env.JWT_SECRET;
+      if (!secret) {
+        res
+          .status(500)
+          .json({ success: false, error: { code: 'NO_SECRET', message: 'Server misconfigured' } });
+        return;
+      }
+      const payload = (jwt as any).verify(token, secret);
+
+      // Ensure both id and userId are set for compatibility
+      if (payload.userId && !payload.id) {
+        payload.id = payload.userId;
+      }
+
       // Verificar que el token tenga los campos requeridos
-      if (!decoded.userId || !decoded.email || !decoded.role) {
-        console.warn('⚠️ [Auth] Token inválido: campos requeridos faltantes:', decoded);
+      if (!payload.userId || !payload.email || !payload.role) {
+        console.warn('⚠️ [Auth] Token inválido: campos requeridos faltantes:', payload);
         res.status(401).json({
           success: false,
           error: {
@@ -85,9 +99,9 @@ export const authenticate = async (
 
       // IMPORTANTE: Verificar que el usuario aún exista en la base de datos
       // Esto previene errores 500 por llaves foráneas inexistentes (ej: después de limpiar la DB)
-      const userExists = await UserModel.findById(decoded.userId);
+      const userExists = await UserModel.findById(payload.userId);
       if (!userExists) {
-        console.warn(`⚠️ [Auth] Usuario ${decoded.userId} no encontrado en DB. Sesión inválida.`);
+        console.warn(`⚠️ [Auth] Usuario ${payload.userId} no encontrado en DB. Sesión inválida.`);
         res.status(401).json({
           success: false,
           error: {
@@ -98,11 +112,14 @@ export const authenticate = async (
         return;
       }
 
-      req.user = decoded;
+      req.user = payload;
       next();
     } catch (error) {
-      console.error('❌ [Auth] JWT Verification Error:', error instanceof Error ? error.message : error);
-      
+      console.error(
+        '❌ [Auth] JWT Verification Error:',
+        error instanceof Error ? error.message : error
+      );
+
       if (error instanceof jwt.TokenExpiredError) {
         res.status(401).json({
           success: false,
@@ -184,11 +201,7 @@ export const authorize = (...allowedRoles: UserRole[]) => {
 /**
  * Middleware para verificar que la cuenta esté activa
  */
-export const requireActiveAccount = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-): void => {
+export const requireActiveAccount = (req: AuthRequest, res: Response, next: NextFunction): void => {
   // Este middleware se puede extender para verificar
   // el estado de la cuenta en la base de datos
   // Por ahora, solo verifica que el usuario esté autenticado
@@ -214,11 +227,9 @@ export const requireActiveAccount = (
  * Genera un token JWT de acceso
  */
 export const generateAccessToken = (userId: string, email: string, role: string): string => {
-  return jwt.sign(
-    { userId, email, role },
-    jwtConfig.secret as string,
-    { expiresIn: jwtConfig.expiresIn as any }
-  );
+  return jwt.sign({ userId, email, role }, jwtConfig.secret as string, {
+    expiresIn: jwtConfig.expiresIn as any,
+  });
 };
 
 /**
@@ -226,12 +237,12 @@ export const generateAccessToken = (userId: string, email: string, role: string)
  */
 export const generateRefreshToken = (userId: string, email: string, role: string): string => {
   return jwt.sign(
-    { 
-      userId, 
-      email, 
-      role, 
+    {
+      userId,
+      email,
+      role,
       type: 'refresh',
-      jti: uuidv4() // Asegurar unicidad incluso en el mismo segundo
+      jti: uuidv4(), // Asegurar unicidad incluso en el mismo segundo
     },
     jwtConfig.refreshSecret as string,
     { expiresIn: jwtConfig.refreshExpiresIn as any }
@@ -243,7 +254,7 @@ export const generateRefreshToken = (userId: string, email: string, role: string
  */
 export const verifyRefreshToken = (token: string): JwtPayload | null => {
   try {
-    return jwt.verify(token, jwtConfig.refreshSecret) as JwtPayload;
+    return jwt.verify(token, jwtConfig.refreshSecret!) as JwtPayload;
   } catch {
     return null;
   }

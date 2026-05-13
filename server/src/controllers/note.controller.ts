@@ -21,12 +21,10 @@ export const createNote = async (
     }
     const { title, content, category } = req.body;
     if (!content) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          error: { code: 'VALIDATION_ERROR', message: 'El contenido es requerido' },
-        });
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'El contenido es requerido' },
+      });
       return;
     }
     const createData: {
@@ -75,6 +73,13 @@ export const getNote = async (req: Request, res: Response, next: NextFunction): 
       return;
     }
     const noteId = req.params.id;
+    if (typeof noteId !== 'string' || !noteId) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID de nota requerido' },
+      });
+      return;
+    }
     const note = await noteModel.getNoteById(noteId, userId);
     if (!note) {
       res
@@ -100,6 +105,13 @@ export const updateNote = async (
       return;
     }
     const noteId = req.params.id;
+    if (typeof noteId !== 'string' || !noteId) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID de nota requerido' },
+      });
+      return;
+    }
     const { title, content, category, is_pinned } = req.body;
     const updateData: { title?: string; content?: string; category?: string; is_pinned?: boolean } =
       {};
@@ -132,6 +144,13 @@ export const deleteNote = async (
       return;
     }
     const noteId = req.params.id;
+    if (typeof noteId !== 'string' || !noteId) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID de nota requerido' },
+      });
+      return;
+    }
     const deleted = await noteModel.deleteNote(noteId, userId);
     if (!deleted) {
       res
@@ -153,6 +172,13 @@ export const togglePin = async (req: Request, res: Response, next: NextFunction)
       return;
     }
     const noteId = req.params.id;
+    if (typeof noteId !== 'string' || !noteId) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID de nota requerido' },
+      });
+      return;
+    }
     const note = await noteModel.togglePin(noteId, userId);
     if (!note) {
       res

@@ -20,6 +20,7 @@ router.get('/recent', cravingController.getRecentCravings);
 router.get('/stats', cravingController.getCravingStats);
 router.get('/patterns', cravingController.getCravingPatterns);
 router.get('/:id', cravingController.getCravingById);
+router.put('/:id', cravingController.updateCraving);
 router.put('/:id/resolve', cravingController.resolveCraving);
 
 // Rutas de estrategias

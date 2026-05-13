@@ -5,7 +5,7 @@
  */
 
 import OpenAI from 'openai';
-import { embeddingsService, chunkingService, EmbeddingChunk } from './embedding.service.js';
+import { embeddingsService, EmbeddingChunk } from './embedding.service.js';
 import { neo4jService } from './neo4j.service.js';
 import * as UserModel from '../models/user.model.js';
 import { decrypt } from '../utils/encryption.js';
@@ -54,14 +54,26 @@ const WEIGHTS = {
 
 // Palabras clave de riesgo crítico
 const CRITICAL_KEYWORDS = [
-  'suicidio', 'quitarme la vida', 'morir', 'no quiero vivir',
-  'overdose', 'sobredosis', 'me voy a morir', 'matarme',
+  'suicidio',
+  'quitarme la vida',
+  'morir',
+  'no quiero vivir',
+  'overdose',
+  'sobredosis',
+  'me voy a morir',
+  'matarme',
 ];
 
 // Palabras clave de riesgo alto
 const HIGH_RISK_KEYWORDS = [
-  'no aguanto', 'no puedo más', 'mejor muerto', 'no vale la pena',
-  'autolesión', 'cortarme', 'hacerme daño', 'herirme',
+  'no aguanto',
+  'no puedo más',
+  'mejor muerto',
+  'no vale la pena',
+  'autolesión',
+  'cortarme',
+  'hacerme daño',
+  'herirme',
 ];
 
 // =====================================================
@@ -94,14 +106,14 @@ class RAGService {
           client: new OpenAI(config),
           model: user.llm_model || aiDefaultConfig.modelName,
           maxTokens: aiDefaultConfig.maxTokens,
-          temperature: aiDefaultConfig.temperature
+          temperature: aiDefaultConfig.temperature,
         };
       }
 
       // Default: Usar configuración del sistema si hay API KEY global
       const systemKey = process.env.OPENAI_API_KEY || aiDefaultConfig.openaiApiKey;
       const systemProvider = process.env.LLM_PROVIDER || 'openai';
-      
+
       if (!systemKey) {
         throw new Error('No se encontró configuración de IA para el usuario ni para el sistema.');
       }
@@ -118,7 +130,7 @@ class RAGService {
         client: new OpenAI(systemConfig),
         model: aiDefaultConfig.modelName,
         maxTokens: aiDefaultConfig.maxTokens,
-        temperature: aiDefaultConfig.temperature
+        temperature: aiDefaultConfig.temperature,
       };
     } catch (error) {
       console.error('❌ Error al obtener el cliente de IA:', error);
@@ -140,7 +152,7 @@ class RAGService {
         profile: context.profile,
         etapaCambio: context.etapaCambio,
         sustancias: context.sustancias,
-        pais: context.pais
+        pais: context.pais,
       });
 
       // 2. Ejecutar búsqueda vectorial en Neo4j
@@ -161,20 +173,20 @@ class RAGService {
         score: number;
       }>(cypher, {
         embedding,
-        limit
+        limit,
       });
 
       // 3. Mapear resultados
-      return results.map(r => ({
+      return results.map((r) => ({
         chunk: {
           id: '', // No necesario para el prompt
           content: r.content,
           source: r.source,
           sourceType: r.sourceType as any,
-          metadata: r.metadata
+          metadata: r.metadata,
         },
         score: r.score,
-        source: 'vector'
+        source: 'vector',
       }));
     } catch (error) {
       console.error('❌ Error in vector search:', error);
@@ -232,9 +244,7 @@ class RAGService {
   /**
    * Búsqueda en Knowledge Graph
    */
-  private async knowledgeGraphSearch(
-    userContext: ChatContext
-  ): Promise<RetrievedChunk[]> {
+  private async knowledgeGraphSearch(userContext: ChatContext): Promise<RetrievedChunk[]> {
     try {
       // Obtener contexto del usuario desde Neo4j
       const contextResults = await neo4jService.getChatbotContext(userContext.userId);
@@ -303,14 +313,13 @@ class RAGService {
   /**
    * Búsqueda por palabras clave
    */
-  private async keywordSearch(
-    query: string,
-    topK: number
-  ): Promise<RetrievedChunk[]> {
-    // Implementación básica de búsqueda por palabras clave
-    // En producción, usar Elasticsearch osimilar
-    const keywords = query.toLowerCase().split(/\s+/);
+  private async keywordSearch(query: string, topK: number): Promise<RetrievedChunk[]> {
+    // Marcar variables como usadas para evitar errores TS6133
+    void query;
+    void topK;
 
+    // Implementación básica de búsqueda por palabras clave
+    // En producción, usar Elasticsearch o similar
     // Simulación - en producción implementar con BM25
     return [];
   }
@@ -324,6 +333,7 @@ class RAGService {
     keywordResults: RetrievedChunk[],
     userContext: ChatContext
   ): RetrievedChunk[] {
+    void userContext; // Marcar como usado para evitar error TS6133
     const seen = new Map<string, RetrievedChunk>();
 
     // Ponderar resultados vectoriales
@@ -399,9 +409,7 @@ class RAGService {
       return chunks;
     }
 
-    // Usar GPT para re-ranking con el cliente del usuario
-    const { client, model } = await this.getAIClient(chunks[0].chunk.id.includes('kg') ? '' : 'system');
-    // Nota: El re-ranking debería usar el cliente del sistema por estabilidad o del usuario si es necesario
+    // Nota: El re-ranking usará computeRelevance que obtiene su propio cliente
 
     // Mejor para re-ranking usar el contexto del primer chunk o un userId global
     // Simplificado por ahora
@@ -412,15 +420,17 @@ class RAGService {
       })
     );
 
-    return scoredChunks
-      .sort((a, b) => b.score - a.score)
-      .slice(0, topK);
+    return scoredChunks.sort((a, b) => b.score - a.score).slice(0, topK);
   }
 
   /**
    * Calcula relevancia usando el LLM
    */
-  private async computeRelevance(query: string, chunkContent: string, userId: string = 'system'): Promise<number> {
+  private async computeRelevance(
+    query: string,
+    chunkContent: string,
+    userId: string = 'system'
+  ): Promise<number> {
     try {
       const { client, model } = await this.getAIClient(userId === 'system' ? '' : userId);
 
@@ -429,7 +439,8 @@ class RAGService {
         messages: [
           {
             role: 'system',
-            content: 'Eres un evaluador de relevancia. Del 0 al 1, ¿qué tan relevante es el siguiente chunk para la consulta? Responde solo con un número.',
+            content:
+              'Eres un evaluador de relevancia. Del 0 al 1, ¿qué tan relevante es el siguiente chunk para la consulta? Responde solo con un número.',
           },
           {
             role: 'user',
@@ -485,9 +496,7 @@ class RAGService {
     conversationHistory: ChatMessage[]
   ): Promise<RAGResult> {
     // Construir contexto desde los chunks recuperados
-    const context = retrievedChunks
-      .map((c, i) => `[${i + 1}] ${c.chunk.content}`)
-      .join('\n\n');
+    const context = retrievedChunks.map((c, i) => `[${i + 1}] ${c.chunk.content}`).join('\n\n');
 
     // Construir historial de conversación
     const history = conversationHistory
@@ -541,7 +550,11 @@ class RAGService {
   /**
    * Genera preguntas de seguimiento
    */
-  private async generateSuggestions(query: string, response: string, userId: string = 'system'): Promise<string[]> {
+  private async generateSuggestions(
+    query: string,
+    response: string,
+    userId: string = 'system'
+  ): Promise<string[]> {
     try {
       const { client, model } = await this.getAIClient(userId === 'system' ? '' : userId);
 
@@ -550,7 +563,8 @@ class RAGService {
         messages: [
           {
             role: 'system',
-            content: 'Genera 3 preguntas de seguimiento breves que el usuario podría hacer sobre el tema. Una por línea. Solo las preguntas, sin números.',
+            content:
+              'Genera 3 preguntas de seguimiento breves que el usuario podría hacer sobre el tema. Una por línea. Solo las preguntas, sin números.',
           },
           {
             role: 'user',
@@ -583,9 +597,11 @@ Respondes en español de manera clara y accesible. Tu objetivo es ser un apoyo c
     const getArchetype = (type: string): string => {
       const t = type?.toLowerCase() || 'general';
       if (t.includes('lucas') || t.includes('adolescente')) return 'adolescente';
-      if (t.includes('camila') || t.includes('universitario') || t.includes('joven')) return 'joven_adulto';
+      if (t.includes('camila') || t.includes('universitario') || t.includes('joven'))
+        return 'joven_adulto';
       if (t.includes('diego') || t.includes('profesional')) return 'profesional_adulto';
-      if (t.includes('eliana') || t.includes('senior') || t.includes('mayor')) return 'senior_alcohol';
+      if (t.includes('eliana') || t.includes('senior') || t.includes('mayor'))
+        return 'senior_alcohol';
       if (t.includes('sofia') || t.includes('trauma') || t.includes('madre')) return 'trauma_care';
       if (t.includes('rodrigo') || t.includes('opioide')) return 'senior_opioides';
       if (t.includes('rosario') || t.includes('rural')) return 'rural';
@@ -633,15 +649,20 @@ Accesibilidad: Mensajes breves y claros adaptados a la vida cotidiana local.`,
       general: `Tu audiencia: personas buscando apoyo en su proceso de recuperación.
 Tono: Empático, profesional y compasivo.
 Estrategias: Escucha activa, validación emocional y entrega de herramientas basadas en evidencia (TCC, Entrevista Motivacional).
-Enfoque: Bienestar, reducción de riesgos y apoyo constante.`
+Enfoque: Bienestar, reducción de riesgos y apoyo constante.`,
     };
 
     const etapaPrompts: Record<string, string> = {
-      precontemplacion: 'Estado: El usuario aún no reconoce el problema. Estrategia: Sembrar dudas sanas, feedback objetivo, evitar confrontación.',
-      contemplacion: 'Estado: El usuario evalúa pros y contras. Estrategia: Explorar ambivalencia, balance decisional.',
-      preparacion: 'Estado: El usuario planea el cambio. Estrategia: Planes de acción SMART, recursos concretos.',
-      accion: 'Estado: El usuario está cambiando. Estrategia: Refuerzo positivo diario, manejo de recaídas repentinas.',
-      mantencion: 'Estado: El usuario mantiene el cambio. Estrategia: Prevención de triggers, mantenimiento de hábitos saludables.',
+      precontemplacion:
+        'Estado: El usuario aún no reconoce el problema. Estrategia: Sembrar dudas sanas, feedback objetivo, evitar confrontación.',
+      contemplacion:
+        'Estado: El usuario evalúa pros y contras. Estrategia: Explorar ambivalencia, balance decisional.',
+      preparacion:
+        'Estado: El usuario planea el cambio. Estrategia: Planes de acción SMART, recursos concretos.',
+      accion:
+        'Estado: El usuario está cambiando. Estrategia: Refuerzo positivo diario, manejo de recaídas repentinas.',
+      mantencion:
+        'Estado: El usuario mantiene el cambio. Estrategia: Prevención de triggers, mantenimiento de hábitos saludables.',
     };
 
     const perfilPrompt = arquetipoPrompts[arquetipo];
@@ -655,13 +676,13 @@ Enfoque: Bienestar, reducción de riesgos y apoyo constante.`
    */
   getCrisisResponse(pais: string): string {
     const crisisLines: Record<string, string> = {
-      'AR': '135 (Atención en Adicciones), 911 (emergencias)',
-      'MX': 'Línea de la Vida 800 911 2000, 911',
-      'CL': '141 (Fono Vida - Prevención Suicidio), 1450 (Fono Drogas)',
-      'ES': '024 (Prevención del Suicidio), 112 (emergencias)',
-      'US': '988 (Suicide & Crisis Lifeline), 911',
-      'CO': '123 (emergencias), 106 (Línea de la Felicidad)',
-      'PE': '113 (SAMU), Opción 5 (Salud Mental)',
+      AR: '135 (Atención en Adicciones), 911 (emergencias)',
+      MX: 'Línea de la Vida 800 911 2000, 911',
+      CL: '141 (Fono Vida - Prevención Suicidio), 1450 (Fono Drogas)',
+      ES: '024 (Prevención del Suicidio), 112 (emergencias)',
+      US: '988 (Suicide & Crisis Lifeline), 911',
+      CO: '123 (emergencias), 106 (Línea de la Felicidad)',
+      PE: '113 (SAMU), Opción 5 (Salud Mental)',
     };
 
     const line = crisisLines[pais] || '911';

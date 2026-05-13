@@ -1,26 +1,3 @@
-/**
- * Input - Componente de input de texto reutilizable
- *
- * Características:
- * - Label opcional
- * - Mensaje de error
- * - Soporte para multiline
- * - Iconos (izquierda/derecha)
- * - Accesibilidad completa
- * - Estilos basados en tema
- *
- * Uso:
- * <Input
- *   label="Correo electrónico"
- *   placeholder="tu@email.com"
- *   value={email}
- *   onChangeText={setEmail}
- *   error={emailError}
- *   keyboardType="email-address"
- *   autoCapitalize="none"
- * />
- */
-
 import React, { forwardRef, useState } from 'react';
 import {
   View,
@@ -58,10 +35,7 @@ export const Input = forwardRef<TextInput, InputProps & TextInputProps>(
     const [isFocused, setIsFocused] = useState(false);
 
     const getContainerStyle = (): any => {
-      return [
-        { marginBottom: theme.spacing.md },
-        style
-      ];
+      return [{ marginBottom: theme.spacing.md + 2 }, style];
     };
 
     const getLabelStyle = (): TextStyle => {
@@ -69,9 +43,14 @@ export const Input = forwardRef<TextInput, InputProps & TextInputProps>(
         fontFamily: theme.typography.fontFamily.medium,
         fontSize: theme.typography.fontSize.sm,
         fontWeight: '600',
-        color: error ? theme.colors.error : isFocused ? theme.colors.primary : theme.colors.textSecondary,
-        marginBottom: theme.spacing.xs,
+        color: error
+          ? theme.colors.error
+          : isFocused
+            ? theme.colors.primary
+            : theme.colors.textSecondary,
+        marginBottom: theme.spacing.xs + 2,
         marginLeft: 4,
+        letterSpacing: 0.2,
       };
     };
 
@@ -79,19 +58,17 @@ export const Input = forwardRef<TextInput, InputProps & TextInputProps>(
       return {
         flexDirection: 'row',
         alignItems: multiline ? 'flex-start' : 'center',
-        backgroundColor: disabled
-          ? theme.colors.background
-          : theme.colors.surface,
+        backgroundColor: disabled ? theme.colors.background : theme.colors.surface,
         borderWidth: 1.5,
         borderColor: error
           ? theme.colors.error
-          : isFocused 
-            ? theme.colors.primary 
+          : isFocused
+            ? theme.colors.primary
             : theme.colors.border,
         borderRadius: theme.borderRadius.md,
-        paddingHorizontal: theme.spacing.md,
+        paddingHorizontal: theme.spacing.md + 2,
         paddingVertical: multiline ? theme.spacing.md : 0,
-        minHeight: multiline ? 100 : 54, // Un poco más alto para modernidad
+        minHeight: multiline ? 100 : 52,
       };
     };
 
@@ -125,7 +102,7 @@ export const Input = forwardRef<TextInput, InputProps & TextInputProps>(
             ref={ref}
             style={getInputStyle()}
             placeholder={placeholder}
-            placeholderTextColor={theme.colors.textSecondary + '70'}
+            placeholderTextColor={theme.colors.textSecondary + '60'}
             value={value}
             onChangeText={onChangeText}
             secureTextEntry={secureTextEntry}

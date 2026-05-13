@@ -3,7 +3,7 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  *
  * Este script lee todos los documentos en /knowledge_base
- * los divide en chunks, genera sus embeddings usando OpenAI
+ * losdivide en chunks, genera sus embeddings usando OpenAI
  * y los guarda en Neo4j.
  */
 
@@ -55,7 +55,8 @@ async function processFile(filePath: string, source: string, category: string) {
       text = fs.readFileSync(filePath, 'utf-8');
     } else if (ext === '.pdf') {
       try {
-        const pdfParse = (await import('pdf-parse')).default;
+        // @ts-ignore - pdf-parse lacks type definitions
+        const pdfParse = (await import('pdf-parse')).default as any;
         const dataBuffer = fs.readFileSync(filePath);
         const data = await pdfParse(dataBuffer);
         text = data.text;

@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const TTS_URL = process.env.TTS_API_URL || 'http://localhost:8006';
+const TTS_URL = process.env.TTS_API_URL || 'http://localhost:8009';
 const DEFAULT_LANGUAGE = 'es';
 
 export interface TTSService {
@@ -88,10 +88,14 @@ export class TTSServiceImpl implements TTSService {
       const cleanText = cleanMarkdown(text);
       console.log(`[TTS] Generando voz para: "${cleanText.substring(0, 30)}..."`);
 
-      // Piper TTS solo necesita el texto
-      const requestData = {
+      // Kokoro TTS: enviar texto con opcionales de voz e idioma
+      const requestData: Record<string, any> = {
         text: cleanText,
       };
+
+      // Voz por defecto: ef_dora (femenina, espanol)
+      requestData.voice = _speaker && _speaker !== 'default' ? _speaker : 'ef_dora';
+      requestData.lang = _language || 'es';
 
       console.log(`[TTS] Enviando solicitud con ${cleanText.length} caracteres, timeout: 300s`);
       const startTime = Date.now();

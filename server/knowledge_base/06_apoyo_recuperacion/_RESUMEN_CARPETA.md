@@ -1,53 +1,19 @@
-#  RESUMEN CARPETA
+# Resumen de Carpeta: Apoyo en la Recuperación (06)
 
-**Fuente:** PDF descargado  
-**Archivo:** _RESUMEN_CARPETA.pdf  
-**Carpeta:** `06_apoyo_recuperacion`
+Esta sección aborda la importancia de las redes de soporte, la familia, los grupos de pares y el capital de recuperación en el proceso de rehabilitación.
 
----
+## Contenido Principal
 
-## Hallazgo clave
+1.  **Sintesis: Apoyo Familiar y Redes (2025)**: Documento central que resume la evidencia más reciente (2024-2025) sobre intervenciones familiares, tribunales de tratamiento y el rol de los pares.
+2.  **Recovery Supportive Interventions (2024)**: Análisis de intervenciones que no son estrictamente clínicas pero que sostienen la recuperación (vivienda, empleo, apoyo social).
+3.  **Group Treatments for SUD (2021)**: Evidencia sobre la efectividad de las terapias grupales y grupos de autoayuda.
+4.  **SUD Recovery Research Opportunities (2025)**: Documento sobre las brechas de investigación en el área de recuperación a largo plazo.
 
-__(No se pudo extraer texto - pdftotext no disponible)__
+## Conceptos Clave
 
----
-
-## Cuándo usar este artículo
-
-Para temas de grupos de apoyo, redes de recuperación, intervenciones comunitarias y apoyo social.
-
----
-
-## Resumen estructurado
-
-### Objetivo del estudio
-
-_(Extraer del PDF)_
-
-### Muestra y metodología
-
-_(Completar con diseño del estudio, n, población, país)_
-
-### Resultados principales
-
-_(Listar resultados con datos cuantitativos)_
-
-### Limitaciones reportadas
-
-_(Describir limitaciones)_
-
-### Implicaciones clínicas
-
-_(¿Qué significa esto para la práctica del acompañamiento?)_  
-
-**Aplicación directa:**  
-- _[Ej: Grupo terapéutico, apoyo entre pares]_
-- _[Ej: Estructura de sesiones, duración]_
-
-### Citas textuales útiles (traducidas)
-
-1. _"[Cita del artículo]"_
+*   **Capital de Recuperación**: El conjunto de recursos internos y externos que sostienen el cambio.
+*   **Peer Support (Apoyo de Pares)**: El valor terapéutico de la experiencia compartida por personas que ya han transitado el camino de la recuperación.
+*   **Enfoque Sistémico**: La necesidad de tratar a la familia y al entorno social como parte de la solución, no solo como observadores.
 
 ---
-
-*🗒️ Nota: Revisar el PDF para completar las secciones.*
+*Última actualización: Mayo 2026*

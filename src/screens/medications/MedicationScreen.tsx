@@ -23,7 +23,6 @@ import {
   Animated,
   Platform,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@theme/ThemeContext';
 import { api } from '@services/api';
 import { MEDICATION_ENDPOINTS } from '@services/endpoints';
@@ -118,9 +117,10 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
         styles.medicationCard,
         {
           backgroundColor: theme.colors.card,
-          borderColor: isTaken ? theme.colors.success + '40' : theme.colors.border,
-          borderWidth: isTaken ? 1.5 : 1,
+          borderColor: isTaken ? theme.colors.success + '30' : theme.colors.border,
+          borderWidth: StyleSheet.hairlineWidth,
           transform: [{ scale: scaleAnim }],
+          ...theme.shadows.sm,
         },
       ]}
     >
@@ -222,7 +222,6 @@ const MedicationCard: React.FC<MedicationCardProps> = ({
 
 export const MedicationScreen: React.FC = () => {
   const { theme } = useTheme();
-  const insets = useSafeAreaInsets();
 
   // Estado principal
   const [medications, setMedications] = useState<Medication[]>([]);
@@ -415,7 +414,7 @@ export const MedicationScreen: React.FC = () => {
     <View
       style={[
         styles.progressCard,
-        { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+        { backgroundColor: theme.colors.card, borderWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.border, ...theme.shadows.sm },
       ]}
     >
       <View style={styles.progressHeader}>
@@ -630,42 +629,41 @@ export const MedicationScreen: React.FC = () => {
                 )}
               </View>
             </View>
+            {/* Botones footer */}
+            <View style={[styles.modalFooter, { borderTopColor: 'transparent', paddingHorizontal: 0 }]}>
+              <TouchableOpacity
+                style={[styles.cancelButton, { borderColor: theme.colors.border }]}
+                onPress={closeModal}
+              >
+                <Text style={[styles.cancelButtonText, { color: theme.colors.textSecondary }]}>
+                  Cancelar
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.saveButton,
+                  {
+                    backgroundColor: theme.colors.primary,
+                    opacity: saving ? 0.7 : 1,
+                  },
+                ]}
+                onPress={handleSaveMedication}
+                disabled={saving}
+              >
+                {saving ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <>
+                    <Icon name="save-outline" size={18} color="#fff" />
+                    <Text style={styles.saveButtonText}>
+                      {isEditing ? 'Guardar cambios' : 'Agregar'}
+                    </Text>
+                  </>
+                )}
+              </TouchableOpacity>
+            </View>
           </ScrollView>
-
-          {/* Botones footer */}
-          <View style={[styles.modalFooter, { borderTopColor: theme.colors.border }]}>
-            <TouchableOpacity
-              style={[styles.cancelButton, { borderColor: theme.colors.border }]}
-              onPress={closeModal}
-            >
-              <Text style={[styles.cancelButtonText, { color: theme.colors.textSecondary }]}>
-                Cancelar
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.saveButton,
-                {
-                  backgroundColor: theme.colors.primary,
-                  opacity: saving ? 0.7 : 1,
-                },
-              ]}
-              onPress={handleSaveMedication}
-              disabled={saving}
-            >
-              {saving ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <>
-                  <Icon name="save-outline" size={18} color="#fff" />
-                  <Text style={styles.saveButtonText}>
-                    {isEditing ? 'Guardar cambios' : 'Agregar'}
-                  </Text>
-                </>
-              )}
-            </TouchableOpacity>
-          </View>
         </View>
       </View>
     </Modal>
@@ -693,12 +691,7 @@ export const MedicationScreen: React.FC = () => {
       ) : (
         <Animated.ScrollView
           style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}
-          contentContainerStyle={[
-            styles.scrollContent,
-            {
-              paddingBottom: insets.bottom + 24,
-            },
-          ]}
+          contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {/* Tarjeta de progreso */}
@@ -765,6 +758,9 @@ export const MedicationScreen: React.FC = () => {
               seguimiento preciso.
             </Text>
           </View>
+
+          {/* Espaciador para la barra de navegación */}
+          <View style={{ height: 80 }} />
         </Animated.ScrollView>
       )}
 

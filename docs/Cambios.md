@@ -189,3 +189,123 @@ Descripción general: Creación de 8 componentes UI adicionales específicos par
 - **TypeScript strict**: Todos los componentes tienen tipos completos exportados, interfaces tipadas para props
 - **Accesibilidad**: Soporte completo para TalkBack (accessibilityRole, accessibilityState, accessibilityLabel, accessibilityHint)
 - **Export centralizado**: Todos los componentes exportados desde src/components/index.ts
+
+## 14-04-26 Mejora sustancial del sistema de memoria y perfil del agente LÚA
+
+Descripción general: El agente LÚA tenía un sistema de memoria de 8 tipos (triggers, objetivos, patrones emocionales, estrategias de afrontamiento, factores de riesgo, relaciones, patrones de consumo, preferencias) pero no lo estaba utilizando correctamente. El grafo Neo4j almacenaba nodos `Atributo` con relaciones tipificadas pero nunca se consultaban. El perfil del usuario estaba hardcodeado a `etapaCambio: 'contemplacion'` y no evolucionaba con la conversación.
+
+### Problemas identificados:
+- **`agentNode`** (langgraph.service.ts) solo cargaba memorias de tipo `preference`, ignorando los otros 7 tipos (triggers, goals, risk_factors, etc.)
+- **`memoryNode`** (langgraph.service.ts) duplicaba la extracción de memoria con un prompt simplificado que guardaba todo como `preference` con importancia 5, ignorando el sistema tipificado del `MemoryService`
+- **`knowledge_graph_search` tool** (graph_tool.ts) solo llamaba `getChatbotContext()` que no consultaba los nodos `Atributo` donde se almacenan las memorias del grafo
+- **`userContext` en el controller** tenía `etapaCambio` hardcodeado a `'contemplacion'` y no incluía datos del grafo Neo4j
+- **`processTurn()` return value descartado** en `sendMessage` — el contexto de memoria completo nunca llegaba al agente
+- **`streamMessage`** no procesaba memoria en absoluto
+- **No había evolución dinámica del perfil** — etapa de cambio y nivel de riesgo nunca se actualizaban
+
+### Cambios implementados:
+
+#### 1. `server/src/services/skills/graph_skill/scripts/graph_tool.ts` — Herramienta de grafo enriquecida
+- Ahora consulta 5 fuentes de información en lugar de 1:
+  - Perfil base + sustancias + medicamentos (`getChatbotContext`)
+  - Todos los atributos de memoria del grafo (`getUserMemoryAttributes`) — triggers, objetivos, patrones, estrategias
+  - Cravings recientes con triggers (`getRecentCravingsWithTriggers`)
+  - Interacciones peligrosas (`checkDrugInteractions`)
+  - Evolución del usuario: etapa, riesgo, métricas (`getUserEvolution`)
+- Nuevo parámetro `queryType` para filtrar: 'full', 'memory', 'cravings', 'interactions', 'profile'
+- Descripción mejorada para que el LLM entienda cuándo usarla
+
+#### 2. `server/src/services/neo4j.service.ts` — Nuevas queries de perfil y memoria
+- `getUserMemoryAttributes(userId)`: Consulta TODOS los nodos `Atributo` conectados al usuario, con tipo, importancia, relación y timestamp
+- `getUserMemoryByType(userId, rel)`: Consulta atributos filtrados por tipo de relación (ej: `TIENE_TRIGGER`)
+- `getRecentCravingsWithTriggers(userId, days)`: Cravings de los últimos N días con sus etiquetas de trigger
+- `getUserEvolution(userId)`: Métricas de evolución (etapa, riesgo, checkins 30d, cravings 30d, promedio intensidad)
+- `buildEnrichedUserProfile(userId)`: Construye un perfil completo combinando todas las fuentes de datos
+- `updateUserStage(userId, etapa, riesgo?)`: Actualiza la etapa de cambio/riesgo del usuario en el grafo
+- `upsertUserSubstance(userId, substanceName)`: Registra nuevas sustancias descubiertas en la conversación
+
+#### 3. `server/src/services/langgraph.service.ts` — agentNode + memoryNode reescritos
+- **agentNode**: Ahora usa `memoryService.retrieveMemoryContext()` para inyectar TODA la memoria (8 tipos) en el system prompt. También enriquece el `userContext` con `buildEnrichedUserProfile()` del grafo Neo4j
+- **memoryNode reescrito**: Usa `memoryService.extractMemories()` y `memoryService.persistMemories()` del sistema tipificado. Ya no tiene su propia lógica de extracción simplificada
+- **Nuevo `analyzeAndUpdateProfile()`**: Después de cada turno, un LLM analiza si el mensaje indica cambio de etapa de cambio (Prochaska & DiClemente), cambio de nivel de riesgo, o mención de nuevas sustancias, y actualiza el grafo Neo4j dinámicamente
+- Import de `memoryService` agregado
+
+#### 4. `server/src/controllers/chatbot.controller.ts` — Contexto enriquecido
+- **sendMessage**: `userContext` ahora incluye `etapaCambio`, `nivelRiesgo`, `sustancias`, `medicamentos`, `memoriasGrafo`, `actividadReciente`, `alertasRiesgo` — todos obtenidos dinámicamente del grafo Neo4j via `buildEnrichedUserProfile()`
+- **streamMessage**: Mismo enriquecimiento de contexto. Además, ahora procesa memoria del turno (`memoryService.processTurn()`) que antes no se hacía en absoluto
+- Eliminado el hardcodeo de `etapaCambio: 'contemplacion'`
+
+### Resultado esperado:
+- LÚA ahora "recuerda" triggers, objetivos, estrategias de afrontamiento, factores de riesgo, patrones de consumo y relaciones importantes del usuario a través de conversaciones
+- El perfil evoluciona: si un usuario pasa de contemplar el cambio a prepararse activamente, la etapa se actualiza en el grafo y las respuestas se adaptan
+- El grafo Neo4j se usa activamente como fuente de verdad del perfil del usuario, no solo como almacén pasivo
+- Nuevas sustancias mencionadas en conversación se registran automáticamente en el grafo
+
+## 26-04-25 Auditoría y expansión de la base de conocimientos de LÚA
+
+Descripción general: Se realizó una auditoría completa de la base de conocimientos (`server/knowledge_base/`), se identificaron brechas críticas de contenido, se buscó documentación científica relevante en PubMed y fuentes institucionales, se crearon 3 nuevas carpetas temáticas, se repararon 3 archivos corruptos y se generó un documento de análisis de brechas.
+
+### Proceso
+
+#### 1. Auditoría de la base de conocimientos existente
+- Se examinaron las 7 carpetas originales (01-07) + carpetas auxiliares (faqs, psicoeducacion, recursos_locales, tecnicas)
+- Se leyeron todos los archivos `_RESUMEN_CARPETA.md` y archivos de contenido
+- Se detectaron **3 archivos _RESUMEN corruptos**: `05/` (Cloudflare HTML), `06/` (plantilla vacía), `07/` (HTML dump de UNODC)
+- Se detectó **1 archivo de contenido corrupto**: `05/mobile_apps_SUD_umbrella_review_2024.md` (Cloudflare HTML)
+- Se identificó que la carpeta `06/` tiene 3 archivos generados sin extracción de texto exitosa
+
+#### 2. Búsqueda de documentación científica
+Se realizaron búsquedas en PubMed y fuentes institucionales en 8 áreas temáticas:
+- Reducción de daños + SUD (209 resultados)
+- Trauma-informed care + SUD (7 resultados)
+- AI chatbot + salud mental + adicción (2 resultados)
+- Modelo transteórico + SUD (14 resultados)
+- Tratamiento asistido con medicación + TUO (10 resultados)
+- Riesgo suicida + SUD (44 resultados)
+- Involucramiento familiar + SUD (172 resultados)
+- Fuentes institucionales: NIDA (exitoso), SAMHSA (403 bloqueado)
+
+**Desafío**: Los intentos de descargar artículos completos de PMC fallaron porque los PMC IDs no corresponden directamente a los PubMed IDs. Los PMCID deben buscarse por separado.
+
+#### 3. Documento de análisis de brechas
+- **Archivo creado**: `server/knowledge_base/ANALISIS_BRECHAS_BASE_CONOCIMIENTOS.md`
+- Mapeo completo de brechas entre lo que el system prompt de LÚA necesita vs. lo que la KB contiene
+- 9 áreas de brecha identificadas con prioridad, impacto y PMIDs de artículos recomendados
+
+#### 4. Nuevas carpetas creadas
+
+**`08_reduccion_danos/`** (2 archivos):
+- `_RESUMEN_CARPETA.md`: Índice del contenido de la carpeta
+- `reduccion_danos_marco_conceptual.md`: Marco conceptual completo sobre reducción de daños aplicado a SUD. Incluye: principios fundamentales, evidencia por sustancia (alcohol, opioides, estimulantes, cannabis), estrategias prácticas para LÚA, temas polémicos, contexto LATAM, y técnicas que el chatbot puede enseñar
+
+**`09_modelo_transteorico/`** (2 archivos):
+- `_RESUMEN_CARPETA.md`: Índice del contenido
+- `modelo_transteorico_aplicacion_SUD.md`: Modelo Transteórico de Cambio (Prochaska & DiClemente) aplicado a SUD. Incluye: las 6 etapas detalladas, procesos de cambio asociados, balance decisional, autoeficacia, cómo LÚA debe adaptar su comunicación por etapa, señales para detectar etapa y transiciones, y trampas comunes
+
+**`10_trauma_informed_care/`** (2 archivos):
+- `_RESUMEN_CARPETA.md`: Índice del contenido
+- `trauma_informed_care_SUD.md`: Cuidado informado por trauma aplicado a SUD. Incluye: conexión trauma-adicción, los 6 principios SAMHSA del TIC, las 4 Rs, señales de trauma que LÚA debe detectar, protocolos de respuesta para revelaciones de trauma, comorbilidad TEPT+SUD, datos de ACEs y riesgo, técnicas de regulación que LÚA puede enseñar (grounding, respiración, contenedor mental, lugar seguro)
+
+#### 5. Reparación de archivos corruptos
+- **`05_salud_digital_apps/_RESUMEN_CARPETA.md`**: Reemplazado HTML de Cloudflare con resumen real de los 4 archivos de la carpeta
+- **`06_apoyo_recuperacion/_RESUMEN_CARPETA.md`**: Reemplazada plantilla vacía con resumen que documenta el estado incompleto de los contenidos
+- **`07_contexto_global_latinoamerica/_RESUMEN_CARPETA.md`**: Reemplazado HTML de UNODC con resumen de los 2 archivos (1 corrupto, 1 válido)
+
+### Archivos creados/modificados
+- `server/knowledge_base/ANALISIS_BRECHAS_BASE_CONOCIMIENTOS.md` (nuevo)
+- `server/knowledge_base/08_reduccion_danos/_RESUMEN_CARPETA.md` (nuevo)
+- `server/knowledge_base/08_reduccion_danos/reduccion_danos_marco_conceptual.md` (nuevo)
+- `server/knowledge_base/09_modelo_transteorico/_RESUMEN_CARPETA.md` (nuevo)
+- `server/knowledge_base/09_modelo_transteorico/modelo_transteorico_aplicacion_SUD.md` (nuevo)
+- `server/knowledge_base/10_trauma_informed_care/_RESUMEN_CARPETA.md` (nuevo)
+- `server/knowledge_base/10_trauma_informed_care/trauma_informed_care_SUD.md` (nuevo)
+- `server/knowledge_base/05_salud_digital_apps/_RESUMEN_CARPETA.md` (reparado)
+- `server/knowledge_base/06_apoyo_recuperacion/_RESUMEN_CARPETA.md` (reparado)
+- `server/knowledge_base/07_contexto_global_latinoamerica/_RESUMEN_CARPETA.md` (reparado)
+
+### Resultado
+- La base de conocimientos pasó de 7 a 10 carpetas temáticas
+- 3 áreas críticas cubiertas: reducción de daños, modelo transteórico, trauma-informed care
+- 3 resúmenes de carpeta corruptos reparados
+- Documento de análisis de brechas disponible como guía para futuras expansiones
+- Las nuevas carpetas están diseñadas específicamente para que LÚA las use en conversaciones: incluyen frases sugeridas, protocolos de respuesta y adaptaciones para el contexto LATAM

@@ -5,6 +5,7 @@
 
 import * as Network from 'expo-network';
 import { router } from 'expo-router';
+import { Platform } from 'react-native';
 import {
   ApiResponse,
   ApiError,
@@ -101,6 +102,32 @@ const checkNetwork = async (): Promise<boolean> => {
   } catch {
     return false;
   }
+};
+
+const getApiHostname = (): string | null => {
+  try {
+    return new URL(API_CONFIG.BASE_URL).hostname;
+  } catch {
+    return null;
+  }
+};
+
+const getNetworkFailureMessage = (error: Error | null): string => {
+  if (error?.name === 'AbortError') {
+    return `Tiempo de espera agotado al conectar con ${API_CONFIG.BASE_URL}`;
+  }
+
+  const hostname = getApiHostname();
+
+  if (Platform.OS === 'android' && (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '10.0.2.2')) {
+    return `No se pudo conectar con ${API_CONFIG.BASE_URL}. En un Android físico debes usar la IP LAN del servidor, por ejemplo http://192.168.x.x:3003.`;
+  }
+
+  if (Platform.OS === 'android' && API_CONFIG.BASE_URL.startsWith('http://')) {
+    return `No se pudo conectar con ${API_CONFIG.BASE_URL}. Verifica que la APK esté compilada con tráfico HTTP permitido y que el dispositivo alcance esa IP.`;
+  }
+
+  return `No se pudo conectar con ${API_CONFIG.BASE_URL}. Verifica que el servidor esté corriendo y accesible desde el dispositivo.`;
 };
 
 // ============================================
@@ -231,7 +258,7 @@ const fetchWithRetry = async (
     }
   }
 
-  throw lastError || new Error('Request failed');
+  throw new Error(getNetworkFailureMessage(lastError));
 };
 
 // ============================================
@@ -269,16 +296,20 @@ const applyRequestInterceptor = async (
 const applyResponseInterceptor = async (response: Response): Promise<Response> => {
   // Manejar errores 401 (excepto en login/registro donde es normal recibir 401 si las credenciales fallan)
   if (response.status === 401 && !response.url.includes('/auth/login') && !response.url.includes('/auth/register')) {
+    console.log('🔄 [API] 401 Detectado, intentando refrescar token...');
     // Intentar refresh token
     const refreshed = await tryRefreshToken();
 
     if (!refreshed) {
+      console.warn('❌ [API] Falló el refresco de token');
       handleErrorStatus(401);
       throw createApiError(401, 'Sesión expirada');
     }
 
-    // Si se refreshó exitosamente, reintentar request
-    // Esto se maneja en el método request()
+    console.log('✅ [API] Token refrescado, la solicitud original debería ser reintentada');
+    // Si se refreshó exitosamente, devolvemos un flag o algo que indique que hay que reintentar
+    // O mejor, podemos inyectar un header especial para que el llamador sepa
+    return response;
   }
 
   // Manejar errores 500
@@ -390,7 +421,24 @@ const request = async <T>(
   let response = await fetchWithRetry(requestUrl, requestOptions, config);
 
   // Aplicar interceptor de response
-  response = await applyResponseInterceptor(response);
+  // Si es 401, el interceptor intentará refrescar el token
+  if (response.status === 401 && !url.includes('/auth/login') && !url.includes('/auth/register')) {
+    const refreshed = await tryRefreshToken();
+    if (refreshed) {
+      // Reintentar con el nuevo token
+      const [retryUrl, retryOptions] = await applyRequestInterceptor(finalUrl, {
+        method,
+        ...options,
+        body: data ? JSON.stringify(data) : undefined,
+      });
+      response = await fetchWithRetry(retryUrl, retryOptions, config);
+    } else {
+      handleErrorStatus(401);
+      throw createApiError(401, 'Sesión expirada');
+    }
+  } else {
+    response = await applyResponseInterceptor(response);
+  }
 
   // Manejar respuesta
   if (!response.ok) {
@@ -482,9 +530,8 @@ export const del = async <T>(url: string): Promise<T> => {
  * Inicia sesión con email y contraseña
  */
 export const login = async (credentials: LoginRequest): Promise<AuthResponse> => {
-  console.log('📡 API: Enviando POST login a:', AUTH_ENDPOINTS.LOGIN);
+  // SEC-014 FIX: NO loguear credenciales (email/password) en consola
   const response = await post<ApiResponse<any>>(AUTH_ENDPOINTS.LOGIN, credentials);
-  console.log('📬 API: Respuesta de login:', response.success ? 'EXITO' : 'FALLO');
 
   const { user, tokens } = response.data;
 
@@ -507,10 +554,8 @@ export const login = async (credentials: LoginRequest): Promise<AuthResponse> =>
  * Registra un nuevo usuario
  */
 export const register = async (userData: RegisterRequest): Promise<AuthResponse> => {
-  console.log('📡 API: Enviando POST registro a:', AUTH_ENDPOINTS.REGISTER);
-  console.log('✉️ Body:', JSON.stringify(userData));
+  // SEC-014 FIX: NO loguear userData (contiene email + password en texto plano)
   const response = await post<ApiResponse<any>>(AUTH_ENDPOINTS.REGISTER, userData);
-  console.log('📬 API: Respuesta de registro:', response.success ? 'EXITO' : 'FALLO');
 
   const { user, tokens } = response.data;
 
@@ -523,7 +568,7 @@ export const register = async (userData: RegisterRequest): Promise<AuthResponse>
 
   setAuthTokens(newTokens);
 
-  // También notificar si hay callback (opcional ya que login suele manejar su propio estado)
+  // También notificar si hay callback
   if (onTokensRefreshedCallback) {
     onTokensRefreshedCallback(newTokens);
   }

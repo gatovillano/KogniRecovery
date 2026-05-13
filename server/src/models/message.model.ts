@@ -4,7 +4,7 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import { query, queryWithTransaction } from '../config/database.js';
+import { query } from '../config/database.js';
 
 // =====================================================
 // INTERFACES
@@ -98,8 +98,8 @@ export const createMessage = async (
     JSON.stringify(data.recommended_actions || []),
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<Message>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -107,7 +107,7 @@ export const createMessage = async (
  */
 export const getMessageById = async (id: string): Promise<Message | null> => {
   const sql = `SELECT * FROM messages WHERE id = $1`;
-  const result = await query(sql, [id]);
+  const result = await query<Message>(sql, [id]);
   return result.rows[0] || null;
 };
 
@@ -130,8 +130,8 @@ export const getConversationMessages = async (
   sql += ` ORDER BY created_at DESC LIMIT $${beforeId ? 3 : 2}`;
 
   const result = beforeId
-    ? await query(sql, [conversationId, beforeId, limit])
-    : await query(sql, [conversationId, limit]);
+    ? await query<Message>(sql, [conversationId, beforeId, limit])
+    : await query<Message>(sql, [conversationId, limit]);
 
   return result.rows;
 };
@@ -145,7 +145,7 @@ export const getLastMessage = async (conversationId: string): Promise<Message | 
     WHERE conversation_id = $1
     ORDER BY created_at DESC
     LIMIT 1`;
-  const result = await query(sql, [conversationId]);
+  const result = await query<Message>(sql, [conversationId]);
   return result.rows[0] || null;
 };
 
@@ -158,63 +158,8 @@ export const getMessageHistory = async (conversationId: string, limit = 10): Pro
     WHERE conversation_id = $1
     ORDER BY created_at DESC
     LIMIT $2`;
-  const result = await query(sql, [conversationId, limit]);
-  return result.rows.reverse(); // Reversed to get chronological order
-};
+  const result = await query<Message>(sql, [conversationId, limit]);
 
-/**
- * Contar mensajes de una conversación
- */
-export const countConversationMessages = async (conversationId: string): Promise<number> => {
-  const sql = `SELECT COUNT(*) as count FROM messages WHERE conversation_id = $1`;
-  const result = await query(sql, [conversationId]);
-  return parseInt(result.rows[0].count);
-};
-
-/**
- * Eliminar mensaje
- */
-export const deleteMessage = async (id: string): Promise<boolean> => {
-  const sql = `DELETE FROM messages WHERE id = $1`;
-  const result = await query(sql, [id]);
-  return (result.rowCount ?? 0) > 0;
-};
-
-// =====================================================
-// ADJUNTOS
-// =====================================================
-
-/**
- * Crear adjunto de mensaje
- */
-export const createMessageAttachment = async (
-  messageId: string,
-  data: Partial<MessageAttachment>
-): Promise<MessageAttachment> => {
-  const sql = `
-    INSERT INTO message_attachments (message_id, attachment_type, title, description, url, content)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *`;
-
-  const values = [
-    messageId,
-    data.attachment_type,
-    data.title || null,
-    data.description || null,
-    data.url || null,
-    data.content ? JSON.stringify(data.content) : null,
-  ];
-
-  const result = await query(sql, values);
-  return result.rows[0];
-};
-
-/**
- * Obtener adjuntos de un mensaje
- */
-export const getMessageAttachments = async (messageId: string): Promise<MessageAttachment[]> => {
-  const sql = `SELECT * FROM message_attachments WHERE message_id = $1`;
-  const result = await query(sql, [messageId]);
   return result.rows;
 };
 
@@ -249,8 +194,8 @@ export const createMessageIntent = async (
     data.is_relapse_risk ?? false,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<MessageIntent>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -258,7 +203,7 @@ export const createMessageIntent = async (
  */
 export const getMessageIntent = async (messageId: string): Promise<MessageIntent | null> => {
   const sql = `SELECT * FROM message_intents WHERE message_id = $1`;
-  const result = await query(sql, [messageId]);
+  const result = await query<MessageIntent>(sql, [messageId]);
   return result.rows[0] || null;
 };
 
@@ -275,7 +220,7 @@ export const getUserIntentHistory = async (
     WHERE mi.user_id = $1
     ORDER BY mi.created_at DESC
     LIMIT $2`;
-  const result = await query(sql, [userId, limit]);
+  const result = await query<MessageIntent>(sql, [userId, limit]);
   return result.rows;
 };
 
@@ -292,7 +237,7 @@ export const findQuickResponse = async (trigger: string): Promise<QuickResponse 
     WHERE is_active = true AND trigger_phrase = $1
     ORDER BY priority DESC
     LIMIT 1`;
-  const result = await query(sql, [trigger.toLowerCase()]);
+  const result = await query<QuickResponse>(sql, [trigger.toLowerCase()]);
   return result.rows[0] || null;
 };
 
@@ -304,7 +249,7 @@ export const getAllQuickResponses = async (): Promise<QuickResponse[]> => {
     SELECT * FROM quick_responses 
     WHERE is_active = true
     ORDER BY priority DESC, category ASC`;
-  const result = await query(sql, []);
+  const result = await query<QuickResponse>(sql, []);
   return result.rows;
 };
 
@@ -316,7 +261,7 @@ export const getQuickResponsesByCategory = async (category: string): Promise<Qui
     SELECT * FROM quick_responses 
     WHERE is_active = true AND category = $1
     ORDER BY priority DESC`;
-  const result = await query(sql, [category]);
+  const result = await query<QuickResponse>(sql, [category]);
   return result.rows;
 };
 
@@ -335,10 +280,17 @@ export const saveContextHistory = async (
   sourceMessageId?: string,
   importance = 5
 ): Promise<void> => {
-  const valueWithTimestamp = {
-    ...value,
-    recorded_at: new Date().toISOString(),
-  };
+  let valueToSave = value;
+  
+  // Only add recorded_at if it's an object (and not an array or null)
+  // to avoid decomposing strings or losing the original type
+  if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+    valueToSave = {
+      ...value,
+      recorded_at: new Date().toISOString(),
+    };
+  }
+
   const sql = `
     INSERT INTO context_history (user_id, context_type, key, value, source_message_id, importance)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -352,7 +304,7 @@ export const saveContextHistory = async (
     userId,
     contextType,
     key,
-    JSON.stringify(valueWithTimestamp),
+    JSON.stringify(valueToSave),
     sourceMessageId,
     importance,
   ]);
@@ -462,7 +414,7 @@ export const getLLMLogs = async (userId: string, limit = 20): Promise<any[]> => 
     WHERE user_id = $1
     ORDER BY created_at DESC
     LIMIT $2`;
-  const result = await query(sql, [userId, limit]);
+  const result = await query<MessageIntent>(sql, [userId, limit]);
   return result.rows;
 };
 

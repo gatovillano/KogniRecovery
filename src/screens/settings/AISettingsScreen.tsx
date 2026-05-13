@@ -24,8 +24,10 @@ export const AISettingsScreen: React.FC = () => {
   const { profile, loadProfile } = useProfile();
   const { user, updateUser } = useAuth();
 
-  const [provider, setProvider] = useState(user?.llm_provider || 'openai');
-  const [model, setModel] = useState(user?.llm_model || 'gpt-4');
+  const [provider, setProvider] = useState<'openai' | 'openrouter' | 'default'>(
+    (user?.llm_provider as any) || 'default'
+  );
+  const [model, setModel] = useState(user?.llm_model || '');
   const [apiKey, setApiKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [showKey, setShowKey] = useState(false);
@@ -34,14 +36,19 @@ export const AISettingsScreen: React.FC = () => {
 
   useEffect(() => {
     const fetchModels = async () => {
+      // Si es modo por defecto, no cargar modelos
+      if (provider === 'default') {
+        setModels([]);
+        return;
+      }
+
       setLoadingModels(true);
       try {
         const response = await api.getAIModels(provider);
         if (response.success && response.data) {
           setModels(response.data);
-          // Si el modelo actual no está en la lista y no es el que ya tenemos del usuario, seleccionar el primero
-          const currentModelInList = response.data.find((m: any) => m.id === model);
-          if (!currentModelInList && response.data.length > 0 && !user?.llm_model) {
+          // Si no hay modelo seleccionado o el actual no está en la lista, seleccionar el primero
+          if (!model || !response.data.find((m: any) => m.id === model)) {
             setModel(response.data[0]?.id || '');
           }
         }
@@ -56,15 +63,50 @@ export const AISettingsScreen: React.FC = () => {
   }, [provider]);
 
   useEffect(() => {
-    // Intentar cargar configuración actual si el backend la devuelve
+    // Cargar configuración guardada del usuario
     if (user) {
-      if (user.llm_provider) setProvider(user.llm_provider);
-      if (user.llm_model) setModel(user.llm_model);
-      // La API Key no la mostramos por seguridad, se queda vacía a menos que se quiera cambiar
+      if (user.llm_provider) {
+        setProvider(user.llm_provider as any);
+      } else {
+        setProvider('default');
+      }
+      if (user.llm_model) {
+        setModel(user.llm_model);
+      }
     }
   }, [user]);
 
   const handleSaveAISettings = async () => {
+    // Si es modo por defecto, enviar 'default' para limpiar configuración personal
+    if (provider === 'default') {
+      setLoading(true);
+      try {
+        await updateAISettings({
+          llm_provider: 'default',
+          llm_model: 'default',
+        });
+
+        Alert.alert('Éxito', 'Configuración restablecida a modelo por defecto del sistema 🌙');
+
+        if (user) {
+          updateUser({
+            ...user,
+            llm_provider: undefined,
+            llm_model: undefined,
+          });
+        }
+
+        if (loadProfile) loadProfile();
+      } catch (error) {
+        console.error('Error saving AI settings:', error);
+        Alert.alert('Error', 'No se pudo restablecer la configuración');
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
+    // Configuración personalizada
     if (!provider || !model) {
       Alert.alert('Error', 'Por favor selecciona un proveedor y un modelo');
       return;
@@ -75,13 +117,12 @@ export const AISettingsScreen: React.FC = () => {
       await updateAISettings({
         llm_provider: provider,
         llm_model: model,
-        llm_api_key: apiKey || undefined, // Solo enviar si no está vacía
+        llm_api_key: apiKey || undefined,
       });
 
       Alert.alert('Éxito', 'Configuración de LÚA actualizada correctamente 🌙');
-      setApiKey(''); // Limpiar el campo para seguridad
+      setApiKey('');
 
-      // Actualizar estado local del usuario
       if (user) {
         updateUser({
           ...user,
@@ -121,13 +162,17 @@ export const AISettingsScreen: React.FC = () => {
         <TouchableOpacity
           style={[
             styles.providerOption,
-            provider === 'openai' && { borderColor: theme.colors.primary, borderWidth: 2 },
+            provider === 'default' && { borderColor: theme.colors.primary, borderWidth: 2 },
           ]}
-          onPress={() => setProvider('openai')}
+          onPress={() => setProvider('default')}
         >
-          <Text style={[styles.providerName, { color: theme.colors.text }]}>OpenAI</Text>
+          <Text style={[styles.providerName, { color: theme.colors.text }]}>
+            ⚙️ Por defecto
+          </Text>
           <Text style={[styles.providerDesc, { color: theme.colors.textSecondary }]}>
-            Ideal para una conversación fluida y empática.
+            Usa OpenRouter gratuito configurado en el servidor. Ideal para probar la plataforma sin
+            costo.
+            <Text style={styles.highlight}> Puede tener intermitencias.</Text>
           </Text>
         </TouchableOpacity>
 
@@ -140,7 +185,20 @@ export const AISettingsScreen: React.FC = () => {
         >
           <Text style={[styles.providerName, { color: theme.colors.text }]}>OpenRouter</Text>
           <Text style={[styles.providerDesc, { color: theme.colors.textSecondary }]}>
-            Accede a cientos de modelos (Claude, Llama, Mistral, etc).
+            Accede a cientos de modelos (Claude, Llama, Mistral, etc). Requiere tu propia API key.
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.providerOption,
+            provider === 'openai' && { borderColor: theme.colors.primary, borderWidth: 2 },
+          ]}
+          onPress={() => setProvider('openai')}
+        >
+          <Text style={[styles.providerName, { color: theme.colors.text }]}>OpenAI</Text>
+          <Text style={[styles.providerDesc, { color: theme.colors.textSecondary }]}>
+            Ideal para una conversación fluida y empática. Requiere API key de pago.
           </Text>
         </TouchableOpacity>
 
@@ -150,67 +208,97 @@ export const AISettingsScreen: React.FC = () => {
       </Card>
 
       {/* Modelo */}
-      <Card variant="elevated" padding="md" style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          🤖 Modelo de Lenguaje
-        </Text>
-
-        {loadingModels ? (
-          <Text style={{ color: theme.colors.textSecondary }}>Cargando modelos...</Text>
-        ) : models.length > 0 ? (
-          <Select
-            label="Selecciona un modelo"
-            value={model}
-            onChange={setModel}
-            options={models.map((m) => ({ label: m.name, value: m.id }))}
-            placeholder="Buscar modelo..."
-            searchable
-            searchPlaceholder="Buscar modelo..."
-          />
-        ) : (
-          <Text style={{ color: theme.colors.textSecondary }}>
-            No hay modelos disponibles para este proveedor.
+      {provider !== 'default' && (
+        <Card variant="elevated" padding="md" style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            🤖 Modelo de Lenguaje
           </Text>
-        )}
-      </Card>
 
-      {/* Credenciales */}
-      <Card variant="elevated" padding="md" style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          🔑 API Key Personalizada
-        </Text>
-        <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
-          Para usar tu propia cuenta, ingresa tu clave API. Esta será encriptada de forma segura en
-          nuestros servidores.
-        </Text>
+          {loadingModels ? (
+            <Text style={{ color: theme.colors.textSecondary }}>Cargando modelos...</Text>
+          ) : models.length > 0 ? (
+            <Select
+              label="Selecciona un modelo"
+              value={model}
+              onChange={setModel}
+              options={models.map((m) => ({ label: m.name, value: m.id }))}
+              placeholder="Buscar modelo..."
+              searchable
+              searchPlaceholder="Buscar modelo..."
+            />
+          ) : (
+            <Text style={{ color: theme.colors.textSecondary }}>
+              No hay modelos disponibles para este proveedor.
+            </Text>
+          )}
+        </Card>
+      )}
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
-            placeholder="sk-..."
-            placeholderTextColor={theme.colors.textSecondary}
-            value={apiKey}
-            onChangeText={setApiKey}
-            secureTextEntry={!showKey}
-          />
-          <TouchableOpacity onPress={() => setShowKey(!showKey)} style={styles.eyeIcon}>
-            <Text>{showKey ? '👁️' : '🕶️'}</Text>
-          </TouchableOpacity>
-        </View>
+      {/* API Key */}
+      {provider !== 'default' && (
+        <Card variant="elevated" padding="md" style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            🔑 API Key Personalizada
+          </Text>
+          <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
+            Ingresa tu clave API del proveedor seleccionado. Esta será encriptada de forma segura.
+          </Text>
 
-        <Text style={[styles.note, { color: theme.colors.info }]}>
-          💡 Si dejas este campo vacío, se usará la clave predeterminada del sistema.
-        </Text>
-      </Card>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
+              placeholder="sk-..."
+              placeholderTextColor={theme.colors.textSecondary}
+              value={apiKey}
+              onChangeText={setApiKey}
+              secureTextEntry={!showKey}
+            />
+            <TouchableOpacity onPress={() => setShowKey(!showKey)} style={styles.eyeIcon}>
+              <Text>{showKey ? '👁️' : '🕶️'}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Text style={[styles.note, { color: theme.colors.info }]}>
+            💡 Tu API key se guarda encriptada. Solo se usa para conectarse al proveedor.
+          </Text>
+        </Card>
+      )}
+
+      {/* Info del modo por defecto */}
+      {provider === 'default' && (
+        <Card variant="elevated" padding="md" style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            ⚙️ Configuración por Defecto
+          </Text>
+          <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
+            LÚA está configurado para usar el motor gratuito de OpenRouter (modelo Step-3.5 Flash).
+            Esta configuración no requiere que proporciones una API key.
+          </Text>
+          <View style={[styles.warningBox, { backgroundColor: '#FFF3CD', borderColor: '#FFC107' }]}>
+            <Text style={[styles.warningText, { color: '#856404' }]}>
+              ⚠️ <Text style={styles.warningBold}>Atención:</Text> El modelo gratuito puede
+              presentar intermitencias, límites de tasa o indisponibilidad en momentos de alta
+              demanda. Para una experiencia más estable, selecciona OpenRouter o OpenAI y
+              proporciona tu propia API key.
+            </Text>
+          </View>
+        </Card>
+      )}
 
       {/* Botón Guardar */}
       <Button
         variant="primary"
-        title="Guardar Configuración"
+        title={provider === 'default' ? 'Usar Modelo por Defecto' : 'Guardar Configuración'}
         onPress={handleSaveAISettings}
         loading={loading}
         style={styles.saveButton}
       />
+
+      <Text style={[styles.footerNote, { color: theme.colors.textSecondary }]}>
+        {provider === 'default'
+          ? 'Al guardar, se restablecerá cualquier configuración personalizada y se usará el motor del sistema.'
+          : 'Tu configuración se aplicará solo a tu cuenta. Otros usuarios no se verán afectados.'}
+      </Text>
     </ScrollView>
   );
 };
@@ -258,9 +346,15 @@ const styles = StyleSheet.create({
   providerName: {
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 4,
   },
   providerDesc: {
     fontSize: 12,
+    lineHeight: 16,
+  },
+  highlight: {
+    fontWeight: 'bold',
+    color: '#FF9800',
   },
   disabledOption: {
     opacity: 0.5,
@@ -289,9 +383,28 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontStyle: 'italic',
   },
+  warningBox: {
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginTop: 12,
+  },
+  warningText: {
+    fontSize: 12,
+    lineHeight: 16,
+  },
+  warningBold: {
+    fontWeight: 'bold',
+  },
   saveButton: {
     marginTop: 12,
     marginBottom: 30,
+  },
+  footerNote: {
+    fontSize: 11,
+    textAlign: 'center',
+    marginTop: 8,
+    fontStyle: 'italic',
   },
 });
 

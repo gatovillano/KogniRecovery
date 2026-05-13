@@ -29,12 +29,28 @@ export interface HabitCompletion {
 // DEFINICIÓN DE HÁBITOS
 // =====================================================
 
-export const createHabit = async (userId: string, data: { name: string; description?: string; icon?: string; frequency?: 'daily' | 'weekly'; habit_type?: 'positive' | 'negative' }): Promise<Habit> => {
+export const createHabit = async (
+  userId: string,
+  data: {
+    name: string;
+    description?: string;
+    icon?: string;
+    frequency?: 'daily' | 'weekly';
+    habit_type?: 'positive' | 'negative';
+  }
+): Promise<Habit> => {
   const sql = `
     INSERT INTO habits (user_id, name, description, icon, frequency, habit_type)
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *`;
-  const result = await query(sql, [userId, data.name, data.description || null, data.icon || null, data.frequency || 'daily', data.habit_type || 'positive']);
+  const result = await query(sql, [
+    userId,
+    data.name,
+    data.description || null,
+    data.icon || null,
+    data.frequency || 'daily',
+    data.habit_type || 'positive',
+  ]);
   return result.rows[0] as Habit;
 };
 
@@ -44,21 +60,27 @@ export const getUserHabits = async (userId: string): Promise<Habit[]> => {
   return result.rows as Habit[];
 };
 
-export const updateHabit = async (id: string, userId: string, data: Partial<Habit>): Promise<Habit | null> => {
-  const fields = Object.keys(data).filter(key => ['name', 'description', 'icon', 'frequency', 'habit_type', 'is_active'].includes(key));
+export const updateHabit = async (
+  id: string,
+  userId: string,
+  data: Partial<Habit>
+): Promise<Habit | null> => {
+  const fields = Object.keys(data).filter((key) =>
+    ['name', 'description', 'icon', 'frequency', 'habit_type', 'is_active'].includes(key)
+  );
   if (fields.length === 0) return null;
 
   const setClause = fields.map((field, index) => `${field} = $${index + 3}`).join(', ');
-  const values = fields.map(field => (data as any)[field]);
+  const values = fields.map((field) => (data as any)[field]);
 
   const sql = `
     UPDATE habits 
     SET ${setClause}, updated_at = CURRENT_TIMESTAMP
     WHERE id = $1 AND user_id = $2
     RETURNING *`;
-    
+
   const result = await query(sql, [id, userId, ...values]);
-  return result.rows[0] as Habit || null;
+  return (result.rows[0] as Habit) || null;
 };
 
 export const deleteHabit = async (id: string, userId: string): Promise<boolean> => {
@@ -72,7 +94,11 @@ export const deleteHabit = async (id: string, userId: string): Promise<boolean> 
 // COMPLETITUD DE HÁBITOS
 // =====================================================
 
-export const toggleHabitCompletion = async (habitId: string, userId: string, date: string): Promise<{ completed: boolean }> => {
+export const toggleHabitCompletion = async (
+  habitId: string,
+  userId: string,
+  date: string
+): Promise<{ completed: boolean }> => {
   // Check if already completed
   const checkSql = `SELECT id FROM habit_completions WHERE habit_id = $1 AND user_id = $2 AND completed_at = $3`;
   const checkResult: any = await query(checkSql, [habitId, userId, date]);
@@ -83,12 +109,19 @@ export const toggleHabitCompletion = async (habitId: string, userId: string, dat
     return { completed: false };
   } else {
     // Insert if not exists
-    await query(`INSERT INTO habit_completions (habit_id, user_id, completed_at) VALUES ($1, $2, $3)`, [habitId, userId, date]);
+    await query(
+      `INSERT INTO habit_completions (habit_id, user_id, completed_at) VALUES ($1, $2, $3)`,
+      [habitId, userId, date]
+    );
     return { completed: true };
   }
 };
 
-export const getHabitCompletions = async (userId: string, startDate: string, endDate: string): Promise<HabitCompletion[]> => {
+export const getHabitCompletions = async (
+  userId: string,
+  startDate: string,
+  endDate: string
+): Promise<HabitCompletion[]> => {
   const sql = `
     SELECT * FROM habit_completions 
     WHERE user_id = $1 AND completed_at >= $2 AND completed_at <= $3
@@ -130,10 +163,10 @@ export const getHabitStats = async (userId: string, days = 30): Promise<any[]> =
       (COUNT(hc.id)::float / $2) * 100 as completion_rate
     FROM user_habits uh
     CROSS JOIN habit_dates hd
-    LEFT JOIN habit_completions hc ON hc.habit_id = uh.id AND hc.completed_at = hd.date::text
+    LEFT JOIN habit_completions hc ON hc.habit_id = uh.id AND hc.completed_at = hd.date
     GROUP BY uh.id, uh.name, uh.habit_type
     ORDER BY completion_rate DESC`;
-  
+
   const result = await query(sql, [userId, days]);
   return result.rows;
 };

@@ -25,6 +25,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@theme/ThemeContext';
+import { Header } from '@components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { api } from '@services/api';
@@ -274,15 +275,13 @@ export const NotesScreen: React.FC = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <View style={[styles.header, { paddingTop: insets.top + 16 }]}>
-        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Notas</Text>
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={[styles.addButton, { backgroundColor: theme.colors.primary }]}
-        >
-          <Icon name="add" size={24} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
+      <Header
+        title="Notas"
+        subtitle="Registro diario"
+        icon="document-text-outline"
+        actionIcon="add"
+        onAction={() => setModalVisible(true)}
+      />
 
       <View style={styles.filterRow}>
         {filterButtons.map((btn) => (
@@ -322,7 +321,7 @@ export const NotesScreen: React.FC = () => {
             theme={theme}
           />
         )}
-        contentContainerStyle={[styles.listContent, { paddingBottom: insets.bottom + 80 }]}
+        contentContainerStyle={[styles.listContent, { paddingBottom: insets.bottom + 100 }]}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

@@ -1,27 +1,5 @@
-/**
- * Card - Componente de tarjeta reutilizable
- *
- * Características:
- * - Variantes: elevated (sombra), outlined (borde), filled (fondo)
- * - Padding configurable
- * - Soporte para onPress (touchable)
- * - Estilos basados en tema
- *
- * Uso:
- * <Card variant="elevated" padding="md" onPress={handlePress}>
- *   <Text>Título</Text>
- *   <Text>Contenido de la tarjeta</Text>
- * </Card>
- */
-
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ViewStyle,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
 import { useTheme } from '@theme/ThemeContext';
 import { CardProps } from '@types';
 
@@ -44,39 +22,42 @@ export const Card: React.FC<CardProps> = ({
     const variantStyles: Record<string, ViewStyle> = {
       elevated: {
         backgroundColor: theme.colors.card,
-        ...theme.shadows.md,
+        ...theme.shadows.sm,
       },
       outlined: {
         backgroundColor: 'transparent',
-        borderWidth: 1,
+        borderWidth: StyleSheet.hairlineWidth,
         borderColor: theme.colors.border,
       },
       filled: {
-        backgroundColor: theme.mode === 'dark' ? theme.colors.surface : theme.colors.background,
+        backgroundColor:
+          theme.mode === 'dark'
+            ? theme.colors.surface
+            : theme.colors.primary + '07',
       },
     };
 
     const paddingStyles: Record<string, ViewStyle> = {
-      sm: { padding: theme.spacing.sm },
-      md: { padding: theme.spacing.md },
+      sm: { padding: theme.spacing.sm + 4 },
+      md: { padding: theme.spacing.md + 4 },
       lg: { padding: theme.spacing.lg },
     };
 
-    const styles: ViewStyle[] = [baseStyle, variantStyles[variant], paddingStyles[padding]];
+    const cardStyles: ViewStyle[] = [baseStyle, variantStyles[variant], paddingStyles[padding]];
     if (style) {
-      styles.push(StyleSheet.flatten(style));
+      cardStyles.push(StyleSheet.flatten(style));
     }
-    return styles;
+    return cardStyles;
   };
 
-  const content = <View style={styles.content}>{children}</View>;
+  const content = <View>{children}</View>;
 
   if (onPress) {
     return (
       <TouchableOpacity
         style={getCardStyle()}
         onPress={onPress}
-        activeOpacity={0.7}
+        activeOpacity={0.72}
         accessibilityRole="button"
         {...props}
       >
@@ -91,9 +72,3 @@ export const Card: React.FC<CardProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    // flex: 1,
-  },
-});

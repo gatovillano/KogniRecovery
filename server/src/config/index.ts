@@ -36,9 +36,9 @@ export interface DatabaseConfig {
 
 export interface JwtConfig {
   secret: string;
-  expiresIn: string;
+  expiresIn: string | number;
   refreshSecret: string;
-  refreshExpiresIn: string;
+  refreshExpiresIn: string | number;
 }
 
 export interface AuthConfig {
@@ -125,9 +125,11 @@ export const database: DatabaseConfig = {
 
 export const jwt: JwtConfig = {
   secret: getRequired('JWT_SECRET'),
-  expiresIn: getOptional('JWT_EXPIRES_IN', '15m'),
+  // SEC-016 FIX: default 15 minutos (900s), NO 7 días
+  // Configurar JWT_EXPIRES_IN en .env para cambiar (valor en segundos)
+  expiresIn: getOptionalNumber('JWT_EXPIRES_IN', 900),
   refreshSecret: getRequired('JWT_REFRESH_SECRET'),
-  refreshExpiresIn: getOptional('JWT_REFRESH_EXPIRES_IN', '30d'),
+  refreshExpiresIn: getOptionalNumber('JWT_REFRESH_EXPIRES_IN', 2592000), // 30 días en segundos
 };
 
 export const auth: AuthConfig = {

@@ -8,11 +8,11 @@ export const substanceDoseTool = tool(
     try {
       const dose = await doseModel.createSubstanceDose(userId, {
         substance_name: substance,
-        quantity,
-        unit,
-        craving_intensity: intensity,
-        feelings,
-        context_notes: notes
+        quantity: quantity!,
+        unit: unit!,
+        craving_intensity: intensity ?? undefined,
+        feelings: feelings ?? undefined,
+        context_notes: notes ?? undefined,
       });
 
       // Sincronizar con Neo4j para el Grafo de Memoria
@@ -41,7 +41,7 @@ export const substanceDoseTool = tool(
         unit: dose.unit,
         timestamp: dose.dose_time.toISOString(),
         intensity: dose.craving_intensity || 0,
-        feelings: dose.feelings || ''
+        feelings: dose.feelings || '',
       });
 
       return `✅ Dosis de ${substance} registrada exitosamente (${quantity} ${unit}). He guardado esta información en tu historial clínico.`;
@@ -52,7 +52,8 @@ export const substanceDoseTool = tool(
   },
   {
     name: 'record_substance_dose',
-    description: 'Registra una dosis individual de una sustancia (alcohol, tabaco, drogas, etc.) consumida por el usuario. Úsalo cuando el usuario mencione haber consumido algo.',
+    description:
+      'Registra una dosis individual de una sustancia (alcohol, tabaco, drogas, etc.) consumida por el usuario. Úsalo cuando el usuario mencione haber consumido algo.',
     schema: z.object({
       userId: z.string(),
       substance: z.string(),
@@ -60,7 +61,7 @@ export const substanceDoseTool = tool(
       unit: z.string(),
       intensity: z.number().optional().nullable(),
       feelings: z.string().optional().nullable(),
-      notes: z.string().optional().nullable()
+      notes: z.string().optional().nullable(),
     }),
   }
 );

@@ -4,7 +4,7 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import { query, queryWithTransaction } from '../config/database.js';
+import { query } from '../config/database.js';
 
 // =====================================================
 // INTERFACES
@@ -74,7 +74,10 @@ export interface SubstancePreference {
 /**
  * Crear un nuevo perfil
  */
-export const createProfile = async (userId: string, data: Partial<Profile>): Promise<Profile> => {
+export const createProfile = async (
+  userId: string,
+  data: Partial<Profile>
+): Promise<Profile | null> => {
   const sql = `
     INSERT INTO profiles (user_id, profile_type, display_name, avatar_url, bio, 
       age_range, gender, education_level, employment_status, primary_substance,
@@ -82,7 +85,7 @@ export const createProfile = async (userId: string, data: Partial<Profile>): Pro
       treatment_start_date, motivation_level, preferred_language, notification_preferences)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
     RETURNING *`;
-  
+
   const values = [
     userId,
     data.profile_type || 'estandar',
@@ -101,11 +104,13 @@ export const createProfile = async (userId: string, data: Partial<Profile>): Pro
     data.treatment_start_date || null,
     data.motivation_level || null,
     data.preferred_language || 'es',
-    JSON.stringify(data.notification_preferences || { checkin: true, chatbot: true, emergency: true })
+    JSON.stringify(
+      data.notification_preferences || { checkin: true, chatbot: true, emergency: true }
+    ),
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<Profile>(sql, values);
+  return result.rows[0] || null;
 };
 
 /**
@@ -113,7 +118,7 @@ export const createProfile = async (userId: string, data: Partial<Profile>): Pro
  */
 export const getProfileByUserId = async (userId: string): Promise<Profile | null> => {
   const sql = `SELECT * FROM profiles WHERE user_id = $1`;
-  const result = await query(sql, [userId]);
+  const result = await query<Profile>(sql, [userId]);
   return result.rows[0] || null;
 };
 
@@ -122,24 +127,39 @@ export const getProfileByUserId = async (userId: string): Promise<Profile | null
  */
 export const getProfileById = async (id: string): Promise<Profile | null> => {
   const sql = `SELECT * FROM profiles WHERE id = $1`;
-  const result = await query(sql, [id]);
+  const result = await query<Profile>(sql, [id]);
   return result.rows[0] || null;
 };
 
 /**
  * Actualizar perfil
  */
-export const updateProfile = async (id: string, data: Partial<Profile>): Promise<Profile | null> => {
+export const updateProfile = async (
+  id: string,
+  data: Partial<Profile>
+): Promise<Profile | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'profile_type', 'display_name', 'avatar_url', 'bio', 'age_range', 
-    'gender', 'education_level', 'employment_status', 'primary_substance',
-    'substance_years_use', 'previous_treatments', 'has_relapse_history', 
-    'current_status', 'treatment_start_date', 'motivation_level', 
-    'preferred_language', 'notification_preferences'
+    'profile_type',
+    'display_name',
+    'avatar_url',
+    'bio',
+    'age_range',
+    'gender',
+    'education_level',
+    'employment_status',
+    'primary_substance',
+    'substance_years_use',
+    'previous_treatments',
+    'has_relapse_history',
+    'current_status',
+    'treatment_start_date',
+    'motivation_level',
+    'preferred_language',
+    'notification_preferences',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -154,8 +174,8 @@ export const updateProfile = async (id: string, data: Partial<Profile>): Promise
 
   values.push(id);
   const sql = `UPDATE profiles SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<Profile>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -171,15 +191,18 @@ export const deleteProfile = async (id: string): Promise<boolean> => {
 /**
  * Listar todos los perfiles (para admin)
  */
-export const getAllProfiles = async (page = 1, limit = 20): Promise<{ profiles: Profile[], total: number }> => {
+export const getAllProfiles = async (
+  page = 1,
+  limit = 20
+): Promise<{ profiles: Profile[]; total: number }> => {
   const offset = (page - 1) * limit;
-  
+
   const countSql = `SELECT COUNT(*) as total FROM profiles`;
-  const countResult = await query(countSql, []);
-  const total = parseInt(countResult.rows[0].total);
+  const countResult = await query<{ total: string }>(countSql, []);
+  const total = parseInt(countResult.rows[0]?.total || '0');
 
   const sql = `SELECT * FROM profiles ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
-  const result = await query(sql, [limit, offset]);
+  const result = await query<Profile>(sql, [limit, offset]);
 
   return { profiles: result.rows, total };
 };
@@ -191,7 +214,10 @@ export const getAllProfiles = async (page = 1, limit = 20): Promise<{ profiles: 
 /**
  * Crear configuración de perfil
  */
-export const createProfileSettings = async (profileId: string, data: Partial<ProfileSettings>): Promise<ProfileSettings> => {
+export const createProfileSettings = async (
+  profileId: string,
+  data: Partial<ProfileSettings>
+): Promise<ProfileSettings | null> => {
   const sql = `
     INSERT INTO profile_settings (profile_id, checkin_frequency, checkin_reminder_time,
       checkin_reminder_enabled, data_sharing_enabled, share_with_family, share_progress_weekly,
@@ -199,7 +225,7 @@ export const createProfileSettings = async (profileId: string, data: Partial<Pro
       location_sharing_emergency, chatbot_personality, response_detail_level, memory_enabled)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     RETURNING *`;
-  
+
   const values = [
     profileId,
     data.checkin_frequency || 'diaria',
@@ -214,11 +240,11 @@ export const createProfileSettings = async (profileId: string, data: Partial<Pro
     data.location_sharing_emergency ?? false,
     data.chatbot_personality || 'apoyo',
     data.response_detail_level || 'balanceado',
-    data.memory_enabled ?? true
+    data.memory_enabled ?? true,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<ProfileSettings>(sql, values);
+  return result.rows[0] || null;
 };
 
 /**
@@ -226,23 +252,35 @@ export const createProfileSettings = async (profileId: string, data: Partial<Pro
  */
 export const getProfileSettings = async (profileId: string): Promise<ProfileSettings | null> => {
   const sql = `SELECT * FROM profile_settings WHERE profile_id = $1`;
-  const result = await query(sql, [profileId]);
+  const result = await query<ProfileSettings>(sql, [profileId]);
   return result.rows[0] || null;
 };
 
 /**
  * Actualizar configuración de perfil
  */
-export const updateProfileSettings = async (profileId: string, data: Partial<ProfileSettings>): Promise<ProfileSettings | null> => {
+export const updateProfileSettings = async (
+  profileId: string,
+  data: Partial<ProfileSettings>
+): Promise<ProfileSettings | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'checkin_frequency', 'checkin_reminder_time', 'checkin_reminder_enabled',
-    'data_sharing_enabled', 'share_with_family', 'share_progress_weekly',
-    'anonymous_analytics', 'auto_detect_crisis', 'emergency_contacts_notified',
-    'location_sharing_emergency', 'chatbot_personality', 'response_detail_level', 'memory_enabled'
+    'checkin_frequency',
+    'checkin_reminder_time',
+    'checkin_reminder_enabled',
+    'data_sharing_enabled',
+    'share_with_family',
+    'share_progress_weekly',
+    'anonymous_analytics',
+    'auto_detect_crisis',
+    'emergency_contacts_notified',
+    'location_sharing_emergency',
+    'chatbot_personality',
+    'response_detail_level',
+    'memory_enabled',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -257,8 +295,8 @@ export const updateProfileSettings = async (profileId: string, data: Partial<Pro
 
   values.push(profileId);
   const sql = `UPDATE profile_settings SET ${fields.join(', ')} WHERE profile_id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<ProfileSettings>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -269,13 +307,16 @@ export const updateProfileSettings = async (profileId: string, data: Partial<Pro
 /**
  * Crear preferencia de sustancia
  */
-export const createSubstancePreference = async (profileId: string, data: Partial<SubstancePreference>): Promise<SubstancePreference> => {
+export const createSubstancePreference = async (
+  profileId: string,
+  data: Partial<SubstancePreference>
+): Promise<SubstancePreference | null> => {
   const sql = `
     INSERT INTO substance_preferences (profile_id, substance_id, substance_name, 
       current_status, use_frequency, last_use_date, target_cease_date)
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *`;
-  
+
   const values = [
     profileId,
     data.substance_id || null,
@@ -283,26 +324,31 @@ export const createSubstancePreference = async (profileId: string, data: Partial
     data.current_status || 'activo',
     data.use_frequency || null,
     data.last_use_date || null,
-    data.target_cease_date || null
+    data.target_cease_date || null,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<SubstancePreference>(sql, values);
+  return result.rows[0] || null;
 };
 
 /**
  * Obtener preferencias de sustancias de un perfil
  */
-export const getSubstancePreferences = async (profileId: string): Promise<SubstancePreference[]> => {
+export const getSubstancePreferences = async (
+  profileId: string
+): Promise<SubstancePreference[]> => {
   const sql = `SELECT * FROM substance_preferences WHERE profile_id = $1 ORDER BY created_at DESC`;
-  const result = await query(sql, [profileId]);
+  const result = await query<SubstancePreference>(sql, [profileId]);
   return result.rows;
 };
 
 /**
  * Actualizar preferencia de sustancia
  */
-export const updateSubstancePreference = async (id: string, data: Partial<SubstancePreference>): Promise<SubstancePreference | null> => {
+export const updateSubstancePreference = async (
+  id: string,
+  data: Partial<SubstancePreference>
+): Promise<SubstancePreference | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
@@ -321,8 +367,8 @@ export const updateSubstancePreference = async (id: string, data: Partial<Substa
 
   values.push(id);
   const sql = `UPDATE substance_preferences SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<SubstancePreference>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -349,10 +395,19 @@ export const determineProfileType = (data: {
   has_relapse_history?: boolean;
   motivation_level?: number;
 }): string => {
-  const { substance_years_use = 0, previous_treatments, has_relapse_history, motivation_level = 5 } = data;
+  const {
+    substance_years_use = 0,
+    previous_treatments,
+    has_relapse_history,
+    motivation_level = 5,
+  } = data;
 
   // Perfil intensivo para casos complejos
-  if (substance_years_use > 10 || has_relapse_history || (previous_treatments && substance_years_use > 5)) {
+  if (
+    substance_years_use > 10 ||
+    has_relapse_history ||
+    (previous_treatments && substance_years_use > 5)
+  ) {
     return 'intensivo';
   }
 

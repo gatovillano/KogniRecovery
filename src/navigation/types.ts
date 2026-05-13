@@ -33,7 +33,7 @@ export type CheckInStackParamList = {
   CheckInHistory: undefined;
   Progress: undefined;
   SubstanceExpense: undefined;
-  SubstanceDose: undefined;
+  SubstanceDose: { doseId?: string };
 };
 
 export type ChatbotStackParamList = {

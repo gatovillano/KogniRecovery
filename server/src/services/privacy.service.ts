@@ -4,7 +4,8 @@
  * KogniRecovery - Privacidad de datos
  */
 
-import { query } from '../config/database.js';
+import { query, queryWithTransaction } from '../config/database.js';
+import type { PoolClient } from 'pg';
 
 // =====================================================
 // INTERFACES
@@ -429,35 +430,147 @@ export const requestDataDeletion = async (userId: string): Promise<DataRequest> 
 };
 
 /**
- * Ejecuta la eliminación de datos del usuario (procesamiento asíncrono)
+ * Ejecuta la eliminación COMPLETA de datos del usuario (GDPR Art. 17)
+ * PRIV-002 FIX: Ahora elimina TODOS los datos incluyendo los que antes se omitían.
+ *
+ * Datos eliminados:
+ *  - messages y conversations (chatbot)
+ *  - agent_notes
+ *  - consumption_events y substance_doses
+ *  - mood_history
+ *  - wall_messages
+ *  - notifications
+ *  - refresh_tokens
+ *  - profile_settings y profiles
+ *  - privacy_consents y audit_logs del usuario
+ *  - checkins, cravings, journal_entries
+ *  - user_privacy_settings
+ *  - usuario (soft-delete con anonimización de PII)
+ *
+ * Nota: El borrado en Neo4j y embeddings se debe disparar
+ *       por separado mediante los servicios correspondientes
+ *       (ver deleteUserFromNeo4j y deleteUserEmbeddings).
  */
 export const executeDataDeletion = async (userId: string): Promise<void> => {
-    // En una implementación real, esto sería un job asíncrono
-    // Por ahora, eliminamos datos sensibles pero mantenemos el registro para auditoría
+  await queryWithTransaction(async (client: PoolClient) => {
+    // 1. Mensajes del chatbot (dato más sensible)
+    await client.query(
+      `DELETE FROM messages WHERE conversation_id IN (
+         SELECT id FROM conversations WHERE user_id = $1
+       )`,
+      [userId]
+    );
 
-    // Eliminar datos personales sensibles
-    await query(`UPDATE users SET phone = NULL WHERE id = $1`, [userId]);
+    // 2. Conversaciones
+    await client.query(`DELETE FROM conversations WHERE user_id = $1`, [userId]);
 
-    // Eliminar configuración de privacidad
-    await query(`DELETE FROM user_privacy_settings WHERE user_id = $1`, [userId]);
+    // 3. Notas del agente
+    await client.query(`DELETE FROM agent_notes WHERE user_id = $1`, [userId])
+      .catch(() => {}); // tabla puede no existir en todas las migraciones
 
-    // Eliminar consentimientos
-    await query(`DELETE FROM privacy_consents WHERE user_id = $1`, [userId]);
+    // 4. Journal entries
+    await client.query(`DELETE FROM journal_entries WHERE user_id = $1`, [userId]);
 
-    // Eliminar datos de check-in
-    await query(`DELETE FROM checkins WHERE user_id = $1`, [userId]);
+    // 5. Check-ins
+    await client.query(`DELETE FROM checkins WHERE user_id = $1`, [userId]);
 
-    // Eliminar diario
-    await query(`DELETE FROM journal_entries WHERE user_id = $1`, [userId]);
+    // 6. Cravings
+    await client.query(`DELETE FROM cravings WHERE user_id = $1`, [userId]);
 
-    // Eliminar antojos
-    await query(`DELETE FROM cravings WHERE user_id = $1`, [userId]);
+    // 7. Consumo de sustancias
+    await client.query(`DELETE FROM substance_doses WHERE user_id = $1`, [userId])
+      .catch(() => {});
+    await client.query(
+      `DELETE FROM consumption_events WHERE user_id = $1`,
+      [userId]
+    ).catch(() => {});
 
-    // Marcar usuario para eliminación (soft delete)
-    await query(`UPDATE users SET status = 'deleted', updated_at = NOW() WHERE id = $1`, [userId]);
+    // 8. Historial de ánimo
+    await client.query(`DELETE FROM mood_history WHERE user_id = $1`, [userId])
+      .catch(() => {});
 
-    // Registrar en auditoría
-    await logPrivacyAction(userId, 'data_deleted', 'data', undefined, { scope: 'user_data' });
+    // 9. Mensajes del muro comunitario
+    await client.query(`DELETE FROM wall_messages WHERE user_id = $1`, [userId])
+      .catch(() => {});
+
+    // 10. Notificaciones push
+    await client.query(`DELETE FROM notifications WHERE user_id = $1`, [userId])
+      .catch(() => {});
+    await client.query(`DELETE FROM user_push_tokens WHERE user_id = $1`, [userId])
+      .catch(() => {});
+
+    // 11. Refresh tokens (revocar sesiones activas)
+    await client.query(`DELETE FROM refresh_tokens WHERE user_id = $1`, [userId]);
+
+    // 12. Perfil y settings de perfil
+    await client.query(`DELETE FROM profiles WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM profile_settings WHERE user_id = $1`, [userId])
+      .catch(() => {});
+
+    // 13. Configuración de privacidad
+    await client.query(`DELETE FROM user_privacy_settings WHERE user_id = $1`, [userId]);
+
+    // 14. Consentimientos (GDPR requiere retener registro, pero eliminamos los del usuario)
+    await client.query(`DELETE FROM privacy_consents WHERE user_id = $1`, [userId]);
+
+    // 15. Logs de auditoría propios del usuario (excepto el registro de esta operación)
+    await client.query(
+      `DELETE FROM privacy_audit_log WHERE user_id = $1 AND action_type != 'data_deleted'`,
+      [userId]
+    );
+
+    // 16. Data requests previas
+    await client.query(`DELETE FROM data_requests WHERE user_id = $1`, [userId]);
+
+    // 17. Anonimizar y marcar usuario (soft-delete)
+    // No eliminamos la fila para no romper integridad referencial en auditoría
+    await client.query(
+      `UPDATE users SET
+         email = $2,
+         name = 'Usuario eliminado',
+         phone = NULL,
+         status = 'deleted',
+         password_hash = 'DELETED',
+         updated_at = NOW()
+       WHERE id = $1`,
+      [userId, `deleted_${userId}@kognirecovery.invalid`]
+    );
+  });
+
+  // Registrar en auditoría (fuera de la transacción para que persista)
+  await logPrivacyAction(
+    userId,
+    'data_deleted',
+    'data',
+    undefined,
+    {
+      scope: 'full_user_data',
+      note: 'Usuario anonimizado. Borrado en Neo4j y embeddings pend (servicio externo).'
+    }
+  );
+};
+
+/**
+ * Elimina el nodo del usuario de Neo4j
+ * PRIV-002: Debe llamarse junto con executeDataDeletion
+ * @param userId - ID del usuario a eliminar
+ * @param neo4jDriver - Driver de Neo4j ya inicializado
+ */
+export const deleteUserFromNeo4j = async (
+  userId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  neo4jDriver: any
+): Promise<void> => {
+  const session = neo4jDriver.session();
+  try {
+    await session.run(
+      `MATCH (u:User {id: $userId})
+       DETACH DELETE u`,
+      { userId }
+    );
+  } finally {
+    await session.close();
+  }
 };
 
 // =====================================================

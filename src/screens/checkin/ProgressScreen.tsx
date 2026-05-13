@@ -1,23 +1,132 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@theme/ThemeContext';
 import Icon from '@expo/vector-icons/Ionicons';
-import { LinearGradient } from 'expo-linear-gradient';
 import { api } from '@services/api';
 import { ApiResponse } from '../../types/api';
 import { Card } from '@components';
+import { LineChart } from 'react-native-chart-kit';
 
 const { width } = Dimensions.get('window');
 
+const EMOTION_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
+  happiness: { label: 'Felicidad', icon: 'happy-outline', color: '#4CAF50' },
+  surprise: { label: 'Sorpresa', icon: 'alert-circle-outline', color: '#FF9800' },
+  fear: { label: 'Miedo', icon: 'skull-outline', color: '#9C27B0' },
+  anger: { label: 'Ira', icon: 'flame-outline', color: '#F44336' },
+  disgust: { label: 'Asco', icon: 'close-circle-outline', color: '#795548' },
+  sadness: { label: 'Tristeza', icon: 'water-outline', color: '#2196F3' },
+};
+
+const TAG_TRANSLATIONS: Record<string, string> = {
+  // Felicidad
+  happy: 'feliz',
+  content: 'contento',
+  joyful: 'alegre',
+  satisfied: 'satisfecho',
+  hopeful: 'esperanzado',
+  motivated: 'motivado',
+  enthusiastic: 'entusiasta',
+  proud: 'orgulloso',
+  grateful: 'agradecido',
+  loving: 'amoroso',
+  affectionate: 'cariñoso',
+  connected: 'conectado',
+  calm: 'tranquilo',
+  peaceful: 'en paz',
+  relaxed: 'relajado',
+  serene: 'sereno',
+  at_peace: 'en calma',
+  comfortable: 'cómodo',
+  safe: 'seguro',
+  confident: 'confiado',
+  vital: 'vital',
+  active: 'activo',
+  energetic: 'energético',
+  inspired: 'inspirado',
+  reflective: 'reflexivo',
+  physical_well: 'bien físico',
+  // Miedo
+  anxious: 'ansioso',
+  nervous: 'nervioso',
+  worried: 'preocupado',
+  frightened: 'asustado',
+  fearful: 'temeroso',
+  uncertain: 'incierto',
+  overwhelmed: 'abrumado',
+  panic: 'pánico',
+  burdened: 'agobiado',
+  restless: 'inquieto',
+  vulnerable: 'vulnerable',
+  pressured: 'presionado',
+  rushed: 'apurado',
+  swamped: 'sobrepasado',
+  // Ira
+  angry: 'enojado',
+  frustrated: 'frustrado',
+  irritated: 'irritado',
+  annoyed: 'molesto',
+  furious: 'furioso',
+  resentful: 'resentido',
+  bitter: 'amargado',
+  indignant: 'indignado',
+  stressed: 'estresado',
+  tense: 'tenso',
+  blocked: 'bloqueado',
+  // Tristeza
+  sad: 'triste',
+  melancholy: 'melancólico',
+  down: 'decaído',
+  dejected: 'desanimado',
+  hopeless: 'sin esperanza',
+  lonely: 'solitario',
+  isolated: 'aislado',
+  empty: 'vacío',
+  nostalgic: 'nostálgico',
+  missing: 'extrañando',
+  tired: 'cansado',
+  exhausted: 'agotado',
+  drained: 'agotado',
+  worn_out: 'drenado',
+  sleepy: 'somnoliento',
+  physical_bad: 'malestar físico',
+  // Sorpresa
+  surprised: 'sorprendido',
+  amazed: 'asombrado',
+  anticipating: 'expectante',
+  curious: 'curioso',
+  confused: 'confundido',
+  // Asco
+  disgust: 'disgusto',
+  disapproving: 'desaprobando',
+  disappointed: 'decepcionado',
+  awful: 'horrible',
+  withdrawal: 'retirada',
+};
+
+/**
+ * ProgressScreen - Visualización de estadísticas y progreso de recuperación.
+ * Diseño Zen Bluish: Uniforme, limpio y profesional.
+ */
 export const ProgressScreen: React.FC = () => {
-  const { theme, isDark } = useTheme();
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-  
+
   const [stats, setStats] = useState<any>(null);
   const [habitStats, setHabitStats] = useState<any[]>([]);
+  const [cravingStats, setCravingStats] = useState<any>(null);
+  const [moodHistory, setMoodHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'recovery' | 'emotions' | 'habits'>('recovery');
 
@@ -27,271 +136,449 @@ export const ProgressScreen: React.FC = () => {
 
   const fetchAllStats = async () => {
     setLoading(true);
-    await Promise.all([fetchStats(), fetchHabitStats()]);
-    setLoading(false);
-  };
-
-  const fetchStats = async () => {
     try {
-      const response = await api.get<ApiResponse<any>>('/checkins/stats?days=30');
-      if (response && response.success) {
-        setStats(response.data);
-      }
+      const [statsRes, habitRes, cravingRes, moodRes] = await Promise.all([
+        api.get<ApiResponse<any>>('/checkins/stats?days=30'),
+        api.get<ApiResponse<any[]>>('/journal/habits/stats?days=30'),
+        api.get<ApiResponse<any>>('/cravings/stats'),
+        api.get<ApiResponse<any[]>>('/checkins/mood-history?days=30'),
+      ]);
+
+      if (statsRes?.success) setStats(statsRes.data);
+      if (habitRes?.success) setHabitStats(habitRes.data || []);
+      if (cravingRes?.success) setCravingStats(cravingRes.data);
+      if (moodRes?.success) setMoodHistory(moodRes.data || []);
     } catch (error) {
       console.error('Error fetching progress stats:', error);
-    }
-  };
-
-  const fetchHabitStats = async () => {
-    try {
-      const response = await api.get<ApiResponse<any[]>>('/journal/habits/stats?days=30');
-      if (response && response.success) {
-        setHabitStats(response.data || []);
-      }
-    } catch (error) {
-      console.error('Error fetching habit stats:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const renderHeader = () => (
     <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={[styles.backButton, { backgroundColor: theme.colors.surface + '20' }]}
+        style={[styles.backButton, { backgroundColor: theme.colors.card }]}
       >
         <Icon name="chevron-back" size={24} color={theme.colors.text} />
       </TouchableOpacity>
       <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Mi Progreso</Text>
-      <TouchableOpacity style={[styles.backButton, { backgroundColor: 'transparent' }]}>
-        <Icon name="share-outline" size={24} color={theme.colors.text} />
-      </TouchableOpacity>
+      <View style={{ width: 44 }} />
     </View>
   );
 
   const renderTabs = () => (
-    <View style={[styles.tabsContainer, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
+    <View
+      style={[
+        styles.tabsContainer,
+        { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+      ]}
+    >
       {(['recovery', 'emotions', 'habits'] as const).map((tab) => (
         <TouchableOpacity
           key={tab}
           onPress={() => setActiveTab(tab)}
-          style={[
-            styles.tab,
-            activeTab === tab && { backgroundColor: theme.colors.primary }
-          ]}
+          style={[styles.tab, activeTab === tab && { backgroundColor: theme.colors.primary }]}
         >
-          <Text style={[
-            styles.tabText,
-            { color: activeTab === tab ? 'white' : theme.colors.textSecondary }
-          ]}>
-            {tab === 'recovery' ? 'Recuperación' : tab === 'emotions' ? 'Emociones' : 'Hábitos'}
+          <Text
+            style={[
+              styles.tabText,
+              { color: activeTab === tab ? 'white' : theme.colors.textSecondary },
+            ]}
+          >
+            {tab === 'recovery' ? 'Status' : tab === 'emotions' ? 'Ánimo' : 'Hábitos'}
           </Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 
-  const renderRecoveryStats = () => (
+  const renderRecoveryTab = () => (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-      {/* Sobriety Card */}
-      <LinearGradient
-        colors={[theme.colors.primary, theme.colors.primaryDark]}
-        start={[0, 0]}
-        end={[1, 1]}
-        style={styles.mainProgressCard}
-      >
-        <View style={styles.progressHeader}>
-          <Icon name="ribbon-outline" size={40} color="white" />
-          <View>
-            <Text style={styles.progressLabel}>Días en Recuperación</Text>
-            <Text style={styles.progressValue}>{stats?.totalCheckIns - stats?.riskSituations || 0}</Text>
-          </View>
+      <View style={[styles.heroCard, { backgroundColor: theme.colors.primary }]}>
+        <Text style={styles.heroLabel}>Días en recuperación</Text>
+        <Text style={styles.heroValue}>{stats?.totalCheckIns || 0}</Text>
+        <View style={styles.heroFooter}>
+          <Icon name="ribbon-outline" size={20} color="white" />
+          <Text style={styles.heroSubtext}>Excelente ritmo este mes</Text>
         </View>
-        
-        <View style={styles.progressFooter}>
-          <Text style={styles.progressSubtext}>Has completado el {Math.round(((stats?.totalCheckIns || 0) / 30) * 100)}% de tus registros este mes.</Text>
-          <View style={styles.progressBarBg}>
-            <View 
-              style={[
-                styles.progressBarFill, 
-                { width: `${Math.min(100, ((stats?.totalCheckIns || 0) / 30) * 100)}%` }
-              ]} 
-            />
-          </View>
-        </View>
-      </LinearGradient>
+      </View>
 
-      {/* Grid Stats */}
       <View style={styles.statsGrid}>
-        <Card variant="elevated" style={styles.statBox}>
-          <Icon name="flame" size={24} color={theme.colors.warning} />
-          <Text style={[styles.statBoxValue, { color: theme.colors.text }]}>{stats?.totalCheckIns || 0}</Text>
-          <Text style={[styles.statBoxLabel, { color: theme.colors.textSecondary }]}>Total Registros</Text>
+        <Card style={styles.statBox}>
+          <Text style={[styles.statValue, { color: theme.colors.text }]}>
+            {stats?.exerciseDays || 0}
+          </Text>
+          <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>
+            Días activos
+          </Text>
         </Card>
-        
-        <Card variant="elevated" style={styles.statBox}>
-          <Icon name="fitness" size={24} color={theme.colors.secondary} />
-          <Text style={[styles.statBoxValue, { color: theme.colors.text }]}>{stats?.exerciseDays || 0}</Text>
-          <Text style={[styles.statBoxLabel, { color: theme.colors.textSecondary }]}>Días Activos</Text>
+        <Card style={styles.statBox}>
+          <Text style={[styles.statValue, { color: theme.colors.text }]}>
+            {stats?.riskSituations || 0}
+          </Text>
+          <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>Riesgos</Text>
         </Card>
       </View>
 
-      {/* Risk Situations */}
-      <Card variant="outlined" style={styles.riskCard}>
-        <View style={styles.riskHeader}>
-          <View style={[styles.riskIcon, { backgroundColor: theme.colors.error + '20' }]}>
-            <Icon name="warning" size={20} color={theme.colors.error} />
-          </View>
-          <Text style={[styles.riskTitle, { color: theme.colors.text }]}>Situaciones de Riesgo</Text>
+      <Card padding="lg" style={{ marginTop: 10 }}>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Consumo Semanal</Text>
+        <View style={styles.placeholderChart}>
+          <Icon name="stats-chart-outline" size={32} color={theme.colors.border} />
+          <Text style={{ color: theme.colors.textSecondary, marginTop: 8 }}>
+            Estadísticas de 7 días
+          </Text>
         </View>
-        <Text style={[styles.riskCount, { color: theme.colors.text }]}>{stats?.riskSituations || 0}</Text>
-        <Text style={[styles.riskDesc, { color: theme.colors.textSecondary }]}>
-          Identificar estos momentos es clave para tu crecimiento. ¡Sigue adelante!
-        </Text>
       </Card>
     </ScrollView>
   );
 
-  const renderEmotionsStats = () => {
-    const emotionCategories = [
-      { key: 'happiness', label: 'Felicidad', color: '#FFD580' },
-      { key: 'surprise', label: 'Sorpresa', color: '#FFFACD' },
-      { key: 'fear', label: 'Miedo', color: '#E0E0E0' },
-      { key: 'anger', label: 'Ira', color: '#FFB2B2' },
-      { key: 'disgust', label: 'Asco', color: '#D1FFD1' },
-      { key: 'sadness', label: 'Tristeza', color: '#E6E6FA' },
-    ];
+  const renderEmotionsTab = () => {
+    const emotionDistribution = stats?.emotionDistribution || {};
+    const totalEmotions = Object.values(emotionDistribution).reduce(
+      (a: number, b: any) => a + (b as number),
+      0
+    ) as number;
 
-    const distribution = stats?.emotionDistribution || {};
-    const totalTags = Object.values(distribution).reduce((a: any, b: any) => a + b, 0) as number;
+    const sortedEmotions = Object.entries(emotionDistribution)
+      .filter(([_, count]) => (count as number) > 0)
+      .sort((a, b) => (b[1] as number) - (a[1] as number));
+
+    const topEmotion = sortedEmotions[0]?.[0] as string | undefined;
+    const topEmotionConfig = topEmotion ? EMOTION_CONFIG[topEmotion] : null;
+
+    const moodTrend = moodHistory.slice().reverse().slice(-7);
+
+    const trendLabels = moodTrend.map((m) => {
+      const d = new Date(m.mood_date);
+      return ['D', 'L', 'M', 'M', 'J', 'V', 'S'][d.getDay()];
+    });
+
+    const moodScores = moodTrend.map((m) => m.mood_score || 0);
+    const anxietyScores = moodTrend.map((m) => m.anxiety_score || 0);
 
     return (
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Análisis de Estados de Ánimo</Text>
-        
-        <View style={styles.statsGrid}>
-          <Card style={styles.statBox}>
-            <Text style={[styles.statBoxValue, { color: theme.colors.text }]}>{stats?.averageMood?.toFixed(1) || '-'}</Text>
-            <Text style={[styles.statBoxLabel, { color: theme.colors.textSecondary }]}>Ánimo Promedio</Text>
-          </Card>
-          <Card style={styles.statBox}>
-            <Text style={[styles.statBoxValue, { color: theme.colors.text }]}>{stats?.averageAnxiety?.toFixed(1) || '-'}</Text>
-            <Text style={[styles.statBoxLabel, { color: theme.colors.textSecondary }]}>Ansiedad Media</Text>
-          </Card>
-        </View>
+        <Card padding="lg">
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Estado de Ánimo</Text>
+          <View style={styles.moodRow}>
+            <View style={styles.moodItem}>
+              <Text style={[styles.moodValue, { color: theme.colors.primary }]}>
+                {stats?.averageMood?.toFixed(1) || '0.0'}
+              </Text>
+              <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
+            </View>
+            <View style={styles.moodItem}>
+              <Text style={[styles.moodValue, { color: theme.colors.secondary }]}>
+                {stats?.averageEnergy?.toFixed(1) || '0.0'}
+              </Text>
+              <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Energía</Text>
+            </View>
+            <View style={styles.moodItem}>
+              <Text style={[styles.moodValue, { color: theme.colors.accent || '#9C27B0' }]}>
+                {stats?.averageAnxiety?.toFixed(1) || '0.0'}
+              </Text>
+              <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>
+                Ansiedad
+              </Text>
+            </View>
+            <View style={styles.moodItem}>
+              <Text style={[styles.moodValue, { color: '#3B82F6' }]}>
+                {stats?.averageSleep?.toFixed(1) || '0.0'}
+              </Text>
+              <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>
+                Sueño (h)
+              </Text>
+            </View>
+          </View>
+        </Card>
 
-        <Text style={[styles.sectionTitle, { color: theme.colors.text, marginTop: 24, marginBottom: 16 }]}>
-          Distribución por Categorías
-        </Text>
-
-        <Card padding="lg" style={{ marginBottom: 24 }}>
-          {emotionCategories.map((cat) => {
-            const count = distribution[cat.key] || 0;
-            const percentage = totalTags > 0 ? (count / totalTags) * 100 : 0;
-            
-            return (
-              <View key={cat.key} style={{ marginBottom: 16 }}>
-                <View style={styles.metricLabelRow}>
-                  <Text style={[styles.metricLabel, { color: theme.colors.text }]}>{cat.label}</Text>
-                  <Text style={[styles.metricValue, { color: theme.colors.text, opacity: 0.7 }]}>{count} registros</Text>
-                </View>
-                <View style={styles.barContainer}>
-                  <View 
-                    style={[
-                      styles.barFill, 
-                      { 
-                        width: `${Math.max(percentage, totalTags === 0 ? 0 : 2)}%`, 
-                        backgroundColor: cat.color 
-                      }
-                    ]} 
-                  />
-                </View>
+        {topEmotionConfig && (
+          <Card padding="lg" style={{ marginTop: 16 }}>
+            <View
+              style={[styles.topEmotionBanner, { backgroundColor: topEmotionConfig.color + '12' }]}
+            >
+              <Icon name={topEmotionConfig.icon as any} size={24} color={topEmotionConfig.color} />
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.topEmotionLabel, { color: theme.colors.textSecondary }]}>
+                  Emoción predominante
+                </Text>
+                <Text style={[styles.topEmotionName, { color: topEmotionConfig.color }]}>
+                  {topEmotionConfig.label}
+                </Text>
               </View>
-            );
-          })}
-          {totalTags === 0 && (
-            <Text style={{ textAlign: 'center', color: theme.colors.textSecondary }}>
-              No hay registros emocionales en este periodo.
-            </Text>
+            </View>
+          </Card>
+        )}
+
+        <Card padding="lg" style={{ marginTop: 16 }}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            Distribución Emocional
+          </Text>
+          {sortedEmotions.length > 0 ? (
+            <View style={{ marginTop: 16, gap: 14 }}>
+              {sortedEmotions.map(([emotion, count]) => {
+                const config = EMOTION_CONFIG[emotion];
+                if (!config) return null;
+                const percentage =
+                  totalEmotions > 0 ? ((count as number) / totalEmotions) * 100 : 0;
+                return (
+                  <View key={emotion}>
+                    <View style={styles.emotionRow}>
+                      <View style={styles.emotionLabelRow}>
+                        <Icon name={config.icon as any} size={16} color={config.color} />
+                        <Text style={[styles.emotionLabel, { color: theme.colors.text }]}>
+                          {config.label}
+                        </Text>
+                      </View>
+                      <Text style={[styles.emotionCount, { color: theme.colors.textSecondary }]}>
+                        {count as number} ({Math.round(percentage)}%)
+                      </Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.distributionBar,
+                        { backgroundColor: theme.colors.border + '40' },
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.distributionFill,
+                          { width: `${percentage}%`, backgroundColor: config.color },
+                        ]}
+                      />
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          ) : (
+            <View style={[styles.placeholderChart, { height: 80 }]}>
+              <Icon name="pie-chart-outline" size={32} color={theme.colors.border} />
+              <Text style={{ color: theme.colors.textSecondary, marginTop: 8 }}>
+                Registra tus emociones para ver la distribución
+              </Text>
+            </View>
           )}
         </Card>
 
-        {/* Descanso */}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Calidad del Descanso</Text>
-        <Card variant="elevated" style={styles.sleepContainer}>
-          <Icon name="moon" size={32} color={theme.colors.primary} />
-          <Text style={[styles.sleepValue, { color: theme.colors.text }]}>{stats?.averageSleep?.toFixed(1) || '0'} hrs</Text>
-          <Text style={[styles.sleepLabel, { color: theme.colors.textSecondary }]}>Promedio de sueño diario</Text>
-        </Card>
-        
+        {moodTrend.length > 1 && (
+          <Card padding="lg" style={{ marginTop: 16 }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+              Tendencia Semanal
+            </Text>
+            <View style={styles.legendRow}>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, { backgroundColor: theme.colors.primary }]} />
+                <Text style={[styles.legendText, { color: theme.colors.textSecondary }]}>
+                  Ánimo
+                </Text>
+              </View>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, { backgroundColor: '#9C27B0' }]} />
+                <Text style={[styles.legendText, { color: theme.colors.textSecondary }]}>
+                  Ansiedad
+                </Text>
+              </View>
+            </View>
+            <LineChart
+              data={{
+                labels: trendLabels,
+                datasets: [
+                  { data: moodScores, color: () => theme.colors.primary, strokeWidth: 2 },
+                  { data: anxietyScores, color: () => '#9C27B0', strokeWidth: 2 },
+                ],
+                legend: [],
+              }}
+              width={width - 80}
+              height={180}
+              yAxisInterval={1}
+              fromZero
+              withInnerLines={false}
+              chartConfig={{
+                backgroundColor: theme.colors.card,
+                backgroundGradientFrom: theme.colors.card,
+                backgroundGradientTo: theme.colors.card,
+                decimalPlaces: 0,
+                color: () => theme.colors.primary,
+                labelColor: () => theme.colors.textSecondary,
+                propsForDots: { r: '4', strokeWidth: '1', stroke: theme.colors.primary },
+              }}
+              bezier
+              style={{ borderRadius: 12, marginLeft: -20, marginTop: 12 }}
+            />
+          </Card>
+        )}
+
+        {moodHistory.length > 0 && (
+          <Card padding="lg" style={{ marginTop: 16 }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+              Registro Reciente
+            </Text>
+            <View style={{ marginTop: 12, gap: 10 }}>
+              {moodHistory.slice(0, 5).map((entry) => {
+                const date = new Date(entry.mood_date);
+                const formattedDate = date.toLocaleDateString('es-CL', {
+                  day: 'numeric',
+                  month: 'short',
+                });
+                const tags = Array.isArray(entry.emotional_tags) ? entry.emotional_tags : [];
+                return (
+                  <View
+                    key={entry.id}
+                    style={[styles.historyRow, { borderBottomColor: theme.colors.border + '60' }]}
+                  >
+                    <Text style={[styles.historyDate, { color: theme.colors.textSecondary }]}>
+                      {formattedDate}
+                    </Text>
+                    <View style={styles.historyScores}>
+                      <View
+                        style={[styles.scoreChip, { backgroundColor: theme.colors.primary + '15' }]}
+                      >
+                        <Text style={[styles.scoreChipText, { color: theme.colors.primary }]}>
+                          {entry.mood_score || '—'}
+                        </Text>
+                      </View>
+                      <View style={[styles.scoreChip, { backgroundColor: '#9C27B015' }]}>
+                        <Text style={[styles.scoreChipText, { color: '#9C27B0' }]}>
+                          {entry.anxiety_score || '—'}
+                        </Text>
+                      </View>
+                      <View
+                        style={[
+                          styles.scoreChip,
+                          { backgroundColor: theme.colors.secondary + '15' },
+                        ]}
+                      >
+                        <Text style={[styles.scoreChipText, { color: theme.colors.secondary }]}>
+                          {entry.energy_score || '—'}
+                        </Text>
+                      </View>
+                    </View>
+                    {tags.length > 0 && (
+                      <View style={styles.tagRow}>
+                        {tags.slice(0, 3).map((tag: string) => {
+                          const category = Object.keys(EMOTION_CONFIG).find((k) => {
+                            const mapping: Record<string, string[]> = {
+                              happiness: [
+                                'happy',
+                                'content',
+                                'joyful',
+                                'satisfied',
+                                'hopeful',
+                                'motivated',
+                                'calm',
+                                'peaceful',
+                                'relaxed',
+                                'confident',
+                                'grateful',
+                                'proud',
+                              ],
+                              fear: [
+                                'anxious',
+                                'nervous',
+                                'worried',
+                                'overwhelmed',
+                                'uncertain',
+                                'restless',
+                                'vulnerable',
+                              ],
+                              anger: [
+                                'angry',
+                                'frustrated',
+                                'irritated',
+                                'stressed',
+                                'tense',
+                                'annoyed',
+                                'blocked',
+                              ],
+                              sadness: [
+                                'sad',
+                                'lonely',
+                                'tired',
+                                'empty',
+                                'hopeless',
+                                'melancholy',
+                                'down',
+                                'isolated',
+                                'exhausted',
+                              ],
+                              surprise: ['surprised', 'curious', 'confused', 'amazed'],
+                              disgust: ['disgust', 'disappointed', 'withdrawal'],
+                            };
+                            return mapping[k]?.includes(tag);
+                          });
+                          const conf = category ? EMOTION_CONFIG[category] : null;
+                          return (
+                            <View
+                              key={tag}
+                              style={[
+                                styles.emotionTag,
+                                {
+                                  backgroundColor: conf
+                                    ? conf.color + '15'
+                                    : theme.colors.border + '30',
+                                  borderColor: conf ? conf.color + '30' : theme.colors.border,
+                                },
+                              ]}
+                            >
+                              <Text
+                                style={[
+                                  styles.emotionTagText,
+                                  { color: conf?.color || theme.colors.textSecondary },
+                                ]}
+                              >
+                                {TAG_TRANSLATIONS[tag] || tag.replace(/_/g, ' ')}
+                              </Text>
+                            </View>
+                          );
+                        })}
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+          </Card>
+        )}
+
         <View style={{ height: 40 }} />
       </ScrollView>
     );
   };
 
-  const renderHabitsStats = () => (
+  const renderHabitsTab = () => (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-      <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Consistencia de Hábitos (30 días)</Text>
-      
-      {habitStats.length === 0 ? (
-        <Card padding="lg" style={{ alignItems: 'center' }}>
-          <Icon name="leaf-outline" size={48} color={theme.colors.textSecondary} />
-          <Text style={{ color: theme.colors.textSecondary, marginTop: 12, textAlign: 'center' }}>
-            Aún no has definido hábitos personalizados.{'\n'}Comienza en la sección de Bitácora.
-          </Text>
-        </Card>
-      ) : (
+      <Text style={[styles.sectionTitle, { color: theme.colors.text, marginBottom: 16 }]}>
+        Consistencia de Hábitos
+      </Text>
+      {habitStats.length > 0 ? (
         habitStats.map((habit) => (
           <Card key={habit.id} padding="md" style={{ marginBottom: 12 }}>
-            <View style={styles.metricLabelRow}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[
-                  styles.habitDot, 
-                  { backgroundColor: habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success }
-                ]} />
-                <Text style={[styles.metricLabel, { color: theme.colors.text, fontSize: 16 }]}>{habit.name}</Text>
-              </View>
-              <Text style={[
-                styles.metricValue, 
-                { color: habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success }
-              ]}>
+            <View style={styles.habitRow}>
+              <Text style={[styles.habitName, { color: theme.colors.text }]}>{habit.name}</Text>
+              <Text style={[styles.habitPercent, { color: theme.colors.primary }]}>
                 {Math.round(habit.completion_rate)}%
               </Text>
             </View>
-            
-            <View style={styles.barContainer}>
-              <View style={[
-                styles.barFill, 
-                { 
-                  width: `${habit.completion_rate}%`, 
-                  backgroundColor: habit.habit_type === 'negative' ? theme.colors.error : theme.colors.success 
-                }
-              ]} />
-            </View>
-            
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
-              <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>
-                {habit.completion_count} de {habit.total_days} días
-              </Text>
-              <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>
-                {habit.habit_type === 'negative' ? 'Hábito de Riesgo' : 'Hábito Saludable'}
-              </Text>
+            <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
+              <View
+                style={[
+                  styles.progressFill,
+                  { width: `${habit.completion_rate}%`, backgroundColor: theme.colors.primary },
+                ]}
+              />
             </View>
           </Card>
         ))
+      ) : (
+        <Card padding="lg" style={{ alignItems: 'center' }}>
+          <Text style={{ color: theme.colors.textSecondary }}>
+            No hay hábitos registrados para este periodo.
+          </Text>
+        </Card>
       )}
-
-      {/* Insight Card */}
-      <Card variant="filled" style={{ marginTop: 20, backgroundColor: theme.colors.primary + '10', marginBottom: 40 }}>
-        <View style={{ flexDirection: 'row', padding: 16 }}>
-          <Icon name="bulb-outline" size={24} color={theme.colors.primary} />
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={{ color: theme.colors.text, fontWeight: 'bold', fontSize: 15 }}>Tip de Recuperación</Text>
-            <Text style={{ color: theme.colors.textSecondary, fontSize: 13, marginTop: 4 }}>
-              Mantener una consistencia superior al 70% en tus hábitos saludables reduce significativamente el riesgo de impulsos por consumo.
-            </Text>
-          </View>
-        </View>
-      </Card>
     </ScrollView>
   );
 
@@ -299,32 +586,30 @@ export const ProgressScreen: React.FC = () => {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {renderHeader()}
       {renderTabs()}
-      
+
       {loading ? (
-        <View style={styles.loadingContainer}>
-          <Text style={{ color: theme.colors.textSecondary }}>Cargando estadísticas...</Text>
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={theme.colors.primary} />
         </View>
+      ) : activeTab === 'recovery' ? (
+        renderRecoveryTab()
+      ) : activeTab === 'emotions' ? (
+        renderEmotionsTab()
       ) : (
-        <>
-          {activeTab === 'recovery' && renderRecoveryStats()}
-          {activeTab === 'emotions' && renderEmotionsStats()}
-          {activeTab === 'habits' && renderHabitsStats()}
-        </>
+        renderHabitsTab()
       )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingBottom: 15,
   },
   backButton: {
     width: 44,
@@ -334,187 +619,157 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
   },
   tabsContainer: {
     flexDirection: 'row',
     marginHorizontal: 20,
-    padding: 6,
-    borderRadius: 14,
-    borderWidth: 1,
+    padding: 5,
+    borderRadius: 15,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   tab: {
     flex: 1,
-    paddingVertical: 10,
-    borderRadius: 8,
+    paddingVertical: 8,
+    borderRadius: 12,
     alignItems: 'center',
   },
   tabText: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 13,
+    fontWeight: '500',
   },
-  content: {
-    flex: 1,
-    padding: 20,
-  },
-  mainProgressCard: {
+  content: { flex: 1, padding: 20 },
+  heroCard: {
     padding: 24,
     borderRadius: 24,
     marginBottom: 20,
-  },
-  progressHeader: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
   },
-  progressLabel: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 14,
-    marginLeft: 16,
-  },
-  progressValue: {
-    color: 'white',
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginLeft: 16,
-  },
-  progressFooter: {
-    marginTop: 8,
-  },
-  progressSubtext: {
-    color: 'rgba(255,255,255,0.9)',
-    fontSize: 13,
-    marginBottom: 10,
-  },
-  progressBarBg: {
-    height: 8,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  progressBarFill: {
-    height: '100%',
-    backgroundColor: 'white',
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    gap: 16,
-    marginBottom: 20,
-  },
-  statBox: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 20,
-  },
-  statBoxValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 4,
-  },
-  statBoxLabel: {
-    fontSize: 12,
-  },
-  riskCard: {
-    padding: 20,
-    marginBottom: 40,
-  },
-  riskHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  riskIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+  heroLabel: { color: 'white', fontSize: 14, opacity: 0.9 },
+  heroValue: { color: 'white', fontSize: 48, fontWeight: 'bold', marginVertical: 8 },
+  heroFooter: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  heroSubtext: { color: 'white', fontSize: 13, opacity: 0.8 },
+  statsGrid: { flexDirection: 'row', gap: 12, marginBottom: 20 },
+  statBox: { flex: 1, padding: 20, alignItems: 'center', gap: 4 },
+  statValue: { fontSize: 22, fontWeight: 'bold' },
+  statLabel: { fontSize: 12 },
+  sectionTitle: { fontSize: 16, fontWeight: '600' },
+  placeholderChart: {
+    height: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginTop: 10,
   },
-  riskTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  riskCount: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  riskDesc: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  moodRow: { flexDirection: 'row', gap: 12, marginTop: 15 },
+  moodItem: { flex: 1, alignItems: 'center', gap: 2 },
+  moodValue: { fontSize: 24, fontWeight: 'bold' },
+  moodLabel: { fontSize: 11, textAlign: 'center' },
+  habitRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  habitName: { fontWeight: '500' },
+  habitPercent: { fontWeight: 'bold' },
+  progressBar: { height: 8, borderRadius: 4, overflow: 'hidden' },
+  progressFill: { height: '100%', borderRadius: 4 },
+  loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  topEmotionBanner: {
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
+    padding: 16,
+    borderRadius: 16,
   },
-  sectionTitle: {
+  topEmotionLabel: {
+    fontSize: 11,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  topEmotionName: {
     fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontWeight: '700',
+    marginTop: 2,
   },
-  metricRow: {
-    marginBottom: 20,
-  },
-  metricLabelRow: {
+  emotionRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
-  metricLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  metricValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  barContainer: {
-    height: 10,
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  barFill: {
-    height: '100%',
-    borderRadius: 5,
-  },
-  sleepContainer: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  sleepValue: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginTop: 8,
-  },
-  sleepLabel: {
-    fontSize: 14,
-  },
-  comingSoonTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  comingSoonDesc: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginVertical: 16,
-    lineHeight: 22,
-  },
-  placeholderHabits: {
+  emotionLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 100,
+    gap: 8,
   },
-  habitDot: {
+  emotionLabel: {
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  emotionCount: {
+    fontSize: 12,
+  },
+  distributionBar: {
+    height: 8,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  distributionFill: {
+    height: '100%',
+    borderRadius: 4,
+  },
+  legendRow: {
+    flexDirection: 'row',
+    gap: 16,
+    marginTop: 8,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  legendDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginRight: 10,
-  }
+  },
+  legendText: {
+    fontSize: 11,
+  },
+  historyRow: {
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    gap: 6,
+  },
+  historyDate: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  historyScores: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  scoreChip: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  scoreChipText: {
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  tagRow: {
+    flexDirection: 'row',
+    gap: 6,
+    flexWrap: 'wrap',
+    marginTop: 2,
+  },
+  emotionTag: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  emotionTagText: {
+    fontSize: 10,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+  },
 });

@@ -3,7 +3,8 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import pg, { PoolClient, QueryResult, PoolConfig } from 'pg';
+import pg from 'pg';
+import type { PoolClient, PoolConfig, QueryResult } from 'pg';
 import { database } from './index.js';
 
 const { Pool, types } = pg;
@@ -19,7 +20,7 @@ types.setTypeParser(2950, (value: string) => value); // UUID
 // =====================================================
 
 interface PoolConnection {
-  pool: Pool | null;
+  pool: pg.Pool | null;
   isConnected: boolean;
 }
 
@@ -31,14 +32,33 @@ const connection: PoolConnection = {
 /**
  * Crea y configura el pool de conexiones
  */
-export const createPool = (): Pool => {
+/**
+ * Construye la config SSL correcta para PostgreSQL
+ * SEC-008 FIX: rejectUnauthorized: true en producción para prevenir MitM
+ */
+const buildSslConfig = (): PoolConfig['ssl'] => {
+  if (process.env.NODE_ENV !== 'production') {
+    return false;
+  }
+  // En producción: validar certificados siempre
+  const sslConfig: { rejectUnauthorized: boolean; ca?: string } = {
+    rejectUnauthorized: true,
+  };
+  // Soporte para CA personalizada (e.g. RDS, Cloud SQL)
+  if (process.env.DB_SSL_CA_CERT) {
+    sslConfig.ca = process.env.DB_SSL_CA_CERT;
+  }
+  return sslConfig;
+};
+
+export const createPool = (): pg.Pool => {
   const config: PoolConfig = {
     connectionString: database.url,
     max: database.poolMax,
     min: database.poolMin,
     idleTimeoutMillis: database.poolIdleTimeout,
     allowExitOnIdle: false,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl: buildSslConfig(),
   };
 
   const pool = new Pool(config);
@@ -55,8 +75,8 @@ export const createPool = (): Pool => {
     connection.isConnected = true;
   });
 
-  // Evento: conexión terminada
-  pool.on('end', () => {
+  // Evento: conexión terminada (usamos 'remove' que es el evento de cierre en pg)
+  pool.on('remove', () => {
     console.log('🔌 Database connection closed');
     connection.isConnected = false;
   });
@@ -67,7 +87,7 @@ export const createPool = (): Pool => {
 /**
  * Inicializa el pool de conexiones
  */
-export const initDatabase = async (): Promise<Pool> => {
+export const initDatabase = async (): Promise<pg.Pool> => {
   if (connection.pool) {
     return connection.pool;
   }
@@ -94,7 +114,7 @@ export const initDatabase = async (): Promise<Pool> => {
 /**
  * Obtiene el pool de conexiones
  */
-export const getPool = (): Pool => {
+export const getPool = (): pg.Pool => {
   if (!connection.pool) {
     throw new Error('Database pool not initialized. Call initDatabase() first.');
   }
@@ -111,7 +131,7 @@ export const isConnected = (): boolean => {
 /**
  * Ejecuta una consulta con parámetros
  */
-export const query = async <T = unknown>(
+export const query = async <T extends Record<string, any> = any>(
   text: string,
   params?: unknown[]
 ): Promise<QueryResult<T>> => {
@@ -119,14 +139,15 @@ export const query = async <T = unknown>(
   const start = Date.now();
 
   try {
-    const result = await pool.query<T>(text, params);
+    // Cast pool.query to any to avoid type issues
+    const result = (await (pool.query as any)(text, params)) as QueryResult<T>;
     const duration = Date.now() - start;
 
     if (process.env.NODE_ENV === 'development') {
       console.log('📊 Query executed:', {
         duration: `${duration}ms`,
         rows: result.rowCount,
-        text: text.substring(0, 100)
+        text: text.substring(0, 100),
       });
     }
 
@@ -140,9 +161,9 @@ export const query = async <T = unknown>(
 /**
  * Ejecuta una consulta en una transacción
  */
-export const queryWithTransaction = async <T = unknown>(
-  callback: (client: PoolClient) => Promise<QueryResult<T>>
-): Promise<QueryResult<T>> => {
+export const queryWithTransaction = async (
+  callback: (client: PoolClient) => Promise<any>
+): Promise<any> => {
   const pool = getPool();
   const client = await pool.connect();
 

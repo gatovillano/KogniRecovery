@@ -5,11 +5,10 @@
  */
 
 import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
 import * as UserModel from '../models/user.model.js';
 import * as RefreshTokenModel from '../models/refreshToken.model.js';
 import * as ProfileModel from '../models/profile.model.js';
-import { auth as authConfig } from '../config/index.js';
+import { auth as authConfig, jwt as jwtConfig } from '../config/index.js';
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -36,6 +35,7 @@ export interface LoginInput {
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
+  expiresIn: string | number;
 }
 
 export interface RegisterResponse {
@@ -112,7 +112,9 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
   // Verificar si el email ya existe
   const existingUser = await UserModel.findByEmail(email);
   if (existingUser) {
-    const error = new Error('El correo electrónico ya está registrado') as Error & { statusCode: number };
+    const error = new Error('El correo electrónico ya está registrado') as Error & {
+      statusCode: number;
+    };
     error.statusCode = 409;
     throw error;
   }
@@ -146,7 +148,11 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
       current_status: 'activo',
       preferred_language: 'es',
     });
-    await ProfileModel.createProfileSettings(profile.id, {});
+    if (profile) {
+      await ProfileModel.createProfileSettings(profile.id, {});
+    } else {
+      console.warn('⚠️ No se pudo crear perfil automáticamente: perfil nulo');
+    }
   } catch (profileError) {
     // No lanzar error si falla la creación de perfil, el usuario ya fue creado
     console.warn('⚠️ No se pudo crear perfil automáticamente:', profileError);
@@ -161,7 +167,7 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
     token: tokens.refreshToken,
   });
 
-    return {
+  return {
     user: {
       id: user.id,
       email: user.email,
@@ -202,13 +208,17 @@ export const login = async (input: LoginInput): Promise<LoginResponse> => {
 
   // Verificar estado de cuenta
   if (user.status === 'suspended') {
-    const error = new Error('Tu cuenta ha sido suspendida. Contacta al soporte.') as Error & { statusCode: number };
+    const error = new Error('Tu cuenta ha sido suspendida. Contacta al soporte.') as Error & {
+      statusCode: number;
+    };
     error.statusCode = 403;
     throw error;
   }
 
   if (user.status === 'inactive') {
-    const error = new Error('Tu cuenta está inactiva. Contacta al soporte.') as Error & { statusCode: number };
+    const error = new Error('Tu cuenta está inactiva. Contacta al soporte.') as Error & {
+      statusCode: number;
+    };
     error.statusCode = 403;
     throw error;
   }
@@ -329,6 +339,7 @@ const generateTokens = (userId: string, email: string, role: string): AuthTokens
   return {
     accessToken: generateAccessToken(userId, email, role),
     refreshToken: generateRefreshToken(userId, email, role),
+    expiresIn: jwtConfig.expiresIn,
   };
 };
 

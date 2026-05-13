@@ -6,8 +6,8 @@
 import { initDatabase, query, closePool } from '../config/database.js';
 
 const MIGRATIONS = [
-    // 1. Usuarios e IDs de Sesión
-    `CREATE TABLE IF NOT EXISTS users (
+  // 1. Usuarios e IDs de Sesión
+  `CREATE TABLE IF NOT EXISTS users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
@@ -27,21 +27,21 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // Extensiones para tabla users existente
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR(100)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'active'`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS onboarding_completed BOOLEAN DEFAULT FALSE`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_type VARCHAR(50)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS risk_level VARCHAR(20)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_enabled BOOLEAN DEFAULT FALSE`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_secret VARCHAR(255)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_provider VARCHAR(20) DEFAULT 'openai'`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_model VARCHAR(100)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_api_key VARCHAR(255)`,
-    `ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP`,
+  // Extensiones para tabla users existente
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR(100)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'active'`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS onboarding_completed BOOLEAN DEFAULT FALSE`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_type VARCHAR(50)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS risk_level VARCHAR(20)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_enabled BOOLEAN DEFAULT FALSE`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_secret VARCHAR(255)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_provider VARCHAR(20) DEFAULT 'openai'`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_model VARCHAR(100)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS llm_api_key VARCHAR(255)`,
+  `ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP`,
 
-    `CREATE TABLE IF NOT EXISTS refresh_tokens (
+  `CREATE TABLE IF NOT EXISTS refresh_tokens (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         token TEXT UNIQUE NOT NULL,
@@ -59,8 +59,8 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 2. Perfiles y Preferencias
-    `CREATE TABLE IF NOT EXISTS profiles (
+  // 2. Perfiles y Preferencias
+  `CREATE TABLE IF NOT EXISTS profiles (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
         profile_type VARCHAR(50) NOT NULL DEFAULT 'estandar',
@@ -84,7 +84,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS profile_settings (
+  `CREATE TABLE IF NOT EXISTS profile_settings (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         profile_id UUID NOT NULL UNIQUE REFERENCES profiles(id) ON DELETE CASCADE,
         checkin_frequency VARCHAR(20) DEFAULT 'diaria',
@@ -104,7 +104,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS substance_preferences (
+  `CREATE TABLE IF NOT EXISTS substance_preferences (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
         substance_id UUID,
@@ -117,8 +117,8 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 3. Check-ins y Rachas
-    `CREATE TABLE IF NOT EXISTS checkins (
+  // 3. Check-ins y Rachas
+  `CREATE TABLE IF NOT EXISTS checkins (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         checkin_type VARCHAR(30) NOT NULL DEFAULT 'diario',
@@ -148,7 +148,7 @@ const MIGRATIONS = [
         CONSTRAINT unique_user_checkin_date UNIQUE (user_id, checkin_date)
     )`,
 
-    `CREATE TABLE IF NOT EXISTS mood_history (
+  `CREATE TABLE IF NOT EXISTS mood_history (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         mood_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -165,7 +165,7 @@ const MIGRATIONS = [
         CONSTRAINT unique_user_mood_date UNIQUE (user_id, mood_date)
     )`,
 
-    `CREATE TABLE IF NOT EXISTS checkin_streaks (
+  `CREATE TABLE IF NOT EXISTS checkin_streaks (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         streak_type VARCHAR(50) NOT NULL,
@@ -182,8 +182,8 @@ const MIGRATIONS = [
         CONSTRAINT unique_user_streak_type UNIQUE (user_id, streak_type)
     )`,
 
-    // 4. Cravings y Estrategias
-    `CREATE TABLE IF NOT EXISTS cravings (
+  // 4. Cravings y Estrategias
+  `CREATE TABLE IF NOT EXISTS cravings (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         substance_id UUID,
@@ -205,7 +205,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS craving_patterns (
+  `CREATE TABLE IF NOT EXISTS craving_patterns (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         substance_id UUID,
@@ -223,7 +223,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS coping_strategies (
+  `CREATE TABLE IF NOT EXISTS coping_strategies (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         name VARCHAR(100) NOT NULL,
@@ -242,7 +242,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS strategy_usage (
+  `CREATE TABLE IF NOT EXISTS strategy_usage (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         strategy_id UUID NOT NULL REFERENCES coping_strategies(id) ON DELETE CASCADE,
@@ -251,7 +251,7 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS craving_triggers (
+  `CREATE TABLE IF NOT EXISTS craving_triggers (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         trigger_type VARCHAR(50) NOT NULL,
@@ -265,8 +265,8 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 5. Conversaciones y Mensajes
-    `CREATE TABLE IF NOT EXISTS scenario_configs (
+  // 5. Conversaciones y Mensajes
+  `CREATE TABLE IF NOT EXISTS scenario_configs (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         scenario_type VARCHAR(50) UNIQUE NOT NULL,
         scenario_name VARCHAR(100) NOT NULL,
@@ -283,7 +283,7 @@ const MIGRATIONS = [
         created_by UUID REFERENCES users(id) ON DELETE SET NULL
     )`,
 
-    `CREATE TABLE IF NOT EXISTS conversations (
+  `CREATE TABLE IF NOT EXISTS conversations (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         title VARCHAR(255) DEFAULT 'Nueva conversación',
@@ -306,7 +306,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS conversation_sessions (
+  `CREATE TABLE IF NOT EXISTS conversation_sessions (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -328,7 +328,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS messages (
+  `CREATE TABLE IF NOT EXISTS messages (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -344,7 +344,7 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS message_attachments (
+  `CREATE TABLE IF NOT EXISTS message_attachments (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         message_id UUID NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
         attachment_type VARCHAR(50) NOT NULL,
@@ -355,7 +355,7 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS message_intents (
+  `CREATE TABLE IF NOT EXISTS message_intents (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         message_id UUID NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -370,7 +370,7 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS quick_responses (
+  `CREATE TABLE IF NOT EXISTS quick_responses (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         trigger_phrase VARCHAR(255) NOT NULL,
         response_text TEXT NOT NULL,
@@ -383,7 +383,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS context_history (
+  `CREATE TABLE IF NOT EXISTS context_history (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         context_type VARCHAR(50) NOT NULL,
@@ -398,7 +398,7 @@ const MIGRATIONS = [
         UNIQUE (user_id, context_type, key)
     )`,
 
-    `CREATE TABLE IF NOT EXISTS llm_logs (
+  `CREATE TABLE IF NOT EXISTS llm_logs (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID REFERENCES users(id) ON DELETE SET NULL,
         conversation_id UUID REFERENCES conversations(id) ON DELETE SET NULL,
@@ -414,8 +414,8 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 7. Familia, Emergencias y Notificaciones
-    `CREATE TABLE IF NOT EXISTS sharing_invitations (
+  // 7. Familia, Emergencias y Notificaciones
+  `CREATE TABLE IF NOT EXISTS sharing_invitations (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         patient_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         family_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -426,7 +426,7 @@ const MIGRATIONS = [
         UNIQUE (patient_id, family_id)
     )`,
 
-    `CREATE TABLE IF NOT EXISTS emergency_contacts (
+  `CREATE TABLE IF NOT EXISTS emergency_contacts (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         contact_user_id UUID REFERENCES users(id) ON DELETE SET NULL,
@@ -439,7 +439,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS notifications (
+  `CREATE TABLE IF NOT EXISTS notifications (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         type VARCHAR(50) NOT NULL,
@@ -451,7 +451,7 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS wall_messages (
+  `CREATE TABLE IF NOT EXISTS wall_messages (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         patient_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         family_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -462,12 +462,12 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 6. Índices y Triggers adicionales
-    `CREATE INDEX IF NOT EXISTS idx_refresh_tokens_token ON refresh_tokens(token)`,
-    `CREATE INDEX IF NOT EXISTS idx_refresh_tokens_user_id ON refresh_tokens(user_id)`,
-    
-    // 8. Bitácora Modular (Journal)
-    `CREATE TABLE IF NOT EXISTS daily_notes (
+  // 6. Índices y Triggers adicionales
+  `CREATE INDEX IF NOT EXISTS idx_refresh_tokens_token ON refresh_tokens(token)`,
+  `CREATE INDEX IF NOT EXISTS idx_refresh_tokens_user_id ON refresh_tokens(user_id)`,
+
+  // 8. Bitácora Modular (Journal)
+  `CREATE TABLE IF NOT EXISTS daily_notes (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         content TEXT NOT NULL,
@@ -476,7 +476,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS habit_entries (
+  `CREATE TABLE IF NOT EXISTS habit_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         protective_habits TEXT NOT NULL DEFAULT '',
@@ -486,7 +486,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS social_entries (
+  `CREATE TABLE IF NOT EXISTS social_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         people_description TEXT NOT NULL DEFAULT '',
@@ -496,7 +496,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS activity_entries (
+  `CREATE TABLE IF NOT EXISTS activity_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         activity_name VARCHAR(255) NOT NULL DEFAULT '',
@@ -508,7 +508,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS consumption_analysis (
+  `CREATE TABLE IF NOT EXISTS consumption_analysis (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         trigger_situation TEXT NOT NULL DEFAULT '',
@@ -518,13 +518,13 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE INDEX IF NOT EXISTS idx_daily_notes_user_date ON daily_notes(user_id, note_date)`,
-    `CREATE INDEX IF NOT EXISTS idx_habit_entries_user_date ON habit_entries(user_id, entry_date)`,
-    `CREATE INDEX IF NOT EXISTS idx_social_entries_user_date ON social_entries(user_id, entry_date)`,
-    `CREATE INDEX IF NOT EXISTS idx_activity_entries_user_date ON activity_entries(user_id, entry_date)`,
-    `CREATE INDEX IF NOT EXISTS idx_consumption_analysis_user_date ON consumption_analysis(user_id, entry_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_daily_notes_user_date ON daily_notes(user_id, note_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_habit_entries_user_date ON habit_entries(user_id, entry_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_social_entries_user_date ON social_entries(user_id, entry_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_activity_entries_user_date ON activity_entries(user_id, entry_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_consumption_analysis_user_date ON consumption_analysis(user_id, entry_date)`,
 
-    `CREATE TABLE IF NOT EXISTS consumption_events (
+  `CREATE TABLE IF NOT EXISTS consumption_events (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         substance_name VARCHAR(255) NOT NULL,
@@ -536,9 +536,9 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
-    `CREATE INDEX IF NOT EXISTS idx_consumption_events_user_date ON consumption_events(user_id, consumed_at)`,
+  `CREATE INDEX IF NOT EXISTS idx_consumption_events_user_date ON consumption_events(user_id, consumed_at)`,
 
-    `CREATE TABLE IF NOT EXISTS habits (
+  `CREATE TABLE IF NOT EXISTS habits (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         name VARCHAR(255) NOT NULL,
@@ -551,7 +551,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS habit_completions (
+  `CREATE TABLE IF NOT EXISTS habit_completions (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         habit_id UUID NOT NULL REFERENCES habits(id) ON DELETE CASCADE,
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -560,12 +560,12 @@ const MIGRATIONS = [
         UNIQUE (habit_id, user_id, completed_at)
     )`,
 
-    `CREATE INDEX IF NOT EXISTS idx_habit_completions_user_date ON habit_completions(user_id, completed_at)`,
+  `CREATE INDEX IF NOT EXISTS idx_habit_completions_user_date ON habit_completions(user_id, completed_at)`,
 
-    `ALTER TABLE habits ADD COLUMN IF NOT EXISTS habit_type VARCHAR(20) DEFAULT 'positive' CHECK (habit_type IN ('positive', 'negative'))`,
+  `ALTER TABLE habits ADD COLUMN IF NOT EXISTS habit_type VARCHAR(20) DEFAULT 'positive' CHECK (habit_type IN ('positive', 'negative'))`,
 
-    // 9. Medicamentos y Tomas
-    `CREATE TABLE IF NOT EXISTS medications (
+  // 9. Medicamentos y Tomas
+  `CREATE TABLE IF NOT EXISTS medications (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         name VARCHAR(255) NOT NULL,
@@ -576,7 +576,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS medication_logs (
+  `CREATE TABLE IF NOT EXISTS medication_logs (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         medication_id UUID NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -586,11 +586,11 @@ const MIGRATIONS = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         UNIQUE (medication_id, user_id, taken_date)
     )`,
-    
-    `CREATE INDEX IF NOT EXISTS idx_medication_logs_user_date ON medication_logs(user_id, taken_date)`,
 
-    // 10. Gastos en Sustancias
-    `CREATE TABLE IF NOT EXISTS substance_expenses (
+  `CREATE INDEX IF NOT EXISTS idx_medication_logs_user_date ON medication_logs(user_id, taken_date)`,
+
+  // 10. Gastos en Sustancias
+  `CREATE TABLE IF NOT EXISTS substance_expenses (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         substance_id UUID,
@@ -602,7 +602,7 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE TABLE IF NOT EXISTS substance_doses (
+  `CREATE TABLE IF NOT EXISTS substance_doses (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         substance_name VARCHAR(100) NOT NULL,
@@ -616,70 +616,85 @@ const MIGRATIONS = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    `CREATE INDEX IF NOT EXISTS idx_substance_doses_user_date ON substance_doses(user_id, dose_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_substance_doses_user_date ON substance_doses(user_id, dose_time)`,
 
-    `CREATE INDEX IF NOT EXISTS idx_substance_expenses_user_date ON substance_expenses(user_id, expense_date)`,
+  `CREATE INDEX IF NOT EXISTS idx_substance_expenses_user_date ON substance_expenses(user_id, expense_date)`,
 
-    `CREATE OR REPLACE FUNCTION update_timestamp()
+  `CREATE OR REPLACE FUNCTION update_timestamp()
     RETURNS TRIGGER AS $$
     BEGIN
         NEW.updated_at = CURRENT_TIMESTAMP;
         RETURN NEW;
     END;
-    $$ LANGUAGE plpgsql;`
+    $$ LANGUAGE plpgsql;`,
 ];
 
 const TRIGGERS = [
-    `CREATE OR REPLACE TRIGGER update_users_timestamp BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_profiles_timestamp BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_settings_timestamp BEFORE UPDATE ON profile_settings FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_substances_timestamp BEFORE UPDATE ON substance_preferences FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_checkins_timestamp BEFORE UPDATE ON checkins FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_mood_timestamp BEFORE UPDATE ON mood_history FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_streaks_timestamp BEFORE UPDATE ON checkin_streaks FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_cravings_timestamp BEFORE UPDATE ON cravings FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_patterns_timestamp BEFORE UPDATE ON craving_patterns FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_coping_timestamp BEFORE UPDATE ON coping_strategies FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_triggers_timestamp BEFORE UPDATE ON craving_triggers FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_scenarios_timestamp BEFORE UPDATE ON scenario_configs FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_conversations_timestamp BEFORE UPDATE ON conversations FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_sessions_timestamp BEFORE UPDATE ON conversation_sessions FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_invitations_timestamp BEFORE UPDATE ON sharing_invitations FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_emergency_contacts_timestamp BEFORE UPDATE ON emergency_contacts FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_wall_messages_timestamp BEFORE UPDATE ON wall_messages FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_habits_timestamp BEFORE UPDATE ON habits FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_medications_timestamp BEFORE UPDATE ON medications FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_substance_expenses_timestamp BEFORE UPDATE ON substance_expenses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_substance_doses_timestamp BEFORE UPDATE ON substance_doses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
-    `CREATE OR REPLACE TRIGGER update_consumption_events_timestamp BEFORE UPDATE ON consumption_events FOR EACH ROW EXECUTE FUNCTION update_timestamp();`
+  `CREATE OR REPLACE TRIGGER update_users_timestamp BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_profiles_timestamp BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_settings_timestamp BEFORE UPDATE ON profile_settings FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_substances_timestamp BEFORE UPDATE ON substance_preferences FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_checkins_timestamp BEFORE UPDATE ON checkins FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_mood_timestamp BEFORE UPDATE ON mood_history FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_streaks_timestamp BEFORE UPDATE ON checkin_streaks FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_cravings_timestamp BEFORE UPDATE ON cravings FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_patterns_timestamp BEFORE UPDATE ON craving_patterns FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_coping_timestamp BEFORE UPDATE ON coping_strategies FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_triggers_timestamp BEFORE UPDATE ON craving_triggers FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_scenarios_timestamp BEFORE UPDATE ON scenario_configs FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_conversations_timestamp BEFORE UPDATE ON conversations FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_sessions_timestamp BEFORE UPDATE ON conversation_sessions FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_invitations_timestamp BEFORE UPDATE ON sharing_invitations FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_emergency_contacts_timestamp BEFORE UPDATE ON emergency_contacts FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_wall_messages_timestamp BEFORE UPDATE ON wall_messages FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_habits_timestamp BEFORE UPDATE ON habits FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_medications_timestamp BEFORE UPDATE ON medications FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_substance_expenses_timestamp BEFORE UPDATE ON substance_expenses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_substance_doses_timestamp BEFORE UPDATE ON substance_doses FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+  `CREATE OR REPLACE TRIGGER update_consumption_events_timestamp BEFORE UPDATE ON consumption_events FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
+
+  // 10. Agregar entry_time a tablas de bitácora para análisis temporal
+  `ALTER TABLE daily_notes ADD COLUMN IF NOT EXISTS entry_time TIME DEFAULT CURRENT_TIME`,
+  `ALTER TABLE habit_entries ADD COLUMN IF NOT EXISTS entry_time TIME DEFAULT CURRENT_TIME`,
+  `ALTER TABLE social_entries ADD COLUMN IF NOT EXISTS entry_time TIME DEFAULT CURRENT_TIME`,
+  `ALTER TABLE activity_entries ADD COLUMN IF NOT EXISTS entry_time TIME DEFAULT CURRENT_TIME`,
+  `ALTER TABLE consumption_analysis ADD COLUMN IF NOT EXISTS entry_time TIME DEFAULT CURRENT_TIME`,
+  `ALTER TABLE consumption_analysis ADD COLUMN IF NOT EXISTS lesson_learned TEXT DEFAULT ''`,
+  `ALTER TABLE habit_completions ADD COLUMN IF NOT EXISTS completed_at_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP`,
+  `CREATE INDEX IF NOT EXISTS idx_daily_notes_user_datetime ON daily_notes(user_id, note_date, entry_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_habit_entries_user_datetime ON habit_entries(user_id, entry_date, entry_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_social_entries_user_datetime ON social_entries(user_id, entry_date, entry_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_activity_entries_user_datetime ON activity_entries(user_id, entry_date, entry_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_consumption_analysis_user_datetime ON consumption_analysis(user_id, entry_date, entry_time)`,
+  `CREATE INDEX IF NOT EXISTS idx_habit_completions_user_ts ON habit_completions(user_id, completed_at_ts)`,
 ];
 
 async function runMigrations() {
-    try {
-        console.log('🔄 Iniciando migraciones de base de datos...');
-        await initDatabase();
+  try {
+    console.log('🔄 Iniciando migraciones de base de datos...');
+    await initDatabase();
 
-        // Asegurar extensión uuid-ossp
-        await query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+    // Asegurar extensión uuid-ossp
+    await query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
-        for (const migration of MIGRATIONS) {
-            console.log(`Executing migration step...`);
-            await query(migration);
-        }
-
-        for (const trigger of TRIGGERS) {
-            console.log(`Configuring trigger...`);
-            await query(trigger);
-        }
-
-        console.log('✅ Migraciones completadas exitosamente');
-    } catch (error) {
-        console.error('❌ Error durante las migraciones:', error);
-        process.exit(1);
-    } finally {
-        await closePool();
-        process.exit(0);
+    for (const migration of MIGRATIONS) {
+      console.log(`Executing migration step...`);
+      await query(migration);
     }
+
+    for (const trigger of TRIGGERS) {
+      console.log(`Configuring trigger...`);
+      await query(trigger);
+    }
+
+    console.log('✅ Migraciones completadas exitosamente');
+  } catch (error) {
+    console.error('❌ Error durante las migraciones:', error);
+    process.exit(1);
+  } finally {
+    await closePool();
+    process.exit(0);
+  }
 }
 
 runMigrations();

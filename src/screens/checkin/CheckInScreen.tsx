@@ -17,6 +17,7 @@ import {
   FlatList,
   Modal,
   Alert,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
@@ -43,26 +44,29 @@ interface FeedEntry {
     | 'activity'
     | 'analysis'
     | 'habit_completion'
-    | 'substance_dose';
+    | 'substance_dose'
+    | 'craving';
   entry_date: string;
+  entry_time: string | null;
   created_at: string;
   data: Record<string, any>;
 }
 
 // Mapeo de tipos a información de visualización
 const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#007AFF' },
-  note: { label: 'Nota Libre', icon: 'create-outline', color: '#34C759' },
-  habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#34C759' },
-  social: { label: 'Entorno Social', icon: 'people-outline', color: '#007AFF' },
-  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#FF9500' },
-  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#FF3B30' },
+  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#739072' }, // primary (sage)
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8BAFD4' }, // secondary (blue)
+  habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#739072' },
+  social: { label: 'Entorno Social', icon: 'people-outline', color: '#8BAFD4' },
+  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#C4A882' }, // accent (sand)
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#C07878' }, // error
   habit_completion: {
     label: 'Hábito Completado',
     icon: 'checkmark-circle-outline',
-    color: '#34C759',
+    color: '#739072',
   },
-  substance_dose: { label: 'Dosis Individual', icon: 'flask-outline', color: '#007AFF' },
+  substance_dose: { label: 'Dosis Individual', icon: 'flask-outline', color: '#8BAFD4' },
+  craving: { label: 'Craving', icon: 'flame-outline', color: '#C4A882' },
 };
 
 const { width } = Dimensions.get('window');
@@ -132,13 +136,13 @@ const EMOTIONAL_TAGS = [
 
 // Categorías para filtrar emociones
 const EMOTION_CATEGORIES = [
-  { key: 'all', label: 'Todas', color: '#007AFF' },
-  { key: 'happiness', label: 'Felicidad', color: '#FFD580' },
-  { key: 'surprise', label: 'Sorpresa', color: '#FFFACD' },
-  { key: 'fear', label: 'Miedo', color: '#E0E0E0' },
-  { key: 'anger', label: 'Ira', color: '#FFB2B2' },
-  { key: 'disgust', label: 'Asco', color: '#D1FFD1' },
-  { key: 'sadness', label: 'Tristeza', color: '#E6E6FA' },
+  { key: 'all', label: 'Todas', color: '#739072' },
+  { key: 'happiness', label: 'Felicidad', color: '#F8D486' },
+  { key: 'surprise', label: 'Sorpresa', color: '#FFF5AB' },
+  { key: 'fear', label: 'Miedo', color: '#D4D4D0' },
+  { key: 'anger', label: 'Ira', color: '#E8AFAF' },
+  { key: 'disgust', label: 'Asco', color: '#C8E4C7' },
+  { key: 'sadness', label: 'Tristeza', color: '#D6E4F0' },
 ];
 
 export const CheckInScreen: React.FC = () => {
@@ -148,7 +152,7 @@ export const CheckInScreen: React.FC = () => {
   const { user } = useAuth();
 
   const [viewMode, setViewMode] = useState<
-    'calendar' | 'form' | 'notes' | 'activity' | 'analysis' | 'social' | 'habits'
+    'calendar' | 'form' | 'notes' | 'activity' | 'analysis' | 'social' | 'habits' | 'craving'
   >('calendar');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -159,6 +163,7 @@ export const CheckInScreen: React.FC = () => {
   const [loadingDay, setLoadingDay] = useState(false);
   const [feedData, setFeedData] = useState<FeedEntry[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(false);
+  const [showMonthCalendar, setShowMonthCalendar] = useState(false);
 
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -184,6 +189,7 @@ export const CheckInScreen: React.FC = () => {
   const [feelingAfter, setFeelingAfter] = useState('');
   const [analysisSituation, setAnalysisSituation] = useState('');
   const [analysisAction, setAnalysisAction] = useState('');
+  const [analysisLearning, setAnalysisLearning] = useState('');
   const [socialPeople, setSocialPeople] = useState('');
   const [socialImpact, setSocialImpact] = useState('');
   const [habitGood, setHabitGood] = useState('');
@@ -196,6 +202,13 @@ export const CheckInScreen: React.FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingType, setEditingType] = useState<FeedEntry['type'] | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // Craving State
+  const [cravingSubstance, setCravingSubstance] = useState('');
+  const [cravingIntensity, setCravingIntensity] = useState(5);
+  const [cravingTriggers, setCravingTriggers] = useState('');
+  const [cravingNotes, setCravingNotes] = useState('');
+  const [cravingStatus, setCravingStatus] = useState<'resisted' | 'given_in'>('resisted');
 
   const totalSteps = 5;
 
@@ -226,10 +239,16 @@ export const CheckInScreen: React.FC = () => {
     setFeelingAfter('');
     setAnalysisSituation('');
     setAnalysisAction('');
+    setAnalysisLearning('');
     setSocialPeople('');
     setSocialImpact('');
     setHabitGood('');
     setHabitBad('');
+    setCravingSubstance('');
+    setCravingIntensity(5);
+    setCravingTriggers('');
+    setCravingNotes('');
+    setCravingStatus('resisted');
     setStep(0);
     setCompleted(false);
   };
@@ -624,12 +643,31 @@ export const CheckInScreen: React.FC = () => {
         const payload = {
           trigger_situation: analysisSituation,
           action_taken: analysisAction,
+          lesson_learned: analysisLearning,
           entry_date: targetDate,
         };
         if (editingId && editingType === 'analysis') {
           response = await api.patch<ApiResponse<any>>(`/journal/analysis/${editingId}`, payload);
         } else {
           response = await api.post<ApiResponse<any>>('/journal/analysis', payload);
+        }
+      } else if (viewMode === 'craving') {
+        // --- Craving ---
+        const now = new Date();
+        const entryTimeStr = now.toLocaleTimeString('es-CL', { hour12: false });
+        const payload = {
+          substance_name: cravingSubstance,
+          intensity: cravingIntensity,
+          triggers: cravingTriggers.split(',').map((t) => t.trim()),
+          notes: cravingNotes,
+          status: cravingStatus,
+          craving_start_time: targetDate + 'T' + entryTimeStr,
+          entry_date: targetDate,
+        };
+        if (editingId && editingType === 'craving') {
+          response = await api.put<ApiResponse<any>>(`/cravings/${editingId}`, payload);
+        } else {
+          response = await api.post<ApiResponse<any>>('/cravings', payload);
         }
       }
 
@@ -681,6 +719,9 @@ export const CheckInScreen: React.FC = () => {
                 case 'analysis':
                   url = `/journal/analysis/${entry.id}`;
                   break;
+                case 'craving':
+                  url = `/cravings/${entry.id}`;
+                  break;
               }
 
               if (url) {
@@ -726,6 +767,16 @@ export const CheckInScreen: React.FC = () => {
       icon: 'document-outline',
       color: '#8E8E93',
     };
+
+    // Formatear la hora
+    const formatTime = (timeStr: string | null) => {
+      if (!timeStr) return '';
+      const parts = timeStr.split(':');
+      if (parts.length < 2) return '';
+      return `${parts[0]}:${parts[1]}`;
+    };
+
+    const entryTime = formatTime(entry.entry_time);
     const entryDate = new Date(entry.entry_date + 'T12:00:00');
     const formattedDate = entryDate.toLocaleDateString('es-CL', {
       weekday: 'long',
@@ -792,39 +843,33 @@ export const CheckInScreen: React.FC = () => {
                 </View>
               )}
               {entry.data.notes && (
-                <View style={{ marginTop: 10 }}>
-                  <Text
-                    style={{ color: theme.colors.textSecondary, fontSize: 13, marginBottom: 4 }}
-                  >
-                    Notas:
-                  </Text>
-                  <Markdown
+                <View style={{ marginTop: 12 }}>
+                  <View
                     style={{
-                      body: { color: theme.colors.textSecondary, fontSize: 14, lineHeight: 20 },
-                      paragraph: { marginBottom: 6 },
-                      text: { color: theme.colors.textSecondary },
-                      strong: { fontWeight: 'bold' },
-                      em: { fontStyle: 'italic' },
-                      bullet_list: { marginBottom: 6 },
-                      ordered_list: { marginBottom: 6 },
-                      heading1: { fontSize: 16, fontWeight: 'bold', marginBottom: 6 },
-                      heading2: { fontSize: 15, fontWeight: 'bold', marginBottom: 6 },
-                      heading3: { fontSize: 14, fontWeight: 'bold', marginBottom: 6 },
-                      code_block: {
-                        backgroundColor: theme.colors.surface,
-                        padding: 4,
-                        borderRadius: 4,
-                      },
-                      code_inline: {
-                        backgroundColor: theme.colors.surface,
-                        paddingHorizontal: 2,
-                        borderRadius: 2,
-                      },
-                      link: { color: theme.colors.primary },
+                      borderLeftWidth: 3,
+                      borderLeftColor: theme.colors.primary,
+                      paddingLeft: 14,
+                      backgroundColor: theme.colors.primary + '08',
+                      paddingVertical: 4,
+                      borderRadius: 4,
                     }}
                   >
-                    {entry.data.notes}
-                  </Markdown>
+                    <Markdown
+                      style={{
+                        body: {
+                          color: theme.colors.textSecondary,
+                          fontSize: 14,
+                          lineHeight: 22,
+                          fontStyle: 'italic',
+                        },
+                        paragraph: { marginBottom: 4 },
+                        text: { color: theme.colors.textSecondary },
+                        em: { fontStyle: 'italic' },
+                      }}
+                    >
+                      {entry.data.notes}
+                    </Markdown>
+                  </View>
                 </View>
               )}
             </View>
@@ -977,6 +1022,16 @@ export const CheckInScreen: React.FC = () => {
                   </Text>
                 </View>
               )}
+              {entry.data.lesson_learned && (
+                <View style={styles.feelingSection}>
+                  <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>
+                    APRENDIZAJE
+                  </Text>
+                  <Text style={[styles.feelingText, { color: theme.colors.text }]}>
+                    {entry.data.lesson_learned}
+                  </Text>
+                </View>
+              )}
             </View>
           );
         case 'habit_completion':
@@ -1077,6 +1132,101 @@ export const CheckInScreen: React.FC = () => {
               )}
             </View>
           );
+        case 'craving':
+          return (
+            <View style={styles.feedCardContent}>
+              <View style={styles.detailRow}>
+                <Icon name="flame-outline" size={20} color="#FF6B35" />
+                <Text style={{ color: theme.colors.text }}>
+                  Sustancia: <Text style={{ fontWeight: '600' }}>{entry.data.substance_name}</Text>
+                </Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Icon
+                  name="pulse-outline"
+                  size={20}
+                  color={entry.data.intensity > 7 ? theme.colors.error : '#FF9500'}
+                />
+                <Text style={{ color: theme.colors.text }}>Intensidad: </Text>
+                <View
+                  style={[
+                    styles.intensityBadge,
+                    {
+                      backgroundColor:
+                        entry.data.intensity > 7
+                          ? theme.colors.error + '20'
+                          : entry.data.intensity > 4
+                            ? '#FF9500' + '20'
+                            : theme.colors.success + '20',
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.intensityText,
+                      {
+                        color:
+                          entry.data.intensity > 7
+                            ? theme.colors.error
+                            : entry.data.intensity > 4
+                              ? '#FF9500'
+                              : theme.colors.success,
+                      },
+                    ]}
+                  >
+                    {entry.data.intensity}/10
+                  </Text>
+                </View>
+                <Text style={{ color: theme.colors.textSecondary, fontSize: 13, marginLeft: 8 }}>
+                  {entry.data.status === 'resisted' ? (
+                    <Text style={{ color: theme.colors.success, fontWeight: '700' }}>
+                      ✓ Resistido
+                    </Text>
+                  ) : (
+                    <Text style={{ color: theme.colors.error, fontWeight: '700' }}>
+                      ⚠ Cedido
+                    </Text>
+                  )}
+                </Text>
+              </View>
+              {entry.data.triggers && entry.data.triggers.length > 0 && (
+                <View style={{ marginTop: 8 }}>
+                  <Text
+                    style={{ color: theme.colors.textSecondary, fontSize: 12, marginBottom: 4 }}
+                  >
+                    Desencadenantes:
+                  </Text>
+                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+                    {entry.data.triggers.map((trigger: string, idx: number) => (
+                      <View
+                        key={idx}
+                        style={{
+                          backgroundColor: '#FF6B35' + '20',
+                          paddingHorizontal: 8,
+                          paddingVertical: 4,
+                          borderRadius: 12,
+                        }}
+                      >
+                        <Text style={{ color: '#FF6B35', fontSize: 12 }}>{trigger}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              )}
+              {entry.data.notes && (
+                <View style={{ marginTop: 10 }}>
+                  <Text
+                    style={{ color: theme.colors.textSecondary, fontSize: 13, marginBottom: 4 }}
+                  >
+                    Notas:
+                  </Text>
+                  <Text style={{ color: theme.colors.text, fontSize: 14, lineHeight: 20 }}>
+                    {entry.data.notes}
+                  </Text>
+                </View>
+              )}
+            </View>
+          );
         default:
           return (
             <View style={styles.feedCardContent}>
@@ -1105,6 +1255,9 @@ export const CheckInScreen: React.FC = () => {
             </Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ color: theme.colors.textSecondary, fontSize: 12, marginRight: 10 }}>
+              {entryTime}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 // Ajustar la fecha para que se interprete localmente sin desfase UTC
@@ -1145,14 +1298,24 @@ export const CheckInScreen: React.FC = () => {
                 } else if (entry.type === 'analysis') {
                   setAnalysisSituation(entry.data.trigger_situation || '');
                   setAnalysisAction(entry.data.action_taken || '');
+                  setAnalysisLearning(entry.data.lesson_learned || '');
                   setViewMode('analysis');
+                } else if (entry.type === 'craving') {
+                  setCravingSubstance(entry.data.substance_name || '');
+                  setCravingIntensity(entry.data.intensity || 5);
+                  setCravingTriggers(
+                    Array.isArray(entry.data.triggers) ? entry.data.triggers.join(', ') : ''
+                  );
+                  setCravingNotes(entry.data.notes || '');
+                  setCravingStatus(entry.data.status || 'resisted');
+                  setViewMode('craving');
                 } else if (entry.type === 'habit_completion') {
                   // Para hábitos completados, llevamos a la vista de checklist de ese día
                   setViewMode('habits');
                   fetchHabitsStatus(entryDate);
                 } else if (entry.type === 'substance_dose') {
                   // Navegar a la pantalla de dosis individuales para edición
-                  navigation.navigate('SubstanceDose', { doseId: entry.id });
+                  navigation.navigate('SubstanceDose' as any, { doseId: entry.id });
                 }
               }}
               style={[styles.editButton, { backgroundColor: theme.colors.primary + '20' }]}
@@ -1190,7 +1353,7 @@ export const CheckInScreen: React.FC = () => {
         <View style={styles.feedEmpty}>
           <Icon name="journal-outline" size={40} color={theme.colors.textSecondary} />
           <Text style={[styles.feedEmptyText, { color: theme.colors.textSecondary }]}>
-            No hay registros todavía.{'\\n'}¡Comienza a escribir tu bitácora!
+            No hay registros todavía.{'\n'}¡Comienza a escribir tu bitácora!
           </Text>
         </View>
       );
@@ -1226,147 +1389,186 @@ export const CheckInScreen: React.FC = () => {
   const renderCalendar = () => {
     const days = generateMonthDays(currentMonth);
     const monthName = currentMonth.toLocaleDateString('es-CL', { month: 'long', year: 'numeric' });
+    const formattedSelectedDate =
+      (selectedDate || new Date()).toLocaleDateString('es-CL', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+      });
 
     return (
-      <View style={[styles.container, { backgroundColor: theme.colors.background, flex: 1 }]}>
-        <LinearGradient
-          colors={[theme.colors.primary + '15', theme.colors.background]}
-          style={StyleSheet.absoluteFill}
-        />
+      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
         <Header
           title="Bitácora"
           subtitle="Registro diario"
-          icon="journal-outline"
-          actionIcon="add"
           onAction={handleAdd}
+          actionIcon="add-outline"
         />
+
         <ScrollView
-          contentContainerStyle={[
-            styles.calendarContainer,
-            { paddingTop: 80, paddingBottom: insets.bottom + 100 },
-          ]}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 100 }]}
         >
-          <View style={styles.calendarHeader}>
-            <Text style={[styles.monthTitle, { color: theme.colors.text }]}>
-              {monthName.charAt(0).toUpperCase() + monthName.slice(1)}
-            </Text>
-            <View style={styles.headerControls}>
-              <TouchableOpacity onPress={() => handleMonthChange(-1)}>
-                <Icon name="chevron-back" size={24} color={theme.colors.primary} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleMonthChange(1)}>
-                <Icon name="chevron-forward" size={24} color={theme.colors.primary} />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={styles.daysWeekRow}>
-            {DAYS_WEEK.map((d, i) => (
-              <Text key={i} style={[styles.dayWeekText, { color: theme.colors.textSecondary }]}>
-                {d}
-              </Text>
-            ))}
-          </View>
-
-          <View style={styles.daysGrid}>
-            {days.map((d, i) => {
-              if (!d) {
-                return <View key={`empty-${i}`} style={styles.dayCell} />;
-              }
-
-              const dateStr = getLocalDateString(d);
-              const isToday = d.toDateString() === new Date().toDateString();
-              const isSelected = selectedDate && d.toDateString() === selectedDate.toDateString();
-              const hasCheckIn = monthCheckIns.includes(dateStr);
-
-              return (
-                <TouchableOpacity
-                  key={i}
-                  style={[
-                    styles.dayCell,
-                    isSelected && { backgroundColor: theme.colors.primary, borderRadius: 10 },
-                  ]}
-                  onPress={() => {
-                    if (isSelected) {
-                      setSelectedDate(null);
-                      setDayData(null);
-                    } else {
-                      setSelectedDate(d);
-                      fetchDayData(d);
-                    }
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.dayText,
-                      { color: isSelected ? 'white' : theme.colors.text },
-                      isToday && !isSelected && { color: theme.colors.primary, fontWeight: 'bold' },
-                    ]}
-                  >
-                    {d.getDate()}
+          {/* CABECERA DE FECHA (REEMPLAZA CALENDARIO ESTATICO) */}
+          <View style={styles.dateHeaderContainer}>
+            <TouchableOpacity
+              onPress={() => setShowMonthCalendar(!showMonthCalendar)}
+              style={[
+                styles.dateSelectorHero,
+                { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+              ]}
+            >
+              <View style={styles.dateSelectorContent}>
+                <View style={[styles.dateIconCircle, { backgroundColor: theme.colors.primary + '15' }]}>
+                  <Icon name="calendar" size={24} color={theme.colors.primary} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.dateValue, { color: theme.colors.text }]}>
+                    {formattedSelectedDate.charAt(0).toUpperCase() + formattedSelectedDate.slice(1)}
                   </Text>
-                  {hasCheckIn && (
-                    <View
-                      style={[
-                        styles.dotIndicator,
-                        { backgroundColor: isSelected ? 'white' : theme.colors.primary },
-                      ]}
-                    />
-                  )}
-                </TouchableOpacity>
-              );
-            })}
+                </View>
+                <Icon
+                  name={showMonthCalendar ? 'chevron-up' : 'chevron-down'}
+                  size={24}
+                  color={theme.colors.textSecondary}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
+
+          {/* CALENDARIO DESPLEGABLE */}
+          {showMonthCalendar && (
+            <Animated.View style={[styles.calendarSheet, { backgroundColor: theme.colors.card }]}>
+              <View style={styles.calendarHeader}>
+                <Text style={[styles.monthTitle, { color: theme.colors.text }]}>
+                  {monthName.charAt(0).toUpperCase() + monthName.slice(1)}
+                </Text>
+                <View style={styles.headerControls}>
+                  <TouchableOpacity onPress={() => handleMonthChange(-1)}>
+                    <Icon name="chevron-back" size={24} color={theme.colors.primary} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleMonthChange(1)}>
+                    <Icon name="chevron-forward" size={24} color={theme.colors.primary} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.daysWeekRow}>
+                {DAYS_WEEK.map((d, i) => (
+                  <Text key={i} style={[styles.dayWeekText, { color: theme.colors.textSecondary }]}>
+                    {d}
+                  </Text>
+                ))}
+              </View>
+
+              <View style={styles.daysGrid}>
+                {days.map((d, i) => {
+                  if (!d) {
+                    return <View key={`empty-${i}`} style={styles.dayCellEmpty} />;
+                  }
+
+                  const dateStr = getLocalDateString(d);
+                  const isToday = d.toDateString() === new Date().toDateString();
+                  const isSelected = selectedDate && d.toDateString() === selectedDate.toDateString();
+                  const hasCheckIn = monthCheckIns.includes(dateStr);
+
+                  return (
+                    <TouchableOpacity
+                      key={i}
+                      style={[
+                        styles.dayCell,
+                        isSelected && { backgroundColor: theme.colors.primary, borderRadius: 10 },
+                      ]}
+                      onPress={() => {
+                        setSelectedDate(d);
+                        fetchDayData(d);
+                        setShowMonthCalendar(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.dayText,
+                          { color: isSelected ? 'white' : theme.colors.text },
+                          isToday && !isSelected && { color: theme.colors.primary, fontWeight: 'bold' },
+                        ]}
+                      >
+                        {d.getDate()}
+                      </Text>
+                      {hasCheckIn && (
+                        <View
+                          style={[
+                            styles.dotIndicator,
+                            { backgroundColor: isSelected ? 'white' : theme.colors.primary },
+                          ]}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </Animated.View>
+          )}
 
           <View style={{ marginTop: 20 }}>
-            <View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 12,
-                }}
-              >
-                <Text style={[styles.sectionTitle, { color: theme.colors.text, marginBottom: 0 }]}>
-                  Tu Progreso General
-                </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Progress' as any)}>
-                  <Text style={{ color: theme.colors.primary, fontWeight: 'bold' }}>
-                    Ver detalles
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text, marginBottom: 12 }]}>
+              Tu Progreso General
+            </Text>
 
-              <View style={styles.statsGrid}>
-                <Card variant="outlined" style={styles.statCard}>
-                  <Icon name="flame" size={28} color="#FF9500" />
-                  <Text style={styles.statValue}>{stats?.totalCheckIns || 0}</Text>
-                  <Text style={styles.statLabel}>Registros</Text>
-                </Card>
-
-                <Card variant="outlined" style={styles.statCard}>
-                  <Icon name="heart" size={28} color="#FF2D55" />
-                  <Text style={styles.statValue}>{stats?.averageMood?.toFixed(1) || '-'}</Text>
-                  <Text style={styles.statLabel}>Ánimo Promedio</Text>
-                </Card>
-              </View>
-
-              <Card variant="outlined" padding="md" style={{ marginTop: 16 }}>
-                <Text style={[styles.subTitle, { color: theme.colors.text }]}>Días Sobrio</Text>
-                <View style={styles.sobrietyRow}>
-                  <Icon name="ribbon" size={40} color={theme.colors.success} />
-                  <View>
-                    <Text style={[styles.sobrietyValue, { color: theme.colors.text }]}>
-                      {stats?.totalCheckIns - stats?.riskSituations || 0} Días
-                    </Text>
-                    <Text style={{ color: theme.colors.textSecondary }}>
-                      Fiel a tu proceso y recuperando tu vida.
-                    </Text>
-                  </View>
+            <View style={styles.statsGrid}>
+              <Card variant="elevated" padding="lg" style={styles.statCard}>
+                <View style={[styles.statIconCircle, { backgroundColor: '#FF9500' + '15' }]}>
+                  <Icon name="flame" size={22} color="#FF9500" />
                 </View>
+                <Text style={[styles.statValue, { color: theme.colors.text }]}>
+                  {stats?.totalCheckIns || 0}
+                </Text>
+                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>
+                  Registros
+                </Text>
+              </Card>
+
+              <Card variant="elevated" padding="lg" style={styles.statCard}>
+                <View style={[styles.statIconCircle, { backgroundColor: '#FF2D55' + '15' }]}>
+                  <Icon name="heart" size={22} color="#FF2D55" />
+                </View>
+                <Text style={[styles.statValue, { color: theme.colors.text }]}>
+                  {stats?.averageMood?.toFixed(1) || '-'}
+                </Text>
+                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>
+                  Ánimo Promedio
+                </Text>
               </Card>
             </View>
+
+            <Card variant="elevated" padding="lg" style={{ marginTop: 12 }}>
+              <View style={styles.sobrietyRow}>
+                <View
+                  style={[
+                    styles.sobrietyIconCircle,
+                    { backgroundColor: theme.colors.success + '15' },
+                  ]}
+                >
+                  <Icon name="ribbon" size={28} color={theme.colors.success} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.sobrietyLabel, { color: theme.colors.textSecondary }]}>
+                    Días Sobrio
+                  </Text>
+                  <Text style={[styles.sobrietyValue, { color: theme.colors.text }]}>
+                    {stats?.totalCheckIns - stats?.riskSituations || 0} Días
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Progress' as any)}
+                  style={[styles.detailBtn, { backgroundColor: theme.colors.primary + '10' }]}
+                >
+                  <Text style={[styles.detailBtnText, { color: theme.colors.primary }]}>
+                    Detalles
+                  </Text>
+                  <Icon name="chevron-forward" size={14} color={theme.colors.primary} />
+                </TouchableOpacity>
+              </View>
+            </Card>
           </View>
 
           {/* Feed de Registros del Día */}
@@ -1395,8 +1597,8 @@ export const CheckInScreen: React.FC = () => {
 
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ maxHeight: '80%' }}
-                contentContainerStyle={{ paddingBottom: 20 }}
+                style={{ flex: 1 }}
+                contentContainerStyle={{ paddingBottom: 60 }}
               >
                 <TouchableOpacity
                   style={[
@@ -1517,6 +1719,32 @@ export const CheckInScreen: React.FC = () => {
                       numberOfLines={1}
                     >
                       ¿Qué hago cuando consumo y cuando no? Reflexión para prevenir.
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.optionCard,
+                    { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+                  ]}
+                  onPress={() => {
+                    setShowOptionsModal(false);
+                    resetForm();
+                    setViewMode('craving');
+                  }}
+                >
+                  <View style={[styles.optionIconContainer, { backgroundColor: '#FF6B35' + '20' }]}>
+                    <Icon name="flame-outline" size={24} color="#FF6B35" />
+                  </View>
+                  <View style={styles.optionTexts}>
+                    <Text style={[styles.optionTitle, { color: theme.colors.text }]}>
+                      Registrar Craving
+                    </Text>
+                    <Text
+                      style={[styles.optionDesc, { color: theme.colors.textSecondary }]}
+                      numberOfLines={1}
+                    >
+                      Registra un antojo o impulso de consumo con intensidad y triggers.
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -1663,10 +1891,6 @@ export const CheckInScreen: React.FC = () => {
           { backgroundColor: theme.colors.background, justifyContent: 'center' },
         ]}
       >
-        <LinearGradient
-          colors={[theme.colors.primary + '15', theme.colors.background]}
-          style={StyleSheet.absoluteFill}
-        />
         <Card variant="elevated" padding="lg" style={styles.successCard}>
           <Icon name="checkmark-circle" size={80} color={theme.colors.success} />
           <Text style={[styles.successTitle, { color: theme.colors.text }]}>
@@ -1679,6 +1903,7 @@ export const CheckInScreen: React.FC = () => {
           <Button
             title="Volver al Calendario"
             onPress={() => {
+              setViewMode('calendar');
               setCompleted(false);
             }}
             variant="outline"
@@ -1699,7 +1924,7 @@ export const CheckInScreen: React.FC = () => {
     );
   }
 
-  if (['notes', 'activity', 'analysis', 'social', 'habits'].includes(viewMode)) {
+  if (['notes', 'activity', 'analysis', 'social', 'habits', 'craving'].includes(viewMode)) {
     return (
       <View style={[styles.container, { backgroundColor: theme.colors.background, flex: 1 }]}>
         {renderDatePickerModal()}
@@ -1740,32 +1965,29 @@ export const CheckInScreen: React.FC = () => {
                 onChangeText={setActivityName}
                 placeholder="Ej. Ir al parque, fiesta familiar..."
               />
-              <View style={{ height: 16 }} />
+              <View style={{ height: 24 }} />
               <Input
                 label="¿Cómo te sentiste ANTES?"
                 value={feelingBefore}
                 onChangeText={setFeelingBefore}
                 multiline
-                style={{ height: 80 }}
                 placeholder="Emociones previas, expectativas..."
               />
-              <View style={{ height: 16 }} />
+              <View style={{ height: 24 }} />
               <Input
                 label="¿Cómo te sentiste DURANTE?"
                 value={feelingDuring}
                 onChangeText={setFeelingDuring}
                 multiline
-                style={{ height: 80 }}
                 placeholder="¿Qué pasó realmente en ese momento?"
               />
-              <View style={{ height: 16 }} />
+              <View style={{ height: 24 }} />
               <Input
                 label="¿Cómo te sentiste DESPUÉS?"
                 value={feelingAfter}
                 onChangeText={setFeelingAfter}
                 multiline
-                style={{ height: 80 }}
-                placeholder="Manejé la situación... me sentí..."
+                placeholder="Anotaciones sobre cómo te sientes..."
               />
             </View>
           )}
@@ -1783,18 +2005,150 @@ export const CheckInScreen: React.FC = () => {
                 value={analysisSituation}
                 onChangeText={setAnalysisSituation}
                 multiline
-                style={{ height: 100 }}
                 placeholder="Estaba en... y pasó..."
               />
-              <View style={{ height: 16 }} />
+              <View style={{ height: 24 }} />
               <Input
                 label="¿Qué hiciste al respecto y qué sentiste?"
                 value={analysisAction}
                 onChangeText={setAnalysisAction}
                 multiline
-                style={{ height: 120 }}
                 placeholder="Terminé consumiendo porque... O logré resistir pensando en..."
               />
+              <View style={{ height: 24 }} />
+              <Input
+                label="¿Qué aprendiste de esta experiencia para la próxima vez?"
+                value={analysisLearning}
+                onChangeText={setAnalysisLearning}
+                multiline
+                placeholder="Ej: Debo alejarme de ese grupo cuando me siento solo... o llamar a alguien."
+              />
+            </View>
+          )}
+
+          {viewMode === 'craving' && (
+            <View style={styles.stepContainer}>
+              <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
+                Registrar Craving / Antojo
+              </Text>
+              <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
+                Describe el antojo experimentado, su intensidad y qué lo desencadenó.
+              </Text>
+              <Input
+                label="Sustancia"
+                value={cravingSubstance}
+                onChangeText={setCravingSubstance}
+                placeholder="Ej. Alcohol, tabaco, cocaína..."
+              />
+              <View style={{ height: 24 }} />
+              <Text style={[styles.subTitle, { color: theme.colors.textSecondary }]}>
+                Intensidad del craving: {cravingIntensity}/10
+              </Text>
+              <Slider
+                value={cravingIntensity}
+                onChange={setCravingIntensity}
+                min={1}
+                max={10}
+                labels={[
+                  'Ninguno',
+                  'Leve',
+                  'Leve',
+                  'Moderado',
+                  'Moderado',
+                  'Alto',
+                  'Alto',
+                  'Intenso',
+                  'Intenso',
+                  'Crítica',
+                ]}
+                emojis={['😊', '🙂', '🙂', '😐', '😐', '😟', '😟', '😰', '😰', '🆘']}
+              />
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
+                <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>Leve</Text>
+                <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>Intenso</Text>
+              </View>
+              <View style={{ height: 24 }} />
+              <Input
+                label="Desencadenantes (opcional)"
+                value={cravingTriggers}
+                onChangeText={setCravingTriggers}
+                multiline
+                style={{ height: 80 }}
+                placeholder="Ej. Estrés en el trabajo, reunión familiar, ansiedad... Separados por comas"
+              />
+              <View style={{ height: 24 }} />
+              <Text style={[styles.subTitle, { color: theme.colors.textSecondary, marginBottom: 12 }]}>
+                ¿Cuál fue el desenlace?
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 12 }}>
+                <TouchableOpacity
+                  onPress={() => setCravingStatus('resisted')}
+                  activeOpacity={0.7}
+                  style={{
+                    flex: 1,
+                    padding: 18,
+                    borderRadius: 20,
+                    backgroundColor:
+                      cravingStatus === 'resisted' ? theme.colors.success + '20' : theme.colors.surface,
+                    borderWidth: 2,
+                    borderColor:
+                      cravingStatus === 'resisted' ? theme.colors.success : 'transparent',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    gap: 8,
+                  }}
+                >
+                  <Icon
+                    name="shield-checkmark"
+                    size={22}
+                    color={cravingStatus === 'resisted' ? theme.colors.success : theme.colors.textSecondary}
+                  />
+                  <Text
+                    style={{
+                      fontWeight: '700',
+                      fontSize: 16,
+                      color: cravingStatus === 'resisted' ? theme.colors.success : theme.colors.text,
+                    }}
+                  >
+                    Resistido
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => setCravingStatus('given_in')}
+                  activeOpacity={0.7}
+                  style={{
+                    flex: 1,
+                    padding: 18,
+                    borderRadius: 20,
+                    backgroundColor:
+                      cravingStatus === 'given_in' ? theme.colors.error + '20' : theme.colors.surface,
+                    borderWidth: 2,
+                    borderColor: cravingStatus === 'given_in' ? theme.colors.error : 'transparent',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    gap: 8,
+                  }}
+                >
+                  <Icon
+                    name="alert-circle"
+                    size={22}
+                    color={cravingStatus === 'given_in' ? theme.colors.error : theme.colors.textSecondary}
+                  />
+                  <Text
+                    style={{
+                      fontWeight: '700',
+                      fontSize: 16,
+                      color: cravingStatus === 'given_in' ? theme.colors.error : theme.colors.text,
+                    }}
+                  >
+                    Cedido
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ height: 80 }} />
             </View>
           )}
 
@@ -1968,145 +2322,140 @@ export const CheckInScreen: React.FC = () => {
                       { backgroundColor: theme.colors.card, minHeight: 300 },
                     ]}
                   >
-                    <View style={styles.modalHeader}>
-                      <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
-                        Nuevo Hábito
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                      <View style={styles.modalHeader}>
+                        <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                          Nuevo Hábito
+                        </Text>
+                        <TouchableOpacity onPress={() => setShowAddHabit(false)}>
+                          <Icon name="close" size={24} color={theme.colors.text} />
+                        </TouchableOpacity>
+                      </View>
+                      <Input
+                        label="¿Qué hábito quieres incorporar?"
+                        value={newHabitName}
+                        onChangeText={setNewHabitName}
+                        placeholder="Ej: Meditar 5 min, Tomar agua..."
+                        autoFocus
+                      />
+
+                      <Text style={[styles.subTitle, { color: theme.colors.text, marginTop: 16 }]}>
+                        Tipo de Hábito
                       </Text>
-                      <TouchableOpacity onPress={() => setShowAddHabit(false)}>
-                        <Icon name="close" size={24} color={theme.colors.text} />
-                      </TouchableOpacity>
-                    </View>
-                    <Input
-                      label="¿Qué hábito quieres incorporar?"
-                      value={newHabitName}
-                      onChangeText={setNewHabitName}
-                      placeholder="Ej: Meditar 5 min, Tomar agua..."
-                      autoFocus
-                    />
-
-                    <Text style={[styles.subTitle, { color: theme.colors.text, marginTop: 16 }]}>
-                      Tipo de Hábito
-                    </Text>
-                    <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
-                      <TouchableOpacity
-                        style={[
-                          styles.typeSelector,
-                          {
-                            borderColor:
+                      <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
+                        <TouchableOpacity
+                          style={[
+                            styles.typeSelector,
+                            {
+                              borderColor:
+                                newHabitType === 'positive'
+                                  ? theme.colors.success
+                                  : theme.colors.border,
+                              backgroundColor:
+                                newHabitType === 'positive'
+                                  ? theme.colors.success + '10'
+                                  : 'transparent',
+                            },
+                          ]}
+                          onPress={() => setNewHabitType('positive')}
+                        >
+                          <Icon
+                            name="happy-outline"
+                            size={24}
+                            color={
                               newHabitType === 'positive'
                                 ? theme.colors.success
-                                : theme.colors.border,
-                            backgroundColor:
-                              newHabitType === 'positive'
-                                ? theme.colors.success + '10'
-                                : 'transparent',
-                          },
-                        ]}
-                        onPress={() => setNewHabitType('positive')}
-                      >
-                        <Icon
-                          name="happy-outline"
-                          size={24}
-                          color={
-                            newHabitType === 'positive'
-                              ? theme.colors.success
-                              : theme.colors.textSecondary
-                          }
-                        />
-                        <Text
-                          style={{
-                            color:
-                              newHabitType === 'positive'
-                                ? theme.colors.success
-                                : theme.colors.textSecondary,
-                            fontWeight: '600',
-                          }}
-                        >
-                          Saludable
-                        </Text>
-                      </TouchableOpacity>
+                                : theme.colors.textSecondary
+                            }
+                          />
+                          <Text
+                            style={{
+                              color:
+                                newHabitType === 'positive'
+                                  ? theme.colors.success
+                                  : theme.colors.textSecondary,
+                              fontWeight: '600',
+                            }}
+                          >
+                            Saludable
+                          </Text>
+                        </TouchableOpacity>
 
-                      <TouchableOpacity
-                        style={[
-                          styles.typeSelector,
-                          {
-                            borderColor:
+                        <TouchableOpacity
+                          style={[
+                            styles.typeSelector,
+                            {
+                              borderColor:
+                                newHabitType === 'negative'
+                                  ? theme.colors.error
+                                  : theme.colors.border,
+                              backgroundColor:
+                                newHabitType === 'negative'
+                                  ? theme.colors.error + '10'
+                                  : 'transparent',
+                            },
+                          ]}
+                          onPress={() => setNewHabitType('negative')}
+                        >
+                          <Icon
+                            name="sad-outline"
+                            size={24}
+                            color={
                               newHabitType === 'negative'
                                 ? theme.colors.error
-                                : theme.colors.border,
-                            backgroundColor:
-                              newHabitType === 'negative'
-                                ? theme.colors.error + '10'
-                                : 'transparent',
-                          },
-                        ]}
-                        onPress={() => setNewHabitType('negative')}
-                      >
-                        <Icon
-                          name="sad-outline"
-                          size={24}
-                          color={
-                            newHabitType === 'negative'
-                              ? theme.colors.error
-                              : theme.colors.textSecondary
-                          }
-                        />
-                        <Text
-                          style={{
-                            color:
-                              newHabitType === 'negative'
-                                ? theme.colors.error
-                                : theme.colors.textSecondary,
-                            fontWeight: '600',
-                          }}
-                        >
-                          Perjudicial
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
+                                : theme.colors.textSecondary
+                            }
+                          />
+                          <Text
+                            style={{
+                              color:
+                                newHabitType === 'negative'
+                                  ? theme.colors.error
+                                  : theme.colors.textSecondary,
+                              fontWeight: '600',
+                            }}
+                          >
+                            Perjudicial
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
 
-                    <Button
-                      title="Guardar Hábito"
-                      onPress={addHabitDefinition}
-                      style={{ marginTop: 20 }}
-                      disabled={!newHabitName.trim()}
-                    />
+                      <Button
+                        title="Guardar Hábito"
+                        onPress={addHabitDefinition}
+                        style={{ marginTop: 20, marginBottom: 10 }}
+                        disabled={!newHabitName.trim()}
+                      />
+                    </ScrollView>
                   </View>
                 </View>
               </Modal>
             </View>
           )}
+          <View style={{ flexDirection: 'row', gap: 12, marginTop: 40, marginBottom: 40 }}>
+            <Button
+              title="Cancelar"
+              onPress={() => setViewMode('calendar')}
+              variant="outline"
+              size="sm"
+              style={{ flex: 1 }}
+            />
+            <Button
+              title={loading ? 'Guardando...' : 'Finalizar Registro'}
+              onPress={submitCheckIn}
+              variant="outline"
+              size="sm"
+              disabled={loading}
+              style={{ flex: 2 }}
+            />
+          </View>
         </ScrollView>
-        <View
-          style={[
-            styles.footer,
-            { borderTopColor: theme.colors.border, backgroundColor: theme.colors.card },
-          ]}
-        >
-          <Button
-            title="Cancelar"
-            onPress={() => setViewMode('calendar')}
-            variant="outline"
-            style={{ flex: 1 }}
-          />
-          <Button
-            title={loading ? 'Guardando...' : 'Finalizar Registro'}
-            onPress={submitCheckIn}
-            variant="primary"
-            disabled={loading}
-            style={{ flex: 2 }}
-          />
-        </View>
       </View>
     );
   }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background, flex: 1 }]}>
-      <LinearGradient
-        colors={[theme.colors.primary + '15', theme.colors.background]}
-        style={StyleSheet.absoluteFill}
-      />
       {renderDatePickerModal()}
       {/* Progress Bar */}
       <View style={styles.progressBarContainer}>
@@ -2418,26 +2767,26 @@ export const CheckInScreen: React.FC = () => {
             />
           </View>
         )}
+        <View style={{ flexDirection: 'row', gap: 12, marginTop: 40, marginBottom: 40, paddingHorizontal: 20 }}>
+          {step > 0 && (
+            <Button
+              title="Atrás"
+              onPress={handleBack}
+              variant="outline"
+              size="sm"
+              style={{ flex: 1 }}
+            />
+          )}
+          <Button
+            title={step === totalSteps - 1 ? (loading ? 'Enviando...' : 'Finalizar') : 'Siguiente'}
+            onPress={handleNext}
+            variant="primary"
+            size="sm"
+            disabled={loading}
+            style={{ flex: 2 }}
+          />
+        </View>
       </ScrollView>
-
-      {/* Navigation Buttons */}
-      <View
-        style={[
-          styles.footer,
-          { borderTopColor: theme.colors.border, backgroundColor: theme.colors.card },
-        ]}
-      >
-        {step > 0 && (
-          <Button title="Atrás" onPress={handleBack} variant="outline" style={{ flex: 1 }} />
-        )}
-        <Button
-          title={step === totalSteps - 1 ? (loading ? 'Enviando...' : 'Finalizar') : 'Siguiente'}
-          onPress={handleNext}
-          variant="primary"
-          disabled={loading}
-          style={{ flex: 2 }}
-        />
-      </View>
     </View>
   );
 };
@@ -2445,7 +2794,6 @@ export const CheckInScreen: React.FC = () => {
 const styles = StyleSheet.create({
   calendarContainer: {
     padding: 20,
-    backgroundColor: '#121212',
     flexGrow: 1,
     paddingBottom: 100,
   },
@@ -2483,6 +2831,11 @@ const styles = StyleSheet.create({
     height: (width - 40 - 28) / 7,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 2,
+  },
+  dayCellEmpty: {
+    width: (width - 40 - 28) / 7,
+    height: (width - 40 - 28) / 7,
     margin: 2,
   },
   dayText: {
@@ -2532,8 +2885,70 @@ const styles = StyleSheet.create({
   statCard: {
     flex: 1,
     alignItems: 'center',
+    padding: 12,
+    gap: 6,
+  },
+  statIconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  statValue: {
+    fontSize: 24,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+  },
+  statLabel: {
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  dateHeaderContainer: {
+    paddingHorizontal: 0,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  dateSelectorHero: {
+    borderRadius: 20,
     padding: 16,
-    gap: 4,
+    borderWidth: 1.5,
+  },
+  dateSelectorContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  dateIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dateLabel: {
+    fontSize: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 2,
+  },
+  dateValue: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: -0.5,
+  },
+  calendarSheet: {
+    marginHorizontal: 20,
+    padding: 20,
+    borderRadius: 24,
+    marginBottom: 20,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
   },
   dateSelectorContainer: {
     flexDirection: 'row',
@@ -2548,24 +2963,41 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 8,
   },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#aaa',
-  },
   sobrietyRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
-    marginTop: 8,
+    gap: 14,
+  },
+  sobrietyIconCircle: {
+    width: 52,
+    height: 52,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sobrietyLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+    marginBottom: 2,
   },
   sobrietyValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.3,
+  },
+  detailBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 12,
+    gap: 4,
+  },
+  detailBtnText: {
+    fontSize: 12,
+    fontWeight: '700',
   },
   fab: {
     position: 'absolute',
@@ -2593,7 +3025,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 2,
     borderColor: 'transparent',
-    backgroundColor: '#1E1E1E',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
@@ -2684,13 +3115,12 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 20,
+    bottom: Platform.OS === 'ios' ? 110 : 100,
+    left: 20,
+    right: 20,
     flexDirection: 'row',
     gap: 12,
-    borderTopWidth: 1,
+    paddingVertical: 4,
   },
   successCard: {
     alignItems: 'center',
@@ -2712,11 +3142,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    padding: 20,
+    width: '100%',
+    height: '98%',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    paddingHorizontal: 24,
+    paddingTop: 30,
     paddingBottom: 40,
-    minHeight: '50%',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -2741,9 +3173,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   optionIconContainer: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 40,
+    height: 40,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -2760,15 +3192,9 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   feedCard: {
-    borderRadius: 16,
     padding: 16,
     marginBottom: 16,
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   feedCardHeader: {
     flexDirection: 'row',
@@ -2790,8 +3216,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: StyleSheet.hairlineWidth,
     marginBottom: 10,
   },
   feedIconContainer: {
@@ -2838,15 +3263,11 @@ const styles = StyleSheet.create({
   },
   // Estilos para las tarjetas de detalle del feed
   feedDetailCard: {
-    borderRadius: 16,
+    borderRadius: 28,
     padding: 16,
     marginBottom: 16,
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: StyleSheet.hairlineWidth,
+    overflow: 'hidden',
   },
   feedDetailHeader: {
     flexDirection: 'row',
@@ -2856,7 +3277,7 @@ const styles = StyleSheet.create({
   feedDetailIconContainer: {
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -2875,14 +3296,14 @@ const styles = StyleSheet.create({
   editButton: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
   deleteButton: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -3001,5 +3422,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     gap: 8,
+  },
+  addIconBtn: {
+    padding: 8,
   },
 });

@@ -5,7 +5,7 @@
  */
 
 import { getNeo4jDriver, neo4jConfig } from '../config/neo4j.js';
-import neo4j from 'neo4j-driver';
+import * as neo4j from 'neo4j-driver';
 
 // =====================================================
 // TIPOS E INTERFACES
@@ -73,10 +73,7 @@ class Neo4jService {
   /**
    * Ejecuta una consulta Cypher y retorna los resultados
    */
-  async executeQuery<T>(
-    query: string,
-    params: Record<string, any> = {}
-  ): Promise<T[]> {
+  async executeQuery<T>(query: string, params: Record<string, any> = {}): Promise<T[]> {
     const session = this.driver.session({ database: neo4jConfig.database });
 
     try {
@@ -98,8 +95,7 @@ class Neo4jService {
           // Convertir fechas
           else if (value instanceof neo4j.types.DateTime) {
             obj[key] = value.toString();
-          }
-          else if (value instanceof neo4j.types.Date) {
+          } else if (value instanceof neo4j.types.Date) {
             obj[key] = value.toString();
           }
           // Manejar arrays
@@ -110,8 +106,7 @@ class Neo4jService {
               }
               return item;
             });
-          }
-          else {
+          } else {
             obj[key] = value;
           }
         });
@@ -126,10 +121,7 @@ class Neo4jService {
   /**
    * Ejecuta una transacción de escritura (Compatible con Driver v5)
    */
-  async executeWrite(
-    query: string,
-    params: Record<string, any> = {}
-  ): Promise<neo4j.types.Record[]> {
+  async executeWrite(query: string, params: Record<string, any> = {}): Promise<neo4j.Record[]> {
     const session = this.driver.session({ database: neo4jConfig.database });
 
     try {
@@ -146,7 +138,7 @@ class Neo4jService {
   /**
    * Convierte un nodo Neo4j a objeto JavaScript
    */
-  private nodeToObject(node: neo4j.types.Node): any {
+  private nodeToObject(node: neo4j.Node): any {
     return {
       id: node.identity.toString(),
       labels: node.labels,
@@ -157,7 +149,7 @@ class Neo4jService {
   /**
    * Convierte una relación Neo4j a objeto JavaScript
    */
-  private relationToObject(relation: neo4j.types.Relationship): any {
+  private relationToObject(relation: neo4j.Relationship): any {
     return {
       id: relation.identity.toString(),
       type: relation.type,
@@ -179,7 +171,7 @@ class Neo4jService {
       OPTIONAL MATCH (u)-[:REGISTRA]->(c:CheckIn)
       WHERE c.fecha >= datetime() - duration({days: 7})
       OPTIONAL MATCH (c)-[:TIENE_ETIQUETA]->(e:Etiqueta)
-      OPTIONAL MATCH (s:Sustancia)<-[:USA]-u
+      OPTIONAL MATCH (s:Sustancia)<-[:USA]-(u)
       OPTIONAL MATCH (s)-[i:INTERACTUA_CON]->(m:Medicamento)
       RETURN u, p, 
              collect(DISTINCT c) as checkins_recientes, 
@@ -442,15 +434,18 @@ class Neo4jService {
   /**
    * Registra un check-in del usuario
    */
-  async recordCheckIn(userId: string, checkInData: {
-    id: string;
-    fecha: Date;
-    consumo: boolean;
-    sustancia?: string;
-    cantidad?: number;
-    emociones: string[];
-    notas?: string;
-  }): Promise<void> {
+  async recordCheckIn(
+    userId: string,
+    checkInData: {
+      id: string;
+      fecha: Date;
+      consumo: boolean;
+      sustancia?: string;
+      cantidad?: number;
+      emociones: string[];
+      notas?: string;
+    }
+  ): Promise<void> {
     const query = `
       MATCH (u:Usuario {id: $userId})
       CREATE (c:CheckIn {
@@ -477,13 +472,16 @@ class Neo4jService {
   /**
    * Registra un craving del usuario
    */
-  async recordCraving(userId: string, cravingData: {
-    id: string;
-    fecha: Date;
-    intensidad: number;
-    trigger: string[];
-    sustancias: string[];
-  }): Promise<void> {
+  async recordCraving(
+    userId: string,
+    cravingData: {
+      id: string;
+      fecha: Date;
+      intensidad: number;
+      trigger: string[];
+      sustancias: string[];
+    }
+  ): Promise<void> {
     const query = `
       MATCH (u:Usuario {id: $userId})
       CREATE (cr:Craving {
@@ -610,6 +608,182 @@ class Neo4jService {
     `;
 
     await this.executeWrite(query, { userId, alertId });
+  }
+
+  // =====================================================
+  // QUERIES DE MEMORIA Y PERFIL ENRIQUECIDO
+  // =====================================================
+
+  /**
+   * Obtiene TODOS los atributos de memoria del usuario desde el grafo
+   * Incluye triggers, objetivos, patrones emocionales, estrategias, factores de riesgo, etc.
+   */
+  async getUserMemoryAttributes(userId: string): Promise<any[]> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})-[r]->(attr:Atributo)
+      RETURN attr.nombre as nombre,
+             attr.valor as valor,
+             attr.tipo as tipo,
+             attr.importancia as importancia,
+             attr.actualizado as actualizado,
+             type(r) as relationship
+      ORDER BY attr.importancia DESC, attr.actualizado DESC
+    `;
+
+    return this.executeQuery(query, { userId });
+  }
+
+  /**
+   * Obtiene atributos de memoria filtrados por tipo de relación
+   */
+  async getUserMemoryByType(userId: string, relationshipType: string): Promise<any[]> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})-[r:${relationshipType}]->(attr:Atributo)
+      RETURN attr.nombre as nombre,
+             attr.valor as valor,
+             attr.tipo as tipo,
+             attr.importancia as importancia,
+             attr.actualizado as actualizado
+      ORDER BY attr.importancia DESC
+    `;
+
+    return this.executeQuery(query, { userId });
+  }
+
+  /**
+   * Obtiene cravings recientes con sus triggers asociados
+   */
+  async getRecentCravingsWithTriggers(userId: string, days: number = 14): Promise<any[]> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})-[:EXPERIMENTA]->(cr:Craving)
+      WHERE cr.fecha >= datetime() - duration({days: $days})
+      OPTIONAL MATCH (cr)-[:TIENE_TRIGGER]->(e:Etiqueta)
+      RETURN cr.id as id,
+             cr.fecha as fecha,
+             cr.intensidad as intensidad,
+             collect(DISTINCT e.nombre) as triggers
+      ORDER BY cr.fecha DESC
+      LIMIT 20
+    `;
+
+    return this.executeQuery(query, { userId, days });
+  }
+
+  /**
+   * Obtiene la evolución del usuario: etapa de cambio, nivel de riesgo, progreso
+   */
+  async getUserEvolution(userId: string): Promise<any[]> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})
+      OPTIONAL MATCH (u)-[:REGISTRA]->(c:CheckIn)
+      WHERE c.fecha >= datetime() - duration({days: 30})
+      OPTIONAL MATCH (u)-[:EXPERIMENTA]->(cr:Craving)
+      WHERE cr.fecha >= datetime() - duration({days: 30})
+      OPTIONAL MATCH (u)-[:TIENE]->(conv:Conversacion)
+      WITH u,
+           count(DISTINCT c) as checkins_30d,
+           count(DISTINCT cr) as cravings_30d,
+           avg(cr.intensidad) as avg_craving_intensity,
+           count(DISTINCT conv) as total_conversations
+      RETURN u.etapa_cambio as etapa_cambio,
+             u.riesgo as nivel_riesgo,
+             u.estado as estado,
+             u.fecha_registro as fecha_registro,
+             checkins_30d,
+             cravings_30d,
+             avg_craving_intensity,
+             total_conversations
+    `;
+
+    return this.executeQuery(query, { userId });
+  }
+
+  /**
+   * Construye un perfil enriquecido completo del usuario combinando
+   * datos del nodo Usuario, sus atributos de memoria, sustancias,
+   * medicamentos, check-ins recientes y métricas de evolución
+   */
+  async buildEnrichedUserProfile(userId: string): Promise<any> {
+    const profile: any = {
+      userId,
+      basicProfile: null,
+      substances: [],
+      medications: [],
+      memoryAttributes: {},
+      recentActivity: null,
+      riskAlerts: [],
+    };
+
+    try {
+      // 1. Perfil básico + sustancias + medicamentos
+      const context = await this.getChatbotContext(userId);
+      if (context && context.length > 0) {
+        const ctx = context[0];
+        profile.basicProfile = ctx.u || null;
+        profile.substances = ctx.sustancias || [];
+        profile.medications = ctx.medicamentos || [];
+      }
+
+      // 2. Todos los atributos de memoria agrupados por tipo
+      const attrs = await this.getUserMemoryAttributes(userId);
+      if (attrs && attrs.length > 0) {
+        for (const attr of attrs) {
+          const rel = attr.relationship || 'OTRO';
+          if (!profile.memoryAttributes[rel]) profile.memoryAttributes[rel] = [];
+          profile.memoryAttributes[rel].push({
+            nombre: attr.nombre,
+            valor: attr.valor,
+            importancia: attr.importancia,
+            actualizado: attr.actualizado,
+          });
+        }
+      }
+
+      // 3. Evolución reciente
+      const evolution = await this.getUserEvolution(userId);
+      if (evolution && evolution.length > 0) {
+        profile.recentActivity = evolution[0];
+      }
+
+      // 4. Interacciones peligrosas
+      const interactions = await this.checkDrugInteractions(userId);
+      if (interactions && interactions.length > 0) {
+        profile.riskAlerts = interactions;
+      }
+
+    } catch (err) {
+      console.error('[NEO4J] Error building enriched profile:', err);
+    }
+
+    return profile;
+  }
+
+  /**
+   * Actualiza la etapa de cambio del usuario en el grafo
+   */
+  async updateUserStage(userId: string, etapaCambio: string, riesgo?: string): Promise<void> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})
+      SET u.etapa_cambio = $etapaCambio
+      ${riesgo ? ', u.riesgo = $riesgo' : ''}
+    `;
+
+    await this.executeWrite(query, { userId, etapaCambio, riesgo: riesgo || null });
+  }
+
+  /**
+   * Registra o actualiza una sustancia asociada al usuario
+   */
+  async upsertUserSubstance(userId: string, substanceName: string, details?: any): Promise<void> {
+    const query = `
+      MATCH (u:Usuario {id: $userId})
+      MERGE (s:Sustancia {nombre: $substanceName})
+      MERGE (u)-[r:USA]->(s)
+      SET r.actualizado = datetime()
+      ${details ? ', r.detalles = $details' : ''}
+    `;
+
+    await this.executeWrite(query, { userId, substanceName, details: details ? JSON.stringify(details) : null });
   }
 }
 

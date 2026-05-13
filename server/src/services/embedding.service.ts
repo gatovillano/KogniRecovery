@@ -176,10 +176,7 @@ class EmbeddingsService {
 
     return chunks.map((chunk, index) => {
       const result = results[index];
-      return {
-        ...chunk,
-        embedding: result ? result.embedding : undefined,
-      };
+      return result ? { ...chunk, embedding: result.embedding } : chunk;
     });
   }
 
@@ -196,9 +193,11 @@ class EmbeddingsService {
     let normB = 0;
 
     for (let i = 0; i < a.length; i++) {
-      dotProduct += a[i] * b[i];
-      normA += a[i] * a[i];
-      normB += b[i] * b[i];
+      const ai = a[i]!;
+      const bi = b[i]!;
+      dotProduct += ai * bi;
+      normA += ai * ai;
+      normB += bi * bi;
     }
 
     return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
@@ -214,7 +213,9 @@ class EmbeddingsService {
 
     let sum = 0;
     for (let i = 0; i < a.length; i++) {
-      sum += Math.pow(a[i] - b[i], 2);
+      const ai = a[i]!;
+      const bi = b[i]!;
+      sum += Math.pow(ai - bi, 2);
     }
 
     return Math.sqrt(sum);

@@ -4,7 +4,7 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import { query, queryWithTransaction } from '../config/database.js';
+import { query } from '../config/database.js';
 
 // =====================================================
 // INTERFACES
@@ -73,10 +73,7 @@ const TABLE_NAME = 'users';
  * Busca un usuario por email
  */
 export const findByEmail = async (email: string): Promise<User | null> => {
-  const result = await query<User>(
-    `SELECT * FROM ${TABLE_NAME} WHERE email = $1`,
-    [email]
-  );
+  const result = await query<User>(`SELECT * FROM ${TABLE_NAME} WHERE email = $1`, [email]);
 
   return result.rows[0] ?? null;
 };
@@ -85,10 +82,7 @@ export const findByEmail = async (email: string): Promise<User | null> => {
  * Busca un usuario por ID
  */
 export const findById = async (id: string): Promise<User | null> => {
-  const result = await query<User>(
-    `SELECT * FROM ${TABLE_NAME} WHERE id = $1`,
-    [id]
-  );
+  const result = await query<User>(`SELECT * FROM ${TABLE_NAME} WHERE id = $1`, [id]);
 
   return result.rows[0] ?? null;
 };
@@ -199,10 +193,7 @@ export const updatePassword = async (id: string, newPassword: string): Promise<b
  * Verifica si un email ya existe
  */
 export const existsByEmail = async (email: string): Promise<boolean> => {
-  const result = await query(
-    `SELECT 1 FROM ${TABLE_NAME} WHERE email = $1`,
-    [email]
-  );
+  const result = await query(`SELECT 1 FROM ${TABLE_NAME} WHERE email = $1`, [email]);
 
   return result.rowCount !== null && result.rowCount > 0;
 };
@@ -210,7 +201,10 @@ export const existsByEmail = async (email: string): Promise<boolean> => {
 /**
  * Lista usuarios con paginación
  */
-export const findAll = async (page = 1, limit = 10): Promise<{ users: UserPublic[]; total: number }> => {
+export const findAll = async (
+  page = 1,
+  limit = 10
+): Promise<{ users: UserPublic[]; total: number }> => {
   const offset = (page - 1) * limit;
 
   const [usersResult, countResult] = await Promise.all([
@@ -289,7 +283,10 @@ export const findByProfileType = async (
        LIMIT $2 OFFSET $3`,
       [profileType, limit, offset]
     ),
-    query<{ count: string }>(`SELECT COUNT(*) as count FROM ${TABLE_NAME} WHERE profile_type = $1`, [profileType]),
+    query<{ count: string }>(
+      `SELECT COUNT(*) as count FROM ${TABLE_NAME} WHERE profile_type = $1`,
+      [profileType]
+    ),
   ]);
 
   return {

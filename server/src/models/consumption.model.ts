@@ -56,7 +56,8 @@ export const getWeeklyVariationStats = async (userId: string, days = 7): Promise
     SELECT 
       ds.day_date as date,
       COALESCE(COUNT(ce.id), 0) > 0 as has_consumed,
-      COALESCE(COUNT(ce.id), 0) as total_events
+      COALESCE(COUNT(ce.id), 0) as total_events,
+      COALESCE(SUM(ce.quantity), 0) as total_quantity
     FROM date_series ds
     LEFT JOIN consumption_events ce
       ON DATE(ce.consumed_at) = ds.day_date AND ce.user_id = $1

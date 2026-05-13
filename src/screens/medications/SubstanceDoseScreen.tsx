@@ -16,7 +16,7 @@ import { useTheme } from '@theme/ThemeContext';
 import { api } from '@services/api';
 import Icon from '@expo/vector-icons/Ionicons';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import { MainTabParamList } from '@navigation/types';
+import { MainTabParamList, CheckInStackParamList } from '@navigation/types';
 
 interface SubstanceDose {
   id: string;
@@ -30,7 +30,7 @@ interface SubstanceDose {
 }
 
 export const SubstanceDoseScreen: React.FC<{
-  route: RouteProp<MainTabNavigatorParamList, 'SubstanceDose'>;
+  route: RouteProp<CheckInStackParamList, 'SubstanceDose'>;
 }> = ({ route }) => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
@@ -269,7 +269,7 @@ export const SubstanceDoseScreen: React.FC<{
           data={doses}
           renderItem={renderDoseItem}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={[styles.listContent, { paddingBottom: insets.bottom + 100 }]}
           ListEmptyComponent={
             <View style={styles.emptyState}>
               <Icon name="beaker-outline" size={64} color={theme.colors.textSecondary} />
@@ -368,19 +368,18 @@ export const SubstanceDoseScreen: React.FC<{
                   onChangeText={(val) => setForm({ ...form, feelings: val })}
                 />
               </View>
+              <TouchableOpacity
+                style={[styles.saveBtn, { backgroundColor: theme.colors.primary }]}
+                onPress={handleSave}
+                disabled={saving}
+              >
+                {saving ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.saveBtnText}>Guardar Registro</Text>
+                )}
+              </TouchableOpacity>
             </ScrollView>
-
-            <TouchableOpacity
-              style={[styles.saveBtn, { backgroundColor: theme.colors.primary }]}
-              onPress={handleSave}
-              disabled={saving}
-            >
-              {saving ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.saveBtnText}>Guardar Registro</Text>
-              )}
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>

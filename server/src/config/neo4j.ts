@@ -25,14 +25,6 @@ export interface Neo4jConfig {
 // CONFIGURACIÓN
 // =====================================================
 
-const getRequired = (key: string): string => {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-  return value;
-};
-
 const getOptional = (key: string, defaultValue: string): string => {
   return process.env[key] || defaultValue;
 };
@@ -151,9 +143,11 @@ export interface VectorStoreConfig {
 
 export interface AIConfig {
   openaiApiKey: string;
+  openrouterApiKey: string;
   azureEndpoint?: string;
   azureApiKey?: string;
   modelName: string;
+  openrouterModel: string;
   embeddingModel: string;
   maxTokens: number;
   temperature: number;
@@ -169,11 +163,12 @@ export const vectorStore: VectorStoreConfig = {
 
 export const ai: AIConfig = {
   openaiApiKey: getOptional('OPENAI_API_KEY', ''),
+  openrouterApiKey: getOptional('OPENROUTER_API_KEY', ''),
   azureEndpoint: getOptional('AZURE_OPENAI_ENDPOINT', ''),
   azureApiKey: getOptional('AZURE_OPENAI_KEY', ''),
   modelName: getOptional('OPENAI_MODEL', 'gpt-4-turbo'),
+  openrouterModel: getOptional('OPENROUTER_MODEL', 'stepfun/step-3.5-flash:free'),
   embeddingModel: getOptional('OPENAI_EMBEDDING_MODEL', 'Xenova/all-MiniLM-L6-v2'),
   maxTokens: getOptionalNumber('OPENAI_MAX_TOKENS', 1000),
   temperature: 0.7,
 };
-

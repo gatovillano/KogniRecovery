@@ -20,7 +20,7 @@ import { AuthStackParamList } from '@navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
 
 export const LoginScreen: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const { login, isLoading, error, clearError } = authStore();
@@ -48,8 +48,10 @@ export const LoginScreen: React.FC = () => {
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <LinearGradient
-        colors={[theme.colors.primary + '20', theme.colors.background]}
-        style={StyleSheet.absoluteFill}
+        colors={theme.gradients.hero as [string, string]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.heroGradient}
       />
 
       <KeyboardAvoidingView
@@ -60,23 +62,34 @@ export const LoginScreen: React.FC = () => {
           contentContainerStyle={[
             styles.scrollContent,
             {
-              paddingTop: Math.max(insets.top, 60),
-              paddingBottom: Math.max(insets.bottom, 24),
+              paddingTop: Math.max(insets.top, 70),
+              paddingBottom: Math.max(insets.bottom, 80),
             },
           ]}
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <View style={[styles.logoIcon, { backgroundColor: theme.colors.primary }]}>
-              <Icon name="heart" size={40} color="white" />
-            </View>
-            <Text style={[styles.title, { color: theme.colors.text }]}>KogniRecovery</Text>
-            <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-              Acompañándote en cada paso de tu recuperación
-            </Text>
+            <LinearGradient
+              colors={['rgba(255,255,255,0.25)', 'rgba(255,255,255,0.08)']}
+              style={styles.logoIcon}
+            >
+              <Icon name="heart" size={36} color="#FFFFFF" />
+            </LinearGradient>
+            <Text style={styles.title}>KogniRecovery</Text>
+            <Text style={styles.subtitle}>Acompañándote en cada paso de tu recuperación</Text>
           </View>
 
-          <View style={styles.form}>
+          <View
+            style={[
+              styles.formCard,
+              {
+                backgroundColor: theme.colors.card,
+                ...theme.shadows.lg,
+              },
+            ]}
+          >
+            <Text style={[styles.formTitle, { color: theme.colors.text }]}>Iniciar Sesión</Text>
+
             <Input
               label="Correo Electrónico"
               placeholder="ejemplo@correo.com"
@@ -119,11 +132,18 @@ export const LoginScreen: React.FC = () => {
           </View>
 
           <View style={styles.footer}>
-            <Text style={[styles.footerText, { color: theme.colors.textSecondary }]}>
+            <Text
+              style={[
+                styles.footerText,
+                { color: isDark ? 'rgba(255,255,255,0.8)' : theme.colors.textSecondary },
+              ]}
+            >
               ¿No tienes una cuenta?
             </Text>
             <TouchableOpacity onPress={navigateToRegister}>
-              <Text style={[styles.registerLink, { color: theme.colors.primary }]}>
+              <Text
+                style={[styles.registerLink, { color: isDark ? '#FFFFFF' : theme.colors.primary }]}
+              >
                 Regístrate gratis
               </Text>
             </TouchableOpacity>
@@ -138,6 +158,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  heroGradient: {
+    ...StyleSheet.absoluteFillObject,
+    height: '55%',
+  },
   scrollContent: {
     flexGrow: 1,
     padding: 24,
@@ -145,24 +169,24 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 36,
   },
   logoIcon: {
     width: 80,
     height: 80,
-    borderRadius: 24,
+    borderRadius: 28,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.25,
+        shadowRadius: 12,
       },
       android: {
-        elevation: 8,
+        elevation: 10,
       },
     }),
   },
@@ -171,32 +195,41 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginBottom: 8,
     letterSpacing: -0.5,
+    color: '#FFFFFF',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'center',
     paddingHorizontal: 20,
     lineHeight: 22,
     fontWeight: '500',
+    color: 'rgba(255,255,255,0.85)',
   },
-  form: {
-    width: '100%',
+  formCard: {
+    borderRadius: 24,
+    padding: 24,
     gap: 4,
+  },
+  formTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    marginBottom: 8,
+    letterSpacing: -0.3,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
     marginTop: -8,
-    marginBottom: 24,
+    marginBottom: 20,
     paddingVertical: 4,
   },
   buttonContainer: {
-    marginTop: 12,
+    marginTop: 8,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 28,
     gap: 6,
   },
   footerText: {
@@ -206,5 +239,6 @@ const styles = StyleSheet.create({
   registerLink: {
     fontSize: 14,
     fontWeight: '700',
+    color: '#FFFFFF',
   },
 });

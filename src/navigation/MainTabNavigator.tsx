@@ -1,14 +1,5 @@
-/**
- * MainTabNavigator - Navegación principal con bottom tabs
- *
- * Contiene las 4 secciones principales de la app:
- * - Dashboard: Resumen de progreso
- * - CheckIn: Registro diario
- * - Chatbot: Asistente IA
- * - Profile: Perfil y configuración
- */
-
 import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@theme/ThemeContext';
 import {
@@ -22,7 +13,6 @@ import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
-// Importar pantallas
 import {
   DashboardScreen,
   CheckInScreen,
@@ -42,9 +32,6 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
 const NotesStack = createNativeStackNavigator<NotesStackParamList>();
 
-/**
- * Navegador de Perfil (Stack)
- */
 const ProfileNavigator: React.FC = () => {
   const { theme } = useTheme();
 
@@ -76,9 +63,6 @@ const ProfileNavigator: React.FC = () => {
   );
 };
 
-/**
- * Navegador de Notas (Stack)
- */
 const NotesNavigator: React.FC = () => {
   const { theme } = useTheme();
 
@@ -102,9 +86,6 @@ const NotesNavigator: React.FC = () => {
 
 const CheckInStack = createNativeStackNavigator<CheckInStackParamList>();
 
-/**
- * Navegador de Bitácora (Stack)
- */
 const CheckInNavigator: React.FC = () => {
   const { theme } = useTheme();
 
@@ -112,19 +93,38 @@ const CheckInNavigator: React.FC = () => {
     <CheckInStack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: 'slide_from_right',
       }}
     >
       <CheckInStack.Screen name="CheckInHome" component={CheckInScreen} />
-      <CheckInStack.Screen name="Progress" component={ProgressScreen} />
-      <CheckInStack.Screen name="SubstanceExpense" component={SubstanceExpenseScreen} />
-      <CheckInStack.Screen name="SubstanceDose" component={SubstanceDoseScreen} />
+      <CheckInStack.Screen
+        name="Progress"
+        component={ProgressScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <CheckInStack.Screen
+        name="SubstanceExpense"
+        component={SubstanceExpenseScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <CheckInStack.Screen
+        name="SubstanceDose"
+        component={SubstanceDoseScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+        }}
+      />
     </CheckInStack.Navigator>
   );
 };
 
-/**
- * Configuración de iconos y etiquetas para cada tab
- */
 const TAB_CONFIG = {
   Dashboard: {
     icon: 'home-outline',
@@ -149,7 +149,7 @@ const TAB_CONFIG = {
   Chatbot: {
     icon: 'chatbubble-outline',
     iconFilled: 'chatbubble',
-    label: 'Chatbot',
+    label: 'Chat',
   },
   Profile: {
     icon: 'person-outline',
@@ -158,9 +158,6 @@ const TAB_CONFIG = {
   },
 } as const;
 
-/**
- * Componente de Tab Icon personalizado
- */
 const TabIcon: React.FC<{
   name: string;
   focused: boolean;
@@ -168,44 +165,53 @@ const TabIcon: React.FC<{
   size: number;
 }> = ({ name, focused, color, size }) => {
   return (
-    <Icon
-      name={focused ? (name.replace('-outline', '') as any) : (name as any)}
-      size={size}
-      color={color}
-    />
+    <View style={focused ? undefined : undefined}>
+      <Icon
+        name={focused ? (name.replace('-outline', '') as any) : (name as any)}
+        size={focused ? size + 2 : size}
+        color={color}
+      />
+    </View>
   );
 };
 
 export const MainTabNavigator: React.FC = () => {
   const { theme, isDark } = useTheme();
-
   const insets = useSafeAreaInsets();
 
-  // Calcular padding inferior basado en insets para evitar solapamientos con botones de Android/iOS
-  const tabPaddingBottom = insets.bottom > 0 ? insets.bottom : Platform.OS === 'ios' ? 30 : 12;
-  const tabHeight = (Platform.OS === 'ios' ? 64 : 60) + tabPaddingBottom;
+  const tabPaddingBottom =
+    Platform.OS === 'android'
+      ? Math.max(insets.bottom, 12) + 6
+      : insets.bottom > 0
+        ? Math.max(insets.bottom, 10)
+        : 24;
+  const tabHeight = (Platform.OS === 'ios' ? 56 : 54) + tabPaddingBottom;
+  const tabMarginBottom = 0;
 
   const screenOptions = {
     tabBarActiveTintColor: theme.colors.primary,
-    tabBarInactiveTintColor: isDark ? '#A0A0A0' : '#6B7280',
+    tabBarInactiveTintColor: theme.colors.textSecondary,
     tabBarStyle: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.card,
+      borderTopWidth: StyleSheet.hairlineWidth,
       borderTopColor: theme.colors.border,
-      borderTopWidth: 1,
       height: tabHeight,
+      marginBottom: tabMarginBottom,
       paddingTop: 8,
       paddingBottom: tabPaddingBottom,
-      elevation: 8,
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 0, height: -2 },
-      shadowRadius: 4,
+      elevation: 0,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: -4 },
+      shadowOpacity: isDark ? 0.3 : 0.03,
+      shadowRadius: 10,
     },
-    tabBarHideOnKeyboard: true, // Evita solapamientos raros cuando el teclado está activo o transicionando
-    tabBarShowLabel: false,
+    tabBarHideOnKeyboard: true,
+    tabBarShowLabel: true,
     tabBarLabelStyle: {
-      fontSize: 12,
-      fontWeight: '500' as const,
-      marginBottom: 4,
+      fontSize: 10,
+      fontWeight: '400' as const,
+      marginBottom: 0,
+      letterSpacing: 0.1,
     },
     headerShown: false,
   };

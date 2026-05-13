@@ -241,8 +241,13 @@ export const createAnalysis = async (req: Request, res: Response, next: NextFunc
   try {
     const userId = getUser(req);
     if (!userId) { unauthorized(res); return; }
-    const { trigger_situation, action_taken, entry_date } = req.body;
-    const entry = await journal.createConsumptionAnalysis(userId, { trigger_situation: trigger_situation || '', action_taken: action_taken || '', entry_date });
+    const { trigger_situation, action_taken, lesson_learned, entry_date } = req.body;
+    const entry = await journal.createConsumptionAnalysis(userId, { 
+      trigger_situation: trigger_situation || '', 
+      action_taken: action_taken || '', 
+      lesson_learned: lesson_learned || '',
+      entry_date 
+    });
     res.status(201).json({ success: true, data: entry, message: 'Análisis guardado' });
   } catch (error) { next(error); }
 };
@@ -252,9 +257,14 @@ export const updateAnalysis = async (req: Request, res: Response, next: NextFunc
     const userId = getUser(req);
     if (!userId) { unauthorized(res); return; }
     const { id } = req.params;
-    const { trigger_situation, action_taken, entry_date } = req.body;
+    const { trigger_situation, action_taken, lesson_learned, entry_date } = req.body;
     if (!id) { res.status(400).json({ success: false, error: { code: 'MISSING_ID', message: 'ID requerido' } }); return; }
-    const entry = await journal.updateConsumptionAnalysis(id, userId, { trigger_situation: trigger_situation || '', action_taken: action_taken || '', entry_date });
+    const entry = await journal.updateConsumptionAnalysis(id, userId, { 
+      trigger_situation: trigger_situation || '', 
+      action_taken: action_taken || '', 
+      lesson_learned: lesson_learned || '',
+      entry_date 
+    });
     if (!entry) { res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Registro no encontrado' } }); return; }
     res.json({ success: true, data: entry, message: 'Análisis actualizado' });
   } catch (error) { next(error); }

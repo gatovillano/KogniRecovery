@@ -122,6 +122,13 @@ export interface ThemeShadows {
   lg: ViewStyle;
 }
 
+export interface ThemeGradients {
+  primary: string[];
+  secondary: string[];
+  hero: string[];
+  surface: string[];
+}
+
 export interface Theme {
   mode: ThemeMode;
   colors: ThemeColors;
@@ -133,6 +140,13 @@ export interface Theme {
     md: number;
     lg: number;
     xl: number;
+    full: number;
+  };
+  gradients: ThemeGradients;
+  glass: {
+    background: string;
+    border: string;
+    blur: number;
   };
 }
 

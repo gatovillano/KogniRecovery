@@ -8,21 +8,28 @@ import crypto from 'crypto';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
-const AUTH_TAG_LENGTH = 16;
-const SALT_LENGTH = 64;
 const KEY_LENGTH = 32;
 const ITERATIONS = 100000;
 
 /**
  * Obtiene la clave de encriptación desde las variables de entorno
+ * SEC-002 FIX: Salt aleatorio por instalación (ENCRYPTION_SALT), nunca hardcodeado.
+ * Generar con: openssl rand -hex 32
  */
 const getEncryptionKey = (): Buffer => {
-    const key = process.env.ENCRYPTION_KEY;
-    if (!key) {
-        throw new Error('ENCRYPTION_KEY environment variable is not set');
-    }
-    // Derivar clave de la variable de entorno usando PBKDF2
-    return crypto.pbkdf2Sync(key, 'kognirecovery-salt', ITERATIONS, KEY_LENGTH, 'sha512');
+  const key = process.env.ENCRYPTION_KEY;
+  if (!key) {
+    throw new Error('ENCRYPTION_KEY environment variable is not set');
+  }
+  const salt = process.env.ENCRYPTION_SALT;
+  if (!salt) {
+    throw new Error(
+      'ENCRYPTION_SALT environment variable is not set. ' +
+      'Generate with: openssl rand -hex 32'
+    );
+  }
+  // Derivar clave usando PBKDF2 con salt único por instalación
+  return crypto.pbkdf2Sync(key, salt, ITERATIONS, KEY_LENGTH, 'sha512');
 };
 
 /**
@@ -31,22 +38,22 @@ const getEncryptionKey = (): Buffer => {
  * @returns Texto encriptado en formato base64 (iv:authTag:encrypted)
  */
 export const encrypt = (text: string): string => {
-    if (!text) {
-        return text;
-    }
+  if (!text) {
+    return text;
+  }
 
-    const key = getEncryptionKey();
-    const iv = crypto.randomBytes(IV_LENGTH);
+  const key = getEncryptionKey();
+  const iv = crypto.randomBytes(IV_LENGTH);
 
-    const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
+  const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
 
-    let encrypted = cipher.update(text, 'utf8', 'base64');
-    encrypted += cipher.final('base64');
+  let encrypted = cipher.update(text, 'utf8', 'base64');
+  encrypted += cipher.final('base64');
 
-    const authTag = cipher.getAuthTag();
+  const authTag = cipher.getAuthTag();
 
-    // Formato: iv:authTag:encryptedData
-    return `${iv.toString('base64')}:${authTag.toString('base64')}:${encrypted}`;
+  // Formato: iv:authTag:encryptedData
+  return `${iv.toString('base64')}:${authTag.toString('base64')}:${encrypted}`;
 };
 
 /**
@@ -55,33 +62,33 @@ export const encrypt = (text: string): string => {
  * @returns Texto plano original
  */
 export const decrypt = (encryptedText: string): string => {
-    if (!encryptedText || !encryptedText.includes(':')) {
-        return encryptedText;
+  if (!encryptedText || !encryptedText.includes(':')) {
+    return encryptedText;
+  }
+
+  try {
+    const key = getEncryptionKey();
+    const parts = encryptedText.split(':');
+
+    if (parts.length !== 3) {
+      return encryptedText;
     }
 
-    try {
-        const key = getEncryptionKey();
-        const parts = encryptedText.split(':');
+    const iv = Buffer.from(parts[0] || '', 'base64');
+    const authTag = Buffer.from(parts[1] || '', 'base64');
+    const encrypted = parts[2] || '';
 
-        if (parts.length !== 3) {
-            return encryptedText;
-        }
+    const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+    decipher.setAuthTag(authTag);
 
-        const iv = Buffer.from(parts[0] || '', 'base64');
-        const authTag = Buffer.from(parts[1] || '', 'base64');
-        const encrypted = parts[2] || '';
+    let decrypted = decipher.update(encrypted, 'base64', 'utf8');
+    decrypted += decipher.final('utf8') as string;
 
-        const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
-        decipher.setAuthTag(authTag);
-
-        let decrypted = decipher.update(encrypted, 'base64', 'utf8');
-        decrypted += decipher.final('utf8') as string;
-
-        return decrypted;
-    } catch (error) {
-        console.error('Decryption error:', error);
-        throw new Error('Failed to decrypt data');
-    }
+    return decrypted;
+  } catch (error) {
+    console.error('Decryption error:', error);
+    throw new Error('Failed to decrypt data');
+  }
 };
 
 /**
@@ -91,18 +98,18 @@ export const decrypt = (encryptedText: string): string => {
  * @returns Objeto con campos encriptados
  */
 export const encryptFields = <T extends Record<string, unknown>>(
-    obj: T,
-    sensitiveFields: string[]
+  obj: T,
+  sensitiveFields: string[]
 ): T => {
-    const result = { ...obj };
+  const result = { ...obj };
 
-    for (const field of sensitiveFields) {
-        if (result[field] && typeof result[field] === 'string') {
-            (result as Record<string, unknown>)[field] = encrypt(result[field] as string);
-        }
+  for (const field of sensitiveFields) {
+    if (result[field] && typeof result[field] === 'string') {
+      (result as Record<string, unknown>)[field] = encrypt(result[field] as string);
     }
+  }
 
-    return result;
+  return result;
 };
 
 /**
@@ -112,22 +119,22 @@ export const encryptFields = <T extends Record<string, unknown>>(
  * @returns Objeto con campos desencriptados
  */
 export const decryptFields = <T extends Record<string, unknown>>(
-    obj: T,
-    sensitiveFields: string[]
+  obj: T,
+  sensitiveFields: string[]
 ): T => {
-    const result = { ...obj };
+  const result = { ...obj };
 
-    for (const field of sensitiveFields) {
-        if (result[field] && typeof result[field] === 'string') {
-            try {
-                (result as Record<string, unknown>)[field] = decrypt(result[field] as string);
-            } catch {
-                // Si no se puede desencriptar, dejar el valor original
-            }
-        }
+  for (const field of sensitiveFields) {
+    if (result[field] && typeof result[field] === 'string') {
+      try {
+        (result as Record<string, unknown>)[field] = decrypt(result[field] as string);
+      } catch {
+        // Si no se puede desencriptar, dejar el valor original
+      }
     }
+  }
 
-    return result;
+  return result;
 };
 
 /**
@@ -136,7 +143,7 @@ export const decryptFields = <T extends Record<string, unknown>>(
  * @returns Hash en formato hex
  */
 export const hash = (value: string): string => {
-    return crypto.createHash('sha256').update(value).digest('hex');
+  return crypto.createHash('sha256').update(value).digest('hex');
 };
 
 /**
@@ -145,67 +152,67 @@ export const hash = (value: string): string => {
  * @returns Clave aleatoria en formato base64
  */
 export const generateSecureKey = (length = 32): string => {
-    return crypto.randomBytes(length).toString('base64');
+  return crypto.randomBytes(length).toString('base64');
 };
 
 /**
  * Encripta datos sensibles del usuario para almacenamiento
  */
 export const encryptUserSensitiveData = (user: {
-    phone?: string;
-    llm_api_key?: string;
-    two_factor_secret?: string;
+  phone?: string;
+  llm_api_key?: string;
+  two_factor_secret?: string;
 }): {
-    phone?: string;
-    llm_api_key?: string;
-    two_factor_secret?: string;
+  phone?: string;
+  llm_api_key?: string;
+  two_factor_secret?: string;
 } => {
-    const sensitiveFields = ['phone', 'llm_api_key', 'two_factor_secret'];
-    const result: Record<string, string> = {};
+  const sensitiveFields = ['phone', 'llm_api_key', 'two_factor_secret'];
+  const result: Record<string, string> = {};
 
-    for (const field of sensitiveFields) {
-        if (user[field as keyof typeof user]) {
-            result[field] = encrypt(user[field as keyof typeof user]!);
-        }
+  for (const field of sensitiveFields) {
+    if (user[field as keyof typeof user]) {
+      result[field] = encrypt(user[field as keyof typeof user]!);
     }
+  }
 
-    return result as { phone?: string; llm_api_key?: string; two_factor_secret?: string };
+  return result as { phone?: string; llm_api_key?: string; two_factor_secret?: string };
 };
 
 /**
  * Desencripta datos sensibles del usuario
  */
 export const decryptUserSensitiveData = (user: {
-    phone?: string;
-    llm_api_key?: string;
-    two_factor_secret?: string;
+  phone?: string;
+  llm_api_key?: string;
+  two_factor_secret?: string;
 }): {
-    phone?: string;
-    llm_api_key?: string;
-    two_factor_secret?: string;
+  phone?: string;
+  llm_api_key?: string;
+  two_factor_secret?: string;
 } => {
-    const result: Record<string, string> = {};
+  const result: Record<string, string> = {};
 
-    for (const [key, value] of Object.entries(user)) {
-        if (value) {
-            try {
-                result[key] = decrypt(value);
-            } catch {
-                result[key] = value; // Mantener valor original si no se puede desencriptar
-            }
-        }
+  for (const [key, value] of Object.entries(user)) {
+    if (value) {
+      try {
+        result[key] = decrypt(value);
+      } catch {
+        result[key] = value; // Mantener valor original si no se puede desencriptar
+      }
     }
+  }
 
-    return result as { phone?: string; llm_api_key?: string; two_factor_secret?: string };
+  return result as { phone?: string; llm_api_key?: string; two_factor_secret?: string };
 };
 
 export default {
-    encrypt,
-    decrypt,
-    encryptFields,
-    decryptFields,
-    hash,
-    generateSecureKey,
-    encryptUserSensitiveData,
-    decryptUserSensitiveData,
+  encrypt,
+  decrypt,
+  encryptFields,
+  decryptFields,
+  hash,
+  generateSecureKey,
+  encryptUserSensitiveData,
+  decryptUserSensitiveData,
 };

@@ -28,7 +28,7 @@ export const createCheckIn = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -36,14 +36,14 @@ export const createCheckIn = async (
     // Verificar si ya hay un check-in para la fecha proporcionada
     const checkinDate = req.body.checkin_date || new Date().toISOString().split('T')[0];
     const existingCheckIn = await checkinModel.getCheckInByDate(userId, checkinDate);
-    
+
     if (existingCheckIn) {
       // Actualizar check-in existente
       const updated = await checkinModel.updateCheckIn(existingCheckIn.id, req.body);
       res.json({
         success: true,
         data: updated,
-        message: 'Check-in actualizado'
+        message: 'Check-in actualizado',
       });
       return;
     }
@@ -56,14 +56,14 @@ export const createCheckIn = async (
         mood_score: req.body.mood_score,
         anxiety_score: req.body.anxiety_score,
         energy_score: req.body.energy_score,
-        emotional_tags: req.body.emotional_tags
+        emotional_tags: req.body.emotional_tags,
       });
     }
 
     res.status(201).json({
       success: true,
       data: checkIn,
-      message: 'Check-in creado exitosamente'
+      message: 'Check-in creado exitosamente',
     });
   } catch (error) {
     next(error);
@@ -90,17 +90,18 @@ export const getTodayCheckIn = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
-    const date = (req.query.date as string) || new Date().toISOString().split('T')[0];
+    const queryDate = req.query.date as string | undefined;
+    const date = (queryDate ?? new Date().toISOString().split('T')[0]) as string;
     const checkIn = await checkinModel.getCheckInByDate(userId, date);
 
     res.json({
       success: true,
-      data: checkIn
+      data: checkIn,
     });
   } catch (error) {
     next(error);
@@ -123,7 +124,7 @@ export const getCheckIns = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -141,9 +142,9 @@ export const getCheckIns = async (
           page,
           limit,
           total,
-          pages: Math.ceil(total / limit)
-        }
-      }
+          pages: Math.ceil(total / limit),
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -166,7 +167,7 @@ export const getCheckInsByDateRange = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -176,7 +177,7 @@ export const getCheckInsByDateRange = async (
     if (!start_date || !end_date) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Fechas de inicio y fin requeridas' }
+        error: { code: 'VALIDATION_ERROR', message: 'Fechas de inicio y fin requeridas' },
       });
       return;
     }
@@ -187,7 +188,7 @@ export const getCheckInsByDateRange = async (
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Fechas inválidas' }
+        error: { code: 'VALIDATION_ERROR', message: 'Fechas inválidas' },
       });
       return;
     }
@@ -196,7 +197,7 @@ export const getCheckInsByDateRange = async (
 
     res.json({
       success: true,
-      data: checkIns
+      data: checkIns,
     });
   } catch (error) {
     next(error);
@@ -214,19 +215,26 @@ export const getCheckInById = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    if (!id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const checkIn = await checkinModel.getCheckInById(id);
 
     if (!checkIn) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' }
+        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' },
       });
       return;
     }
 
     res.json({
       success: true,
-      data: checkIn
+      data: checkIn,
     });
   } catch (error) {
     next(error);
@@ -248,13 +256,19 @@ export const updateCheckIn = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    
+    if (!id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const checkIn = await checkinModel.updateCheckIn(id, req.body);
 
     if (!checkIn) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' }
+        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' },
       });
       return;
     }
@@ -262,7 +276,7 @@ export const updateCheckIn = async (
     res.json({
       success: true,
       data: checkIn,
-      message: 'Check-in actualizado'
+      message: 'Check-in actualizado',
     });
   } catch (error) {
     next(error);
@@ -284,20 +298,26 @@ export const deleteCheckIn = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    
+    if (!id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const deleted = await checkinModel.deleteCheckIn(id);
 
     if (!deleted) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' }
+        error: { code: 'NOT_FOUND', message: 'Check-in no encontrado' },
       });
       return;
     }
 
     res.json({
       success: true,
-      message: 'Check-in eliminado'
+      message: 'Check-in eliminado',
     });
   } catch (error) {
     next(error);
@@ -324,7 +344,7 @@ export const getStreaks = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -333,7 +353,7 @@ export const getStreaks = async (
 
     res.json({
       success: true,
-      data: streaks
+      data: streaks,
     });
   } catch (error) {
     next(error);
@@ -356,17 +376,17 @@ export const resetStreak = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { streak_type } = req.body;
-    
+
     if (!streak_type) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Tipo de racha requerido' }
+        error: { code: 'VALIDATION_ERROR', message: 'Tipo de racha requerido' },
       });
       return;
     }
@@ -375,7 +395,7 @@ export const resetStreak = async (
 
     res.json({
       success: true,
-      message: 'Racha reiniciada'
+      message: 'Racha reiniciada',
     });
   } catch (error) {
     next(error);
@@ -402,20 +422,20 @@ export const getCheckInStats = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const days = parseInt(req.query.days as string) || 30;
-    const stats = await checkinModel.getCheckInStats(userId, days) as any;
+    const stats = (await checkinModel.getCheckInStats(userId, days)) as any;
     const emotionDistribution = await checkinModel.getEmotionStats(userId, days);
-    
+
     stats.emotionDistribution = emotionDistribution;
 
     res.json({
       success: true,
-      data: stats
+      data: stats,
     });
   } catch (error) {
     next(error);
@@ -442,7 +462,7 @@ export const getMoodHistory = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -452,7 +472,7 @@ export const getMoodHistory = async (
 
     res.json({
       success: true,
-      data: history
+      data: history,
     });
   } catch (error) {
     next(error);

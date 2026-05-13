@@ -1,32 +1,48 @@
 ## 🎯 Alternativas de TTS Implementadas
 
-He configurado **Piper TTS** como alternativa rápida al lento XTTS v2. Aquí están las opciones disponibles:
+Tres opciones de TTS local disponibles, de menor a mayor calidad:
 
-### 🚀 **Piper TTS (Recomendado)**
+### 🏆 **Kokoro TTS (Recomendado)**
 
-- **Ventajas**: Muy rápido (segundos), buena calidad, bajo uso de recursos
-- **Desventajas**: Menos opciones de voz que XTTS
-- **Uso**: `docker compose --profile tts run piper-tts`
-- **Puerto**: 8007
-- **Modelo**: Español (es_ES-davefx-medium)
+- **Ventajas**: Mejor calidad de las tres opciones, español nativo con 3 voces, muy ligero (82M params), ONNX runtime
+- **Desventajas**: Nuevo en el stack, menos battle-tested que Piper
+- **Uso**: `docker compose --profile tts up -d kokoro-tts`
+- **Puerto**: 8009
+- **Modelo**: Kokoro-82M v1.0 (ONNX)
+- **Voces español**: `ef_dora` (femenina, default), `em_alex` (masculino), `em_santa` (masculino)
+- **Parámetros**: text, voice, speed, lang
 
-### 🐌 **XTTS v2 (Actual)**
+### 🚀 **Piper TTS**
 
-- **Ventajas**: Más voces disponibles, mejor calidad potencial
+- **Ventajas**: Rápido, estable, bajo uso de recursos
+- **Desventajas**: Calidad inferior a Kokoro, voces menos naturales
+- **Uso**: `docker compose --profile tts up -d piper-tts`
+- **Puerto**: 8008
+- **Modelo**: Español (es_MX-claude-high)
+
+### 🐌 **XTTS v2**
+
+- **Ventajas**: Máxima calidad potencial, clonación de voz
 - **Desventajas**: Muy lento en CPU (minutos), alto uso de recursos
 - **Uso**: `docker compose --profile tts-heavy run xtts-api`
 - **Puerto**: 8006
 
-### 🔄 **Cómo Cambiar entre Servicios**
+### 🔄 Cómo Cambiar entre Servicios
 
-Para usar **Piper** (recomendado):
+Para usar **Kokoro** (recomendado):
 
 ```bash
 # Actualizar configuración
-echo "TTS_API_URL=http://localhost:8007" > server/.env.new
-mv server/.env.new server/.env
+echo "TTS_API_URL=http://localhost:8009" > server/.env
 
 # Levantar servicio
+docker compose --profile tts up -d kokoro-tts
+```
+
+Para usar **Piper**:
+
+```bash
+echo "TTS_API_URL=http://localhost:8008" > server/.env
 docker compose --profile tts up -d piper-tts
 ```
 
@@ -37,12 +53,13 @@ echo "TTS_API_URL=http://localhost:8006" > server/.env
 docker compose --profile tts-heavy up -d xtts-api
 ```
 
-### 📊 **Comparación de Rendimiento**
+### 📊 Comparación de Rendimiento
 
-| Servicio | Velocidad | Calidad    | Recursos | Idiomas    |
-| -------- | --------- | ---------- | -------- | ---------- |
-| Piper    | ⚡ Alta   | ⭐⭐⭐⭐   | 💚 Bajo  | ⭐⭐⭐⭐   |
-| XTTS v2  | 🐌 Baja   | ⭐⭐⭐⭐⭐ | ❤️ Alto  | ⭐⭐⭐⭐⭐ |
+| Servicio | Velocidad | Calidad    | Recursos | Español    | Voces ES |
+| -------- | --------- | ---------- | -------- | ---------- | -------- |
+| Kokoro   | ⚡ Alta   | ⭐⭐⭐⭐⭐ | 💚 Bajo  | ⭐⭐⭐⭐⭐ | 3        |
+| Piper    | ⚡ Alta   | ⭐⭐⭐⭐   | 💚 Bajo  | ⭐⭐⭐⭐   | 1        |
+| XTTS v2  | 🐌 Baja   | ⭐⭐⭐⭐⭐ | ❤️ Alto  | ⭐⭐⭐⭐⭐ | ∞ (clon) |
 
-**Recomendación**: Usa **Piper TTS** para producción. Es significativamente más rápido y tiene calidad de voz excelente para español.</content>
-<parameter name="filePath">TTS_ALTERNATIVES.md
+**Recomendación**: Usa **Kokoro TTS** como backend principal. Tiene mejor calidad que Piper,
+soporte nativo para español con múltiples voces, y es igual de ligero. Piper queda como fallback.

@@ -132,7 +132,7 @@ yarn install
 cp .env.example .env
 
 # Editar .env con tus configuraciones
-# - API_URL (backend)
+# - EXPO_PUBLIC_API_URL (backend)
 # - LLM_API_KEY (OpenAI/Anthropic)
 # - SENTRY_DSN (opcional)
 ```
@@ -166,6 +166,8 @@ expo start
 - `w` - Web browser
 - Escanear QR con Expo Go en dispositivo físico
 
+**Android físico / APK local:** si tu backend corre en tu PC, configura `EXPO_PUBLIC_API_URL` con la IP LAN de esa máquina, por ejemplo `http://192.168.1.84:3003`. `localhost` dentro de la APK apunta al propio teléfono, no a tu servidor.
+
 ---
 
 ## 📜 Scripts Disponibles
@@ -181,6 +183,9 @@ expo start
 | `npm run format` | Formatea código con Prettier |
 | `npm run typecheck` | Verifica tipos TypeScript |
 | `npm test` | Ejecuta tests (pendiente) |
+| `npm run build:apk:local` | Genera una APK usando tu `EXPO_PUBLIC_API_URL` local |
+
+**Servicio systemd para producción:** `./scripts/install-systemd-service.sh` instala `start-prod.sh` como servicio de arranque automático en Linux con systemd.
 
 ---
 

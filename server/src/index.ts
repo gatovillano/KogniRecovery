@@ -78,11 +78,10 @@ const startServer = async (): Promise<void> => {
       process.exit(1);
     });
 
-    process.on('unhandledRejection', (reason, promise) => {
+    process.on('unhandledRejection', (reason, _promise) => {
       console.error('❌ Promise rechazada no manejada:', reason);
       process.exit(1);
     });
-
   } catch (error) {
     console.error('❌ Error al iniciar el servidor:', error);
     process.exit(1);

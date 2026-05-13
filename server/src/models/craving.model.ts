@@ -4,7 +4,7 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
-import { query, queryWithTransaction } from '../config/database.js';
+import { query } from '../config/database.js';
 
 // =====================================================
 // INTERFACES
@@ -97,7 +97,7 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
       consequences, location, craving_start_time, notes)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     RETURNING *`;
-  
+
   const values = [
     userId,
     data.substance_id || null,
@@ -112,11 +112,11 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
     data.consequences || null,
     data.location ? JSON.stringify(data.location) : null,
     data.craving_start_time || new Date(),
-    data.notes || null
+    data.notes || null,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<Craving>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -124,7 +124,7 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
  */
 export const getCravingById = async (id: string): Promise<Craving | null> => {
   const sql = `SELECT * FROM cravings WHERE id = $1`;
-  const result = await query(sql, [id]);
+  const result = await query<Craving>(sql, [id]);
   return result.rows[0] || null;
 };
 
@@ -136,22 +136,19 @@ export const getActiveCravings = async (userId: string): Promise<Craving[]> => {
     SELECT * FROM cravings 
     WHERE user_id = $1 AND status = 'active'
     ORDER BY craving_start_time DESC`;
-  const result = await query(sql, [userId]);
+  const result = await query<Craving>(sql, [userId]);
   return result.rows;
 };
 
 /**
  * Obtener cravings recientes del usuario
  */
-export const getRecentCravings = async (
-  userId: string, 
-  days = 30
-): Promise<Craving[]> => {
+export const getRecentCravings = async (userId: string, days = 30): Promise<Craving[]> => {
   const sql = `
     SELECT * FROM cravings 
-    WHERE user_id = $1 AND craving_start_time >= CURRENT_DATE - INTERVAL '30 days'
+    WHERE user_id = $1 AND craving_start_time >= CURRENT_DATE - INTERVAL '$2 days'
     ORDER BY craving_start_time DESC`;
-  const result = await query(sql, [userId, days]);
+  const result = await query<Craving>(sql, [userId, days]);
   return result.rows;
 };
 
@@ -159,22 +156,22 @@ export const getRecentCravings = async (
  * Obtener todos los cravings del usuario
  */
 export const getUserCravings = async (
-  userId: string, 
-  page = 1, 
+  userId: string,
+  page = 1,
   limit = 20
-): Promise<{ cravings: Craving[], total: number }> => {
+): Promise<{ cravings: Craving[]; total: number }> => {
   const offset = (page - 1) * limit;
-  
+
   const countSql = `SELECT COUNT(*) as total FROM cravings WHERE user_id = $1`;
-  const countResult = await query(countSql, [userId]);
-  const total = parseInt(countResult.rows[0].total);
+  const countResult = await query<{ total: string }>(countSql, [userId]);
+  const total = parseInt(countResult.rows[0]?.total || '0');
 
   const sql = `
     SELECT * FROM cravings 
     WHERE user_id = $1 
     ORDER BY craving_start_time DESC 
     LIMIT $2 OFFSET $3`;
-  const result = await query(sql, [userId, limit, offset]);
+  const result = await query<Craving>(sql, [userId, limit, offset]);
 
   return { cravings: result.rows, total };
 };
@@ -182,15 +179,28 @@ export const getUserCravings = async (
 /**
  * Actualizar craving
  */
-export const updateCraving = async (id: string, data: Partial<Craving>): Promise<Craving | null> => {
+export const updateCraving = async (
+  id: string,
+  data: Partial<Craving>
+): Promise<Craving | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'status', 'coping_strategies', 'outcome', 'consumed_quantity', 
-    'consumed_unit', 'consequences', 'location', 'craving_end_time', 
-    'duration_minutes', 'notes'
+    'intensity',
+    'triggers',
+    'status',
+    'coping_strategies',
+    'outcome',
+    'consumed_quantity',
+    'consumed_unit',
+    'consequences',
+    'location',
+    'craving_start_time',
+    'craving_end_time',
+    'duration_minutes',
+    'notes',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -209,8 +219,8 @@ export const updateCraving = async (id: string, data: Partial<Craving>): Promise
 
   values.push(id);
   const sql = `UPDATE cravings SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<Craving>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -227,7 +237,7 @@ export const deleteCraving = async (id: string): Promise<boolean> => {
  * Resolver craving (marcar como manejado o resistido)
  */
 export const resolveCraving = async (
-  id: string, 
+  id: string,
   status: 'managed' | 'resisted' | 'surrendered',
   strategies?: any[],
   outcome?: string
@@ -248,16 +258,16 @@ export const resolveCraving = async (
         duration_minutes = $5
     WHERE id = $6
     RETURNING *`;
-  
-  const result = await query(sql, [
-    status, 
+
+  const result = await query<Craving>(sql, [
+    status,
     strategies ? JSON.stringify(strategies) : null,
     outcome,
     endTime,
     durationMinutes,
-    id
+    id,
   ]);
-  
+
   return result.rows[0] || null;
 };
 
@@ -268,13 +278,16 @@ export const resolveCraving = async (
 /**
  * Crear patrón de craving
  */
-export const createCravingPattern = async (userId: string, data: Partial<CravingPattern>): Promise<CravingPattern> => {
+export const createCravingPattern = async (
+  userId: string,
+  data: Partial<CravingPattern>
+): Promise<CravingPattern> => {
   const sql = `
     INSERT INTO craving_patterns (user_id, substance_id, pattern_type, description,
       frequency_per_week, avg_intensity, common_triggers, effective_strategies, status)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     RETURNING *`;
-  
+
   const values = [
     userId,
     data.substance_id || null,
@@ -284,11 +297,11 @@ export const createCravingPattern = async (userId: string, data: Partial<Craving
     data.avg_intensity || null,
     data.common_triggers || [],
     data.effective_strategies || [],
-    data.status || 'identified'
+    data.status || 'identified',
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<CravingPattern>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -299,21 +312,29 @@ export const getUserCravingPatterns = async (userId: string): Promise<CravingPat
     SELECT * FROM craving_patterns 
     WHERE user_id = $1 AND status != 'archived'
     ORDER BY occurrence_count DESC, created_at DESC`;
-  const result = await query(sql, [userId]);
+  const result = await query<CravingPattern>(sql, [userId]);
   return result.rows;
 };
 
 /**
  * Actualizar patrón
  */
-export const updateCravingPattern = async (id: string, data: Partial<CravingPattern>): Promise<CravingPattern | null> => {
+export const updateCravingPattern = async (
+  id: string,
+  data: Partial<CravingPattern>
+): Promise<CravingPattern | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'frequency_per_week', 'avg_intensity', 'common_triggers', 
-    'effective_strategies', 'status', 'last_observed', 'occurrence_count'
+    'frequency_per_week',
+    'avg_intensity',
+    'common_triggers',
+    'effective_strategies',
+    'status',
+    'last_observed',
+    'occurrence_count',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -332,8 +353,8 @@ export const updateCravingPattern = async (id: string, data: Partial<CravingPatt
 
   values.push(id);
   const sql = `UPDATE craving_patterns SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<CravingPattern>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -353,13 +374,16 @@ export const deleteCravingPattern = async (id: string): Promise<boolean> => {
 /**
  * Crear estrategia de afrontamiento
  */
-export const createCopingStrategy = async (userId: string, data: Partial<CopingStrategy>): Promise<CopingStrategy> => {
+export const createCopingStrategy = async (
+  userId: string,
+  data: Partial<CopingStrategy>
+): Promise<CopingStrategy> => {
   const sql = `
     INSERT INTO coping_strategies (user_id, name, category, description,
       effectiveness_rating, instructions, when_to_use, resources, is_favorite)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     RETURNING *`;
-  
+
   const values = [
     userId,
     data.name,
@@ -369,11 +393,11 @@ export const createCopingStrategy = async (userId: string, data: Partial<CopingS
     data.instructions || null,
     data.when_to_use || null,
     JSON.stringify(data.resources || []),
-    data.is_favorite || false
+    data.is_favorite || false,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<CopingStrategy>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -384,34 +408,49 @@ export const getUserCopingStrategies = async (userId: string): Promise<CopingStr
     SELECT * FROM coping_strategies 
     WHERE user_id = $1 AND is_active = true
     ORDER BY is_favorite DESC, effectiveness_rating DESC NULLS LAST`;
-  const result = await query(sql, [userId]);
+  const result = await query<CopingStrategy>(sql, [userId]);
   return result.rows;
 };
 
 /**
  * Obtener estrategias por categoría
  */
-export const getStrategiesByCategory = async (userId: string, category: string): Promise<CopingStrategy[]> => {
+export const getStrategiesByCategory = async (
+  userId: string,
+  category: string
+): Promise<CopingStrategy[]> => {
   const sql = `
     SELECT * FROM coping_strategies 
     WHERE user_id = $1 AND category = $2 AND is_active = true
     ORDER BY effectiveness_rating DESC NULLS LAST`;
-  const result = await query(sql, [userId, category]);
+  const result = await query<CopingStrategy>(sql, [userId, category]);
   return result.rows;
 };
 
 /**
  * Actualizar estrategia
  */
-export const updateCopingStrategy = async (id: string, data: Partial<CopingStrategy>): Promise<CopingStrategy | null> => {
+export const updateCopingStrategy = async (
+  id: string,
+  data: Partial<CopingStrategy>
+): Promise<CopingStrategy | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'name', 'category', 'description', 'effectiveness_rating', 
-    'times_used', 'times_successful', 'success_rate', 'instructions', 
-    'when_to_use', 'resources', 'is_active', 'is_favorite'
+    'name',
+    'category',
+    'description',
+    'effectiveness_rating',
+    'times_used',
+    'times_successful',
+    'success_rate',
+    'instructions',
+    'when_to_use',
+    'resources',
+    'is_active',
+    'is_favorite',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -430,8 +469,8 @@ export const updateCopingStrategy = async (id: string, data: Partial<CopingStrat
 
   values.push(id);
   const sql = `UPDATE coping_strategies SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<CopingStrategy>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -447,7 +486,7 @@ export const recordStrategyUsage = async (
   const sql = `
     INSERT INTO strategy_usage (user_id, strategy_id, craving_id, was_effective)
     VALUES ($1, $2, $3, $4)`;
-  
+
   await query(sql, [userId, strategyId, cravingId, wasEffective]);
 
   // Actualizar contador de la estrategia
@@ -460,7 +499,7 @@ export const recordStrategyUsage = async (
           ELSE 0
         END
     WHERE id = $2`;
-  
+
   await query(updateSql, [wasEffective, strategyId]);
 };
 
@@ -480,13 +519,16 @@ export const deleteCopingStrategy = async (id: string): Promise<boolean> => {
 /**
  * Crear desencadenante
  */
-export const createCravingTrigger = async (userId: string, data: Partial<CravingTrigger>): Promise<CravingTrigger> => {
+export const createCravingTrigger = async (
+  userId: string,
+  data: Partial<CravingTrigger>
+): Promise<CravingTrigger> => {
   const sql = `
     INSERT INTO craving_triggers (user_id, trigger_type, trigger_description,
       frequency, avg_intensity_when_triggered, consumption_probability, status, context_notes)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     RETURNING *`;
-  
+
   const values = [
     userId,
     data.trigger_type,
@@ -495,11 +537,11 @@ export const createCravingTrigger = async (userId: string, data: Partial<Craving
     data.avg_intensity_when_triggered || null,
     data.consumption_probability || null,
     data.status || 'active',
-    data.context_notes || null
+    data.context_notes || null,
   ];
 
-  const result = await query(sql, values);
-  return result.rows[0];
+  const result = await query<CravingTrigger>(sql, values);
+  return result.rows[0]!;
 };
 
 /**
@@ -510,21 +552,27 @@ export const getUserCravingTriggers = async (userId: string): Promise<CravingTri
     SELECT * FROM craving_triggers 
     WHERE user_id = $1 AND status = 'active'
     ORDER BY consumption_probability DESC NULLS LAST`;
-  const result = await query(sql, [userId]);
+  const result = await query<CravingTrigger>(sql, [userId]);
   return result.rows;
 };
 
 /**
  * Actualizar desencadenante
  */
-export const updateCravingTrigger = async (id: string, data: Partial<CravingTrigger>): Promise<CravingTrigger | null> => {
+export const updateCravingTrigger = async (
+  id: string,
+  data: Partial<CravingTrigger>
+): Promise<CravingTrigger | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
 
   const allowedFields = [
-    'frequency', 'avg_intensity_when_triggered', 
-    'consumption_probability', 'status', 'context_notes'
+    'frequency',
+    'avg_intensity_when_triggered',
+    'consumption_probability',
+    'status',
+    'context_notes',
   ];
 
   for (const [key, value] of Object.entries(data)) {
@@ -539,8 +587,8 @@ export const updateCravingTrigger = async (id: string, data: Partial<CravingTrig
 
   values.push(id);
   const sql = `UPDATE craving_triggers SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
-  
-  const result = await query(sql, values);
+
+  const result = await query<CravingTrigger>(sql, values);
   return result.rows[0] || null;
 };
 
@@ -560,7 +608,9 @@ export const deleteCravingTrigger = async (id: string): Promise<boolean> => {
 /**
  * Obtener estadísticas de cravings
  */
-export const getCravingStats = async (userId: string, days = 30): Promise<{
+export const getCravingStats = async (
+  userId: string
+): Promise<{
   totalCravings: number;
   resistedCravings: number;
   managedCravings: number;
@@ -578,8 +628,14 @@ export const getCravingStats = async (userId: string, days = 30): Promise<{
       AVG(intensity) as avg_intensity
     FROM cravings
     WHERE user_id = $1 AND craving_start_time >= CURRENT_DATE - INTERVAL '30 days'`;
-  
-  const result = await query(sql, [userId]);
+
+  const result = await query<{
+    total: string;
+    resisted: string;
+    managed: string;
+    surrendered: string;
+    avg_intensity: string;
+  }>(sql, [userId]);
   const row = result.rows[0];
 
   // Obtener principales desencadenantes
@@ -590,15 +646,15 @@ export const getCravingStats = async (userId: string, days = 30): Promise<{
     GROUP BY trigger_element
     ORDER BY count DESC
     LIMIT 5`;
-  const triggersResult = await query(triggersSql, [userId]);
+  const triggersResult = await query<{ trigger_name: string }>(triggersSql, [userId]);
 
   return {
-    totalCravings: parseInt(row.total) || 0,
-    resistedCravings: parseInt(row.resisted) || 0,
-    managedCravings: parseInt(row.managed) || 0,
-    surrenderedCravings: parseInt(row.surrendered) || 0,
-    averageIntensity: parseFloat(row.avg_intensity) || 0,
-    topTriggers: triggersResult.rows.map(r => r.trigger_name),
-    topStrategies: []
+    totalCravings: parseInt(row?.total || '0'),
+    resistedCravings: parseInt(row?.resisted || '0'),
+    managedCravings: parseInt(row?.managed || '0'),
+    surrenderedCravings: parseInt(row?.surrendered || '0'),
+    averageIntensity: parseFloat(row?.avg_intensity || '0'),
+    topTriggers: triggersResult.rows.map((r) => r.trigger_name),
+    topStrategies: [],
   };
 };

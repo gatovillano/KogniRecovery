@@ -14,13 +14,15 @@ export const addConsumption = async (req: Request, res: Response): Promise<void>
     }
 
     if (!data.substance_name || !data.quantity) {
-      res.status(400).json({ success: false, message: 'Faltan campos requeridos (substance_name, quantity)' });
+      res
+        .status(400)
+        .json({ success: false, message: 'Faltan campos requeridos (substance_name, quantity)' });
       return;
     }
 
     const event = await consumptionModel.createConsumptionEvent(userId, {
       ...data,
-      consumed_at: data.consumed_at ? new Date(data.consumed_at) : new Date()
+      consumed_at: data.consumed_at ? new Date(data.consumed_at) : new Date(),
     });
 
     res.status(201).json({ success: true, data: event });
@@ -73,7 +75,8 @@ export const getDailyVariation = async (req: Request, res: Response): Promise<vo
   try {
     const authReq = req as AuthRequest;
     const userId = authReq.user?.userId;
-    const dateStr = (req.query.date as string) || new Date().toISOString().split('T')[0];
+    const queryDate = req.query.date as string | undefined;
+    const dateStr = (queryDate ?? new Date().toISOString().split('T')[0]) as string;
 
     if (!userId) {
       res.status(401).json({ success: false, message: 'Usuario no autenticado' });

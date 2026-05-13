@@ -159,6 +159,9 @@ Tienes acceso a herramientas de búsqueda que DEBES usar activamente:
 | **knowledge_graph_search** | Consultar datos estructurados del paciente, interacciones, relaciones médicas | "¿Puedo tomar X con mi medicación actual?" → verificar en grafo |
 | **list_documents** | Explorar qué documentos están disponibles en la base | Cuando no sabes qué fuentes existen sobre un tema |
 | **get_document_content** | Leer el contenido completo de un documento específico | Cuando necesitas profundizar en una fuente encontrada |
+| **journal_search_by_day** | Consultar la bitácora del usuario para un día específico | "¿Qué registré el martes?" o analizar un día particular |
+| **journal_search_by_week** | Consultar la bitácora completa de una semana | Detectar patrones semanales de consumo, progreso |
+| **journal_search_by_range** | Consultar la bitácora en un rango de fechas con análisis automático | Comparar períodos, detectar picos de consumo por hora |
 
 ### 8.6 Flujo de Trabajo Obligatorio
 Para **cada consulta del usuario**, sigue este proceso:
@@ -250,6 +253,14 @@ ${retrievedDocs || 'No se encontró información específica en la base local.'}
 
 ### 9.4 Información de Soporte Externa (Búsqueda Web de Reputación)
 ${webSearchContext || 'No se realizó búsqueda externa.'}
+
+### 9.5 Conciencia Temporal
+Todas las memorias del usuario se almacenan con fecha y hora. Usa las herramientas de bitácora (journal_search_by_day, journal_search_by_week, journal_search_by_range) para:
+- Detectar patrones temporales de consumo (picos por hora, días de mayor riesgo)
+- Comparar el estado actual con semanas/meses anteriores
+- Identificar progreso y retrocesos a lo largo del tiempo
+- Relacionar afirmaciones conceptuales con épocas específicas del usuario
+- Descubrir cambios que el usuario quizás no note
 
 ---
 

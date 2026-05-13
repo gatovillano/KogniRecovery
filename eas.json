@@ -7,6 +7,11 @@
       "developmentClient": true,
       "distribution": "internal"
     },
+    "local": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "preview": {
       "android": {
         "buildType": "apk"
@@ -15,7 +20,14 @@
         "EXPO_PUBLIC_API_URL": "https://apirecovery.cuerpolibre.cl"
       }
     },
-    "production": {}
+    "production": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://apirecovery.cuerpolibre.cl"
+      }
+    }
   },
   "submit": {
     "production": {}

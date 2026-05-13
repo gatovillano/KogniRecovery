@@ -30,7 +30,7 @@ export const createProfile = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -40,12 +40,20 @@ export const createProfile = async (
     if (existingProfile) {
       res.status(409).json({
         success: false,
-        error: { code: 'PROFILE_EXISTS', message: 'El usuario ya tiene un perfil' }
+        error: { code: 'PROFILE_EXISTS', message: 'El usuario ya tiene un perfil' },
       });
       return;
     }
 
     const profile = await profileModel.createProfile(userId, req.body);
+
+    if (!profile) {
+      res.status(500).json({
+        success: false,
+        error: { code: 'INTERNAL_ERROR', message: 'Failed to create profile' },
+      });
+      return;
+    }
 
     // Crear configuración de perfil por defecto
     await profileModel.createProfileSettings(profile.id, {});
@@ -53,7 +61,7 @@ export const createProfile = async (
     res.status(201).json({
       success: true,
       data: profile,
-      message: 'Perfil creado exitosamente'
+      message: 'Perfil creado exitosamente',
     });
   } catch (error) {
     next(error);
@@ -82,7 +90,7 @@ export const getMyProfile = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -98,7 +106,17 @@ export const getMyProfile = async (
         preferred_language: 'es',
       });
       // Crear configuración por defecto
-      await profileModel.createProfileSettings(profile.id, {});
+      if (profile) {
+        await profileModel.createProfileSettings(profile.id, {});
+      }
+    }
+
+    if (!profile) {
+      res.status(500).json({
+        success: false,
+        error: { code: 'INTERNAL_ERROR', message: 'Failed to obtain profile' },
+      });
+      return;
     }
 
     // Obtener configuración de perfil
@@ -116,8 +134,8 @@ export const getMyProfile = async (
       data: {
         ...profile,
         settings,
-        substance_preferences: substances
-      }
+        substance_preferences: substances,
+      },
     });
   } catch (error) {
     next(error);
@@ -140,14 +158,14 @@ export const getProfileById = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
 
     res.json({
       success: true,
-      data: profile
+      data: profile,
     });
   } catch (error) {
     next(error);
@@ -174,7 +192,7 @@ export const updateMyProfile = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -184,7 +202,7 @@ export const updateMyProfile = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
@@ -194,7 +212,7 @@ export const updateMyProfile = async (
     res.json({
       success: true,
       data: updatedProfile,
-      message: 'Perfil actualizado exitosamente'
+      message: 'Perfil actualizado exitosamente',
     });
   } catch (error) {
     next(error);
@@ -221,7 +239,7 @@ export const getProfileSettings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -231,7 +249,7 @@ export const getProfileSettings = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
@@ -240,7 +258,7 @@ export const getProfileSettings = async (
 
     res.json({
       success: true,
-      data: settings
+      data: settings,
     });
   } catch (error) {
     next(error);
@@ -263,7 +281,7 @@ export const updateProfileSettings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -273,7 +291,7 @@ export const updateProfileSettings = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
@@ -289,7 +307,7 @@ export const updateProfileSettings = async (
     res.json({
       success: true,
       data: settings,
-      message: 'Configuración actualizada exitosamente'
+      message: 'Configuración actualizada exitosamente',
     });
   } catch (error) {
     next(error);
@@ -316,7 +334,7 @@ export const addSubstancePreference = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -326,17 +344,18 @@ export const addSubstancePreference = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
 
-    const { substance_name, substance_id, current_status, use_frequency, target_cease_date } = req.body;
+    const { substance_name, substance_id, current_status, use_frequency, target_cease_date } =
+      req.body;
 
     if (!substance_name) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Nombre de sustancia requerido' }
+        error: { code: 'VALIDATION_ERROR', message: 'Nombre de sustancia requerido' },
       });
       return;
     }
@@ -346,13 +365,13 @@ export const addSubstancePreference = async (
       substance_id,
       current_status,
       use_frequency,
-      target_cease_date
+      target_cease_date,
     });
 
     res.status(201).json({
       success: true,
       data: preference,
-      message: 'Preferencia de sustancia agregada'
+      message: 'Preferencia de sustancia agregada',
     });
   } catch (error) {
     next(error);
@@ -375,7 +394,7 @@ export const getSubstancePreferences = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -385,7 +404,7 @@ export const getSubstancePreferences = async (
     if (!profile) {
       res.status(404).json({
         success: false,
-        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' }
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Perfil no encontrado' },
       });
       return;
     }
@@ -394,7 +413,7 @@ export const getSubstancePreferences = async (
 
     res.json({
       success: true,
-      data: preferences
+      data: preferences,
     });
   } catch (error) {
     next(error);
@@ -418,7 +437,7 @@ export const updateSubstancePreference = async (
     if (!preference) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Preferencia de sustancia no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Preferencia de sustancia no encontrada' },
       });
       return;
     }
@@ -426,7 +445,7 @@ export const updateSubstancePreference = async (
     res.json({
       success: true,
       data: preference,
-      message: 'Preferencia actualizada'
+      message: 'Preferencia actualizada',
     });
   } catch (error) {
     next(error);
@@ -450,14 +469,14 @@ export const deleteSubstancePreference = async (
     if (!deleted) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Preferencia de sustancia no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Preferencia de sustancia no encontrada' },
       });
       return;
     }
 
     res.json({
       success: true,
-      message: 'Preferencia eliminada'
+      message: 'Preferencia eliminada',
     });
   } catch (error) {
     next(error);
@@ -482,7 +501,7 @@ export const determineProfileType = async (
 
     res.json({
       success: true,
-      data: { profile_type: profileType }
+      data: { profile_type: profileType },
     });
   } catch (error) {
     next(error);
@@ -509,18 +528,49 @@ export const updateAISettings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { llm_provider, llm_model, llm_api_key } = req.body;
 
+    // Permitir restablecer a configuración por defecto del sistema
+    if (llm_provider === 'default' || llm_model === 'default') {
+      // Limpiar configuración personalizada para usar la config global del sistema
+      const updateData: any = {
+        llm_provider: null,
+        llm_model: null,
+        llm_api_key: null,
+      };
+      const updatedUser = await userModel.update(userId, updateData);
+
+      if (!updatedUser) {
+        res.status(404).json({
+          success: false,
+          error: { code: 'USER_NOT_FOUND', message: 'Usuario no encontrado' },
+        });
+        return;
+      }
+
+      res.json({
+        success: true,
+        message:
+          'Configuración restablecida a modelo por defecto del sistema (OpenRouter gratuito)',
+        data: {
+          provider: null,
+          model: null,
+          usingSystemDefault: true,
+        },
+      });
+      return;
+    }
+
     // Validaciones básicas
     if (!llm_provider || !llm_model) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Proveedor y modelo son requeridos' }
+        error: { code: 'VALIDATION_ERROR', message: 'Proveedor y modelo son requeridos' },
       });
       return;
     }
@@ -528,7 +578,7 @@ export const updateAISettings = async (
     // Preparar objeto de actualización
     const updateData: any = {
       llm_provider,
-      llm_model
+      llm_model,
     };
 
     // Encriptar API Key si se proporciona una nueva
@@ -541,7 +591,7 @@ export const updateAISettings = async (
     if (!updatedUser) {
       res.status(404).json({
         success: false,
-        error: { code: 'USER_NOT_FOUND', message: 'Usuario no encontrado' }
+        error: { code: 'USER_NOT_FOUND', message: 'Usuario no encontrado' },
       });
       return;
     }
@@ -551,8 +601,8 @@ export const updateAISettings = async (
       message: 'Configuración de IA actualizada exitosamente',
       data: {
         provider: updatedUser.llm_provider,
-        model: updatedUser.llm_model
-      }
+        model: updatedUser.llm_model,
+      },
     });
   } catch (error) {
     next(error);
@@ -579,8 +629,8 @@ export const getAIModels = async (
           { id: 'gpt-4-turbo', name: 'GPT-4 Turbo' },
           { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo (Más rápido)' },
           { id: 'o1-preview', name: 'OpenAI o1 Preview' },
-          { id: 'o1-mini', name: 'OpenAI o1 Mini' }
-        ]
+          { id: 'o1-mini', name: 'OpenAI o1 Mini' },
+        ],
       });
       return;
     }
@@ -589,18 +639,18 @@ export const getAIModels = async (
       try {
         const response = await fetch('https://openrouter.ai/api/v1/models');
         const data = await response.json();
-        
+
         if (data && data.data) {
           const models = data.data.map((m: any) => ({
             id: m.id,
             name: m.name || m.id,
             context_length: m.context_length,
-            pricing: m.pricing
+            pricing: m.pricing,
           }));
-          
+
           res.json({
             success: true,
-            data: models
+            data: models,
           });
           return;
         }
@@ -614,8 +664,8 @@ export const getAIModels = async (
       success: true,
       data: [
         { id: 'gpt-4o', name: 'GPT-4o' },
-        { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo' }
-      ]
+        { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo' },
+      ],
     });
   } catch (error) {
     next(error);

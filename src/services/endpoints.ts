@@ -3,9 +3,31 @@
  * Constantes con las URLs del backend
  */
 
+import { Platform } from 'react-native';
+
 // URL base del API desde variables de entorno
 // En Expo, las variables de entorno se acceden via process.env
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+const DEFAULT_API_PORT = '3003';
+
+const normalizeApiUrl = (url: string): string => url.replace(/\/+$/, '');
+
+const getDefaultApiUrl = (): string => {
+  if (Platform.OS === 'android') {
+    return `http://10.0.2.2:${DEFAULT_API_PORT}`;
+  }
+
+  return `http://localhost:${DEFAULT_API_PORT}`;
+};
+
+const configuredApiUrl = process.env.EXPO_PUBLIC_API_URL?.trim();
+const API_URL = normalizeApiUrl(configuredApiUrl || getDefaultApiUrl());
+
+if (Platform.OS === 'android' && !configuredApiUrl) {
+  console.warn(
+    '⚠️ [Config] EXPO_PUBLIC_API_URL no está definida. Se usará 10.0.2.2 como fallback para emulador Android. En un dispositivo físico debes usar la IP LAN del servidor, por ejemplo http://192.168.1.84:3003.'
+  );
+}
+
 console.log('🌐 [Config] API_URL cargada:', API_URL);
 const API_VERSION = 'v1';
 

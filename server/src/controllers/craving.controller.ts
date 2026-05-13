@@ -28,17 +28,17 @@ export const createCraving = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { substance_name, substance_id, intensity, triggers } = req.body;
-    
+
     if (!substance_name || !intensity) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Nombre de sustancia e intensidad requeridos' }
+        error: { code: 'VALIDATION_ERROR', message: 'Nombre de sustancia e intensidad requeridos' },
       });
       return;
     }
@@ -46,7 +46,7 @@ export const createCraving = async (
     if (intensity < 1 || intensity > 10) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Intensidad debe estar entre 1 y 10' }
+        error: { code: 'VALIDATION_ERROR', message: 'Intensidad debe estar entre 1 y 10' },
       });
       return;
     }
@@ -56,13 +56,13 @@ export const createCraving = async (
       substance_id,
       intensity,
       triggers,
-      status: 'active'
+      status: 'active',
     });
 
     res.status(201).json({
       success: true,
       data: craving,
-      message: 'Craving registrado'
+      message: 'Craving registrado',
     });
   } catch (error) {
     next(error);
@@ -85,7 +85,7 @@ export const getCravings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -103,9 +103,9 @@ export const getCravings = async (
           page,
           limit,
           total,
-          pages: Math.ceil(total / limit)
-        }
-      }
+          pages: Math.ceil(total / limit),
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -128,7 +128,7 @@ export const getActiveCravings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -137,7 +137,7 @@ export const getActiveCravings = async (
 
     res.json({
       success: true,
-      data: cravings
+      data: cravings,
     });
   } catch (error) {
     next(error);
@@ -160,7 +160,7 @@ export const getRecentCravings = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -170,7 +170,7 @@ export const getRecentCravings = async (
 
     res.json({
       success: true,
-      data: cravings
+      data: cravings,
     });
   } catch (error) {
     next(error);
@@ -188,19 +188,69 @@ export const getCravingById = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const craving = await cravingModel.getCravingById(id);
 
     if (!craving) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Craving no encontrado' }
+        error: { code: 'NOT_FOUND', message: 'Craving no encontrado' },
       });
       return;
     }
 
     res.json({
       success: true,
-      data: craving
+      data: craving,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * PUT /api/v1/cravings/:id
+ * Actualizar un craving existente
+ */
+export const updateCraving = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
+
+    // Mapear el status si viene del frontend como 'given_in' o 'resisted'
+    const data = { ...req.body };
+    if (data.status === 'given_in') data.status = 'surrendered';
+
+    const craving = await cravingModel.updateCraving(id, data);
+
+    if (!craving) {
+      res.status(404).json({
+        success: false,
+        error: { code: 'NOT_FOUND', message: 'Craving no encontrado' },
+      });
+      return;
+    }
+
+    res.json({
+      success: true,
+      data: craving,
+      message: 'Craving actualizado',
     });
   } catch (error) {
     next(error);
@@ -218,12 +268,19 @@ export const resolveCraving = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const { status, strategies, outcome } = req.body;
 
     if (!status || !['managed', 'resisted', 'surrendered'].includes(status)) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Estado inválido' }
+        error: { code: 'VALIDATION_ERROR', message: 'Estado inválido' },
       });
       return;
     }
@@ -233,7 +290,7 @@ export const resolveCraving = async (
     if (!craving) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Craving no encontrado' }
+        error: { code: 'NOT_FOUND', message: 'Craving no encontrado' },
       });
       return;
     }
@@ -241,9 +298,12 @@ export const resolveCraving = async (
     res.json({
       success: true,
       data: craving,
-      message: status === 'resisted' ? '¡Felicidades por resistir!' : 
-              status === 'managed' ? 'Craving manejado exitosamente' : 
-              'Craving registrado'
+      message:
+        status === 'resisted'
+          ? '¡Felicidades por resistir!'
+          : status === 'managed'
+            ? 'Craving manejado exitosamente'
+            : 'Craving registrado',
     });
   } catch (error) {
     next(error);
@@ -270,17 +330,17 @@ export const createStrategy = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { name, category, description, instructions, when_to_use } = req.body;
-    
+
     if (!name || !category) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Nombre y categoría requeridos' }
+        error: { code: 'VALIDATION_ERROR', message: 'Nombre y categoría requeridos' },
       });
       return;
     }
@@ -290,13 +350,13 @@ export const createStrategy = async (
       category,
       description,
       instructions,
-      when_to_use
+      when_to_use,
     });
 
     res.status(201).json({
       success: true,
       data: strategy,
-      message: 'Estrategia creada'
+      message: 'Estrategia creada',
     });
   } catch (error) {
     next(error);
@@ -319,7 +379,7 @@ export const getStrategies = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -328,7 +388,7 @@ export const getStrategies = async (
 
     res.json({
       success: true,
-      data: strategies
+      data: strategies,
     });
   } catch (error) {
     next(error);
@@ -351,17 +411,24 @@ export const getStrategiesByCategory = async (
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { category } = req.params;
+    if (typeof category !== 'string' || !category) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'Categoría requerida' },
+      });
+      return;
+    }
     const strategies = await cravingModel.getStrategiesByCategory(userId, category);
 
     res.json({
       success: true,
-      data: strategies
+      data: strategies,
     });
   } catch (error) {
     next(error);
@@ -379,12 +446,19 @@ export const updateStrategy = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const strategy = await cravingModel.updateCopingStrategy(id, req.body);
 
     if (!strategy) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Estrategia no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Estrategia no encontrada' },
       });
       return;
     }
@@ -392,7 +466,7 @@ export const updateStrategy = async (
     res.json({
       success: true,
       data: strategy,
-      message: 'Estrategia actualizada'
+      message: 'Estrategia actualizada',
     });
   } catch (error) {
     next(error);
@@ -410,19 +484,26 @@ export const deleteStrategy = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID requerido' },
+      });
+      return;
+    }
     const deleted = await cravingModel.deleteCopingStrategy(id);
 
     if (!deleted) {
       res.status(404).json({
         success: false,
-        error: { code: 'NOT_FOUND', message: 'Estrategia no encontrada' }
+        error: { code: 'NOT_FOUND', message: 'Estrategia no encontrada' },
       });
       return;
     }
 
     res.json({
       success: true,
-      message: 'Estrategia eliminada'
+      message: 'Estrategia eliminada',
     });
   } catch (error) {
     next(error);
@@ -440,24 +521,39 @@ export const recordStrategyUsage = async (
 ): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
-    const userId = authReq.user?.id;
+    const userId = authReq.user?.userId;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { id } = req.params;
+    if (typeof id !== 'string' || !id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'ID de estrategia requerido' },
+      });
+      return;
+    }
     const { craving_id, was_effective } = req.body;
+
+    if (typeof craving_id !== 'string' || !craving_id) {
+      res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'craving_id requerido' },
+      });
+      return;
+    }
 
     await cravingModel.recordStrategyUsage(userId, id, craving_id, was_effective);
 
     res.json({
       success: true,
-      message: was_effective ? '¡Qué bien funcionó!' : 'La próxima vez será'
+      message: was_effective ? '¡Qué bien funcionó!' : 'La próxima vez será',
     });
   } catch (error) {
     next(error);
@@ -479,12 +575,12 @@ export const getTriggers = async (
 ): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
-    const userId = authReq.user?.id;
+    const userId = authReq.user?.userId;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -493,7 +589,7 @@ export const getTriggers = async (
 
     res.json({
       success: true,
-      data: triggers
+      data: triggers,
     });
   } catch (error) {
     next(error);
@@ -511,22 +607,22 @@ export const createTrigger = async (
 ): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
-    const userId = authReq.user?.id;
+    const userId = authReq.user?.userId;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
     const { trigger_type, trigger_description, frequency, consumption_probability } = req.body;
-    
+
     if (!trigger_type || !trigger_description) {
       res.status(400).json({
         success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Tipo y descripción requeridos' }
+        error: { code: 'VALIDATION_ERROR', message: 'Tipo y descripción requeridos' },
       });
       return;
     }
@@ -535,13 +631,13 @@ export const createTrigger = async (
       trigger_type,
       trigger_description,
       frequency,
-      consumption_probability
+      consumption_probability,
     });
 
     res.status(201).json({
       success: true,
       data: trigger,
-      message: 'Desencadenante creado'
+      message: 'Desencadenante creado',
     });
   } catch (error) {
     next(error);
@@ -563,22 +659,21 @@ export const getCravingStats = async (
 ): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
-    const userId = authReq.user?.id;
+    const userId = authReq.user?.userId;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
 
-    const days = parseInt(req.query.days as string) || 30;
-    const stats = await cravingModel.getCravingStats(userId, days);
+    const stats = await cravingModel.getCravingStats(userId);
 
     res.json({
       success: true,
-      data: stats
+      data: stats,
     });
   } catch (error) {
     next(error);
@@ -600,12 +695,12 @@ export const getCravingPatterns = async (
 ): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
-    const userId = authReq.user?.id;
+    const userId = authReq.user?.userId;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' }
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
       });
       return;
     }
@@ -614,7 +709,7 @@ export const getCravingPatterns = async (
 
     res.json({
       success: true,
-      data: patterns
+      data: patterns,
     });
   } catch (error) {
     next(error);

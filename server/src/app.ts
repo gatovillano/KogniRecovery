@@ -7,7 +7,9 @@ import express, { Application, Request, Response } from 'express';
 import { corsMiddleware } from './middleware/cors.js';
 import { errorHandler, notFoundHandler } from './middleware/error.js';
 import apiRouter from './routes/index.js';
-import { server as serverConfig, isDevelopment } from './config/index.js';
+import { server as serverConfig, rateLimit as rateLimitConfig, isDevelopment } from './config/index.js';
+import { securityMiddleware } from './middleware/security.js';
+import rateLimit from 'express-rate-limit';
 
 // =====================================================
 // CREAR APP
@@ -15,6 +17,44 @@ import { server as serverConfig, isDevelopment } from './config/index.js';
 
 export const createApp = (): Application => {
   const app = express();
+
+  // =====================================================
+  // MIDDLEWARES DE SEGURIDAD (SEC-010 FIX: aplicar antes que rutas)
+  // =====================================================
+
+  // Helmet + HSTS + CSP + headers de seguridad HTTP
+  app.use(securityMiddleware);
+
+  // =====================================================
+  // RATE LIMITING (SEC-011 FIX: montar en Express)
+  // =====================================================
+
+  // Rate limiter global
+  const globalLimiter = rateLimit({
+    windowMs: rateLimitConfig.windowMs,       // 15 min por defecto
+    max: rateLimitConfig.maxRequests,          // 100 req/ventana por defecto
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      success: false,
+      error: 'Demasiadas solicitudes. Intenta nuevamente más tarde.',
+    },
+  });
+
+  // Rate limiter estricto para auth endpoints
+  const authLimiter = rateLimit({
+    windowMs: rateLimitConfig.authWindowMs,   // 1 min por defecto
+    max: rateLimitConfig.authMax,              // 5 intentos por defecto
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      success: false,
+      error: 'Demasiados intentos de autenticación. Intenta en 1 minuto.',
+    },
+  });
+
+  app.use(globalLimiter);
+  app.use('/api/v1/auth', authLimiter);
 
   // =====================================================
   // MIDDLEWARES BÁSICOS
@@ -26,7 +66,7 @@ export const createApp = (): Application => {
   // Body parser - URL encoded
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-  // Logger simple
+  // Logger simple (nunca loguear body en producción)
   app.use((req, res, next) => {
     res.on('finish', () => {
       if (isDevelopment()) {

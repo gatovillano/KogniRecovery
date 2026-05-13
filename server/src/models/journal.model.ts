@@ -14,6 +14,7 @@ export interface DailyNote {
   user_id: string;
   content: string;
   note_date: Date;
+  entry_time: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -24,6 +25,7 @@ export interface HabitEntry {
   protective_habits: string;
   risk_habits: string;
   entry_date: Date;
+  entry_time: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -34,6 +36,7 @@ export interface SocialEntry {
   people_description: string;
   impact_assessment: string;
   entry_date: Date;
+  entry_time: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -43,7 +46,9 @@ export interface ConsumptionAnalysis {
   user_id: string;
   trigger_situation: string;
   action_taken: string;
+  lesson_learned: string;
   entry_date: Date;
+  entry_time: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -52,12 +57,21 @@ export interface ConsumptionAnalysis {
 // NOTAS DIARIAS
 // =====================================================
 
-export const createDailyNote = async (userId: string, data: { content: string; note_date?: string }): Promise<DailyNote> => {
+export const createDailyNote = async (
+  userId: string,
+  data: { content: string; note_date?: string; entry_time?: string }
+): Promise<DailyNote> => {
+  const now = new Date();
   const sql = `
-    INSERT INTO daily_notes (user_id, content, note_date)
-    VALUES ($1, $2, $3)
+    INSERT INTO daily_notes (user_id, content, note_date, entry_time)
+    VALUES ($1, $2, $3, $4)
     RETURNING *`;
-  const result = await query(sql, [userId, data.content, data.note_date || new Date().toISOString().split('T')[0]]);
+  const result = await query(sql, [
+    userId,
+    data.content,
+    data.note_date || now.toISOString().split('T')[0],
+    data.entry_time || now.toTimeString().split(' ')[0],
+  ]);
   return result.rows[0] as DailyNote;
 };
 
@@ -68,11 +82,18 @@ export const getDailyNotes = async (userId: string, limit = 20): Promise<DailyNo
 };
 
 export const deleteDailyNote = async (id: string, userId: string): Promise<boolean> => {
-  const result = await query(`DELETE FROM daily_notes WHERE id = $1 AND user_id = $2`, [id, userId]);
+  const result = await query(`DELETE FROM daily_notes WHERE id = $1 AND user_id = $2`, [
+    id,
+    userId,
+  ]);
   return (result.rowCount ?? 0) > 0;
 };
 
-export const updateDailyNote = async (id: string, userId: string, data: { content: string; note_date?: string }): Promise<DailyNote | null> => {
+export const updateDailyNote = async (
+  id: string,
+  userId: string,
+  data: { content: string; note_date?: string }
+): Promise<DailyNote | null> => {
   const sql = `
     UPDATE daily_notes 
     SET content = $1, note_date = COALESCE($2, note_date), updated_at = CURRENT_TIMESTAMP
@@ -86,12 +107,22 @@ export const updateDailyNote = async (id: string, userId: string, data: { conten
 // HÁBITOS
 // =====================================================
 
-export const createHabitEntry = async (userId: string, data: { protective_habits: string; risk_habits: string; entry_date?: string }): Promise<HabitEntry> => {
+export const createHabitEntry = async (
+  userId: string,
+  data: { protective_habits: string; risk_habits: string; entry_date?: string; entry_time?: string }
+): Promise<HabitEntry> => {
+  const now = new Date();
   const sql = `
-    INSERT INTO habit_entries (user_id, protective_habits, risk_habits, entry_date)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO habit_entries (user_id, protective_habits, risk_habits, entry_date, entry_time)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
-  const result = await query(sql, [userId, data.protective_habits, data.risk_habits, data.entry_date || new Date().toISOString().split('T')[0]]);
+  const result = await query(sql, [
+    userId,
+    data.protective_habits,
+    data.risk_habits,
+    data.entry_date || now.toISOString().split('T')[0],
+    data.entry_time || now.toTimeString().split(' ')[0],
+  ]);
   return result.rows[0] as HabitEntry;
 };
 
@@ -102,17 +133,30 @@ export const getHabitEntries = async (userId: string, limit = 20): Promise<Habit
 };
 
 export const deleteHabitEntry = async (id: string, userId: string): Promise<boolean> => {
-  const result = await query(`DELETE FROM habit_entries WHERE id = $1 AND user_id = $2`, [id, userId]);
+  const result = await query(`DELETE FROM habit_entries WHERE id = $1 AND user_id = $2`, [
+    id,
+    userId,
+  ]);
   return (result.rowCount ?? 0) > 0;
 };
 
-export const updateHabitEntry = async (id: string, userId: string, data: { protective_habits: string; risk_habits: string; entry_date?: string }): Promise<HabitEntry | null> => {
+export const updateHabitEntry = async (
+  id: string,
+  userId: string,
+  data: { protective_habits: string; risk_habits: string; entry_date?: string }
+): Promise<HabitEntry | null> => {
   const sql = `
     UPDATE habit_entries 
     SET protective_habits = $1, risk_habits = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
     WHERE id = $4 AND user_id = $5
     RETURNING *`;
-  const result = await query(sql, [data.protective_habits, data.risk_habits, data.entry_date || null, id, userId]);
+  const result = await query(sql, [
+    data.protective_habits,
+    data.risk_habits,
+    data.entry_date || null,
+    id,
+    userId,
+  ]);
   return (result.rows[0] as HabitEntry) || null;
 };
 
@@ -120,12 +164,27 @@ export const updateHabitEntry = async (id: string, userId: string, data: { prote
 // ENTORNO SOCIAL
 // =====================================================
 
-export const createSocialEntry = async (userId: string, data: { people_description: string; impact_assessment: string; entry_date?: string }): Promise<SocialEntry> => {
+export const createSocialEntry = async (
+  userId: string,
+  data: {
+    people_description: string;
+    impact_assessment: string;
+    entry_date?: string;
+    entry_time?: string;
+  }
+): Promise<SocialEntry> => {
+  const now = new Date();
   const sql = `
-    INSERT INTO social_entries (user_id, people_description, impact_assessment, entry_date)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO social_entries (user_id, people_description, impact_assessment, entry_date, entry_time)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
-  const result = await query(sql, [userId, data.people_description, data.impact_assessment, data.entry_date || new Date().toISOString().split('T')[0]]);
+  const result = await query(sql, [
+    userId,
+    data.people_description,
+    data.impact_assessment,
+    data.entry_date || now.toISOString().split('T')[0],
+    data.entry_time || now.toTimeString().split(' ')[0],
+  ]);
   return result.rows[0] as SocialEntry;
 };
 
@@ -136,17 +195,30 @@ export const getSocialEntries = async (userId: string, limit = 20): Promise<Soci
 };
 
 export const deleteSocialEntry = async (id: string, userId: string): Promise<boolean> => {
-  const result = await query(`DELETE FROM social_entries WHERE id = $1 AND user_id = $2`, [id, userId]);
+  const result = await query(`DELETE FROM social_entries WHERE id = $1 AND user_id = $2`, [
+    id,
+    userId,
+  ]);
   return (result.rowCount ?? 0) > 0;
 };
 
-export const updateSocialEntry = async (id: string, userId: string, data: { people_description: string; impact_assessment: string; entry_date?: string }): Promise<SocialEntry | null> => {
+export const updateSocialEntry = async (
+  id: string,
+  userId: string,
+  data: { people_description: string; impact_assessment: string; entry_date?: string }
+): Promise<SocialEntry | null> => {
   const sql = `
     UPDATE social_entries 
     SET people_description = $1, impact_assessment = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
     WHERE id = $4 AND user_id = $5
     RETURNING *`;
-  const result = await query(sql, [data.people_description, data.impact_assessment, data.entry_date || null, id, userId]);
+  const result = await query(sql, [
+    data.people_description,
+    data.impact_assessment,
+    data.entry_date || null,
+    id,
+    userId,
+  ]);
   return (result.rows[0] as SocialEntry) || null;
 };
 
@@ -154,33 +226,72 @@ export const updateSocialEntry = async (id: string, userId: string, data: { peop
 // ANÁLISIS DE CONSUMO / IMPULSO
 // =====================================================
 
-export const createConsumptionAnalysis = async (userId: string, data: { trigger_situation: string; action_taken: string; entry_date?: string }): Promise<ConsumptionAnalysis> => {
+export const createConsumptionAnalysis = async (
+  userId: string,
+  data: {
+    trigger_situation: string;
+    action_taken: string;
+    lesson_learned?: string;
+    entry_date?: string;
+    entry_time?: string;
+  }
+): Promise<ConsumptionAnalysis> => {
+  const now = new Date();
   const sql = `
-    INSERT INTO consumption_analysis (user_id, trigger_situation, action_taken, entry_date)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO consumption_analysis (user_id, trigger_situation, action_taken, lesson_learned, entry_date, entry_time)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *`;
-  const result = await query(sql, [userId, data.trigger_situation, data.action_taken, data.entry_date || new Date().toISOString().split('T')[0]]);
+  const result = await query(sql, [
+    userId,
+    data.trigger_situation,
+    data.action_taken,
+    data.lesson_learned || '',
+    data.entry_date || now.toISOString().split('T')[0],
+    data.entry_time || now.toTimeString().split(' ')[0],
+  ]);
   return result.rows[0] as ConsumptionAnalysis;
 };
 
-export const getConsumptionAnalyses = async (userId: string, limit = 20): Promise<ConsumptionAnalysis[]> => {
+export const getConsumptionAnalyses = async (
+  userId: string,
+  limit = 20
+): Promise<ConsumptionAnalysis[]> => {
   const sql = `SELECT * FROM consumption_analysis WHERE user_id = $1 ORDER BY entry_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
   return result.rows as ConsumptionAnalysis[];
 };
 
 export const deleteConsumptionAnalysis = async (id: string, userId: string): Promise<boolean> => {
-  const result = await query(`DELETE FROM consumption_analysis WHERE id = $1 AND user_id = $2`, [id, userId]);
+  const result = await query(`DELETE FROM consumption_analysis WHERE id = $1 AND user_id = $2`, [
+    id,
+    userId,
+  ]);
   return (result.rowCount ?? 0) > 0;
 };
 
-export const updateConsumptionAnalysis = async (id: string, userId: string, data: { trigger_situation: string; action_taken: string; entry_date?: string }): Promise<ConsumptionAnalysis | null> => {
+export const updateConsumptionAnalysis = async (
+  id: string,
+  userId: string,
+  data: {
+    trigger_situation: string;
+    action_taken: string;
+    lesson_learned?: string;
+    entry_date?: string;
+  }
+): Promise<ConsumptionAnalysis | null> => {
   const sql = `
     UPDATE consumption_analysis 
-    SET trigger_situation = $1, action_taken = $2, entry_date = COALESCE($3, entry_date), updated_at = CURRENT_TIMESTAMP
-    WHERE id = $4 AND user_id = $5
+    SET trigger_situation = $1, action_taken = $2, lesson_learned = $3, entry_date = COALESCE($4, entry_date), updated_at = CURRENT_TIMESTAMP
+    WHERE id = $5 AND user_id = $6
     RETURNING *`;
-  const result = await query(sql, [data.trigger_situation, data.action_taken, data.entry_date || null, id, userId]);
+  const result = await query(sql, [
+    data.trigger_situation,
+    data.action_taken,
+    data.lesson_learned || '',
+    data.entry_date || null,
+    id,
+    userId,
+  ]);
   return (result.rows[0] as ConsumptionAnalysis) || null;
 };
 
@@ -196,16 +307,36 @@ export interface ActivityEntry {
   feeling_during: string;
   feeling_after: string;
   entry_date: Date;
+  entry_time: string;
   created_at: Date;
   updated_at: Date;
 }
 
-export const createActivityEntry = async (userId: string, data: { activity_name: string; feeling_before: string; feeling_during: string; feeling_after: string; entry_date?: string }): Promise<ActivityEntry> => {
+export const createActivityEntry = async (
+  userId: string,
+  data: {
+    activity_name: string;
+    feeling_before: string;
+    feeling_during: string;
+    feeling_after: string;
+    entry_date?: string;
+    entry_time?: string;
+  }
+): Promise<ActivityEntry> => {
+  const now = new Date();
   const sql = `
-    INSERT INTO activity_entries (user_id, activity_name, feeling_before, feeling_during, feeling_after, entry_date)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO activity_entries (user_id, activity_name, feeling_before, feeling_during, feeling_after, entry_date, entry_time)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *`;
-  const result = await query(sql, [userId, data.activity_name, data.feeling_before, data.feeling_during, data.feeling_after, data.entry_date || new Date().toISOString().split('T')[0]]);
+  const result = await query(sql, [
+    userId,
+    data.activity_name,
+    data.feeling_before,
+    data.feeling_during,
+    data.feeling_after,
+    data.entry_date || now.toISOString().split('T')[0],
+    data.entry_time || now.toTimeString().split(' ')[0],
+  ]);
   return result.rows[0] as ActivityEntry;
 };
 
@@ -216,17 +347,38 @@ export const getActivityEntries = async (userId: string, limit = 20): Promise<Ac
 };
 
 export const deleteActivityEntry = async (id: string, userId: string): Promise<boolean> => {
-  const result = await query(`DELETE FROM activity_entries WHERE id = $1 AND user_id = $2`, [id, userId]);
+  const result = await query(`DELETE FROM activity_entries WHERE id = $1 AND user_id = $2`, [
+    id,
+    userId,
+  ]);
   return (result.rowCount ?? 0) > 0;
 };
 
-export const updateActivityEntry = async (id: string, userId: string, data: { activity_name: string; feeling_before: string; feeling_during: string; feeling_after: string; entry_date?: string }): Promise<ActivityEntry | null> => {
+export const updateActivityEntry = async (
+  id: string,
+  userId: string,
+  data: {
+    activity_name: string;
+    feeling_before: string;
+    feeling_during: string;
+    feeling_after: string;
+    entry_date?: string;
+  }
+): Promise<ActivityEntry | null> => {
   const sql = `
     UPDATE activity_entries 
     SET activity_name = $1, feeling_before = $2, feeling_during = $3, feeling_after = $4, entry_date = COALESCE($5, entry_date), updated_at = CURRENT_TIMESTAMP
     WHERE id = $6 AND user_id = $7
     RETURNING *`;
-  const result = await query(sql, [data.activity_name, data.feeling_before, data.feeling_during, data.feeling_after, data.entry_date || null, id, userId]);
+  const result = await query(sql, [
+    data.activity_name,
+    data.feeling_before,
+    data.feeling_during,
+    data.feeling_after,
+    data.entry_date || null,
+    id,
+    userId,
+  ]);
   return (result.rows[0] as ActivityEntry) || null;
 };
 
@@ -236,15 +388,25 @@ export const updateActivityEntry = async (id: string, userId: string, data: { ac
 
 export interface FeedEntry {
   id: string;
-  type: 'checkin' | 'note' | 'habit' | 'social' | 'activity' | 'analysis' | 'habit_completion' | 'substance_dose';
+  type:
+    | 'checkin'
+    | 'note'
+    | 'habit'
+    | 'social'
+    | 'activity'
+    | 'analysis'
+    | 'habit_completion'
+    | 'substance_dose'
+    | 'craving';
   entry_date: string;
+  entry_time: string | null;
   created_at: string;
   data: Record<string, any>;
 }
 
 export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEntry[]> => {
   const sql = `
-    SELECT id, 'checkin' AS type, checkin_date::text AS entry_date, created_at::text,
+    SELECT id, 'checkin' AS type, checkin_date::text AS entry_date, checkin_time::text AS entry_time, created_at::text,
       json_build_object(
         'mood_score', mood_score, 'anxiety_score', anxiety_score, 'energy_score', energy_score,
         'consumed', (consumed_substances::jsonb != '[]'::jsonb), 'notes', notes,
@@ -254,19 +416,19 @@ export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEn
 
     UNION ALL
 
-    SELECT id, 'note' AS type, note_date::text AS entry_date, created_at::text,
+    SELECT id, 'note' AS type, note_date::text AS entry_date, created_at::time::text AS entry_time, created_at::text,
       json_build_object('content', content) AS data
     FROM daily_notes WHERE user_id = $1
 
     UNION ALL
 
-    SELECT id, 'habit' AS type, entry_date::text, created_at::text,
+    SELECT id, 'habit' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
       json_build_object('protective_habits', protective_habits, 'risk_habits', risk_habits) AS data
     FROM habit_entries WHERE user_id = $1
 
     UNION ALL
 
-    SELECT hc.id, 'habit_completion' AS type, hc.completed_at::text AS entry_date, hc.created_at::text,
+    SELECT hc.id, 'habit_completion' AS type, hc.completed_at::text AS entry_date, hc.created_at::time::text AS entry_time, hc.created_at::text,
       json_build_object('habit_name', h.name, 'habit_type', h.habit_type) AS data
     FROM habit_completions hc
     JOIN habits h ON hc.habit_id = h.id
@@ -274,34 +436,238 @@ export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEn
 
     UNION ALL
 
-    SELECT id, 'social' AS type, entry_date::text, created_at::text,
+    SELECT id, 'social' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
       json_build_object('people_description', people_description, 'impact_assessment', impact_assessment) AS data
     FROM social_entries WHERE user_id = $1
 
     UNION ALL
 
-    SELECT id, 'activity' AS type, entry_date::text, created_at::text,
+    SELECT id, 'activity' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
       json_build_object('activity_name', activity_name, 'feeling_before', feeling_before,
         'feeling_during', feeling_during, 'feeling_after', feeling_after) AS data
     FROM activity_entries WHERE user_id = $1
 
     UNION ALL
 
-    SELECT id, 'analysis' AS type, entry_date::text, created_at::text,
-      json_build_object('trigger_situation', trigger_situation, 'action_taken', action_taken) AS data
+    SELECT id, 'analysis' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+      json_build_object('trigger_situation', trigger_situation, 'action_taken', action_taken, 'lesson_learned', lesson_learned) AS data
     FROM consumption_analysis WHERE user_id = $1
 
     UNION ALL
 
-    SELECT id, 'substance_dose' AS type, dose_time::date::text AS entry_date, created_at::text,
+    SELECT id, 'substance_dose' AS type, dose_time::date::text AS entry_date, dose_time::time::text AS entry_time, created_at::text,
       json_build_object('substance_name', substance_name, 'quantity', quantity, 'unit', unit,
         'dose_time', dose_time::text, 'craving_intensity', craving_intensity,
         'feelings', feelings, 'context_notes', context_notes) AS data
     FROM substance_doses WHERE user_id = $1
 
-    ORDER BY entry_date DESC, created_at DESC
+    UNION ALL
+
+    SELECT id, 'craving' AS type, craving_start_time::date::text AS entry_date, craving_start_time::time::text AS entry_time, created_at::text,
+      json_build_object('substance_name', substance_name, 'intensity', intensity,
+        'status', status, 'triggers', triggers, 'coping_strategies', coping_strategies,
+        'outcome', outcome, 'notes', notes, 'duration_minutes', duration_minutes) AS data
+    FROM cravings WHERE user_id = $1
+
+    ORDER BY entry_date DESC, entry_time DESC
     LIMIT $2
   `;
   const result = await query(sql, [userId, limit]);
+  return result.rows as FeedEntry[];
+};
+
+// =====================================================
+// BÚSQUEDA POR RANGO DE FECHAS (Bitácora)
+// =====================================================
+
+export interface JournalDateRangeParams {
+  startDate: string;
+  endDate: string;
+  types?: string[];
+}
+
+export const getJournalByDateRange = async (
+  userId: string,
+  params: JournalDateRangeParams
+): Promise<FeedEntry[]> => {
+  const { startDate, endDate, types } = params;
+  const typeFilter =
+    types && types.length > 0
+      ? types
+      : [
+          'checkin',
+          'note',
+          'habit',
+          'social',
+          'activity',
+          'analysis',
+          'habit_completion',
+          'substance_dose',
+          'craving',
+        ];
+
+  const subqueries: string[] = [];
+  const baseParams: any[] = [userId, startDate, endDate];
+
+  if (typeFilter.includes('checkin')) {
+    subqueries.push(`
+      SELECT id, 'checkin' AS type, checkin_date::text AS entry_date, checkin_time::text AS entry_time, created_at::text,
+        json_build_object(
+          'mood_score', mood_score, 'anxiety_score', anxiety_score, 'energy_score', energy_score,
+          'consumed', (consumed_substances::jsonb != '[]'::jsonb), 'notes', notes,
+          'exercised', exercised_today, 'sleep_hours', sleep_hours, 'emotional_tags', emotional_tags
+        ) AS data
+      FROM checkins WHERE user_id = $1 AND checkin_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('note')) {
+    subqueries.push(`
+      SELECT id, 'note' AS type, note_date::text AS entry_date, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('content', content) AS data
+      FROM daily_notes WHERE user_id = $1 AND note_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('habit')) {
+    subqueries.push(`
+      SELECT id, 'habit' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('protective_habits', protective_habits, 'risk_habits', risk_habits) AS data
+      FROM habit_entries WHERE user_id = $1 AND entry_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('habit_completion')) {
+    subqueries.push(`
+      SELECT hc.id, 'habit_completion' AS type, hc.completed_at::text AS entry_date, hc.created_at::time::text AS entry_time, hc.created_at::text,
+        json_build_object('habit_name', h.name, 'habit_type', h.habit_type) AS data
+      FROM habit_completions hc
+      JOIN habits h ON hc.habit_id = h.id
+      WHERE hc.user_id = $1 AND hc.completed_at BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('social')) {
+    subqueries.push(`
+      SELECT id, 'social' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('people_description', people_description, 'impact_assessment', impact_assessment) AS data
+      FROM social_entries WHERE user_id = $1 AND entry_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('activity')) {
+    subqueries.push(`
+      SELECT id, 'activity' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('activity_name', activity_name, 'feeling_before', feeling_before,
+          'feeling_during', feeling_during, 'feeling_after', feeling_after) AS data
+      FROM activity_entries WHERE user_id = $1 AND entry_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('analysis')) {
+    subqueries.push(`
+      SELECT id, 'analysis' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+      json_build_object('trigger_situation', trigger_situation, 'action_taken', action_taken, 'lesson_learned', lesson_learned) AS data
+    FROM consumption_analysis WHERE user_id = $1 AND entry_date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('substance_dose')) {
+    subqueries.push(`
+      SELECT id, 'substance_dose' AS type, dose_time::date::text AS entry_date, dose_time::time::text AS entry_time, created_at::text,
+        json_build_object('substance_name', substance_name, 'quantity', quantity, 'unit', unit,
+          'dose_time', dose_time::text, 'craving_intensity', craving_intensity,
+          'feelings', feelings, 'context_notes', context_notes) AS data
+      FROM substance_doses WHERE user_id = $1 AND dose_time::date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (typeFilter.includes('craving')) {
+    subqueries.push(`
+      SELECT id, 'craving' AS type, craving_start_time::date::text AS entry_date, craving_start_time::time::text AS entry_time, created_at::text,
+        json_build_object('substance_name', substance_name, 'intensity', intensity,
+          'status', status, 'triggers', triggers, 'coping_strategies', coping_strategies,
+          'outcome', outcome, 'notes', notes, 'duration_minutes', duration_minutes) AS data
+      FROM cravings WHERE user_id = $1 AND craving_start_time::date BETWEEN $2 AND $3
+    `);
+  }
+
+  if (subqueries.length === 0) return [];
+
+  const sql = `
+    ${subqueries.join(' UNION ALL ')}
+    ORDER BY entry_date ASC, entry_time ASC
+    LIMIT 100
+  `;
+
+  const result = await query(sql, baseParams);
+  return result.rows as FeedEntry[];
+};
+
+export const getJournalForWeek = async (
+  userId: string,
+  dateInWeek: string
+): Promise<FeedEntry[]> => {
+  const sql = `
+    SELECT * FROM (
+      SELECT id, 'checkin' AS type, checkin_date::text AS entry_date, checkin_time::text AS entry_time, created_at::text,
+        json_build_object('mood_score', mood_score, 'anxiety_score', anxiety_score, 'energy_score', energy_score,
+          'consumed', (consumed_substances::jsonb != '[]'::jsonb), 'notes', notes) AS data
+      FROM checkins WHERE user_id = $1 AND checkin_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'note' AS type, note_date::text AS entry_date, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('content', content) AS data
+      FROM daily_notes WHERE user_id = $1 AND note_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'habit' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('protective_habits', protective_habits, 'risk_habits', risk_habits) AS data
+      FROM habit_entries WHERE user_id = $1 AND entry_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT hc.id, 'habit_completion' AS type, hc.completed_at::text AS entry_date, hc.created_at::time::text AS entry_time, hc.created_at::text,
+        json_build_object('habit_name', h.name, 'habit_type', h.habit_type) AS data
+      FROM habit_completions hc JOIN habits h ON hc.habit_id = h.id
+      WHERE hc.user_id = $1 AND hc.completed_at BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'social' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('people_description', people_description, 'impact_assessment', impact_assessment) AS data
+      FROM social_entries WHERE user_id = $1 AND entry_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'activity' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('activity_name', activity_name, 'feeling_before', feeling_before, 'feeling_during', feeling_during, 'feeling_after', feeling_after) AS data
+      FROM activity_entries WHERE user_id = $1 AND entry_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'analysis' AS type, entry_date::text, created_at::time::text AS entry_time, created_at::text,
+        json_build_object('trigger_situation', trigger_situation, 'action_taken', action_taken, 'lesson_learned', lesson_learned) AS data
+      FROM consumption_analysis WHERE user_id = $1 AND entry_date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'substance_dose' AS type, dose_time::date::text AS entry_date, dose_time::time::text AS entry_time, created_at::text,
+        json_build_object('substance_name', substance_name, 'quantity', quantity, 'unit', unit, 'dose_time', dose_time::text, 'craving_intensity', craving_intensity) AS data
+      FROM substance_doses WHERE user_id = $1 AND dose_time::date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+
+      UNION ALL
+
+      SELECT id, 'craving' AS type, craving_start_time::date::text AS entry_date, craving_start_time::time::text AS entry_time, created_at::text,
+        json_build_object('substance_name', substance_name, 'intensity', intensity,
+          'status', status, 'triggers', triggers, 'coping_strategies', coping_strategies,
+          'outcome', outcome, 'notes', notes, 'duration_minutes', duration_minutes) AS data
+      FROM cravings WHERE user_id = $1 AND craving_start_time::date BETWEEN date_trunc('week', $2::date)::date AND (date_trunc('week', $2::date) + interval '6 days')::date
+    ) AS week_entries
+    ORDER BY entry_date ASC, entry_time ASC
+  `;
+  const result = await query(sql, [userId, dateInWeek]);
   return result.rows as FeedEntry[];
 };

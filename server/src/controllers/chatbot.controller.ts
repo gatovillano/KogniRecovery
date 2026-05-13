@@ -12,6 +12,7 @@ import * as profileModel from '../models/profile.model.js';
 import { langGraphAgent } from '../services/langgraph.service.js';
 import { neo4jService } from '../services/neo4j.service.js';
 import { ttsService } from '../services/index.js';
+import { memoryService } from '../services/memory.service.js';
 
 const DEFAULT_TITLES = ['nueva conversación', 'nuevo chat', 'new chat', 'new conversation'];
 
@@ -52,6 +53,14 @@ export const createConversation = async (
       scenario_type,
       context,
     });
+
+    if (!conversation) {
+      res.status(500).json({
+        success: false,
+        error: { code: 'INTERNAL_ERROR', message: 'Failed to create conversation' },
+      });
+      return;
+    }
 
     // Crear primer mensaje del sistema
     await messageModel.createMessage(conversation.id, userId, {
@@ -147,6 +156,14 @@ export const getActiveConversation = async (
         title: 'Nueva conversación',
         scenario_type: 'apoyo_emocional',
       });
+
+      if (!conversation) {
+        res.status(500).json({
+          success: false,
+          error: { code: 'INTERNAL_ERROR', message: 'Failed to create conversation' },
+        });
+        return;
+      }
 
       // Agregar mensaje de bienvenida
       await messageModel.createMessage(conversation.id, userId, {
@@ -259,8 +276,14 @@ export const closeConversation = async (
 export const sendMessage = async (req: Request, res: Response): Promise<void> => {
   try {
     const authReq = req as AuthRequest;
+    console.log('📨 [SEND_MESSAGE] Petición recibida');
+    console.log('   userId:', authReq.user?.userId);
+    console.log('   conversationId:', req.params.id);
+    console.log('   content:', req.body.content?.substring(0, 100));
+
     const userId = authReq.user?.userId;
     const { id: conversationId } = req.params;
+
 
     if (!userId) {
       res.status(401).json({
@@ -351,25 +374,40 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
       is_relapse_risk: false,
     });
 
-    // Guardar contexto relevante
-    if (emotionResult.emotion !== 'neutral') {
-      await messageModel.saveContextHistory(
-        userId,
-        'emotional_state',
-        'last_emotion',
-        { emotion: emotionResult.emotion, confidence: emotionResult.confidence },
-        userMessage.id,
-        7
-      );
-    }
+    // Procesar memoria del turno (extracción + persistencia + resumen)
+    const messages = await messageModel.getConversationMessages(conversationId as string);
+    const messageCount = messages.length;
+    await memoryService.processTurn(
+      userId,
+      conversationId as string,
+      content,
+      userMessage.id,
+      messageCount
+    );
 
     // Obtener contexto del usuario para RAG
     const profile = await profileModel.getProfileByUserId(userId);
+    
+    // Construir contexto enriquecido desde el grafo Neo4j
+    let enrichedGraphProfile: any = null;
+    try {
+      enrichedGraphProfile = await neo4jService.buildEnrichedUserProfile(userId);
+    } catch (err) {
+      console.error('⚠️ [CONTEXT] Error obteniendo perfil enriquecido:', err);
+    }
+
     const userContext: any = {
       userId,
       profile: profile?.profile_type || 'general',
-      etapaCambio: 'contemplacion',
-      sustancias: profile?.primary_substance ? [profile.primary_substance] : [],
+      etapaCambio: enrichedGraphProfile?.recentActivity?.etapa_cambio || 'contemplacion',
+      sustancias: enrichedGraphProfile?.substances?.map((s: any) => s.nombre || s) || (profile?.primary_substance ? [profile.primary_substance] : []),
+      nivelRiesgo: enrichedGraphProfile?.recentActivity?.nivel_riesgo || 'bajo',
+      medicamentos: enrichedGraphProfile?.medications?.map((m: any) => m.nombre || m) || [],
+      memoriasGrafo: enrichedGraphProfile?.memoryAttributes || {},
+      actividadReciente: enrichedGraphProfile?.recentActivity || null,
+      alertasRiesgo: enrichedGraphProfile?.riskAlerts || [],
+      graphProfile: enrichedGraphProfile,
+      _enriched: true,
     };
 
     // Recuperar información relevante (RAG)
@@ -426,6 +464,7 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
       });
     }
 
+    console.log('✅ [SEND_MESSAGE] Enviando respuesta al cliente');
     res.json({
       success: true,
       data: {
@@ -470,7 +509,7 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
     res.flushHeaders();
 
     // Guardar mensaje del usuario (en segundo plano)
-    await messageModel.createMessage(conversationId as string, userId as string, {
+    const userMessage = await messageModel.createMessage(conversationId as string, userId as string, {
       role: 'user',
       content,
     });
@@ -487,6 +526,17 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
       console.error('⚠️ [NEO4J] Error al guardar mensaje usuario en stream:', err);
     }
     await conversationModel.updateConversationActivity(conversationId as string);
+
+    // Procesar memoria del turno (extracción + persistencia + resumen)
+    const messages = await messageModel.getConversationMessages(conversationId as string);
+    const messageCount = messages.length;
+    memoryService.processTurn(
+      userId as string,
+      conversationId as string,
+      content,
+      userMessage.id,
+      messageCount
+    ).catch(err => console.error('⚠️ [MEMORY-STREAM] Error procesando memoria:', err));
 
     // Obtener información de la conversación para verificar el título
     const conversation = await conversationModel.getConversationById(conversationId as string);
@@ -506,11 +556,27 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
 
     // Obtener contexto del usuario
     const profile = await profileModel.getProfileByUserId(userId);
+    
+    // Construir contexto enriquecido desde el grafo Neo4j  
+    let enrichedGraphProfile: any = null;
+    try {
+      enrichedGraphProfile = await neo4jService.buildEnrichedUserProfile(userId as string);
+    } catch (err) {
+      console.error('⚠️ [CONTEXT-STREAM] Error obteniendo perfil enriquecido:', err);
+    }
+
     const userContext: any = {
       userId,
       profile: profile?.profile_type || 'general',
-      etapaCambio: 'contemplacion',
-      sustancias: profile?.primary_substance ? [profile.primary_substance] : [],
+      etapaCambio: enrichedGraphProfile?.recentActivity?.etapa_cambio || 'contemplacion',
+      sustancias: enrichedGraphProfile?.substances?.map((s: any) => s.nombre || s) || (profile?.primary_substance ? [profile.primary_substance] : []),
+      nivelRiesgo: enrichedGraphProfile?.recentActivity?.nivel_riesgo || 'bajo',
+      medicamentos: enrichedGraphProfile?.medications?.map((m: any) => m.nombre || m) || [],
+      memoriasGrafo: enrichedGraphProfile?.memoryAttributes || {},
+      actividadReciente: enrichedGraphProfile?.recentActivity || null,
+      alertasRiesgo: enrichedGraphProfile?.riskAlerts || [],
+      graphProfile: enrichedGraphProfile,
+      _enriched: true,
     };
 
     // Iniciar streaming desde el agente
@@ -570,7 +636,7 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
  * Obtener escenarios disponibles
  */
 export const getScenarios = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -654,7 +720,7 @@ export const changeScenario = async (
  * Obtener respuestas rápidas
  */
 export const getQuickResponses = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -773,7 +839,8 @@ export const getMessageSpeech = async (
 
       // Configurar cabeceras para el audio
       res.setHeader('Content-Type', 'audio/wav');
-      res.setHeader('Content-Disposition', `attachment; filename="speech-${messageId}.wav"`);
+      res.setHeader('Content-Length', audioBuffer.length);
+      res.setHeader('Accept-Ranges', 'bytes');
       res.send(audioBuffer);
     } catch (ttsError: any) {
       console.warn('⚠️ TTS service unavailable, returning 503:', ttsError.message);
