@@ -8,6 +8,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as authService from '../services/auth.service.js';
 import * as UserModel from '../models/user.model.js';
 import { AuthRequest } from '../middleware/auth.js';
+import * as MfaService from '../services/mfa.service.js';
 
 // =====================================================
 // REGISTRO
@@ -97,6 +98,186 @@ export const login = async (
       return;
     }
 
+    next(error);
+  }
+};
+
+// =====================================================
+// LOGIN CON MFA
+// =====================================================
+
+/**
+ * POST /api/v1/auth/mfa/verify
+ * Segundo paso de autenticación para usuarios con MFA activo.
+ * Recibe el challenge emitido en login y el código TOTP.
+ */
+export const loginMfaVerify = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { challenge, code } = req.body;
+
+    if (!challenge || !code) {
+      res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_PAYLOAD',
+          message: 'challenge y code son obligatorios',
+        },
+      });
+      return;
+    }
+
+    const result = await authService.verifyMfaAndLogin({ challenge, code });
+
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: 'Inicio de sesión exitoso',
+    });
+  } catch (error) {
+    const err = error as Error & { statusCode?: number };
+
+    if (err.statusCode) {
+      res.status(err.statusCode).json({
+        success: false,
+        error: {
+          code: err.statusCode === 401 ? 'INVALID_MFA_CODE' : 'ACCOUNT_ERROR',
+          message: err.message,
+        },
+      });
+      return;
+    }
+
+    next(error);
+  }
+};
+
+// =====================================================
+// MFA: SETUP
+// =====================================================
+
+/**
+ * POST /api/v1/mfa/setup
+ * Genera un secreto TOTP para el usuario autenticado.
+ * El secreto se devuelve una sola vez para escanear el QR.
+ */
+export const mfaSetup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'No autenticado' },
+      });
+      return;
+    }
+
+    const { secret, otpauthUrl } = await MfaService.provisionMfa(userId);
+
+    res.json({
+      success: true,
+      data: {
+        secret,
+        otpauth_url: otpauthUrl,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/mfa/verify
+ * Verifica el primer código y activa el MFA.
+ */
+export const mfaVerify = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'No autenticado' },
+      });
+      return;
+    }
+
+    const { token, secret } = req.body;
+    if (!token || !secret) {
+      res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_PAYLOAD',
+          message: 'token y secret son obligatorios',
+        },
+      });
+      return;
+    }
+
+    const result = await MfaService.enableMfa(userId, secret, token);
+
+    res.json({
+      success: true,
+      data: result,
+      message: 'MFA activado correctamente',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/mfa/disable
+ * Desactiva el MFA verificando el código actual.
+ */
+export const mfaDisable = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'No autenticado' },
+      });
+      return;
+    }
+
+    const { token } = req.body;
+    if (!token) {
+      res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_PAYLOAD',
+          message: 'token es obligatorio',
+        },
+      });
+      return;
+    }
+
+    const result = await MfaService.disableMfa(userId, token);
+
+    res.json({
+      success: true,
+      data: result,
+      message: 'MFA desactivado',
+    });
+  } catch (error) {
     next(error);
   }
 };

@@ -45,6 +45,16 @@ router.post(
 );
 
 /**
+ * POST /api/v1/auth/mfa/verify
+ * Segundo paso de autenticación (TOTP) para profesionales con MFA
+ * Público - Requiere el challenge emitido por login + código
+ */
+router.post(
+  '/mfa/verify',
+  authController.loginMfaVerify
+);
+
+/**
  * POST /api/v1/auth/refresh
  * Refresca los tokens de acceso
  * Público - No requiere autenticación

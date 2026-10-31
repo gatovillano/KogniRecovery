@@ -5,6 +5,7 @@ import { HumanMessage, SystemMessage, BaseMessage, AIMessage } from '@langchain/
 import * as UserModel from '../models/user.model.js';
 import * as messageModel from '../models/message.model.js';
 import { decrypt } from '../utils/encryption.js';
+import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
 import { ai as aiDefaultConfig } from '../config/neo4j.js';
 import fs from 'fs/promises';
 import path from 'path';
@@ -163,29 +164,19 @@ export class LangGraphAgentService {
   }
 
   /**
-   * Obtiene el modelo LLM configurado por el usuario
+   * Obtiene el modelo LLM configurado por el usuario.
+   * Prioridad: configuración del usuario > default del centro > entorno.
    */
   public async getUserLLM(userId: string) {
-    const user = await UserModel.findById(userId);
+    const { provider, model: modelName, apiKey, baseUrl } =
+      await resolveEffectiveLlmConfig(userId);
 
-    // Prioridad: 1) API key del usuario, 2) OPENAI_API_KEY, 3) LLM_API_KEY genérica
-    let apiKey =
-      process.env.OPENAI_API_KEY || process.env.LLM_API_KEY || aiDefaultConfig.openaiApiKey;
-    let modelName = process.env.LLM_MODEL || aiDefaultConfig.modelName || 'gpt-4o-mini';
-    let provider = process.env.LLM_PROVIDER || 'openai';
     let configuration: any = {};
-
-    // Si el usuario tiene configuración propia, tiene prioridad
-    if (user && user.llm_api_key) {
-      apiKey = decrypt(user.llm_api_key);
-      modelName = user.llm_model || modelName;
-      provider = user.llm_provider || provider;
-    }
 
     // Configurar el cliente según el proveedor
     if (provider.toLowerCase() === 'openrouter') {
       configuration = {
-        baseURL: 'https://openrouter.ai/api/v1',
+        baseURL: baseUrl || 'https://openrouter.ai/api/v1',
         apiKey: apiKey,
         defaultHeaders: {
           'HTTP-Referer': 'https://kognirecovery.com',
@@ -193,10 +184,10 @@ export class LangGraphAgentService {
           Authorization: `Bearer ${apiKey}`,
         },
       };
-    } else if (provider.toLowerCase() !== 'openai' && process.env.LLM_BASE_URL) {
+    } else if (provider.toLowerCase() !== 'openai' && baseUrl) {
       // Proveedor genérico compatible con OpenAI
       configuration = {
-        baseURL: process.env.LLM_BASE_URL,
+        baseURL: baseUrl,
         apiKey: apiKey,
         defaultHeaders: {
           Authorization: `Bearer ${apiKey}`,
@@ -219,7 +210,7 @@ export class LangGraphAgentService {
       openAIApiKey: apiKey,
       modelName: modelName as string,
       model: modelName as string,
-      temperature: 0.7,
+      temperature: 0.8,
       maxTokens: 8192,
       streaming: true,
       configuration: configuration,

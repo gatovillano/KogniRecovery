@@ -37,6 +37,11 @@ export const ProfileScreen: React.FC = () => {
       label: 'Privacidad y Seguridad',
       onPress: () => {},
     },
+    {
+      icon: 'eye-outline' as const,
+      label: 'Consentimiento Clínico',
+      onPress: () => navigation.navigate('ClinicalConsent'),
+    },
   ];
 
   return (

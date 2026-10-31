@@ -14,6 +14,12 @@ import familyRoutes from './family.routes.js';
 import journalRoutes from './journal.routes.js';
 import medicationRoutes from './medication.routes.js';
 import privacyRoutes from './privacy.routes.js';
+import patientRoutes from './patient.routes.js';
+import therapistRoutes from './therapist.routes.js';
+import organizationRoutes from './organization.routes.js';
+import platformRoutes from './platform.routes.js';
+import invitationsRoutes from './invitations.routes.js';
+import mfaRoutes from './mfa.routes.js';
 import substanceExpenseRoutes from './substance_expense.routes.js';
 import consumptionRoutes from './consumption.routes.js';
 import substanceDoseRoutes from './substance_dose.routes.js';
@@ -78,6 +84,36 @@ apiRouter.use('/medications', medicationRoutes);
  * /api/v1/privacy - Rutas de privacidad (GDPR/CCPA)
  */
 apiRouter.use('/privacy', privacyRoutes);
+
+/**
+ * /api/v1/patient - Vínculos, consentimiento y transparencia del paciente
+ */
+apiRouter.use('/patient', patientRoutes);
+
+/**
+ * /api/v1/therapist - Panel clínico del profesional
+ */
+apiRouter.use('/therapist', therapistRoutes);
+
+/**
+ * /api/v1/org - Administración del centro
+ */
+apiRouter.use('/org', organizationRoutes);
+
+/**
+ * /api/v1/invitations - Invitaciones a centros
+ */
+apiRouter.use('/invitations', invitationsRoutes);
+
+/**
+ * /api/v1/platform - Administración de la plataforma
+ */
+apiRouter.use('/platform', platformRoutes);
+
+/**
+ * /api/v1/mfa - Autenticación multifactor
+ */
+apiRouter.use('/mfa', mfaRoutes);
 
 /**
  * /api/v1/substance-expenses - Rutas de gastos económicos en sustancias

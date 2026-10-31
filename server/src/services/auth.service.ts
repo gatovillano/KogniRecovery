@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs';
 import * as UserModel from '../models/user.model.js';
 import * as RefreshTokenModel from '../models/refreshToken.model.js';
 import * as ProfileModel from '../models/profile.model.js';
+import * as MfaService from './mfa.service.js';
 import { auth as authConfig, jwt as jwtConfig } from '../config/index.js';
 import {
   generateAccessToken,
@@ -37,6 +38,19 @@ export interface AuthTokens {
   refreshToken: string;
   expiresIn: string | number;
 }
+
+export interface LoginMfaResponse {
+  mfa_required: true;
+  challenge: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+  };
+}
+
+export type LoginResult = LoginResponse | LoginMfaResponse;
 
 export interface RegisterResponse {
   user: {
@@ -187,7 +201,7 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
 /**
  * Inicia sesión con email y contraseña
  */
-export const login = async (input: LoginInput): Promise<LoginResponse> => {
+export const login = async (input: LoginInput): Promise<LoginResult> => {
   const { email, password } = input;
 
   // Buscar usuario por email
@@ -223,10 +237,77 @@ export const login = async (input: LoginInput): Promise<LoginResponse> => {
     throw error;
   }
 
+  // Si el profesional tiene MFA activo, emitir un challenge de dos pasos.
+  if (MfaService.isMfaRequiredForUser(user)) {
+    const challenge = MfaService.signMfaChallenge(user.id);
+    return {
+      mfa_required: true,
+      challenge,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
+    };
+  }
+
   // Generar tokens
   const tokens = generateTokens(user.id, user.email, user.role);
 
   // Guardar refresh token en la base de datos
+  await RefreshTokenModel.create({
+    userId: user.id,
+    token: tokens.refreshToken,
+  });
+
+  return {
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      llm_provider: user.llm_provider,
+      llm_model: user.llm_model,
+    },
+    tokens,
+  };
+};
+
+/**
+ * Segundo paso de login para profesionales con MFA activo.
+ * Verifica el challenge firmado y el código TOTP.
+ */
+export const verifyMfaAndLogin = async (input: {
+  challenge: string;
+  code: string;
+}): Promise<LoginResponse> => {
+  const userId = MfaService.verifyMfaChallenge(input.challenge);
+
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    const error = new Error('Credenciales inválidas') as Error & { statusCode: number };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  if (!MfaService.isMfaRequiredForUser(user)) {
+    const error = new Error('Este usuario no requiere MFA') as Error & {
+      statusCode: number;
+    };
+    error.statusCode = 409;
+    throw error;
+  }
+
+  if (!MfaService.verifyUserTotp(user, input.code)) {
+    const error = new Error('Código de verificación inválido') as Error & {
+      statusCode: number;
+    };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const tokens = generateTokens(user.id, user.email, user.role);
   await RefreshTokenModel.create({
     userId: user.id,
     token: tokens.refreshToken,

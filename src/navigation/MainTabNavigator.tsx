@@ -20,6 +20,7 @@ import {
   ProfileScreen,
   AISettingsScreen,
   IntelligenceProfileScreen,
+  ClinicalDataConsentScreen,
   MedicationScreen,
   NotesScreen,
   NoteDetailScreen,
@@ -58,6 +59,11 @@ const ProfileNavigator: React.FC = () => {
         name="IntelligenceProfile"
         component={IntelligenceProfileScreen}
         options={{ title: 'Memoria de LÚA' }}
+      />
+      <ProfileStack.Screen
+        name="ClinicalConsent"
+        component={ClinicalDataConsentScreen}
+        options={{ title: 'Consentimiento Clínico' }}
       />
     </ProfileStack.Navigator>
   );

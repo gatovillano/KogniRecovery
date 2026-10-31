@@ -15,7 +15,7 @@ export interface User {
   email: string;
   password: string;
   name: string;
-  role: 'patient' | 'family' | 'professional' | 'admin';
+  role: 'patient' | 'family' | 'professional' | 'therapist' | 'admin';
   created_at: Date;
   updated_at: Date;
   phone?: string;
@@ -34,7 +34,7 @@ export interface CreateUserInput {
   email: string;
   password: string;
   name: string;
-  role?: 'patient' | 'family' | 'professional';
+  role?: 'patient' | 'family' | 'professional' | 'therapist';
   phone?: string;
 }
 
@@ -48,6 +48,8 @@ export interface UpdateUserInput {
   llm_provider?: 'openai' | 'anthropic' | 'azure' | 'local' | 'openrouter';
   llm_model?: string;
   llm_api_key?: string;
+  two_factor_enabled?: boolean;
+  two_factor_secret?: string | null;
 }
 
 export interface UserPublic {
@@ -73,7 +75,12 @@ const TABLE_NAME = 'users';
  * Busca un usuario por email
  */
 export const findByEmail = async (email: string): Promise<User | null> => {
-  const result = await query<User>(`SELECT * FROM ${TABLE_NAME} WHERE email = $1`, [email]);
+  const result = await query<User>(
+    `SELECT *,
+            COALESCE(NULLIF(password, ''), password_hash) AS password
+     FROM ${TABLE_NAME} WHERE email = $1`,
+    [email]
+  );
 
   return result.rows[0] ?? null;
 };
@@ -82,7 +89,12 @@ export const findByEmail = async (email: string): Promise<User | null> => {
  * Busca un usuario por ID
  */
 export const findById = async (id: string): Promise<User | null> => {
-  const result = await query<User>(`SELECT * FROM ${TABLE_NAME} WHERE id = $1`, [id]);
+  const result = await query<User>(
+    `SELECT *,
+            COALESCE(NULLIF(password, ''), password_hash) AS password
+     FROM ${TABLE_NAME} WHERE id = $1`,
+    [id]
+  );
 
   return result.rows[0] ?? null;
 };
@@ -107,13 +119,17 @@ export const create = async (userData: CreateUserInput): Promise<User> => {
   const { email, password, name, role = 'patient', phone } = userData;
 
   const result = await query<User>(
-    `INSERT INTO ${TABLE_NAME} (email, password, name, role, phone, status)
-     VALUES ($1, $2, $3, $4, $5, 'active')
+    `INSERT INTO ${TABLE_NAME} (email, password, password_hash, name, role, phone, status)
+     VALUES ($1, $2, $2, $3, $4, $5, 'active')
      RETURNING *`,
     [email, password, name, role, phone ?? null]
   );
 
-  return result.rows[0]!;
+  const created = result.rows[0]!;
+  if (!created.password) {
+    created.password = (created as User & { password_hash?: string }).password_hash ?? '';
+  }
+  return created;
 };
 
 /**
@@ -161,6 +177,14 @@ export const update = async (id: string, userData: UpdateUserInput): Promise<Use
     fields.push(`llm_api_key = $${paramIndex++}`);
     values.push(userData.llm_api_key);
   }
+  if (userData.two_factor_enabled !== undefined) {
+    fields.push(`two_factor_enabled = $${paramIndex++}`);
+    values.push(userData.two_factor_enabled);
+  }
+  if (userData.two_factor_secret !== undefined) {
+    fields.push(`two_factor_secret = $${paramIndex++}`);
+    values.push(userData.two_factor_secret);
+  }
 
   if (fields.length === 0) {
     return findById(id);
@@ -182,7 +206,9 @@ export const update = async (id: string, userData: UpdateUserInput): Promise<Use
  */
 export const updatePassword = async (id: string, newPassword: string): Promise<boolean> => {
   const result = await query(
-    `UPDATE ${TABLE_NAME} SET password = $1, updated_at = NOW() WHERE id = $2`,
+    `UPDATE ${TABLE_NAME}
+     SET password = $1, password_hash = $1, updated_at = NOW()
+     WHERE id = $2`,
     [newPassword, id]
   );
 

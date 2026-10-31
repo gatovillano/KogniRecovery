@@ -638,7 +638,7 @@ export const getAIModels = async (
     if (provider === 'openrouter') {
       try {
         const response = await fetch('https://openrouter.ai/api/v1/models');
-        const data = await response.json();
+        const data = (await response.json()) as { data?: any[] };
 
         if (data && data.data) {
           const models = data.data.map((m: any) => ({

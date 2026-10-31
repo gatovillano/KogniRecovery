@@ -75,7 +75,7 @@ export const LoginScreen: React.FC = () => {
             >
               <Icon name="heart" size={36} color="#FFFFFF" />
             </LinearGradient>
-            <Text style={styles.title}>KogniRecovery</Text>
+            <Text style={styles.title}>Numa</Text>
             <Text style={styles.subtitle}>Acompañándote en cada paso de tu recuperación</Text>
           </View>
 

@@ -171,7 +171,7 @@ export const PrivacySettingsScreen: React.FC = () => {
         </Text>
         
         <Text style={[styles.infoText, { color: theme.colors.textSecondary }]}>
-          En KogniRecovery nos comprometemos a proteger tu privacidad:
+          En Numa nos comprometemos a proteger tu privacidad:
         </Text>
         
         <View style={styles.privacyList}>

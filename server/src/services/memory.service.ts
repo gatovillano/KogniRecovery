@@ -9,6 +9,7 @@ import { SystemMessage } from '@langchain/core/messages';
 import * as messageModel from '../models/message.model.js';
 import * as UserModel from '../models/user.model.js';
 import { decrypt } from '../utils/encryption.js';
+import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
 import { ai as aiDefaultConfig } from '../config/neo4j.js';
 import { neo4jService } from './neo4j.service.js';
 
@@ -63,23 +64,14 @@ export class MemoryService {
    * Obtiene el LLM configurado para el usuario
    */
   private async getUserLLM(userId: string) {
-    const user = await UserModel.findById(userId);
+    const { provider, model: modelName, apiKey, baseUrl } =
+      await resolveEffectiveLlmConfig(userId);
 
-    let apiKey =
-      process.env.OPENAI_API_KEY || process.env.LLM_API_KEY || aiDefaultConfig.openaiApiKey;
-    let modelName = process.env.LLM_MODEL || aiDefaultConfig.modelName || 'gpt-4o-mini';
-    let provider = process.env.LLM_PROVIDER || 'openai';
     let configuration: any = {};
-
-    if (user && user.llm_api_key) {
-      apiKey = decrypt(user.llm_api_key);
-      modelName = user.llm_model || modelName;
-      provider = user.llm_provider || provider;
-    }
 
     if (provider.toLowerCase() === 'openrouter') {
       configuration = {
-        baseURL: 'https://openrouter.ai/api/v1',
+        baseURL: baseUrl || 'https://openrouter.ai/api/v1',
         apiKey: apiKey,
         defaultHeaders: {
           'HTTP-Referer': 'https://kognirecovery.com',
@@ -87,9 +79,9 @@ export class MemoryService {
           Authorization: `Bearer ${apiKey}`,
         },
       };
-    } else if (provider.toLowerCase() !== 'openai' && process.env.LLM_BASE_URL) {
+    } else if (provider.toLowerCase() !== 'openai' && baseUrl) {
       configuration = {
-        baseURL: process.env.LLM_BASE_URL,
+        baseURL: baseUrl,
         apiKey: apiKey,
         defaultHeaders: {
           Authorization: `Bearer ${apiKey}`,

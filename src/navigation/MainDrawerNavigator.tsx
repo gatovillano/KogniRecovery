@@ -37,6 +37,7 @@ import {
   SubstanceExpenseScreen,
   SubstanceDoseScreen,
 } from '@screens';
+import { ClinicalDataConsentScreen } from '@screens';
 
 const Drawer = createDrawerNavigator<MainTabParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
@@ -71,6 +72,11 @@ const ProfileNavigator: React.FC = () => {
         name="IntelligenceProfile"
         component={IntelligenceProfileScreen}
         options={{ title: 'Memoria de LÚA' }}
+      />
+      <ProfileStack.Screen
+        name="ClinicalConsent"
+        component={ClinicalDataConsentScreen}
+        options={{ title: 'Consentimiento Clínico' }}
       />
     </ProfileStack.Navigator>
   );

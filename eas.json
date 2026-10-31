@@ -17,7 +17,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://apirecovery.cuerpolibre.cl"
+        "EXPO_PUBLIC_API_URL": "https://apirecovery.kognitoai.cloud"
       }
     },
     "production": {
@@ -25,7 +25,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://apirecovery.cuerpolibre.cl"
+        "EXPO_PUBLIC_API_URL": "https://apirecovery.kognitoai.cloud"
       }
     }
   },

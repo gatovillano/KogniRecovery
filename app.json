@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "KogniRecovery",
-    "slug": "kognirecovery",
+    "name": "Numa",
+    "slug": "numa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kognirecovery.app",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "KogniRecovery necesita acceso a la ubicación para funciones de emergencia."
+        "NSLocationWhenInUseUsageDescription": "Numa necesita acceso a la ubicación para funciones de emergencia."
       }
     },
     "android": {

@@ -66,7 +66,7 @@ export const createConversation = async (
     await messageModel.createMessage(conversation.id, userId, {
       role: 'assistant',
       content:
-        'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
+        '¡Hola! Soy LÚA 🌙. Estoy aquí para acompañarte hoy, a tu lado, paso a paso. ¿Cómo te sientes en este momento?',
       active_scenario: scenario_type || 'apoyo_emocional',
     });
 
@@ -169,7 +169,7 @@ export const getActiveConversation = async (
       await messageModel.createMessage(conversation.id, userId, {
         role: 'assistant',
         content:
-          'Hola, soy LÚA 🌙. Estoy aquí para apoyarte en tu proceso de recuperación. ¿Cómo te sientes hoy?',
+          '¡Hola! Soy LÚA 🌙. Estoy aquí para acompañarte hoy, a tu lado, paso a paso. ¿Cómo te sientes en este momento?',
         active_scenario: 'apoyo_emocional',
       });
     }
@@ -425,7 +425,11 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
     const scenario = conversation.scenario_type || 'apoyo_emocional';
 
     // Generar sugerencias (opcional, puedes mantenerlo o moverlo al Agente)
-    const suggestions = ['¿Cómo te sientes ahora?', '¿Quieres hablar más?', '¿Hay otra cosa?'];
+    const suggestions = [
+      'Cuéntame, ¿cómo te sientes ahora? 🫶',
+      '¿Quieres que conversemos de algo en particular?',
+      'Estoy aquí para ti. Dime qué necesitas hoy.',
+    ];
 
     // Guardar respuesta del asistente
     const assistantMessage = await messageModel.createMessage(

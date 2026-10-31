@@ -48,6 +48,7 @@ export type ProfileStackParamList = {
   EmergencyContacts: undefined;
   AISettings: undefined;
   IntelligenceProfile: undefined;
+  ClinicalConsent: undefined;
 };
 
 export type NotesStackParamList = {

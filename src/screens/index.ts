@@ -42,3 +42,4 @@ export { SubstanceDoseScreen } from './medications/SubstanceDoseScreen';
 // Notes screens
 export { NotesScreen } from './notes/NotesScreen';
 export { NoteDetailScreen } from './notes/NoteDetailScreen';
+export { ClinicalDataConsentScreen } from './settings/ClinicalDataConsentScreen';

@@ -1,10 +1,10 @@
 /**
- * Constantes de la aplicación KogniRecovery
+ * Constantes de la aplicación Numa
  * Centraliza valores que se usan en múltiples lugares
  */
 
 export const APP_CONFIG = {
-  name: 'KogniRecovery',
+  name: 'Numa',
   version: '1.0.0',
   environment: process.env.APP_ENV || 'development',
 };

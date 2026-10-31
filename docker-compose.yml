@@ -51,10 +51,10 @@ services:
     container_name: kognirecovery-neo4j
     hostname: kognirecovery-neo4j
     restart: unless-stopped
-    env_file:
-      - .env
+    # Sin env_file: el entrypoint de Neo4j interpreta cualquier NEO4J_*
+    # como opción de configuración y falla con NEO4J_URI/NEO4J_PASSWORD.
     environment:
-      NEO4J_AUTH: ${NEO4J_USER}/${NEO4J_PASSWORD}
+      NEO4J_AUTH: ${NEO4J_USER:?NEO4J_USER no definido en .env}/${NEO4J_PASSWORD:?NEO4J_PASSWORD no definido en .env}
       NEO4J_server_memory_heap_initial__size: 512m
       NEO4J_server_memory_heap_max__size: 2G
       NEO4J_server_memory_pagecache_size: 1G
@@ -93,17 +93,43 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    # Dentro de la red de Docker los servicios se resuelven por nombre,
+    # no por localhost ni por los puertos publicados en el host.
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379
+      NEO4J_URI: bolt://neo4j:7687
     volumes:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - '3003:3003'
     healthcheck:
+      # node:20-slim no trae wget/curl; usamos fetch nativo de Node
       test:
-        ['CMD-SHELL', 'wget --no-verbose --tries=1 --spider http://localhost:3003/health || exit 1']
+        ['CMD', 'node', '-e', "fetch('http://localhost:3003/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 5
+    networks:
+      - kognirecovery-network
+
+  # Frontend (Expo Web)
+  # Panel web de terapeutas (Next.js)
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${WEB_PUBLIC_API_URL:-https://apirecovery.kognitoai.cloud}
+    container_name: kognirecovery-web
+    restart: unless-stopped
+    environment:
+      SESSION_SECRET: ${WEB_SESSION_SECRET:-cambiar-en-produccion-2026-secreto}
+      COOKIE_SECURE: "true"
+      NEXT_PUBLIC_API_URL: ${WEB_PUBLIC_API_URL:-https://apirecovery.kognitoai.cloud}
+    ports:
+      - '127.0.0.1:3004:3004'
     networks:
       - kognirecovery-network
 

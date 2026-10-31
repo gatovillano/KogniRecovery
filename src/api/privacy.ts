@@ -134,7 +134,7 @@ export const downloadUserData = async (): Promise<void> => {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `kognirecovery-data-${new Date().toISOString().split('T')[0]}.json`;
+    link.download = `numa-data-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

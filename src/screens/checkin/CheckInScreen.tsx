@@ -178,7 +178,9 @@ export const CheckInScreen: React.FC = () => {
   const [sleepHours, setSleepHours] = useState('8');
   const [exercised, setExercised] = useState(false);
   const [consumed, setConsumed] = useState(false);
+  const [consumedSubstance, setConsumedSubstance] = useState('');
   const [consumedAmount, setConsumedAmount] = useState('');
+  const [consumedTrigger, setConsumedTrigger] = useState('');
   const [notes, setNotes] = useState('');
 
   // Nuevos flujos State
@@ -230,7 +232,9 @@ export const CheckInScreen: React.FC = () => {
     setSleepHours('8');
     setExercised(false);
     setConsumed(false);
+    setConsumedSubstance('');
     setConsumedAmount('');
+    setConsumedTrigger('');
     setNotes('');
     setFreeNotes('');
     setActivityName('');
@@ -578,8 +582,11 @@ export const CheckInScreen: React.FC = () => {
           emotional_tags: selectedTags,
           sleep_hours: parseFloat(sleepHours) || 0,
           exercised_today: exercised,
-          consumed_substances: consumed ? [{ name: 'Sustancia', quantity: consumedAmount }] : [],
+          consumed_substances: consumed
+            ? [{ name: consumedSubstance.trim() || null, quantity: consumedAmount }]
+            : [],
           risk_situation: consumed,
+          risk_description: consumed ? consumedTrigger.trim() || null : null,
           notes: notes,
           checkin_type: 'diario',
         };
@@ -1274,7 +1281,9 @@ export const CheckInScreen: React.FC = () => {
                   setSleepHours(String(entry.data.sleep_hours || 8));
                   setExercised(entry.data.exercised || false);
                   setConsumed(entry.data.consumed || false);
+                  setConsumedSubstance(entry.data.consumed_substances?.[0]?.name || '');
                   setConsumedAmount(entry.data.consumed_substances?.[0]?.quantity || '');
+                  setConsumedTrigger(entry.data.risk_description || '');
                   setNotes(entry.data.notes || '');
                   setStep(0);
                   setViewMode('form');
@@ -2545,11 +2554,25 @@ export const CheckInScreen: React.FC = () => {
             {consumed && (
               <View style={{ marginTop: 24 }}>
                 <Input
-                  label="¿Qué cantidad y de qué sustancia?"
+                  label="¿Qué sustancia?"
+                  value={consumedSubstance}
+                  onChangeText={setConsumedSubstance}
+                  placeholder="Ej: alcohol, marihuana, benzodiazepinas..."
+                  autoFocus
+                />
+                <Input
+                  label="¿Qué cantidad?"
                   value={consumedAmount}
                   onChangeText={setConsumedAmount}
-                  placeholder="Ej: 2 copas de alcohol, 1 gramo..."
-                  autoFocus
+                  placeholder="Ej: 2 copas, 1 gramo..."
+                  style={{ marginTop: 12 }}
+                />
+                <Input
+                  label="¿Qué lo desencadenó? (opcional)"
+                  value={consumedTrigger}
+                  onChangeText={setConsumedTrigger}
+                  placeholder="Ej: discusión familiar, estrés laboral, reunión social..."
+                  style={{ marginTop: 12 }}
                 />
               </View>
             )}

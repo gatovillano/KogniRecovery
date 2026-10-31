@@ -9,6 +9,7 @@ import { embeddingsService, EmbeddingChunk } from './embedding.service.js';
 import { neo4jService } from './neo4j.service.js';
 import * as UserModel from '../models/user.model.js';
 import { decrypt } from '../utils/encryption.js';
+import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
 import { ai as aiDefaultConfig } from '../config/neo4j.js';
 
 // =====================================================
@@ -86,49 +87,28 @@ class RAGService {
    */
   private async getAIClient(userId: string) {
     try {
-      const user = await UserModel.findById(userId);
+      const { provider, model, apiKey, baseUrl } =
+        await resolveEffectiveLlmConfig(userId);
 
-      // Si el usuario tiene configuración personalizada
-      if (user && user.llm_api_key) {
-        const config: any = {
-          apiKey: decrypt(user.llm_api_key),
-        };
-
-        if (user.llm_provider === 'openrouter') {
-          config.baseURL = 'https://openrouter.ai/api/v1';
-          config.defaultHeaders = {
-            'HTTP-Referer': 'https://kognirecovery.com', // Opcional, para OpenRouter ranking
-            'X-Title': 'KogniRecovery',
-          };
-        }
-
-        return {
-          client: new OpenAI(config),
-          model: user.llm_model || aiDefaultConfig.modelName,
-          maxTokens: aiDefaultConfig.maxTokens,
-          temperature: aiDefaultConfig.temperature,
-        };
-      }
-
-      // Default: Usar configuración del sistema si hay API KEY global
-      const systemKey = process.env.OPENAI_API_KEY || aiDefaultConfig.openaiApiKey;
-      const systemProvider = process.env.LLM_PROVIDER || 'openai';
-
-      if (!systemKey) {
+      if (!apiKey) {
         throw new Error('No se encontró configuración de IA para el usuario ni para el sistema.');
       }
 
-      const systemConfig: any = {
-        apiKey: systemKey,
-      };
+      const config: any = { apiKey };
 
-      if (systemProvider === 'openrouter') {
-        systemConfig.baseURL = 'https://openrouter.ai/api/v1';
+      if (provider.toLowerCase() === 'openrouter') {
+        config.baseURL = baseUrl || 'https://openrouter.ai/api/v1';
+        config.defaultHeaders = {
+          'HTTP-Referer': 'https://kognirecovery.com', // Opcional, para OpenRouter ranking
+          'X-Title': 'KogniRecovery',
+        };
+      } else if (provider.toLowerCase() !== 'openai' && baseUrl) {
+        config.baseURL = baseUrl;
       }
 
       return {
-        client: new OpenAI(systemConfig),
-        model: aiDefaultConfig.modelName,
+        client: new OpenAI(config),
+        model: model || aiDefaultConfig.modelName,
         maxTokens: aiDefaultConfig.maxTokens,
         temperature: aiDefaultConfig.temperature,
       };
