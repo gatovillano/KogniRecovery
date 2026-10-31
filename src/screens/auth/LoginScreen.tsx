@@ -70,7 +70,7 @@ export const LoginScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <View style={styles.logoIcon}><NumaMark size={78} /></View>
+            <View style={styles.logoIcon}><NumaMark size={78} light={isDark} /></View>
             <Text style={styles.title}>NUMA</Text>
             <Text style={styles.subtitle}>Avanza en tu recuperación</Text>
           </View>
