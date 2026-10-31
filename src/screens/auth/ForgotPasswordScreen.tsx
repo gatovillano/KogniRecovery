@@ -144,7 +144,7 @@ export const ForgotPasswordScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-        <NumaMark size={56} />
+        <NumaMark size={56} light={theme.mode === 'dark'} />
         <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '800', letterSpacing: 4 }}>NUMA</Text>
             <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary }]}>
               <Icon name="lock-closed-outline" size={40} color="white" />
