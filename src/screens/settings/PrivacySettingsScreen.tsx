@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: '#E8E4DA',
   },
   settingInfo: {
     flex: 1,
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   },
   familyMember: {
     padding: 12,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F8F7F2',
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   noMembers: {
     marginTop: 16,
     padding: 16,
-    backgroundColor: '#FFF3E0',
+    backgroundColor: '#F3EAD7',
     borderRadius: 8,
   },
   noMembersText: {
