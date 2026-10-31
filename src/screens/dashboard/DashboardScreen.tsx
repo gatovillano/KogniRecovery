@@ -37,16 +37,16 @@ interface FeedEntry {
 }
 
 const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#104C50' },
-  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8EAD91' },
-  habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#104C50' },
-  social: { label: 'Entorno Social', icon: 'people-outline', color: '#8EAD91' },
-  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#C4A882' },
-  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#B9786D' },
+  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#5D89BA' },
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8BAFD4' },
+  habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#5D89BA' },
+  social: { label: 'Entorno Social', icon: 'people-outline', color: '#8BAFD4' },
+  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#94A3B8' },
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#C07878' },
   habit_completion: {
     label: 'Hábito Completado',
     icon: 'checkmark-circle-outline',
-    color: '#104C50',
+    color: '#5D89BA',
   },
 };
 
@@ -297,12 +297,13 @@ export const DashboardScreen: React.FC = () => {
       >
         {/* HEADER SEGÚN MOCKUP */}
         <View style={styles.mockupHeader}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}><NumaMark size={32} /><View><Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
+          <View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}><NumaMark size={32} /><View><Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
               {new Date().getHours() < 12 ? 'Buenos días,' : 'Buenas tardes,'}
             </Text>
             <Text style={[styles.userName, { color: theme.colors.text }]}>
               {dashboardData?.profile?.first_name || 'Amigx'}
-            </Text></View>
+            </Text></View></View>
           <TouchableOpacity
             onPress={() => navigation.navigate('Profile')}
             style={[styles.avatarContainer, { backgroundColor: theme.colors.accent + '35' }]}
@@ -333,8 +334,8 @@ export const DashboardScreen: React.FC = () => {
                 <Text style={styles.sobrietyDaysLarge}>{currentStreak}</Text>
               </View>
               <View style={styles.sobrietyTextCol}>
-                <Text style={styles.sobrietyLabelLight}>DÍAS EN TU CAMINO</Text>
-                <Text style={styles.sobrietyTagline}>Cada paso cuenta, a tu ritmo.</Text>
+                <Text style={styles.sobrietyLabelLight}>DÍAS DE LIBERTAD</Text>
+                <Text style={styles.sobrietyTagline}>Tu camino de paz continúa</Text>
               </View>
             </View>
           </LinearGradient>

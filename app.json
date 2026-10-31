@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
+      "backgroundColor": "#F8F7F2"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -58,7 +58,7 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "color": "#6366F1",
+          "color": "#104C50",
           "sounds": []
         }
       ]
