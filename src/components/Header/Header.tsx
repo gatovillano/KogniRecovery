@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
     <View style={headerStyle}>
       <View style={styles.headerContent}>
         <View style={styles.headerTitleGroup}>
-          <NumaMark size={30} />
+          <NumaMark size={30} light={theme.mode === 'dark'} />
           <View>
             {subtitle && (
               <Text style={[styles.headerSubtitle, { color: theme.colors.textSecondary }]}>
