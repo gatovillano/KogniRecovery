@@ -37,12 +37,12 @@ interface FeedEntry {
 }
 
 const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#5D89BA' },
-  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8BAFD4' },
+  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#104C50' },
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8EAD91' },
   habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#5D89BA' },
   social: { label: 'Entorno Social', icon: 'people-outline', color: '#8BAFD4' },
-  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#94A3B8' },
-  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#C07878' },
+  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#C4A882' },
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#B9786D' },
   habit_completion: {
     label: 'Hábito Completado',
     icon: 'checkmark-circle-outline',
