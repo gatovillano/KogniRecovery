@@ -3,11 +3,29 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { PatientClinicalTabs } from '@/components/patient-clinical-tabs';
+import { NumaShell } from '@/components/numa-shell';
 import { api } from '@/lib/api';
 import { ArrowLeft, FileText, Shield, Activity } from 'lucide-react';
 import { toast } from 'sonner';
+
+interface ConsentCategoryInfo {
+  category: string;
+  detail_level: string;
+  enabled: boolean;
+}
+
+interface ConsentRecord {
+  id: string;
+  categories: ConsentCategoryInfo[];
+}
+
+interface OverviewCheckin {
+  id?: string;
+  checkin_date: string | Date;
+  mood_score?: number | null;
+  anxiety_score?: number | null;
+}
 
 interface PatientOverview {
   patient: {
@@ -20,9 +38,9 @@ interface PatientOverview {
   consent: {
     sharedCategories: Record<string, string>;
     unavailableCategories: string[];
-    consents: any[];
+    consents: ConsentRecord[];
   };
-  checkins: any[];
+  checkins: OverviewCheckin[];
   checkins_error: string | null;
 }
 
@@ -33,130 +51,175 @@ export function PatientDetailClient({ patientId }: { patientId: string }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadOverview();
-  }, [patientId]);
+    let cancelled = false;
 
-  const loadOverview = async () => {
-    try {
-      const response = await api.get<PatientOverview>(`/therapist/patients/${patientId}/overview`);
-      if (response.success && response.data) {
-        setOverview(response.data);
-      } else {
-        toast.error(response.error?.message || 'Error al cargar información');
+    (async () => {
+      try {
+        const response = await api.get<PatientOverview>(`/therapist/patients/${patientId}/overview`);
+        if (cancelled) return;
+        if (response.success && response.data) {
+          setOverview(response.data);
+        } else {
+          toast.error(response.error?.message || 'Error al cargar información');
+        }
+      } catch (error) {
+        if (cancelled) return;
+        console.error('Error loading overview:', error);
+        toast.error('Error al conectar con el servidor');
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    } catch (error) {
-      console.error('Error loading overview:', error);
-      toast.error('Error al conectar con el servidor');
-    } finally {
-      setLoading(false);
-    }
-  };
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [patientId]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p>Cargando...</p>
-      </div>
+      <NumaShell title="Ficha de paciente">
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <p className="text-sm text-muted-foreground">Cargando...</p>
+        </div>
+      </NumaShell>
     );
   }
 
   if (!overview) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p>No se pudo cargar la información</p>
-      </div>
+      <NumaShell title="Ficha de paciente">
+        <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3">
+          <p className="text-sm text-muted-foreground">No se pudo cargar la información</p>
+          <button
+            type="button"
+            onClick={() => router.push('/dashboard')}
+            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+          >
+            Volver al dashboard
+          </button>
+        </div>
+      </NumaShell>
     );
   }
 
+  const isActive = overview.patient.care_status === 'active';
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Button variant="ghost" onClick={() => router.push('/dashboard')} className="mb-2">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver a pacientes
-          </Button>
-          <h1 className="text-2xl font-bold text-gray-900">{overview.patient.display_name}</h1>
-          <p className="text-sm text-gray-600">
-            Estado: {overview.patient.care_status === 'active' ? 'Activo' : overview.patient.care_status}
+    <NumaShell title="Ficha de paciente">
+      <button
+        type="button"
+        onClick={() => router.push('/dashboard')}
+        className="mb-6 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground"
+      >
+        <ArrowLeft size={16} /> Volver a pacientes
+      </button>
+
+      <section className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#719184]">
+            Ficha clínica
+          </p>
+          <h1 className="text-3xl font-semibold tracking-tight text-[#203b35] sm:text-[34px]">
+            {overview.patient.display_name}
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Información compartida bajo consentimiento activo.
           </p>
         </div>
-      </header>
+        <span
+          className={`w-fit rounded-full px-3 py-1 text-[11px] font-medium ${
+            isActive ? 'bg-secondary text-[#5b846d]' : 'bg-muted text-muted-foreground'
+          }`}
+        >
+          {isActive ? 'Activo' : overview.patient.care_status}
+        </span>
+      </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <span className="rounded-lg bg-secondary p-2 text-[#56806d]">
                 <Shield className="h-5 w-5" />
-                Consentimiento
-              </CardTitle>
-              <CardDescription>Datos compartidos por el paciente</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <p className="text-sm font-medium">Categorías compartidas:</p>
-                {Object.keys(overview.consent.sharedCategories).length === 0 ? (
-                  <p className="text-sm text-gray-500">Ninguna categoría compartida</p>
-                ) : (
-                  <ul className="space-y-1">
-                    {Object.entries(overview.consent.sharedCategories).map(([cat, level]) => (
-                      <li key={cat} className="text-sm flex justify-between">
-                        <span>{cat}</span>
-                        <span className="text-gray-500">{level}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5" />
-                Check-ins recientes
-              </CardTitle>
-              <CardDescription>Últimos 7 días</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {overview.checkins_error ? (
-                <p className="text-sm text-amber-600">
-                  {overview.checkins_error === 'CONSENT_REQUIRED'
-                    ? 'El paciente no ha compartido los check-ins'
-                    : overview.checkins_error}
-                </p>
-              ) : overview.checkins.length === 0 ? (
-                <p className="text-sm text-gray-500">No hay check-ins</p>
+              </span>
+              Consentimiento
+            </CardTitle>
+            <CardDescription>Datos compartidos por el paciente</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-foreground">Categorías compartidas:</p>
+              {Object.keys(overview.consent.sharedCategories).length === 0 ? (
+                <p className="text-sm text-muted-foreground">Ninguna categoría compartida</p>
               ) : (
-                <div className="space-y-2">
-                  {overview.checkins.slice(0, 5).map((checkin: any, idx: number) => (
-                    <div key={idx} className="text-sm border-b pb-2">
-                      <p className="font-medium">{checkin.checkin_date}</p>
-                      <p className="text-gray-600">
-                        Ánimo: {checkin.mood_score}/10 | Ansiedad: {checkin.anxiety_score}/10
-                      </p>
-                    </div>
+                <ul className="space-y-2">
+                  {Object.entries(overview.consent.sharedCategories).map(([cat, level]) => (
+                    <li key={cat} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="text-foreground">{cat}</span>
+                      <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground">
+                        {level}
+                      </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              Registro clínico
+              <span className="rounded-lg bg-secondary p-2 text-[#56806d]">
+                <Activity className="h-5 w-5" />
+              </span>
+              Check-ins recientes
             </CardTitle>
+            <CardDescription>Últimos 7 días</CardDescription>
           </CardHeader>
           <CardContent>
-            <PatientClinicalTabs patientId={patientId} />
+            {overview.checkins_error ? (
+              <p className="text-sm text-[#a68b54]">
+                {overview.checkins_error === 'CONSENT_REQUIRED'
+                  ? 'El paciente no ha compartido los check-ins'
+                  : overview.checkins_error}
+              </p>
+            ) : overview.checkins.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No hay check-ins</p>
+            ) : (
+              <div className="space-y-3">
+                {overview.checkins.slice(0, 5).map((checkin: OverviewCheckin, idx: number) => (
+                  <div key={idx} className="border-b border-border pb-3 text-sm last:border-0 last:pb-0">
+                    <p className="font-medium text-foreground">
+                      {checkin.checkin_date instanceof Date
+                        ? checkin.checkin_date.toISOString().slice(0, 10)
+                        : checkin.checkin_date}
+                    </p>
+                    <p className="mt-1 text-muted-foreground">
+                      Ánimo: {checkin.mood_score}/10 | Ansiedad: {checkin.anxiety_score}/10
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
-      </main>
-    </div>
+      </div>
+
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <span className="rounded-lg bg-secondary p-2 text-[#56806d]">
+              <FileText className="h-5 w-5" />
+            </span>
+            Registro clínico
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <PatientClinicalTabs patientId={patientId} />
+        </CardContent>
+      </Card>
+    </NumaShell>
   );
 }

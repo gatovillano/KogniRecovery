@@ -120,7 +120,7 @@ export function OrgPanel() {
   const [members, setMembers] = useState<OrgMember[]>([]);
   const [invites, setInvites] = useState<OrgInvite[]>([]);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadedTab, setLoadedTab] = useState<TabKey | null>(null);
 
   // Form de invitación
   const [invEmail, setInvEmail] = useState('');
@@ -237,7 +237,6 @@ export function OrgPanel() {
   }, []);
 
   const loadTab = useCallback(async (key: TabKey) => {
-    setLoading(true);
     try {
       if (key === 'patients') await loadPatients();
       else if (key === 'members') {
@@ -248,7 +247,7 @@ export function OrgPanel() {
       else if (key === 'invites') await loadInvites();
       else await loadAudit();
     } finally {
-      setLoading(false);
+      setLoadedTab(key);
     }
   }, [loadPatients, loadMembers, loadInvites, loadAudit, loadProfInvites, loadCredentials, loadDeletions, loadLlm]);
 
@@ -261,18 +260,18 @@ export function OrgPanel() {
     setInvSending(true);
     setGeneratedToken(null);
     try {
-      const response = await api.post('/org/patients/invite', {
+      const response = await api.post<{ token?: string }>('/org/patients/invite', {
         patient_email: invEmail.trim(),
         professional_id: invProfessionalId || undefined,
       });
       if (response.success) {
-        setGeneratedToken((response.data as any)?.token ?? null);
+        setGeneratedToken(response.data?.token ?? null);
         setInvEmail('');
         setInvProfessionalId('');
         toast.success('Invitación creada');
         await loadInvites();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo crear');
+        toast.error(response.error?.message ?? 'No se pudo crear');
       }
     } catch {
       toast.error('No se pudo crear la invitación');
@@ -305,7 +304,7 @@ export function OrgPanel() {
         toast.success('Paciente vinculado');
         await loadPatients();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo vincular');
+        toast.error(response.error?.message ?? 'No se pudo vincular');
       }
     } catch (error) {
       toast.error(error instanceof ApiClientError ? error.message : 'No se pudo vincular');
@@ -329,17 +328,17 @@ export function OrgPanel() {
     setProfInvSending(true);
     setProfInvToken(null);
     try {
-      const response = await api.post('/org/therapists/invite', {
+      const response = await api.post<{ token?: string }>('/org/therapists/invite', {
         email: profInvEmail.trim(),
         role: profInvRole,
       });
       if (response.success) {
-        setProfInvToken((response.data as any)?.token ?? null);
+        setProfInvToken(response.data?.token ?? null);
         setProfInvEmail('');
         toast.success('Invitación de personal creada');
         await loadProfInvites();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo crear');
+        toast.error(response.error?.message ?? 'No se pudo crear');
       }
     } catch {
       toast.error('No se pudo crear la invitación');
@@ -375,7 +374,7 @@ export function OrgPanel() {
         toast.success('Credencial registrada');
         await loadCredentials();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo registrar');
+        toast.error(response.error?.message ?? 'No se pudo registrar');
       }
     } catch {
       toast.error('No se pudo registrar la credencial');
@@ -417,7 +416,7 @@ export function OrgPanel() {
         setLlmModels(response.data?.models ?? []);
         toast.success(`${response.data?.models?.length ?? 0} modelos cargados`);
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudieron cargar los modelos');
+        toast.error(response.error?.message ?? 'No se pudieron cargar los modelos');
       }
     } catch {
       toast.error('No se pudieron cargar los modelos');
@@ -444,7 +443,7 @@ export function OrgPanel() {
         toast.success('Configuración LLM guardada');
         await loadLlm();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo guardar');
+        toast.error(response.error?.message ?? 'No se pudo guardar');
       }
     } catch {
       toast.error('No se pudo guardar la configuración');
@@ -465,18 +464,18 @@ export function OrgPanel() {
 
   return (
     <Card>
-      <CardContent className="p-4">
-        <div className="flex flex-wrap gap-1 border-b pb-3 mb-4">
+      <CardContent className="p-5">
+        <div className="mb-6 flex flex-wrap gap-1 border-b border-border pb-3">
           {tabs.map((t) => (
             <button
               key={t.key}
               type="button"
               onClick={() => setTab(t.key)}
               className={
-                'px-3 py-1.5 text-sm rounded-md transition-colors ' +
+                'rounded-lg px-3 py-1.5 text-sm transition-colors ' +
                 (tab === t.key
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-gray-600 hover:bg-gray-100')
+                  ? 'bg-secondary font-medium text-secondary-foreground'
+                  : 'text-muted-foreground hover:bg-muted')
               }
             >
               {t.label}
@@ -487,7 +486,7 @@ export function OrgPanel() {
         {tab === 'patients' && (
           <div className="space-y-4">
             {generatedToken && (
-              <div className="border rounded-md p-3 bg-gray-50 text-sm">
+              <div className="rounded-xl border border-border bg-muted/60 p-4 text-sm">
                 <p className="font-medium mb-1">Token de invitación (cópialo para enviarlo al paciente):</p>
                 <code className="break-all text-xs">{generatedToken}</code>
                 <button
@@ -503,17 +502,17 @@ export function OrgPanel() {
               </div>
             )}
 
-            <div className="border rounded-md p-3 space-y-2 bg-gray-50/50">
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
               <p className="text-sm font-medium">Vincular paciente existente (cuenta ya creada en la app)</p>
               <div className="flex flex-wrap gap-2">
                 <input
-                  className="flex h-9 min-w-[220px] flex-1 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="flex h-9 min-w-[220px] flex-1 rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="email del paciente"
                   value={linkEmail}
                   onChange={(e) => setLinkEmail(e.target.value)}
                 />
                 <select
-                  className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="h-9 rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   value={linkProfessionalId}
                   onChange={(e) => setLinkProfessionalId(e.target.value)}
                 >
@@ -528,24 +527,24 @@ export function OrgPanel() {
                   type="button"
                   onClick={linkPatient}
                   disabled={linkSending || !linkEmail.trim()}
-                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
                   {linkSending ? 'Vinculando…' : 'Vincular'}
                 </button>
               </div>
             </div>
 
-            <div className="border rounded-md p-3 space-y-2 bg-gray-50/50">
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
               <p className="text-sm font-medium">Invitar paciente nuevo o existente (envío por email/token)</p>
               <div className="flex flex-wrap gap-2">
                 <input
-                  className="flex h-9 min-w-[220px] flex-1 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="flex h-9 min-w-[220px] flex-1 rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="email del paciente"
                   value={invEmail}
                   onChange={(e) => setInvEmail(e.target.value)}
                 />
                 <select
-                  className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="h-9 rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   value={invProfessionalId}
                   onChange={(e) => setInvProfessionalId(e.target.value)}
                 >
@@ -560,7 +559,7 @@ export function OrgPanel() {
                   type="button"
                   onClick={createInvite}
                   disabled={invSending || !invEmail.trim()}
-                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
                   {invSending ? 'Creando…' : 'Invitar'}
                 </button>
@@ -570,7 +569,7 @@ export function OrgPanel() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-gray-500">
+                  <tr className="border-b border-border text-left text-muted-foreground">
                     <th className="py-2 pr-4 font-medium">Paciente</th>
                     <th className="py-2 pr-4 font-medium">Estado</th>
                     <th className="py-2 pr-4 font-medium">Vinculado</th>
@@ -578,14 +577,14 @@ export function OrgPanel() {
                 </thead>
                 <tbody>
                   {patients.map((p) => (
-                    <tr key={p.organization_patient_id} className="border-b last:border-0">
+                    <tr key={p.organization_patient_id} className="border-b border-border last:border-0">
                       <td className="py-2 pr-4">{p.display_name}</td>
                       <td className="py-2 pr-4">{p.care_status}</td>
                       <td className="py-2 pr-4">{fmtDate(p.enrolled_at)}</td>
                     </tr>
                   ))}
                   {patients.length === 0 && (
-                    <tr><td className="py-4 text-gray-500" colSpan={3}>Sin pacientes vinculados.</td></tr>
+                    <tr><td className="py-4 text-muted-foreground" colSpan={3}>Sin pacientes vinculados.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -598,7 +597,7 @@ export function OrgPanel() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-gray-500">
+                  <tr className="border-b border-border text-left text-muted-foreground">
                     <th className="py-2 pr-4 font-medium">Email</th>
                     <th className="py-2 pr-4 font-medium">Terapeuta</th>
                     <th className="py-2 pr-4 font-medium">Estado</th>
@@ -609,7 +608,7 @@ export function OrgPanel() {
                 </thead>
                 <tbody>
                   {invites.map((i) => (
-                    <tr key={i.id} className="border-b last:border-0">
+                    <tr key={i.id} className="border-b border-border last:border-0">
                       <td className="py-2 pr-4">{i.patient_email}</td>
                       <td className="py-2 pr-4">{i.professional_name ?? '—'}</td>
                       <td className="py-2 pr-4">{i.status}</td>
@@ -620,7 +619,7 @@ export function OrgPanel() {
                           <button
                             type="button"
                             onClick={() => revokeInvite(i.id)}
-                            className="text-xs text-red-500 hover:underline"
+                            className="text-xs text-destructive hover:underline"
                           >
                             Revocar
                           </button>
@@ -629,7 +628,7 @@ export function OrgPanel() {
                     </tr>
                   ))}
                   {invites.length === 0 && (
-                    <tr><td className="py-4 text-gray-500" colSpan={6}>Sin invitaciones.</td></tr>
+                    <tr><td className="py-4 text-muted-foreground" colSpan={6}>Sin invitaciones.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -640,7 +639,7 @@ export function OrgPanel() {
         {tab === 'members' && (
           <div className="space-y-4">
             {profInvToken && (
-              <div className="border rounded-md p-3 bg-gray-50 text-sm">
+              <div className="rounded-xl border border-border bg-muted/60 p-4 text-sm">
                 <p className="font-medium mb-1">Token de invitación de personal (compártelo con el profesional):</p>
                 <code className="break-all text-xs">{profInvToken}</code>
                 <button
@@ -656,17 +655,17 @@ export function OrgPanel() {
               </div>
             )}
 
-            <div className="border rounded-md p-3 space-y-2 bg-gray-50/50">
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
               <p className="text-sm font-medium">Invitar profesional (terapeuta/supervisor/admin)</p>
               <div className="flex flex-wrap gap-2">
                 <input
-                  className="flex h-9 min-w-[220px] flex-1 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="flex h-9 min-w-[220px] flex-1 rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="email del profesional"
                   value={profInvEmail}
                   onChange={(e) => setProfInvEmail(e.target.value)}
                 />
                 <select
-                  className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="h-9 rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   value={profInvRole}
                   onChange={(e) => setProfInvRole(e.target.value)}
                 >
@@ -679,7 +678,7 @@ export function OrgPanel() {
                   type="button"
                   onClick={createProfInvite}
                   disabled={profInvSending || !profInvEmail.trim()}
-                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
                   {profInvSending ? 'Creando…' : 'Invitar'}
                 </button>
@@ -689,7 +688,7 @@ export function OrgPanel() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-gray-500">
+                  <tr className="border-b border-border text-left text-muted-foreground">
                     <th className="py-2 pr-4 font-medium">Nombre</th>
                     <th className="py-2 pr-4 font-medium">Email</th>
                     <th className="py-2 pr-4 font-medium">Rol</th>
@@ -699,7 +698,7 @@ export function OrgPanel() {
                 </thead>
                 <tbody>
                   {members.map((m) => (
-                    <tr key={m.id} className="border-b last:border-0">
+                    <tr key={m.id} className="border-b border-border last:border-0">
                       <td className="py-2 pr-4">{m.name}</td>
                       <td className="py-2 pr-4">{m.email}</td>
                       <td className="py-2 pr-4">{ROLE_LABELS[m.role] ?? m.role}</td>
@@ -709,7 +708,7 @@ export function OrgPanel() {
                           <button
                             type="button"
                             onClick={() => setMemberStatus(m, 'suspended')}
-                            className="text-xs text-red-500 hover:underline"
+                            className="text-xs text-destructive hover:underline"
                           >
                             Suspender
                           </button>
@@ -726,7 +725,7 @@ export function OrgPanel() {
                     </tr>
                   ))}
                   {members.length === 0 && (
-                    <tr><td className="py-4 text-gray-500" colSpan={5}>Sin miembros.</td></tr>
+                    <tr><td className="py-4 text-muted-foreground" colSpan={5}>Sin miembros.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -737,7 +736,7 @@ export function OrgPanel() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b text-left text-gray-500">
+                    <tr className="border-b border-border text-left text-muted-foreground">
                       <th className="py-2 pr-4 font-medium">Email</th>
                       <th className="py-2 pr-4 font-medium">Rol</th>
                       <th className="py-2 pr-4 font-medium">Estado</th>
@@ -747,7 +746,7 @@ export function OrgPanel() {
                   </thead>
                   <tbody>
                     {profInvites.map((i) => (
-                      <tr key={i.id} className="border-b last:border-0">
+                      <tr key={i.id} className="border-b border-border last:border-0">
                         <td className="py-2 pr-4">{i.email}</td>
                         <td className="py-2 pr-4">{ROLE_LABELS[i.role] ?? i.role}</td>
                         <td className="py-2 pr-4">{i.status}</td>
@@ -757,7 +756,7 @@ export function OrgPanel() {
                             <button
                               type="button"
                               onClick={() => revokeProfInvite(i.id)}
-                              className="text-xs text-red-500 hover:underline"
+                              className="text-xs text-destructive hover:underline"
                             >
                               Revocar
                             </button>
@@ -766,7 +765,7 @@ export function OrgPanel() {
                       </tr>
                     ))}
                     {profInvites.length === 0 && (
-                      <tr><td className="py-4 text-gray-500" colSpan={5}>Sin invitaciones enviadas.</td></tr>
+                      <tr><td className="py-4 text-muted-foreground" colSpan={5}>Sin invitaciones enviadas.</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -777,11 +776,11 @@ export function OrgPanel() {
 
         {tab === 'credentials' && (
           <div className="space-y-4">
-            <div className="border rounded-md p-3 space-y-2 bg-gray-50/50">
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
               <p className="text-sm font-medium">Registrar credencial profesional</p>
               <div className="flex flex-wrap gap-2">
                 <select
-                  className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="h-9 rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   value={credUserId}
                   onChange={(e) => setCredUserId(e.target.value)}
                 >
@@ -793,20 +792,20 @@ export function OrgPanel() {
                   ))}
                 </select>
                 <input
-                  className="flex h-9 min-w-[160px] flex-1 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="flex h-9 min-w-[160px] flex-1 rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="N° de licencia"
                   value={credLicense}
                   onChange={(e) => setCredLicense(e.target.value)}
                 />
                 <input
-                  className="flex h-9 min-w-[160px] flex-1 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="flex h-9 min-w-[160px] flex-1 rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="Especialidad"
                   value={credSpecialty}
                   onChange={(e) => setCredSpecialty(e.target.value)}
                 />
                 <input
                   type="date"
-                  className="h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="h-9 rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   title="Vencimiento"
                   value={credExpires}
                   onChange={(e) => setCredExpires(e.target.value)}
@@ -815,7 +814,7 @@ export function OrgPanel() {
                   type="button"
                   onClick={createCredential}
                   disabled={credSending || !credUserId || !credLicense.trim()}
-                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
                   {credSending ? 'Guardando…' : 'Registrar'}
                 </button>
@@ -825,7 +824,7 @@ export function OrgPanel() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-gray-500">
+                  <tr className="border-b border-border text-left text-muted-foreground">
                     <th className="py-2 pr-4 font-medium">Profesional</th>
                     <th className="py-2 pr-4 font-medium">Licencia</th>
                     <th className="py-2 pr-4 font-medium">Especialidad</th>
@@ -836,7 +835,7 @@ export function OrgPanel() {
                 </thead>
                 <tbody>
                   {credentials.map((c) => (
-                    <tr key={c.id} className="border-b last:border-0">
+                    <tr key={c.id} className="border-b border-border last:border-0">
                       <td className="py-2 pr-4">{c.professional_name ?? '—'}</td>
                       <td className="py-2 pr-4">{c.license_number}</td>
                       <td className="py-2 pr-4">{c.specialty ?? '—'}</td>
@@ -848,14 +847,14 @@ export function OrgPanel() {
                             <button
                               type="button"
                               onClick={() => decideCredential(c.id, 'verified')}
-                              className="text-xs text-green-600 hover:underline"
+                              className="text-xs text-[#56806d] hover:underline"
                             >
                               Verificar
                             </button>
                             <button
                               type="button"
                               onClick={() => decideCredential(c.id, 'rejected')}
-                              className="text-xs text-red-500 hover:underline"
+                              className="text-xs text-destructive hover:underline"
                             >
                               Rechazar
                             </button>
@@ -865,7 +864,7 @@ export function OrgPanel() {
                     </tr>
                   ))}
                   {credentials.length === 0 && (
-                    <tr><td className="py-4 text-gray-500" colSpan={6}>Sin credenciales registradas.</td></tr>
+                    <tr><td className="py-4 text-muted-foreground" colSpan={6}>Sin credenciales registradas.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -877,7 +876,7 @@ export function OrgPanel() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-gray-500">
+                <tr className="border-b border-border text-left text-muted-foreground">
                   <th className="py-2 pr-4 font-medium">Paciente (ID)</th>
                   <th className="py-2 pr-4 font-medium">Motivo</th>
                   <th className="py-2 pr-4 font-medium">Estado</th>
@@ -887,7 +886,7 @@ export function OrgPanel() {
               </thead>
               <tbody>
                 {deletions.map((r) => (
-                  <tr key={r.id} className="border-b last:border-0">
+                  <tr key={r.id} className="border-b border-border last:border-0">
                     <td className="py-2 pr-4 font-mono text-xs">{r.patient_id.slice(0, 8)}…</td>
                     <td className="py-2 pr-4">{r.reason ?? '—'}</td>
                     <td className="py-2 pr-4">{r.status}</td>
@@ -905,14 +904,14 @@ export function OrgPanel() {
                           <button
                             type="button"
                             onClick={() => reviewDeletion(r.id, 'completed')}
-                            className="text-xs text-green-600 hover:underline"
+                            className="text-xs text-[#56806d] hover:underline"
                           >
                             Completar
                           </button>
                           <button
                             type="button"
                             onClick={() => reviewDeletion(r.id, 'rejected')}
-                            className="text-xs text-red-500 hover:underline"
+                            className="text-xs text-destructive hover:underline"
                           >
                             Rechazar
                           </button>
@@ -922,7 +921,7 @@ export function OrgPanel() {
                   </tr>
                 ))}
                 {deletions.length === 0 && (
-                  <tr><td className="py-4 text-gray-500" colSpan={5}>Sin solicitudes de borrado.</td></tr>
+                  <tr><td className="py-4 text-muted-foreground" colSpan={5}>Sin solicitudes de borrado.</td></tr>
                 )}
               </tbody>
             </table>
@@ -931,13 +930,13 @@ export function OrgPanel() {
 
         {tab === 'llm' && (
           <div className="space-y-4 max-w-2xl">
-            <div className="border rounded-md p-3 space-y-3 bg-gray-50/50">
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
               <p className="text-sm font-medium">Proveedor y modelo del asistente (mismos proveedores que KogniTerm)</p>
 
               <div>
-                <label className="text-xs text-gray-500">Proveedor</label>
+                <label className="text-xs text-muted-foreground">Proveedor</label>
                 <select
-                  className="mt-1 h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm"
+                  className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   value={llm.provider ?? ''}
                   onChange={(e) => {
                     setLlm((prev) => ({ ...prev, provider: e.target.value }));
@@ -953,12 +952,12 @@ export function OrgPanel() {
               </div>
 
               <div>
-                <label className="text-xs text-gray-500">
-                  API Key {llm.has_api_key && <span className="text-green-600">({llm.api_key_masked} guardada)</span>}
+                <label className="text-xs text-muted-foreground">
+                  API Key {llm.has_api_key && <span className="text-[#56806d]">({llm.api_key_masked} guardada)</span>}
                 </label>
                 <input
                   type="password"
-                  className="mt-1 h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder={llm.has_api_key ? 'Dejar vacío para conservar la actual' : 'API key del proveedor'}
                   value={llmApiKey}
                   onChange={(e) => setLlmApiKey(e.target.value)}
@@ -966,9 +965,9 @@ export function OrgPanel() {
               </div>
 
               <div>
-                <label className="text-xs text-gray-500">Base URL (opcional; por defecto la del proveedor)</label>
+                <label className="text-xs text-muted-foreground">Base URL (opcional; por defecto la del proveedor)</label>
                 <input
-                  className="mt-1 h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                   placeholder="https://…"
                   value={llmBaseUrl}
                   onChange={(e) => setLlmBaseUrl(e.target.value)}
@@ -977,10 +976,10 @@ export function OrgPanel() {
 
               <div className="flex flex-wrap items-end gap-2">
                 <div className="flex-1 min-w-[220px]">
-                  <label className="text-xs text-gray-500">Modelo</label>
+                  <label className="text-xs text-muted-foreground">Modelo</label>
                   <input
                     list="llm-model-options"
-                    className="mt-1 h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                    className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
                     placeholder="Escribe o carga los modelos desde la API"
                     value={llmModel}
                     onChange={(e) => setLlmModel(e.target.value)}
@@ -995,14 +994,14 @@ export function OrgPanel() {
                   type="button"
                   onClick={loadProviderModels}
                   disabled={llmLoadingModels || !llm.provider}
-                  className="px-3 py-1.5 text-sm rounded-md border hover:bg-gray-100 disabled:opacity-50"
+                  className="rounded-lg border border-border px-3 py-1.5 text-sm transition hover:bg-muted disabled:opacity-50"
                 >
                   {llmLoadingModels ? 'Cargando…' : 'Cargar modelos de la API'}
                 </button>
               </div>
 
               {llmModels.length > 0 && (
-                <p className="text-xs text-gray-500">{llmModels.length} modelos disponibles (autocompletado).</p>
+                <p className="text-xs text-muted-foreground">{llmModels.length} modelos disponibles (autocompletado).</p>
               )}
 
               <div className="flex gap-2 pt-1">
@@ -1010,7 +1009,7 @@ export function OrgPanel() {
                   type="button"
                   onClick={saveLlm}
                   disabled={llmSaving || !llm.provider}
-                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
                   {llmSaving ? 'Guardando…' : 'Guardar configuración'}
                 </button>
@@ -1027,7 +1026,7 @@ export function OrgPanel() {
                         toast.error('No se pudo eliminar la key');
                       }
                     }}
-                    className="px-3 py-1.5 text-sm rounded-md text-red-500 hover:underline"
+                    className="rounded-md px-3 py-1.5 text-sm text-destructive hover:underline"
                   >
                     Quitar API key
                   </button>
@@ -1041,7 +1040,7 @@ export function OrgPanel() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-gray-500">
+                <tr className="border-b border-border text-left text-muted-foreground">
                   <th className="py-2 pr-4 font-medium">Fecha</th>
                   <th className="py-2 pr-4 font-medium">Actor</th>
                   <th className="py-2 pr-4 font-medium">Acción</th>
@@ -1051,29 +1050,29 @@ export function OrgPanel() {
               </thead>
               <tbody>
                 {audit.map((e) => (
-                  <tr key={e.id} className="border-b last:border-0">
+                  <tr key={e.id} className="border-b border-border last:border-0">
                     <td className="py-2 pr-4">{fmtDate(e.created_at)}</td>
                     <td className="py-2 pr-4">{e.actor_name ?? e.actor_role}</td>
                     <td className="py-2 pr-4">{e.action}</td>
                     <td className="py-2 pr-4">{e.resource_type}</td>
                     <td className="py-2">
                       {e.success ? (
-                        <span className="text-green-600">Permitido</span>
+                        <span className="text-[#56806d]">Permitido</span>
                       ) : (
-                        <span className="text-red-600">Denegado {e.denial_reason ? `(${e.denial_reason})` : ''}</span>
+                        <span className="text-destructive">Denegado {e.denial_reason ? `(${e.denial_reason})` : ''}</span>
                       )}
                     </td>
                   </tr>
                 ))}
                 {audit.length === 0 && (
-                  <tr><td className="py-4 text-gray-500" colSpan={5}>Sin registros.</td></tr>
+                  <tr><td className="py-4 text-muted-foreground" colSpan={5}>Sin registros.</td></tr>
                 )}
               </tbody>
             </table>
           </div>
         )}
 
-        {loading && <p className="text-sm text-gray-500 py-2 text-center">Cargando…</p>}
+        {loadedTab !== tab && <p className="py-2 text-center text-sm text-muted-foreground">Cargando…</p>}
       </CardContent>
     </Card>
   );
