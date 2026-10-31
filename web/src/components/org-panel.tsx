@@ -120,7 +120,7 @@ export function OrgPanel() {
   const [members, setMembers] = useState<OrgMember[]>([]);
   const [invites, setInvites] = useState<OrgInvite[]>([]);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadedTab, setLoadedTab] = useState<TabKey | null>(null);
 
   // Form de invitación
   const [invEmail, setInvEmail] = useState('');
@@ -237,7 +237,6 @@ export function OrgPanel() {
   }, []);
 
   const loadTab = useCallback(async (key: TabKey) => {
-    setLoading(true);
     try {
       if (key === 'patients') await loadPatients();
       else if (key === 'members') {
@@ -248,7 +247,7 @@ export function OrgPanel() {
       else if (key === 'invites') await loadInvites();
       else await loadAudit();
     } finally {
-      setLoading(false);
+      setLoadedTab(key);
     }
   }, [loadPatients, loadMembers, loadInvites, loadAudit, loadProfInvites, loadCredentials, loadDeletions, loadLlm]);
 
@@ -261,18 +260,18 @@ export function OrgPanel() {
     setInvSending(true);
     setGeneratedToken(null);
     try {
-      const response = await api.post('/org/patients/invite', {
+      const response = await api.post<{ token?: string }>('/org/patients/invite', {
         patient_email: invEmail.trim(),
         professional_id: invProfessionalId || undefined,
       });
       if (response.success) {
-        setGeneratedToken((response.data as any)?.token ?? null);
+        setGeneratedToken(response.data?.token ?? null);
         setInvEmail('');
         setInvProfessionalId('');
         toast.success('Invitación creada');
         await loadInvites();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo crear');
+        toast.error(response.error?.message ?? 'No se pudo crear');
       }
     } catch {
       toast.error('No se pudo crear la invitación');
@@ -305,7 +304,7 @@ export function OrgPanel() {
         toast.success('Paciente vinculado');
         await loadPatients();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo vincular');
+        toast.error(response.error?.message ?? 'No se pudo vincular');
       }
     } catch (error) {
       toast.error(error instanceof ApiClientError ? error.message : 'No se pudo vincular');
@@ -329,17 +328,17 @@ export function OrgPanel() {
     setProfInvSending(true);
     setProfInvToken(null);
     try {
-      const response = await api.post('/org/therapists/invite', {
+      const response = await api.post<{ token?: string }>('/org/therapists/invite', {
         email: profInvEmail.trim(),
         role: profInvRole,
       });
       if (response.success) {
-        setProfInvToken((response.data as any)?.token ?? null);
+        setProfInvToken(response.data?.token ?? null);
         setProfInvEmail('');
         toast.success('Invitación de personal creada');
         await loadProfInvites();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo crear');
+        toast.error(response.error?.message ?? 'No se pudo crear');
       }
     } catch {
       toast.error('No se pudo crear la invitación');
@@ -375,7 +374,7 @@ export function OrgPanel() {
         toast.success('Credencial registrada');
         await loadCredentials();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo registrar');
+        toast.error(response.error?.message ?? 'No se pudo registrar');
       }
     } catch {
       toast.error('No se pudo registrar la credencial');
@@ -417,7 +416,7 @@ export function OrgPanel() {
         setLlmModels(response.data?.models ?? []);
         toast.success(`${response.data?.models?.length ?? 0} modelos cargados`);
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudieron cargar los modelos');
+        toast.error(response.error?.message ?? 'No se pudieron cargar los modelos');
       }
     } catch {
       toast.error('No se pudieron cargar los modelos');
@@ -444,7 +443,7 @@ export function OrgPanel() {
         toast.success('Configuración LLM guardada');
         await loadLlm();
       } else {
-        toast.error((response.error as any)?.message ?? 'No se pudo guardar');
+        toast.error(response.error?.message ?? 'No se pudo guardar');
       }
     } catch {
       toast.error('No se pudo guardar la configuración');
@@ -1073,7 +1072,7 @@ export function OrgPanel() {
           </div>
         )}
 
-        {loading && <p className="text-sm text-gray-500 py-2 text-center">Cargando…</p>}
+        {loadedTab !== tab && <p className="text-sm text-gray-500 py-2 text-center">Cargando…</p>}
       </CardContent>
     </Card>
   );

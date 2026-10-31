@@ -34,25 +34,61 @@ const fmtDate = (value: unknown): string => {
   }
 };
 
+const tabEndpoint = (tab: TabKey): string =>
+  tab === 'chatbot' ? 'chatbot-summary' : tab;
+
+interface TabConsentSummary {
+  detail_level?: string;
+  expires_at?: string | null;
+}
+
+interface TabPayload {
+  items: unknown[];
+  consent?: { summary?: TabConsentSummary };
+  unavailable_categories?: string[];
+  error?: string;
+}
+
+type Row = Record<string, unknown>;
+
+type TabDataMap = Partial<Record<TabKey, TabPayload>>;
+
+interface AlertRow {
+  id: string;
+  severity: string;
+  status: string;
+  summary: string;
+  created_at: string;
+}
+
+interface NoteRow {
+  id: string;
+  content: string;
+  author_name?: string;
+  created_at: string;
+  visibility?: string;
+}
+
 export function PatientClinicalTabs({ patientId }: { patientId: string }) {
   const [tab, setTab] = useState<TabKey>('checkins');
-  const [data, setData] = useState<Record<string, any>>({});
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<TabDataMap>({});
+  const [loadedTab, setLoadedTab] = useState<TabKey | null>(null);
   const [noteDraft, setNoteDraft] = useState('');
+  const loading = loadedTab !== tab;
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
 
     api
-      .get(`/therapist/patients/${patientId}/${tab}`)
+      .get(`/therapist/patients/${patientId}/${tabEndpoint(tab)}`)
       .then((response) => {
         if (cancelled) return;
         if (response.success) {
           if (tab === 'notes') {
-            setData((prev) => ({ ...prev, notes: { items: (response.data as any)?.notes ?? [] } }));
+            const notes = (response.data as { notes?: unknown[] })?.notes ?? [];
+            setData((prev) => ({ ...prev, notes: { items: notes } }));
           } else {
-            setData((prev) => ({ ...prev, [tab]: response.data }));
+            setData((prev) => ({ ...prev, [tab]: response.data as TabPayload }));
           }
         }
       })
@@ -66,7 +102,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
         toast.error('No se pudo cargar esta sección (¿no compartida?)');
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) setLoadedTab(tab);
       });
 
     return () => {
@@ -75,11 +111,11 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
   }, [tab, patientId]);
 
   const current = data[tab];
-  const items: any[] = current?.items ?? [];
+  const items = (current?.items ?? []) as Row[];
   const consent = current?.consent;
   const unavailable = current?.unavailable_categories ?? [];
 
-  const renderTable = (columns: Array<{ key: string; label: string; render?: (row: any) => React.ReactNode }>) => (
+  const renderTable = (columns: Array<{ key: string; label: string; render?: (row: Row) => React.ReactNode }>) => (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
@@ -91,7 +127,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
         </thead>
         <tbody>
           {items.map((row, idx) => (
-            <tr key={row.id ?? idx} className="border-b last:border-0">
+            <tr key={String(row.id ?? idx)} className="border-b last:border-0">
               {columns.map((c) => (
                 <td key={c.key} className="py-2 pr-4 align-top">
                   {c.render ? c.render(row) : fmt(row[c.key])}
@@ -133,15 +169,17 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
                 : 'No',
           },
           {
-            key: 'consumed_substances',
+            key: 'consumed_quantity',
             label: 'Cantidad',
             render: (r) => {
               if (!Array.isArray(r.consumed_substances) || r.consumed_substances.length === 0) {
                 return '—';
               }
               return r.consumed_substances
-                .map((c: any) =>
-                  [c?.name, c?.quantity].filter(Boolean).join(' · ')
+                .map((c: { name?: string | null; quantity?: string | null }) =>
+                  [c?.name, c?.quantity]
+                    .filter(Boolean)
+                    .join(' · ')
                 )
                 .filter(Boolean)
                 .join(', ') || '—';
@@ -268,7 +306,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
         <p className="text-sm text-gray-500 py-2">Sin notas.</p>
       ) : (
         <div className="space-y-2">
-          {items.map((note) => (
+          {(items as unknown as NoteRow[]).map((note) => (
             <div key={note.id} className="border rounded-md p-3">
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="text-xs text-gray-500">
@@ -318,14 +356,14 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
       // Recargar la pestaña actual
       setData((prev) => ({ ...prev, alerts: undefined }));
       setTab('alerts');
-    } catch (error) {
+    } catch {
       toast.error('No se pudo actualizar la alerta');
     }
   };
 
   const renderAlerts = () => (
     <div className="space-y-2">
-      {items.map((alert) => (
+      {(items as unknown as AlertRow[]).map((alert) => (
         <div key={alert.id} className="border rounded-md p-3 flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 flex-wrap">

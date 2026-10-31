@@ -9,6 +9,24 @@ import { api } from '@/lib/api';
 import { ArrowLeft, FileText, Shield, Activity } from 'lucide-react';
 import { toast } from 'sonner';
 
+interface ConsentCategoryInfo {
+  category: string;
+  detail_level: string;
+  enabled: boolean;
+}
+
+interface ConsentRecord {
+  id: string;
+  categories: ConsentCategoryInfo[];
+}
+
+interface OverviewCheckin {
+  id?: string;
+  checkin_date: string | Date;
+  mood_score?: number | null;
+  anxiety_score?: number | null;
+}
+
 interface PatientOverview {
   patient: {
     id: string;
@@ -20,9 +38,9 @@ interface PatientOverview {
   consent: {
     sharedCategories: Record<string, string>;
     unavailableCategories: string[];
-    consents: any[];
+    consents: ConsentRecord[];
   };
-  checkins: any[];
+  checkins: OverviewCheckin[];
   checkins_error: string | null;
 }
 
@@ -33,24 +51,30 @@ export function PatientDetailClient({ patientId }: { patientId: string }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadOverview();
-  }, [patientId]);
+    let cancelled = false;
 
-  const loadOverview = async () => {
-    try {
-      const response = await api.get<PatientOverview>(`/therapist/patients/${patientId}/overview`);
-      if (response.success && response.data) {
-        setOverview(response.data);
-      } else {
-        toast.error(response.error?.message || 'Error al cargar información');
+    (async () => {
+      try {
+        const response = await api.get<PatientOverview>(`/therapist/patients/${patientId}/overview`);
+        if (cancelled) return;
+        if (response.success && response.data) {
+          setOverview(response.data);
+        } else {
+          toast.error(response.error?.message || 'Error al cargar información');
+        }
+      } catch (error) {
+        if (cancelled) return;
+        console.error('Error loading overview:', error);
+        toast.error('Error al conectar con el servidor');
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    } catch (error) {
-      console.error('Error loading overview:', error);
-      toast.error('Error al conectar con el servidor');
-    } finally {
-      setLoading(false);
-    }
-  };
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [patientId]);
 
   if (loading) {
     return (
@@ -131,9 +155,13 @@ export function PatientDetailClient({ patientId }: { patientId: string }) {
                 <p className="text-sm text-gray-500">No hay check-ins</p>
               ) : (
                 <div className="space-y-2">
-                  {overview.checkins.slice(0, 5).map((checkin: any, idx: number) => (
+                  {overview.checkins.slice(0, 5).map((checkin: OverviewCheckin, idx: number) => (
                     <div key={idx} className="text-sm border-b pb-2">
-                      <p className="font-medium">{checkin.checkin_date}</p>
+                      <p className="font-medium">
+                        {checkin.checkin_date instanceof Date
+                          ? checkin.checkin_date.toISOString().slice(0, 10)
+                          : checkin.checkin_date}
+                      </p>
                       <p className="text-gray-600">
                         Ánimo: {checkin.mood_score}/10 | Ansiedad: {checkin.anxiety_score}/10
                       </p>
