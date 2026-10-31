@@ -57,7 +57,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       } else {
         // Usar tema del sistema por defecto
         const systemMode = systemColorScheme === 'dark' ? 'dark' : 'light';
-        setThemeModeState(systemMode);
+        setThemeModeState('auto');
       }
     } catch (error) {
       console.warn('Error loading theme from storage:', error);
