@@ -3,7 +3,9 @@
  *
  * Usa los mismos proveedores que KogniTerm y permite cargar la lista de
  * modelos directamente desde la API de cada proveedor. La API key se
- * guarda cifrada (AES-256-GCM con clave derivada de JWT_SECRET).
+ * guarda cifrada (AES-256-GCM con clave derivada de
+ * ENCRYPTION_KEY/ENCRYPTION_SALT). Se mantiene un fallback de LECTURA
+ * con la clave antigua (JWT_SECRET) para datos previos.
  */
 
 import crypto from 'node:crypto';
@@ -55,7 +57,20 @@ export const isLlmProvider = (value: string): value is LlmProvider =>
 // CIFRADO DE API KEY
 // =====================================================
 
+/** Clave nueva y unificada: derivada de ENCRYPTION_KEY/SALT. */
 const apiKeyCipher = (): crypto.CipherKey => {
+  const envKey = process.env.ENCRYPTION_KEY;
+  const envSalt = process.env.ENCRYPTION_SALT;
+  if (!envKey || !envSalt) {
+    throw new Error(
+      'ENCRYPTION_KEY y ENCRYPTION_SALT son obligatorias para cifrar API keys LLM'
+    );
+  }
+  return crypto.pbkdf2Sync(envKey, envSalt, 100000, 32, 'sha512');
+};
+
+/** Clave legacy (solo lectura) para datos cifrados con JWT_SECRET. */
+const apiKeyLegacyCipher = (): crypto.CipherKey => {
   const base = process.env.LLM_SECRET_KEY ?? jwtConfig.secret;
   return crypto.createHash('sha256').update(`${base}:org_llm`).digest();
 };
@@ -69,15 +84,24 @@ export const encryptApiKey = (plain: string): string => {
   return `${iv.toString('hex')}.${tag.toString('hex')}.${encrypted.toString('hex')}`;
 };
 
-export const decryptApiKey = (stored: string): string => {
+const decryptApiKeyWithKey = (stored: string, key: crypto.CipherKey): string => {
   const [ivHex, tagHex, dataHex] = stored.split('.');
   if (!ivHex || !tagHex || !dataHex) {
     throw createError('API key cifrada inválida', 500, 'INVALID_LLM_SECRET');
   }
-  const key = apiKeyCipher();
   const decipher = crypto.createDecipheriv('aes-256-gcm', key, Buffer.from(ivHex, 'hex'));
   decipher.setAuthTag(Buffer.from(tagHex, 'hex'));
   return Buffer.concat([decipher.update(Buffer.from(dataHex, 'hex')), decipher.final()]).toString('utf8');
+};
+
+export const decryptApiKey = (stored: string): string => {
+  try {
+    // Intento 1: clave actual (unificada).
+    return decryptApiKeyWithKey(stored, apiKeyCipher());
+  } catch {
+    // Intento 2: clave legacy (JWT_SECRET/LLM_SECRET_KEY).
+    return decryptApiKeyWithKey(stored, apiKeyLegacyCipher());
+  }
 };
 
 // =====================================================

@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { Alert } from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system/legacy';
 
@@ -534,6 +535,11 @@ export const useChatbot = () => {
           throw new Error(`TTS download failed with status ${response.status}`);
         }
 
+        // Detecta el formato de audio según el Content-Type del servidor:
+        // Kokoro devuelve audio/wav; ElevenLabs audio/mpeg (mp3).
+        const contentType = response.headers.get('content-type') || '';
+        const audioExt = contentType.includes('audio/mpeg') ? 'mp3' : 'wav';
+
         // Usar arrayBuffer y convertir a base64 en chunks
         // btoa() falla silenciosamente con strings grandes en React Native
         const arrayBuffer = await response.arrayBuffer();
@@ -546,7 +552,7 @@ export const useChatbot = () => {
         }
         const base64 = btoa(chunks.join(''));
 
-        const fileUri = `${FileSystem.cacheDirectory}tts_${messageId}.wav`;
+        const fileUri = `${FileSystem.cacheDirectory}tts_${messageId}.${audioExt}`;
         await FileSystem.writeAsStringAsync(fileUri, base64, {
           encoding: FileSystem.EncodingType.Base64,
         });
@@ -576,6 +582,10 @@ export const useChatbot = () => {
           console.log('TTS download cancelled by user');
         } else {
           console.error('Error playing speech:', err);
+          Alert.alert(
+            'No se pudo reproducir el audio',
+            'El servicio de voz no está disponible en este momento. Inténtalo de nuevo en unos minutos.'
+          );
         }
         setPlayingMessageId(null);
         setLoadingTtsId(null);

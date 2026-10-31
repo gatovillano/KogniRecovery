@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#F8F7F2"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kognirecovery.app",
@@ -61,7 +63,8 @@
           "color": "#104C50",
           "sounds": []
         }
-      ]
+      ],
+      "expo-router"
     ],
     "extra": {
       "eas": {

@@ -6,10 +6,13 @@
  * y auditoría de cada lectura.
  *
  * Categorías: cravings, consumption, medications, journal, chatbot_summary.
- * `agent_notes` no se implementa: la tabla no existe en el esquema actual.
+ * `agent_notes` (migración 011) existe y se expone al paciente vía
+ * /notes; el acceso del terapeuta a esas notas queda pendiente de
+ * autorización por categoría en una iteración futura.
  */
 
 import { query } from '../config/database.js';
+import { tryDecrypt } from '../utils/encryption.js';
 import type { ConsentCategory, DetailLevel } from '../config/consent.js';
 import * as ClinicalAccess from './clinicalAccess.service.js';
 import type {
@@ -184,8 +187,17 @@ export const getCravingsForTherapist = async (input: {
     );
   }
 
+  // SEC-PHASE1: descifrar notas/consecuencias de cravings.
+  const items = includeNotes
+    ? result.rows.map((row) => ({
+        ...row,
+        consequences: row.consequences ? tryDecrypt(row.consequences) : null,
+        notes: row.notes ? tryDecrypt(row.notes) : null,
+      }))
+    : result.rows;
+
   return {
-    items: result.rows,
+    items,
     consent: toConsentState({
       summaryDecision,
       notesConsent,
@@ -290,8 +302,15 @@ export const getConsumptionForTherapist = async (input: {
     context: input.context,
   });
 
+  // SEC-PHASE1: descifrar sensaciones/notas de contexto de consumo.
+  const items = result.rows.map((row) => ({
+    ...row,
+    feelings: row.feelings ? tryDecrypt(row.feelings) : null,
+    context_notes: row.context_notes ? tryDecrypt(row.context_notes) : null,
+  }));
+
   return {
-    items: result.rows,
+    items,
     consent: {
       detail_level: decision.detailLevel,
       expires_at: decision.consent.expires_at ?? null,
@@ -421,29 +440,58 @@ export const getJournalForTherapist = async (input: {
   const params: unknown[] = [input.patientId, days, limit];
   const limitParam = `$${params.length}`;
 
-  const result = await query<ClinicalJournalEntry>(
-    `SELECT 'daily_note' AS kind, dn.id, dn.note_date AS entry_date, dn.content AS text
+  // SEC-PHASE1: los campos de texto van en un objeto JSON (parts); el
+  // texto legible se ensambla en JS tras descifrar cada parte.
+  const result = await query<ClinicalJournalEntry & { parts?: Record<string, string> }>(
+    `SELECT 'daily_note' AS kind, dn.id, dn.note_date AS entry_date, dn.content AS text,
+            NULL::jsonb AS parts
      FROM daily_notes dn
      WHERE dn.user_id = $1 AND dn.note_date${windowGuard}
      UNION ALL
-     SELECT 'habit' AS kind, he.id, he.entry_date,
-            ('Protectores: ' || COALESCE(he.protective_habits,'') || ' | Riesgo: ' || COALESCE(he.risk_habits,''))
+     SELECT 'habit' AS kind, he.id, he.entry_date, NULL::text AS text,
+            json_build_object('protective', he.protective_habits, 'risk', he.risk_habits) AS parts
      FROM habit_entries he
      WHERE he.user_id = $1 AND he.entry_date${windowGuard}
      UNION ALL
-     SELECT 'social' AS kind, se.id, se.entry_date,
-            (COALESCE(se.people_description,'') || ' — ' || COALESCE(se.impact_assessment,''))
+     SELECT 'social' AS kind, se.id, se.entry_date, NULL::text AS text,
+            json_build_object('people', se.people_description, 'impact', se.impact_assessment) AS parts
      FROM social_entries se
      WHERE se.user_id = $1 AND se.entry_date${windowGuard}
      UNION ALL
-     SELECT 'consumption_analysis' AS kind, ca.id, ca.entry_date,
-            (COALESCE(ca.trigger_situation,'') || ' | Acción: ' || COALESCE(ca.action_taken,'') || ' | Aprendizaje: ' || COALESCE(ca.lesson_learned,''))
+     SELECT 'consumption_analysis' AS kind, ca.id, ca.entry_date, NULL::text AS text,
+            json_build_object('trigger', ca.trigger_situation, 'action', ca.action_taken, 'lesson', ca.lesson_learned) AS parts
      FROM consumption_analysis ca
      WHERE ca.user_id = $1 AND ca.entry_date${windowGuard}
      ORDER BY entry_date DESC
      LIMIT ${limitParam}`,
     params
   );
+
+  const items = result.rows.map((row) => {
+    if (row.parts) {
+      const p = row.parts as Record<string, string>;
+      if (row.kind === 'habit') {
+        return {
+          ...row,
+          text: `Protectores: ${tryDecrypt(p.protective ?? '')} | Riesgo: ${tryDecrypt(p.risk ?? '')}`,
+        };
+      }
+      if (row.kind === 'social') {
+        return {
+          ...row,
+          text: `${tryDecrypt(p.people ?? '')} — ${tryDecrypt(p.impact ?? '')}`,
+        };
+      }
+      if (row.kind === 'consumption_analysis') {
+        return {
+          ...row,
+          text: `${tryDecrypt(p.trigger ?? '')} | Acción: ${tryDecrypt(p.action ?? '')} | Aprendizaje: ${tryDecrypt(p.lesson ?? '')}`,
+        };
+      }
+    }
+    // daily_note: texto único.
+    return { ...row, text: tryDecrypt(row.text ?? '') };
+  });
 
   await ClinicalAccess.recordReadSuccess(decision, {
     resourceType: 'journal',
@@ -453,7 +501,7 @@ export const getJournalForTherapist = async (input: {
   });
 
   return {
-    items: result.rows,
+    items,
     consent: {
       detail_level: decision.detailLevel,
       expires_at: decision.consent.expires_at ?? null,

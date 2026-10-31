@@ -7,6 +7,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as cravingModel from '../models/craving.model.js';
 import { AuthRequest } from '../middleware/auth.js';
+import { logPrivacyAction } from '../services/privacy.service.js';
 
 // =====================================================
 // CRAVINGS
@@ -58,6 +59,11 @@ export const createCraving = async (
       triggers,
       status: 'active',
     });
+    // SEC-PHASE2: auditar escritura de dato clínico.
+    await logPrivacyAction(userId, 'data_written', 'craving', craving.id, {
+      action: 'create',
+      source: 'patient_app',
+    }).catch(() => {});
 
     res.status(201).json({
       success: true,

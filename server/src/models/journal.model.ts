@@ -4,6 +4,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -68,17 +69,19 @@ export const createDailyNote = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.content,
+    // SEC-PHASE1: cifrar contenido de nota diaria.
+    encrypt(data.content),
     data.note_date || now.toISOString().split('T')[0],
     data.entry_time || now.toTimeString().split(' ')[0],
   ]);
-  return result.rows[0] as DailyNote;
+  const row = result.rows[0] as DailyNote | undefined;
+  return row ? { ...row, content: tryDecrypt(row.content) } : (row as unknown as DailyNote);
 };
 
 export const getDailyNotes = async (userId: string, limit = 20): Promise<DailyNote[]> => {
   const sql = `SELECT * FROM daily_notes WHERE user_id = $1 ORDER BY note_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
-  return result.rows as DailyNote[];
+  return (result.rows as DailyNote[]).map((row) => ({ ...row, content: tryDecrypt(row.content) }));
 };
 
 export const deleteDailyNote = async (id: string, userId: string): Promise<boolean> => {
@@ -99,8 +102,9 @@ export const updateDailyNote = async (
     SET content = $1, note_date = COALESCE($2, note_date), updated_at = CURRENT_TIMESTAMP
     WHERE id = $3 AND user_id = $4
     RETURNING *`;
-  const result = await query(sql, [data.content, data.note_date || null, id, userId]);
-  return (result.rows[0] as DailyNote) || null;
+  const result = await query(sql, [encrypt(data.content), data.note_date || null, id, userId]);
+  const row = result.rows[0] as DailyNote | undefined;
+  return row ? { ...row, content: tryDecrypt(row.content) } : null;
 };
 
 // =====================================================
@@ -118,18 +122,26 @@ export const createHabitEntry = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.protective_habits,
-    data.risk_habits,
+    // SEC-PHASE1: cifrar hábitos protectores/de riesgo.
+    encrypt(data.protective_habits),
+    encrypt(data.risk_habits),
     data.entry_date || now.toISOString().split('T')[0],
     data.entry_time || now.toTimeString().split(' ')[0],
   ]);
-  return result.rows[0] as HabitEntry;
+  const row = result.rows[0] as HabitEntry | undefined;
+  return row
+    ? { ...row, protective_habits: tryDecrypt(row.protective_habits), risk_habits: tryDecrypt(row.risk_habits) }
+    : (row as unknown as HabitEntry);
 };
 
 export const getHabitEntries = async (userId: string, limit = 20): Promise<HabitEntry[]> => {
   const sql = `SELECT * FROM habit_entries WHERE user_id = $1 ORDER BY entry_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
-  return result.rows as HabitEntry[];
+  return (result.rows as HabitEntry[]).map((row) => ({
+    ...row,
+    protective_habits: tryDecrypt(row.protective_habits),
+    risk_habits: tryDecrypt(row.risk_habits),
+  }));
 };
 
 export const deleteHabitEntry = async (id: string, userId: string): Promise<boolean> => {
@@ -151,13 +163,16 @@ export const updateHabitEntry = async (
     WHERE id = $4 AND user_id = $5
     RETURNING *`;
   const result = await query(sql, [
-    data.protective_habits,
-    data.risk_habits,
+    encrypt(data.protective_habits),
+    encrypt(data.risk_habits),
     data.entry_date || null,
     id,
     userId,
   ]);
-  return (result.rows[0] as HabitEntry) || null;
+  const row = result.rows[0] as HabitEntry | undefined;
+  return row
+    ? { ...row, protective_habits: tryDecrypt(row.protective_habits), risk_habits: tryDecrypt(row.risk_habits) }
+    : null;
 };
 
 // =====================================================
@@ -180,18 +195,26 @@ export const createSocialEntry = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.people_description,
-    data.impact_assessment,
+    // SEC-PHASE1: cifrar descripción e impacto social.
+    encrypt(data.people_description),
+    encrypt(data.impact_assessment),
     data.entry_date || now.toISOString().split('T')[0],
     data.entry_time || now.toTimeString().split(' ')[0],
   ]);
-  return result.rows[0] as SocialEntry;
+  const row = result.rows[0] as SocialEntry | undefined;
+  return row
+    ? { ...row, people_description: tryDecrypt(row.people_description), impact_assessment: tryDecrypt(row.impact_assessment) }
+    : (row as unknown as SocialEntry);
 };
 
 export const getSocialEntries = async (userId: string, limit = 20): Promise<SocialEntry[]> => {
   const sql = `SELECT * FROM social_entries WHERE user_id = $1 ORDER BY entry_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
-  return result.rows as SocialEntry[];
+  return (result.rows as SocialEntry[]).map((row) => ({
+    ...row,
+    people_description: tryDecrypt(row.people_description),
+    impact_assessment: tryDecrypt(row.impact_assessment),
+  }));
 };
 
 export const deleteSocialEntry = async (id: string, userId: string): Promise<boolean> => {
@@ -213,13 +236,16 @@ export const updateSocialEntry = async (
     WHERE id = $4 AND user_id = $5
     RETURNING *`;
   const result = await query(sql, [
-    data.people_description,
-    data.impact_assessment,
+    encrypt(data.people_description),
+    encrypt(data.impact_assessment),
     data.entry_date || null,
     id,
     userId,
   ]);
-  return (result.rows[0] as SocialEntry) || null;
+  const row = result.rows[0] as SocialEntry | undefined;
+  return row
+    ? { ...row, people_description: tryDecrypt(row.people_description), impact_assessment: tryDecrypt(row.impact_assessment) }
+    : null;
 };
 
 // =====================================================
@@ -243,13 +269,22 @@ export const createConsumptionAnalysis = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.trigger_situation,
-    data.action_taken,
-    data.lesson_learned || '',
+    // SEC-PHASE1: cifrar análisis de consumo.
+    encrypt(data.trigger_situation),
+    encrypt(data.action_taken),
+    encrypt(data.lesson_learned || ''),
     data.entry_date || now.toISOString().split('T')[0],
     data.entry_time || now.toTimeString().split(' ')[0],
   ]);
-  return result.rows[0] as ConsumptionAnalysis;
+  const row = result.rows[0] as ConsumptionAnalysis | undefined;
+  return row
+    ? {
+        ...row,
+        trigger_situation: tryDecrypt(row.trigger_situation),
+        action_taken: tryDecrypt(row.action_taken),
+        lesson_learned: tryDecrypt(row.lesson_learned),
+      }
+    : (row as unknown as ConsumptionAnalysis);
 };
 
 export const getConsumptionAnalyses = async (
@@ -258,7 +293,12 @@ export const getConsumptionAnalyses = async (
 ): Promise<ConsumptionAnalysis[]> => {
   const sql = `SELECT * FROM consumption_analysis WHERE user_id = $1 ORDER BY entry_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
-  return result.rows as ConsumptionAnalysis[];
+  return (result.rows as ConsumptionAnalysis[]).map((row) => ({
+    ...row,
+    trigger_situation: tryDecrypt(row.trigger_situation),
+    action_taken: tryDecrypt(row.action_taken),
+    lesson_learned: tryDecrypt(row.lesson_learned),
+  }));
 };
 
 export const deleteConsumptionAnalysis = async (id: string, userId: string): Promise<boolean> => {
@@ -285,14 +325,22 @@ export const updateConsumptionAnalysis = async (
     WHERE id = $5 AND user_id = $6
     RETURNING *`;
   const result = await query(sql, [
-    data.trigger_situation,
-    data.action_taken,
-    data.lesson_learned || '',
+    encrypt(data.trigger_situation),
+    encrypt(data.action_taken),
+    encrypt(data.lesson_learned || ''),
     data.entry_date || null,
     id,
     userId,
   ]);
-  return (result.rows[0] as ConsumptionAnalysis) || null;
+  const row = result.rows[0] as ConsumptionAnalysis | undefined;
+  return row
+    ? {
+        ...row,
+        trigger_situation: tryDecrypt(row.trigger_situation),
+        action_taken: tryDecrypt(row.action_taken),
+        lesson_learned: tryDecrypt(row.lesson_learned),
+      }
+    : null;
 };
 
 // =====================================================
@@ -330,20 +378,36 @@ export const createActivityEntry = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.activity_name,
-    data.feeling_before,
-    data.feeling_during,
-    data.feeling_after,
+    // SEC-PHASE1: cifrar nombre y sensaciones de la actividad.
+    encrypt(data.activity_name),
+    encrypt(data.feeling_before),
+    encrypt(data.feeling_during),
+    encrypt(data.feeling_after),
     data.entry_date || now.toISOString().split('T')[0],
     data.entry_time || now.toTimeString().split(' ')[0],
   ]);
-  return result.rows[0] as ActivityEntry;
+  const row = result.rows[0] as ActivityEntry | undefined;
+  return row
+    ? {
+        ...row,
+        activity_name: tryDecrypt(row.activity_name),
+        feeling_before: tryDecrypt(row.feeling_before),
+        feeling_during: tryDecrypt(row.feeling_during),
+        feeling_after: tryDecrypt(row.feeling_after),
+      }
+    : (row as unknown as ActivityEntry);
 };
 
 export const getActivityEntries = async (userId: string, limit = 20): Promise<ActivityEntry[]> => {
   const sql = `SELECT * FROM activity_entries WHERE user_id = $1 ORDER BY entry_date DESC, created_at DESC LIMIT $2`;
   const result = await query(sql, [userId, limit]);
-  return result.rows as ActivityEntry[];
+  return (result.rows as ActivityEntry[]).map((row) => ({
+    ...row,
+    activity_name: tryDecrypt(row.activity_name),
+    feeling_before: tryDecrypt(row.feeling_before),
+    feeling_during: tryDecrypt(row.feeling_during),
+    feeling_after: tryDecrypt(row.feeling_after),
+  }));
 };
 
 export const deleteActivityEntry = async (id: string, userId: string): Promise<boolean> => {
@@ -371,15 +435,24 @@ export const updateActivityEntry = async (
     WHERE id = $6 AND user_id = $7
     RETURNING *`;
   const result = await query(sql, [
-    data.activity_name,
-    data.feeling_before,
-    data.feeling_during,
-    data.feeling_after,
+    encrypt(data.activity_name),
+    encrypt(data.feeling_before),
+    encrypt(data.feeling_during),
+    encrypt(data.feeling_after),
     data.entry_date || null,
     id,
     userId,
   ]);
-  return (result.rows[0] as ActivityEntry) || null;
+  const row = result.rows[0] as ActivityEntry | undefined;
+  return row
+    ? {
+        ...row,
+        activity_name: tryDecrypt(row.activity_name),
+        feeling_before: tryDecrypt(row.feeling_before),
+        feeling_during: tryDecrypt(row.feeling_during),
+        feeling_after: tryDecrypt(row.feeling_after),
+      }
+    : null;
 };
 
 // =====================================================
@@ -403,6 +476,51 @@ export interface FeedEntry {
   created_at: string;
   data: Record<string, any>;
 }
+
+/**
+ * SEC-PHASE1: descifra los campos clínicos de un registro del feed
+ * (bitácora) que se construye con json_build_object sobre columnas
+ * cifradas.
+ */
+const decryptFeedEntry = (entry: FeedEntry): FeedEntry => {
+  const data = { ...entry.data };
+  switch (entry.type) {
+    case 'checkin':
+      if (typeof data.notes === 'string') data.notes = tryDecrypt(data.notes);
+      break;
+    case 'note':
+    case 'analysis':
+      if (typeof data.content === 'string') data.content = tryDecrypt(data.content);
+      if (typeof data.trigger_situation === 'string') data.trigger_situation = tryDecrypt(data.trigger_situation);
+      if (typeof data.action_taken === 'string') data.action_taken = tryDecrypt(data.action_taken);
+      if (typeof data.lesson_learned === 'string') data.lesson_learned = tryDecrypt(data.lesson_learned);
+      break;
+    case 'habit':
+      if (typeof data.protective_habits === 'string') data.protective_habits = tryDecrypt(data.protective_habits);
+      if (typeof data.risk_habits === 'string') data.risk_habits = tryDecrypt(data.risk_habits);
+      break;
+    case 'social':
+      if (typeof data.people_description === 'string') data.people_description = tryDecrypt(data.people_description);
+      if (typeof data.impact_assessment === 'string') data.impact_assessment = tryDecrypt(data.impact_assessment);
+      break;
+    case 'activity':
+      if (typeof data.activity_name === 'string') data.activity_name = tryDecrypt(data.activity_name);
+      if (typeof data.feeling_before === 'string') data.feeling_before = tryDecrypt(data.feeling_before);
+      if (typeof data.feeling_during === 'string') data.feeling_during = tryDecrypt(data.feeling_during);
+      if (typeof data.feeling_after === 'string') data.feeling_after = tryDecrypt(data.feeling_after);
+      break;
+    case 'substance_dose':
+      if (typeof data.feelings === 'string') data.feelings = tryDecrypt(data.feelings);
+      if (typeof data.context_notes === 'string') data.context_notes = tryDecrypt(data.context_notes);
+      break;
+    case 'craving':
+      if (typeof data.notes === 'string') data.notes = tryDecrypt(data.notes);
+      break;
+    default:
+      break;
+  }
+  return { ...entry, data };
+};
 
 export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEntry[]> => {
   const sql = `
@@ -473,7 +591,7 @@ export const getUnifiedFeed = async (userId: string, limit = 30): Promise<FeedEn
     LIMIT $2
   `;
   const result = await query(sql, [userId, limit]);
-  return result.rows as FeedEntry[];
+  return (result.rows as FeedEntry[]).map(decryptFeedEntry);
 };
 
 // =====================================================
@@ -601,7 +719,7 @@ export const getJournalByDateRange = async (
   `;
 
   const result = await query(sql, baseParams);
-  return result.rows as FeedEntry[];
+  return (result.rows as FeedEntry[]).map(decryptFeedEntry);
 };
 
 export const getJournalForWeek = async (
@@ -669,5 +787,5 @@ export const getJournalForWeek = async (
     ORDER BY entry_date ASC, entry_time ASC
   `;
   const result = await query(sql, [userId, dateInWeek]);
-  return result.rows as FeedEntry[];
+  return (result.rows as FeedEntry[]).map(decryptFeedEntry);
 };

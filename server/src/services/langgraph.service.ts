@@ -2,11 +2,8 @@ import { MemorySaver, StateGraph, START, END, Annotation } from '@langchain/lang
 import { ToolNode, toolsCondition } from '@langchain/langgraph/prebuilt';
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage, BaseMessage, AIMessage } from '@langchain/core/messages';
-import * as UserModel from '../models/user.model.js';
 import * as messageModel from '../models/message.model.js';
-import { decrypt } from '../utils/encryption.js';
 import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
-import { ai as aiDefaultConfig } from '../config/neo4j.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { embeddingsService, chunkingService, EmbeddingChunk } from './embedding.service.js';
@@ -201,8 +198,11 @@ export class LangGraphAgentService {
       );
     }
 
+    // SEC-PHASE2: no exponer fragmentos de credenciales en logs.
+    const apiKeyPresent = Boolean(apiKey) && apiKey.length > 0;
+
     console.log(
-      `🤖 Inicializando LLM para usuario ${userId}: Provider=${provider}, Model=${modelName}, BaseURL=${configuration.baseURL || 'default (OpenAI)'}, Key=${apiKey.substring(0, 5)}...`
+      `🤖 Inicializando LLM para usuario ${userId}: Provider=${provider}, Model=${modelName}, BaseURL=${configuration.baseURL || 'default (OpenAI)'}, Key=${apiKeyPresent ? 'presente' : 'ausente'}`
     );
 
     const llmConfig: any = {
@@ -314,7 +314,8 @@ Mensaje: "${lastMessage.content}"`;
                   key: item.key,
                   value: item.value,
                 });
-                console.log(`[NEO4J] Insight guardado: ${item.key}=${item.value}`);
+                // SEC-PHASE2: no loguear el valor (dato clínico derivado).
+                console.log(`[NEO4J] Insight guardado (tipo=${item.type})`);
               } catch (err) {
                 console.error('⚠️ [NEO4J] Error persistiendo insight:', err);
               }

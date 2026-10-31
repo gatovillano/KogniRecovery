@@ -11,8 +11,38 @@
 
 import { query } from '../config/database.js';
 import { createError } from '../middleware/error.js';
+import { tryDecrypt } from '../utils/encryption.js';
 import * as AuditService from './audit.service.js';
 import type { AuditContext } from './clinicalAccess.service.js';
+
+/**
+ * SEC-PHASE1: el paciente tiene derecho a recibir sus datos en claro.
+ * Estas funciones descifran los campos clínicos antes de incluirlos
+ * en la exportación.
+ */
+const decryptRow = (row: any, fields: string[]): any => {
+  const out = { ...row };
+  for (const f of fields) {
+    if (typeof out[f] === 'string' && out[f] !== '') {
+      out[f] = tryDecrypt(out[f]);
+    }
+  }
+  return out;
+};
+
+const DECRYPTORS: Record<string, (row: any) => any> = {
+  checkins: (r) => decryptRow(r, ['notes', 'risk_description']),
+  cravings: (r) => decryptRow(r, ['consequences', 'notes']),
+  consumption_events: (r) => decryptRow(r, ['context_notes']),
+  substance_doses: (r) => decryptRow(r, ['feelings', 'context_notes']),
+  daily_notes: (r) => decryptRow(r, ['content']),
+  habit_entries: (r) => decryptRow(r, ['protective_habits', 'risk_habits']),
+  social_entries: (r) => decryptRow(r, ['people_description', 'impact_assessment']),
+  consumption_analysis: (r) => decryptRow(r, ['trigger_situation', 'action_taken', 'lesson_learned']),
+  agent_notes: (r) => decryptRow(r, ['title', 'content']),
+  activity_entries: (r) => decryptRow(r, ['activity_name', 'feeling_before', 'feeling_during', 'feeling_after']),
+  clinical_alerts: (r) => decryptRow(r, ['summary']),
+};
 
 // =====================================================
 // EXPORTACIÓN
@@ -23,7 +53,8 @@ const tableRows = async (table: string, userId: string): Promise<unknown[]> => {
     `SELECT * FROM ${table} WHERE user_id = $1 ORDER BY created_at DESC LIMIT 2000`,
     [userId]
   );
-  return result.rows;
+  const decrypt = DECRYPTORS[table];
+  return decrypt ? result.rows.map(decrypt) : result.rows;
 };
 
 export const exportPatientData = async (input: {
@@ -42,7 +73,7 @@ export const exportPatientData = async (input: {
 
   const [checkins, cravings, consumptionEvents, doses, medications, medicationLogs,
     dailyNotes, habitEntries, socialEntries, consumptionAnalysis,
-    conversations, messages, consents, consentEvents, accessLog, careLinks,
+    conversations, messages, agentNotes, consents, consentEvents, accessLog, careLinks,
     alerts] = await Promise.all([
     tableRows('checkins', patientId),
     tableRows('cravings', patientId),
@@ -56,6 +87,7 @@ export const exportPatientData = async (input: {
     tableRows('consumption_analysis', patientId),
     query(`SELECT id, title, scenario_type, status, started_at, last_message_at, message_count FROM conversations WHERE user_id = $1 ORDER BY started_at DESC`, [patientId]),
     query(`SELECT id, conversation_id, role, content, created_at FROM messages WHERE user_id = $1 ORDER BY created_at DESC LIMIT 2000`, [patientId]),
+    tableRows('agent_notes', patientId),
     query(`SELECT * FROM sharing_consents WHERE patient_id = $1 ORDER BY created_at DESC`, [patientId]),
     query(`SELECT * FROM sharing_consent_events WHERE patient_id = $1 ORDER BY created_at DESC LIMIT 2000`, [patientId]),
     AuditService.listAccessForPatient(patientId, 500),
@@ -98,8 +130,15 @@ export const exportPatientData = async (input: {
       social_entries: socialEntries,
       consumption_analysis: consumptionAnalysis,
       conversations: conversations.rows,
-      messages: messages.rows,
-      alerts: alerts.rows,
+      messages: messages.rows.map((m: any) => ({
+        ...m,
+        content: typeof m.content === 'string' && m.content !== '' ? tryDecrypt(m.content) : m.content,
+      })),
+      agent_notes: agentNotes,
+      alerts: alerts.rows.map((a: any) => ({
+        ...a,
+        summary: typeof a.summary === 'string' && a.summary !== '' ? tryDecrypt(a.summary) : a.summary,
+      })),
     },
     consent: {
       consents: consents.rows,

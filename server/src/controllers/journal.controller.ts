@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from '../middleware/auth.js';
 import * as journal from '../models/journal.model.js';
 import * as habitsModel from '../models/habit.model.js';
+import { logPrivacyAction } from '../services/privacy.service.js';
 
 const getUser = (req: Request) => (req as AuthRequest).user?.userId;
 
@@ -23,6 +24,11 @@ export const createNote = async (req: Request, res: Response, next: NextFunction
     const { content, note_date } = req.body;
     if (!content) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'El contenido es requerido' } }); return; }
     const note = await journal.createDailyNote(userId, { content, note_date });
+    // SEC-PHASE2: auditar escritura de dato clínico.
+    await logPrivacyAction(userId, 'data_written', 'daily_note', note.id, {
+      action: 'create',
+      source: 'patient_app',
+    }).catch(() => {});
     res.status(201).json({ success: true, data: note, message: 'Nota guardada' });
   } catch (error) { next(error); }
 };

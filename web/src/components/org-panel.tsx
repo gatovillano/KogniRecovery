@@ -86,6 +86,63 @@ interface LlmSettings {
   api_key_masked: string | null;
 }
 
+interface TtsSettings {
+  provider: string;
+  elevenlabs_voice_id: string;
+  elevenlabs_model: string;
+  has_elevenlabs_key: boolean;
+  elevenlabs_key_masked: string | null;
+  kokoro_url: string;
+  kokoro_voice: string;
+  fallback_enabled: boolean;
+}
+
+interface TtsTestResult {
+  ok: boolean;
+  provider: string;
+  duration_ms?: number;
+  bytes?: number;
+  message?: string;
+  fallback_available?: boolean;
+}
+
+const TTS_PROVIDER_OPTIONS: Array<{ key: string; label: string }> = [
+  { key: 'kokoro', label: 'Kokoro (local, gratis)' },
+  { key: 'elevenlabs', label: 'ElevenLabs (nube)' },
+];
+
+const ELEVENLABS_VOICES: Array<{ id: string; label: string }> = [
+  { id: 'XB0fDUnXU5powFXDhCwa', label: 'Charlotte (multilingüe)' },
+  { id: 'MF3mGyEYCl7XYWbV9V6O', label: 'Elli (multilingüe)' },
+  { id: '21m00Tcm4TlvDq8ikWAM', label: 'Rachel (multilingüe)' },
+  { id: 'EXAVITQu4vr4xnSDxMaL', label: 'Bella (multilingüe)' },
+  { id: 'cgSgspJ2msm6clMCkdW9', label: 'Jessica (multilingüe)' },
+];
+
+const ELEVENLABS_MODELS: Array<{ id: string; label: string }> = [
+  { id: 'eleven_multilingual_v2', label: 'eleven_multilingual_v2' },
+  { id: 'eleven_multilingual_v1', label: 'eleven_multilingual_v1' },
+  { id: 'eleven_flash_v2_5', label: 'eleven_flash_v2_5 (rápido)' },
+  { id: 'eleven_monolingual_v1', label: 'eleven_monolingual_v1' },
+];
+
+const KOKORO_VOICES: Array<{ id: string; label: string }> = [
+  { id: 'ef_dora', label: 'Dora (femenina)' },
+  { id: 'em_alex', label: 'Alex (masculino)' },
+  { id: 'em_santa', label: 'Santa (masculino)' },
+];
+
+const DEFAULT_TTS_SETTINGS: TtsSettings = {
+  provider: 'kokoro',
+  elevenlabs_voice_id: 'XB0fDUnXU5powFXDhCwa',
+  elevenlabs_model: 'eleven_multilingual_v2',
+  has_elevenlabs_key: false,
+  elevenlabs_key_masked: null,
+  kokoro_url: 'http://localhost:8009',
+  kokoro_voice: 'ef_dora',
+  fallback_enabled: true,
+};
+
 const LLM_PROVIDER_OPTIONS: Array<{ key: string; label: string }> = [
   { key: 'openai', label: 'OpenAI' },
   { key: 'openrouter', label: 'Groq / OpenRouter' },
@@ -159,6 +216,13 @@ export function OrgPanel() {
   const [llmModels, setLlmModels] = useState<Array<{ id: string }>>([]);
   const [llmLoadingModels, setLlmLoadingModels] = useState(false);
   const [llmSaving, setLlmSaving] = useState(false);
+
+  // Configuración TTS (voz del asistente)
+  const [tts, setTts] = useState<TtsSettings>(DEFAULT_TTS_SETTINGS);
+  const [ttsApiKey, setTtsApiKey] = useState('');
+  const [ttsSaving, setTtsSaving] = useState(false);
+  const [ttsTesting, setTtsTesting] = useState(false);
+  const [ttsTestResult, setTtsTestResult] = useState<TtsTestResult | null>(null);
 
   const loadPatients = useCallback(async () => {
     try {
@@ -236,6 +300,18 @@ export function OrgPanel() {
     }
   }, []);
 
+  const loadTts = useCallback(async () => {
+    try {
+      const response = await api.get<TtsSettings>('/org/tts-settings');
+      if (response.success && response.data) {
+        setTts({ ...DEFAULT_TTS_SETTINGS, ...response.data });
+        setTtsTestResult(null);
+      }
+    } catch {
+      // sin permisos o error: dejar valores por defecto
+    }
+  }, []);
+
   const loadTab = useCallback(async (key: TabKey) => {
     try {
       if (key === 'patients') await loadPatients();
@@ -243,13 +319,15 @@ export function OrgPanel() {
         await Promise.all([loadMembers(), loadProfInvites()]);
       } else if (key === 'credentials') await loadCredentials();
       else if (key === 'deletions') await loadDeletions();
-      else if (key === 'llm') await loadLlm();
+      else if (key === 'llm') {
+        await Promise.all([loadLlm(), loadTts()]);
+      }
       else if (key === 'invites') await loadInvites();
       else await loadAudit();
     } finally {
       setLoadedTab(key);
     }
-  }, [loadPatients, loadMembers, loadInvites, loadAudit, loadProfInvites, loadCredentials, loadDeletions, loadLlm]);
+  }, [loadPatients, loadMembers, loadInvites, loadAudit, loadProfInvites, loadCredentials, loadDeletions, loadLlm, loadTts]);
 
   useEffect(() => {
     loadTab(tab);
@@ -449,6 +527,64 @@ export function OrgPanel() {
       toast.error('No se pudo guardar la configuración');
     } finally {
       setLlmSaving(false);
+    }
+  };
+
+  const buildTtsPayload = () => ({
+    provider: tts.provider,
+    elevenlabs_api_key: ttsApiKey,
+    elevenlabs_voice_id: tts.elevenlabs_voice_id,
+    elevenlabs_model: tts.elevenlabs_model,
+    kokoro_url: tts.kokoro_url,
+    kokoro_voice: tts.kokoro_voice,
+    fallback_enabled: tts.fallback_enabled,
+  });
+
+  const saveTts = async () => {
+    setTtsSaving(true);
+    try {
+      const response = await api.put('/org/tts-settings', buildTtsPayload());
+      if (response.success) {
+        setTtsApiKey('');
+        setTtsTestResult(null);
+        toast.success('Configuración de voz guardada');
+        await loadTts();
+      } else {
+        toast.error(response.error?.message ?? 'No se pudo guardar');
+      }
+    } catch {
+      toast.error('No se pudo guardar la configuración de voz');
+    } finally {
+      setTtsSaving(false);
+    }
+  };
+
+  const testTts = async () => {
+    setTtsTesting(true);
+    setTtsTestResult(null);
+    try {
+      const response = await api.post<{ ok: boolean; provider: string; duration_ms: number; bytes: number; message: string; fallback_available: boolean }>(
+        '/org/tts/test',
+        buildTtsPayload()
+      );
+      if (response.data) {
+        setTtsTestResult(response.data);
+        if (response.data.ok) {
+          toast.success(response.data.message ?? 'La configuración de voz funciona');
+        } else {
+          const fb = response.data.fallback_available ? ' (Kokoro se usará como fallback)' : '';
+          toast.warning((response.data.message ?? 'El proveedor principal falló') + fb);
+        }
+      } else if (response.error) {
+        setTtsTestResult({ ok: false, provider: tts.provider, message: response.error.message });
+        toast.error(response.error.message);
+      }
+    } catch (error) {
+      const msg = error instanceof ApiClientError ? error.message : 'No se pudo probar la voz';
+      setTtsTestResult({ ok: false, provider: tts.provider, message: msg });
+      toast.error(msg);
+    } finally {
+      setTtsTesting(false);
     }
   };
 
@@ -1032,6 +1168,158 @@ export function OrgPanel() {
                   </button>
                 )}
               </div>
+            </div>
+
+            <div className="space-y-3 rounded-xl border border-border bg-muted/50 p-4">
+              <p className="text-sm font-medium">Voz del asistente (TTS)</p>
+              <p className="text-xs text-muted-foreground">
+                Kokoro corre local (Docker) y es gratis. ElevenLabs usa la nube; si rechaza por cuota agotada se usa Kokoro automáticamente.
+              </p>
+
+              <div>
+                <label className="text-xs text-muted-foreground">Proveedor de voz</label>
+                <select
+                  className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                  value={tts.provider}
+                  onChange={(e) => setTts((prev) => ({ ...prev, provider: e.target.value }))}
+                >
+                  {TTS_PROVIDER_OPTIONS.map((p) => (
+                    <option key={p.key} value={p.key}>{p.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              {tts.provider === 'elevenlabs' ? (
+                <>
+                  <div>
+                    <label className="text-xs text-muted-foreground">
+                      API Key ElevenLabs{' '}
+                      {tts.has_elevenlabs_key && (
+                        <span className="text-[#56806d]">({tts.elevenlabs_key_masked} guardada)</span>
+                      )}
+                    </label>
+                    <input
+                      type="password"
+                      className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      placeholder={tts.has_elevenlabs_key ? 'Dejar vacío para conservar la actual' : 'API key de ElevenLabs'}
+                      value={ttsApiKey}
+                      onChange={(e) => setTtsApiKey(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-muted-foreground">Voz</label>
+                    <select
+                      className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      value={tts.elevenlabs_voice_id}
+                      onChange={(e) => setTts((prev) => ({ ...prev, elevenlabs_voice_id: e.target.value }))}
+                    >
+                      {ELEVENLABS_VOICES.map((v) => (
+                        <option key={v.id} value={v.id}>{v.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-muted-foreground">Modelo</label>
+                    <select
+                      className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      value={tts.elevenlabs_model}
+                      onChange={(e) => setTts((prev) => ({ ...prev, elevenlabs_model: e.target.value }))}
+                    >
+                      {ELEVENLABS_MODELS.map((m) => (
+                        <option key={m.id} value={m.id}>{m.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <label className="text-xs text-muted-foreground">URL del servidor Kokoro (Docker)</label>
+                    <input
+                      className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      placeholder="http://kokoro-tts:8000"
+                      value={tts.kokoro_url}
+                      onChange={(e) => setTts((prev) => ({ ...prev, kokoro_url: e.target.value }))}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-muted-foreground">Voz Kokoro</label>
+                    <select
+                      className="mt-1 h-9 w-full rounded-lg border border-input bg-card px-3 py-1 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      value={tts.kokoro_voice}
+                      onChange={(e) => setTts((prev) => ({ ...prev, kokoro_voice: e.target.value }))}
+                    >
+                      {KOKORO_VOICES.map((v) => (
+                        <option key={v.id} value={v.id}>{v.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              )}
+
+              <label className="flex items-start gap-2 pt-1 text-sm">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 h-4 w-4 accent-primary"
+                  checked={tts.fallback_enabled}
+                  onChange={(e) => setTts((prev) => ({ ...prev, fallback_enabled: e.target.checked }))}
+                />
+                <span>Usar Kokoro como respaldo cuando ElevenLabs rechace la llamada (cuota agotada)</span>
+              </label>
+
+              <div className="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={saveTts}
+                  disabled={ttsSaving}
+                  className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
+                >
+                  {ttsSaving ? 'Guardando…' : 'Guardar configuración de voz'}
+                </button>
+                <button
+                  type="button"
+                  onClick={testTts}
+                  disabled={ttsTesting}
+                  className="rounded-lg border border-border px-3 py-1.5 text-sm transition hover:bg-muted disabled:opacity-50"
+                >
+                  {ttsTesting ? 'Probando…' : 'Probar voz'}
+                </button>
+                {tts.provider === 'elevenlabs' && tts.has_elevenlabs_key && (
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        await api.put('/org/tts-settings', { provider: tts.provider, elevenlabs_api_key: null });
+                        setTtsApiKey('');
+                        toast.success('API key eliminada');
+                        await loadTts();
+                      } catch {
+                        toast.error('No se pudo eliminar la key');
+                      }
+                    }}
+                    className="rounded-md px-3 py-1.5 text-sm text-destructive hover:underline"
+                  >
+                    Quitar API key
+                  </button>
+                )}
+              </div>
+
+              {ttsTestResult && (
+                <div
+                  className={
+                    'rounded-lg border px-3 py-2 text-sm ' +
+                    (ttsTestResult.ok
+                      ? 'border-[#56806d]/40 bg-[#56806d]/10 text-[#56806d]'
+                      : 'border-destructive/40 bg-destructive/10 text-destructive')
+                  }
+                >
+                  {ttsTestResult.ok ? '✓ ' : '✗ '}
+                  {ttsTestResult.message ?? (ttsTestResult.ok ? 'Funciona correctamente' : 'El proveedor principal falló')}
+                  {ttsTestResult.duration_ms != null && (
+                    <span className="text-xs opacity-70"> · {ttsTestResult.duration_ms} ms</span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}

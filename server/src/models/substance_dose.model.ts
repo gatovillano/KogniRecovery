@@ -1,4 +1,5 @@
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 export interface SubstanceDose {
   id: string;
@@ -28,11 +29,15 @@ export const createSubstanceDose = async (userId: string, data: Partial<Substanc
     data.unit || 'dosis',
     data.dose_time || new Date(),
     data.craving_intensity || null,
-    data.feelings || null,
-    data.context_notes || null
+    // SEC-PHASE1: cifrar campos clínicos de texto libre.
+    data.feelings ? encrypt(data.feelings) : null,
+    data.context_notes ? encrypt(data.context_notes) : null
   ];
   const result = await query(sql, values);
-  return result.rows[0] as SubstanceDose;
+  const row = result.rows[0] as SubstanceDose | undefined;
+  return row
+    ? { ...row, feelings: tryDecrypt(row.feelings ?? ''), context_notes: tryDecrypt(row.context_notes ?? '') }
+    : (row as unknown as SubstanceDose);
 };
 
 export const getSubstanceDoses = async (userId: string, limit = 50, offset = 0): Promise<SubstanceDose[]> => {
@@ -43,13 +48,20 @@ export const getSubstanceDoses = async (userId: string, limit = 50, offset = 0):
     LIMIT $2 OFFSET $3
   `;
   const result = await query(sql, [userId, limit, offset]);
-  return result.rows as SubstanceDose[];
+  return (result.rows as SubstanceDose[]).map((row) => ({
+    ...row,
+    feelings: tryDecrypt(row.feelings ?? ''),
+    context_notes: tryDecrypt(row.context_notes ?? ''),
+  }));
 };
 
 export const getSubstanceDoseById = async (id: string, userId: string): Promise<SubstanceDose | null> => {
   const sql = `SELECT * FROM substance_doses WHERE id = $1 AND user_id = $2`;
   const result = await query(sql, [id, userId]);
-  return (result.rows[0] as SubstanceDose) || null;
+  const row = result.rows[0] as SubstanceDose | undefined;
+  return row
+    ? { ...row, feelings: tryDecrypt(row.feelings ?? ''), context_notes: tryDecrypt(row.context_notes ?? '') }
+    : null;
 };
 
 export const deleteSubstanceDose = async (id: string, userId: string): Promise<boolean> => {

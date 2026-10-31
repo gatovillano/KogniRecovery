@@ -8,10 +8,11 @@ import { Request, Response, NextFunction } from 'express';
 import * as conversationModel from '../models/conversation.model.js';
 import * as messageModel from '../models/message.model.js';
 import { AuthRequest } from '../middleware/auth.js';
+import { logPrivacyAction } from '../services/privacy.service.js';
 import * as profileModel from '../models/profile.model.js';
 import { langGraphAgent } from '../services/langgraph.service.js';
 import { neo4jService } from '../services/neo4j.service.js';
-import { ttsService } from '../services/index.js';
+import { ttsService, resolveTtsConfig } from '../services/index.js';
 import { memoryService } from '../services/memory.service.js';
 
 const DEFAULT_TITLES = ['nueva conversación', 'nuevo chat', 'new chat', 'new conversation'];
@@ -333,6 +334,13 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
         },
       }
     );
+
+    // SEC-PHASE2: auditar escritura de dato clínico (chatbot).
+    await logPrivacyAction(userId as string, 'data_written', 'message', userMessage.id, {
+      action: 'create',
+      role: 'user',
+      source: 'chatbot',
+    }).catch(() => {});
 
     // Sincronizar mensaje HUMAN con Neo4j
     try {
@@ -823,6 +831,17 @@ export const getMessageSpeech = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
+      });
+      return;
+    }
+
     const messageId = req.params.id as string;
     const { language, speaker } = req.body;
 
@@ -837,15 +856,20 @@ export const getMessageSpeech = async (
       return;
     }
 
-    // Generar el audio usando el servicio TTS
-    try {
-      const audioBuffer = await ttsService.generateSpeech(message.content, language, speaker);
+    // Resolver la configuración TTS del centro del usuario (ElevenLabs/Kokoro)
+    const ttsConfig = await resolveTtsConfig(userId);
 
-      // Configurar cabeceras para el audio
-      res.setHeader('Content-Type', 'audio/wav');
-      res.setHeader('Content-Length', audioBuffer.length);
+    // Generar el audio usando el servicio TTS (con fallback a Kokoro)
+    try {
+      const audio = await ttsService.generateSpeech(message.content, language, speaker, {
+        config: ttsConfig,
+      });
+
+      // Configurar cabeceras para el audio (wav para Kokoro, mp3 para ElevenLabs)
+      res.setHeader('Content-Type', audio.contentType);
+      res.setHeader('Content-Length', audio.data.length);
       res.setHeader('Accept-Ranges', 'bytes');
-      res.send(audioBuffer);
+      res.send(audio.data);
     } catch (ttsError: any) {
       console.warn('⚠️ TTS service unavailable, returning 503:', ttsError.message);
       res.status(503).json({

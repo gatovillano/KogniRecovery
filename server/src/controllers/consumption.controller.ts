@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as consumptionModel from '../models/consumption.model.js';
 import { AuthRequest } from '../middleware/auth.js';
+import { logPrivacyAction } from '../services/privacy.service.js';
 
 export const addConsumption = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -24,6 +25,12 @@ export const addConsumption = async (req: Request, res: Response): Promise<void>
       ...data,
       consumed_at: data.consumed_at ? new Date(data.consumed_at) : new Date(),
     });
+
+    // SEC-PHASE2: auditar escritura de dato clínico.
+    await logPrivacyAction(userId, 'data_written', 'consumption_event', event.id, {
+      action: 'create',
+      source: 'patient_app',
+    }).catch(() => {});
 
     res.status(201).json({ success: true, data: event });
   } catch (error: any) {

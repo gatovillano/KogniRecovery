@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SEC-PHASE2: excluir de los backups de Android los almacenes locales
+     (AsyncStorage, SecureStore/EncryptedSharedPreferences, SQLite).
+     Un backup del dispositivo no debe incluir tokens ni datos clínicos. -->
+<full-backup-content>
+    <exclude domain="database" path="." />
+    <exclude domain="sharedpref" path="." />
+    <exclude domain="file" path="." />
+    <exclude domain="external" path="." />
+</full-backup-content>

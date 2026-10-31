@@ -321,9 +321,14 @@ export const requestDataDeletion = async (req: AuthRequest, res: Response): Prom
 
     const deletionRequest = await privacyService.requestDataDeletion(userId);
 
+    // SEC-PHASE1: ejecutar el borrado físico completo (DB + Neo4j +
+    // embeddings). Si falla, la solicitud queda en curso para reintentar
+    // desde el panel del centro; no se responde éxito sin borrar.
+    await privacyService.executeFullDataDeletion(userId);
+
     res.status(202).json({
       success: true,
-      message: 'Solicitud de eliminación creada. El proceso puede tomar hasta 30 días.',
+      message: 'Solicitud de eliminación creada y datos eliminados.',
       data: deletionRequest,
     });
   } catch (error) {

@@ -1,9 +1,11 @@
 /**
  * Servicio de MFA (TOTP) para profesionales.
  *
- * El secreto se guarda cifrado con AES-256-GCM. La clave se deriva
- * del JWT_SECRET del entorno (evita añadir una variable obligatoria
- * nueva en desarrollo; en producción se puede dedicar una clave).
+ * El secreto se guarda cifrado con AES-256-GCM. La clave se deriva de
+ * ENCRYPTION_KEY/ENCRYPTION_SALT (misma fuente que el resto de datos
+ * clínicos). Se mantiene un fallback de LECTURA con la clave antigua
+ * (derivada de JWT_SECRET) para descifrar secretos ya almacenados;
+ * los nuevos escritos usan SIEMPRE la clave unificada.
  */
 
 import crypto from 'node:crypto';
@@ -16,7 +18,20 @@ import { createError } from '../middleware/error.js';
 const ISSUER = 'KogniRecovery';
 const CHALLENGE_EXPIRES_IN = 300; // 5 minutos
 
+/** Clave nueva y unificada: derivada de ENCRYPTION_KEY/SALT. */
 const deriveEncryptionKey = (): Buffer => {
+  const envKey = process.env.ENCRYPTION_KEY;
+  const envSalt = process.env.ENCRYPTION_SALT;
+  if (!envKey || !envSalt) {
+    throw new Error(
+      'ENCRYPTION_KEY y ENCRYPTION_SALT son obligatorias para cifrar secretos MFA'
+    );
+  }
+  return crypto.pbkdf2Sync(envKey, envSalt, 100000, 32, 'sha512');
+};
+
+/** Clave legacy (solo lectura) para migrar secretos previos. */
+const deriveLegacyEncryptionKey = (): Buffer => {
   const base = process.env.MFA_SECRET_KEY ?? jwtConfig.secret;
   return crypto.createHash('sha256').update(`${base}:mfa`).digest();
 };
@@ -30,12 +45,11 @@ export const encryptSecret = (secret: string): string => {
   return `${iv.toString('hex')}.${tag.toString('hex')}.${encrypted.toString('hex')}`;
 };
 
-export const decryptSecret = (stored: string): string => {
+const decryptWithKey = (stored: string, key: Buffer): string => {
   const [ivHex, tagHex, dataHex] = stored.split('.');
   if (!ivHex || !tagHex || !dataHex) {
     throw createError('Secreto MFA inválido', 500, 'INVALID_MFA_SECRET');
   }
-  const key = deriveEncryptionKey();
   const decipher = crypto.createDecipheriv(
     'aes-256-gcm',
     key,
@@ -47,6 +61,17 @@ export const decryptSecret = (stored: string): string => {
     decipher.final(),
   ]);
   return decrypted.toString('utf8');
+};
+
+export const decryptSecret = (stored: string): string => {
+  try {
+    // Intento 1: clave actual (unificada).
+    return decryptWithKey(stored, deriveEncryptionKey());
+  } catch {
+    // Intento 2: clave legacy (JWT_SECRET/MFA_SECRET_KEY) para datos
+    // cifrados antes de la unificación de claves.
+    return decryptWithKey(stored, deriveLegacyEncryptionKey());
+  }
 };
 
 export const generateSecret = (email: string): { secret: string; otpauthUrl: string } => {

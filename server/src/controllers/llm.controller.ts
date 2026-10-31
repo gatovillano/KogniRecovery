@@ -8,7 +8,7 @@ import { query } from '../config/database.js';
 import { createError } from '../middleware/error.js';
 import { getAuthenticatedActor, resolveOrganizationId } from './clinicalContext.js';
 
-const requireOrgRole = async (
+export const requireOrgRole = async (
   req: Request,
   allowed: Array<'org_admin' | 'clinical_lead'>
 ): Promise<{ organizationId: string; actorId: string }> => {

@@ -22,6 +22,16 @@ const getDefaultApiUrl = (): string => {
 const configuredApiUrl = process.env.EXPO_PUBLIC_API_URL?.trim();
 const API_URL = normalizeApiUrl(configuredApiUrl || getDefaultApiUrl());
 
+// SEC-PHASE1: en producción se PROHÍBE el tráfico en claro hacia el API.
+// Los tokens y datos clínicos viajan cifrados solo con HTTPS.
+if (process.env.APP_ENV === 'production' && API_URL.startsWith('http://')) {
+  console.error(
+    '❌ [Config] SEC-PHASE1: EXPO_PUBLIC_API_URL debe ser https:// en producción. ' +
+      'Enviar tokens y datos clínicos por http:// expone a ataques MITM.'
+  );
+  throw new Error('EXPO_PUBLIC_API_URL debe usar https:// cuando APP_ENV=production');
+}
+
 if (Platform.OS === 'android' && !configuredApiUrl) {
   console.warn(
     '⚠️ [Config] EXPO_PUBLIC_API_URL no está definida. Se usará 10.0.2.2 como fallback para emulador Android. En un dispositivo físico debes usar la IP LAN del servidor, por ejemplo http://192.168.1.84:3003.'

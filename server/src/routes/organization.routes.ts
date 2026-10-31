@@ -10,6 +10,7 @@ import * as invitationsController from '../controllers/invitations.controller.js
 import * as credentialsController from '../controllers/credentials.controller.js';
 import * as rightsController from '../controllers/rights.controller.js';
 import * as llmController from '../controllers/llm.controller.js';
+import * as ttsController from '../controllers/tts.controller.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 
 const router = Router();
@@ -43,5 +44,8 @@ router.post('/data-deletion/:id/review', rightsController.reviewDeletionRequest)
 router.get('/llm-settings', llmController.getLlmSettings);
 router.put('/llm-settings', llmController.saveLlmSettings);
 router.post('/llm/models', llmController.listModels);
+router.get('/tts-settings', ttsController.getTtsSettings);
+router.put('/tts-settings', ttsController.saveTtsSettings);
+router.post('/tts/test', ttsController.testTts);
 
 export default router;

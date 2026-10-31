@@ -153,7 +153,14 @@ export const query = async <T extends Record<string, any> = any>(
 
     return result;
   } catch (error) {
-    console.error('❌ Query error:', { text, params, error });
+    // SEC-PHASE2: nunca loguear parámetros crudos (pueden contener datos
+    // clínicos o credenciales). Solo se registra cantidad y tipos.
+    console.error('❌ Query error:', {
+      text: text.substring(0, 200),
+      paramsCount: params?.length ?? 0,
+      paramTypes: params?.map((p) => typeof p) ?? [],
+      error,
+    });
     throw error;
   }
 };

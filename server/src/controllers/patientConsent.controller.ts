@@ -5,6 +5,7 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth.js';
 import * as consentService from '../services/patientConsent.service.js';
+import { CONSENT_CATEGORIES } from '../config/consent.js';
 
 /**
  * GET /api/v1/patient/consents
@@ -39,6 +40,14 @@ export const updateConsents = async (req: AuthRequest, res: Response): Promise<v
     const { consents } = req.body as { consents: Array<{ category: string; consent_given: boolean }> };
     if (!Array.isArray(consents)) {
       res.status(400).json({ success: false, error: { code: 'INVALID_PAYLOAD', message: 'El cuerpo debe contener un array de consentimientos' } });
+      return;
+    }
+    // SEC-PHASE2: validar en contra de la taxonomía oficial.
+    const validCategories = new Set<string>(
+      Object.values(CONSENT_CATEGORIES).map((def) => def.key)
+    );
+    if (consents.some((c) => !validCategories.has(c.category))) {
+      res.status(400).json({ success: false, error: { code: 'INVALID_CATEGORY', message: 'Categoría de consentimiento inválida' } });
       return;
     }
     // Guardar cada consentimiento

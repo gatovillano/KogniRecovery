@@ -4,7 +4,10 @@
  * Sprint 3: Pipeline RAG
  */
 
-import { pipeline } from '@xenova/transformers';
+// SEC-DEPS: @xenova/transformers está deprecado y con vulnerabilidades
+// conocidas (onnxruntime-web/sharp). Se migra a su sucesor oficial
+// @huggingface/transformers (misma API `pipeline`).
+import { pipeline } from '@huggingface/transformers';
 
 // =====================================================
 // TIPOS E INTERFACES

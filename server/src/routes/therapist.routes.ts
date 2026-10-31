@@ -34,5 +34,6 @@ router.patch('/patients/:id/notes/:noteId', notesController.updateNoteAction);
 router.delete('/patients/:id/notes/:noteId', notesController.deleteNoteAction);
 router.post('/invitations/accept', invitationsController.acceptTherapistInvite);
 router.get('/patients/:id/access-log', controller.getPatientAccessLog);
+router.post('/patients/:id/break-glass', controller.requestBreakGlass);
 
 export default router;

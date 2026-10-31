@@ -11,7 +11,7 @@
  */
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 
 import { User, LoginCredentials, RegisterData } from '@types';
@@ -55,7 +55,9 @@ export const useAuth = () => {
   // ============================================
 
   /**
-   * Guarda los datos de sesión en AsyncStorage
+   * Guarda los datos de sesión en SecureStore (Keychain/Keystore).
+   * SEC-PHASE1: se eliminó la copia en AsyncStorage (texto plano);
+   * los tokens solo viven en el almacén seguro del SO.
    */
   const saveSession = async (
     user: User,
@@ -65,11 +67,10 @@ export const useAuth = () => {
   ): Promise<void> => {
     try {
       if (rememberMe) {
-        // Guardar datos importantes en storage persistente
-        await AsyncStorage.setItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN, token);
-        await AsyncStorage.setItem(AUTH_STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
-        await AsyncStorage.setItem(AUTH_STORAGE_KEYS.USER_DATA, JSON.stringify(user));
-        await AsyncStorage.setItem(AUTH_STORAGE_KEYS.REMEMBER_ME, 'true');
+        await SecureStore.setItemAsync(AUTH_STORAGE_KEYS.ACCESS_TOKEN, token);
+        await SecureStore.setItemAsync(AUTH_STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        await SecureStore.setItemAsync(AUTH_STORAGE_KEYS.USER_DATA, JSON.stringify(user));
+        await SecureStore.setItemAsync(AUTH_STORAGE_KEYS.REMEMBER_ME, 'true');
       } else {
         // Limpiar datos si no hay "recordarme"
         await clearSession();
@@ -80,32 +81,30 @@ export const useAuth = () => {
   };
 
   /**
-   * Limpia los datos de sesión en AsyncStorage
+   * Limpia los datos de sesión en SecureStore
    */
   const clearSession = async (): Promise<void> => {
     try {
-      await AsyncStorage.multiRemove([
-        AUTH_STORAGE_KEYS.ACCESS_TOKEN,
-        AUTH_STORAGE_KEYS.REFRESH_TOKEN,
-        AUTH_STORAGE_KEYS.TOKEN_EXPIRY,
-        AUTH_STORAGE_KEYS.USER_DATA,
-        AUTH_STORAGE_KEYS.REMEMBER_ME,
-      ]);
+      await SecureStore.deleteItemAsync(AUTH_STORAGE_KEYS.ACCESS_TOKEN);
+      await SecureStore.deleteItemAsync(AUTH_STORAGE_KEYS.REFRESH_TOKEN);
+      await SecureStore.deleteItemAsync(AUTH_STORAGE_KEYS.TOKEN_EXPIRY);
+      await SecureStore.deleteItemAsync(AUTH_STORAGE_KEYS.USER_DATA);
+      await SecureStore.deleteItemAsync(AUTH_STORAGE_KEYS.REMEMBER_ME);
     } catch (error) {
       console.warn('Error limpiando sesión:', error);
     }
   };
 
   /**
-   * Restaura la sesión desde AsyncStorage
+   * Restaura la sesión desde SecureStore
    */
   const restoreSession = async (): Promise<boolean> => {
     try {
       const [token, refreshToken, userData, rememberMe] = await Promise.all([
-        AsyncStorage.getItem(AUTH_STORAGE_KEYS.ACCESS_TOKEN),
-        AsyncStorage.getItem(AUTH_STORAGE_KEYS.REFRESH_TOKEN),
-        AsyncStorage.getItem(AUTH_STORAGE_KEYS.USER_DATA),
-        AsyncStorage.getItem(AUTH_STORAGE_KEYS.REMEMBER_ME),
+        SecureStore.getItemAsync(AUTH_STORAGE_KEYS.ACCESS_TOKEN),
+        SecureStore.getItemAsync(AUTH_STORAGE_KEYS.REFRESH_TOKEN),
+        SecureStore.getItemAsync(AUTH_STORAGE_KEYS.USER_DATA),
+        SecureStore.getItemAsync(AUTH_STORAGE_KEYS.REMEMBER_ME),
       ]);
 
       // Verificar si hay sesión guardada y "recordarme" está activo
@@ -202,6 +201,7 @@ export const useAuth = () => {
         // Guardar en store
         store.setUser(response.user);
         store.setToken(response.accessToken);
+        store.setRememberMe(rememberMe);
 
         // Persistir si "recordarme" está activo
         await saveSession(response.user, response.accessToken, response.refreshToken, rememberMe);
@@ -250,6 +250,7 @@ export const useAuth = () => {
         // Guardar en store
         store.setUser(response.user);
         store.setToken(response.accessToken);
+        store.setRememberMe(rememberMe);
 
         // Persistir sesión
         await saveSession(response.user, response.accessToken, response.refreshToken, rememberMe);
@@ -340,11 +341,11 @@ export const useAuth = () => {
       // Actualizar el store de Zustand
       store.setUser(user);
 
-      // Sincronizar con AsyncStorage si hay una sesión activa
+      // Sincronizar con SecureStore si hay una sesión activa
       try {
-        const rememberMe = await AsyncStorage.getItem(AUTH_STORAGE_KEYS.REMEMBER_ME);
+        const rememberMe = await SecureStore.getItemAsync(AUTH_STORAGE_KEYS.REMEMBER_ME);
         if (rememberMe === 'true') {
-          await AsyncStorage.setItem(AUTH_STORAGE_KEYS.USER_DATA, JSON.stringify(user));
+          await SecureStore.setItemAsync(AUTH_STORAGE_KEYS.USER_DATA, JSON.stringify(user));
         }
       } catch (error) {
         console.warn('Error sincronizando actualización de usuario con storage:', error);

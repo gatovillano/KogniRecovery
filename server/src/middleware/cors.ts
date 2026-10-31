@@ -28,8 +28,11 @@ export interface CorsOptions {
 export const getCorsOptions = (): CorsOptions => {
   const origins = getCorsOrigins();
 
+  // SEC-PHASE2: si no hay orígenes configurados, NO caer a '*'
+  // (permisivo). Se devuelve lista vacía; el middleware bloquea peticiones
+  // cross-origin.
   return {
-    origin: origins.length > 0 ? origins : '*',
+    origin: origins,
     methods: corsConfig.methods,
     allowedHeaders: corsConfig.allowedHeaders,
     credentials: corsConfig.credentials,
@@ -57,15 +60,24 @@ export const corsMiddleware = (
   let allowedOrigin: string | boolean = false;
 
   if (Array.isArray(options.origin)) {
-    // Si el arreglo contiene '*', permitimos el origen de la petición
-    if (options.origin.includes('*')) {
-      allowedOrigin = origin || '*';
+    if (options.origin.length === 0) {
+      // SEC-PHASE2: sin orígenes configurados → bloquear cross-origin.
+      if (origin) {
+        res.status(403).json({
+          success: false,
+          error: {
+            code: 'CORS_ORIGIN_NOT_ALLOWED',
+            message: 'Origen no permitido',
+          },
+        });
+        return;
+      }
+      // Sin header Origin (apps nativas) → continuar sin headers CORS.
+      allowedOrigin = false;
     } else {
       allowedOrigin = origin && options.origin.includes(origin) ? origin : false;
     }
   } else if (options.origin === '*') {
-    // Si es '*', permitimos cualquier origen devolviendo el origen de la petición
-    // Esto es necesario cuando credentials es true
     allowedOrigin = origin || '*';
   } else {
     allowedOrigin = origin && options.origin.includes(origin) ? origin : false;

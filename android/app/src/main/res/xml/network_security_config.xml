@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="true" />
+    <!-- SEC-PHASE1: denegar cleartext por defecto. El manifest de debug
+         (src/debug) lo permite solo en builds de desarrollo. -->
+    <base-config cleartextTrafficPermitted="false" />
 </network-security-config>

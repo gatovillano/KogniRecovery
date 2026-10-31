@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   postgres:
@@ -9,9 +7,10 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      # SEC-PHASE1: credenciales obligatorias (falla si faltan en .env)
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER no definido en .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD no definido en .env}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB no definido en .env}
     ports:
       # SEC-009 FIX: Restringir a 127.0.0.1 para no exponer al exterior
       - '127.0.0.1:5437:5432'
@@ -36,7 +35,12 @@ services:
       - '127.0.0.1:6380:6379'
     volumes:
       - redis_data:/data
-    command: redis-server --appendonly yes
+    # SEC-PHASE1: Redis con contraseña obligatoria.
+    command: >
+      sh -c 'exec redis-server --appendonly yes
+        --requirepass "$$REDIS_PASSWORD"'
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD no definido en .env}
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
@@ -58,8 +62,8 @@ services:
       NEO4J_server_memory_heap_initial__size: 512m
       NEO4J_server_memory_heap_max__size: 2G
       NEO4J_server_memory_pagecache_size: 1G
-      NEO4J_dbms_security_procedures_unrestricted: apoc.*
-      NEO4J_dbms_security_procedures_allowlist: apoc.*
+      # SEC-PHASE2: apoc.* ya no está unrestricted; el código no lo usa.
+      # Si en el futuro se necesita, habilitar SOLO los procedimientos puntuales.
     ports:
       # SEC-009 FIX: Restringir a localhost
       - '127.0.0.1:7475:7474' # HTTP
@@ -91,19 +95,39 @@ services:
         condition: service_healthy
       neo4j:
         condition: service_healthy
+      kokoro-tts:
+        condition: service_started
     env_file:
       - .env
     # Dentro de la red de Docker los servicios se resuelven por nombre,
     # no por localhost ni por los puertos publicados en el host.
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      REDIS_URL: redis://redis:6379
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
       NEO4J_URI: bolt://neo4j:7687
+      # Express confía en los headers X-Forwarded-* (XFF) para que req.ip y
+      # express-rate-limit identifiquen correctamente al cliente detrás de
+      # Docker/reverse proxy. Sin esto, express-rate-limit lanza
+      # ERR_ERL_UNEXPECTED_X_FORWARDED_FOR si llega un header XFF.
+      TRUST_PROXY: "true"
+      # TTS: dentro de la red Docker los servicios se resuelven por nombre.
+      # Kokoro es el fallback local (gratis); ElevenLabs se configura desde el
+      # panel de administración (IA / LLM → Voz) y se puede pasar la key por
+      # entorno como valor por defecto.
+      TTS_KOKORO_URL: ${TTS_KOKORO_URL:-http://kokoro-tts:8000}
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY:-}
     volumes:
       - ./server:/usr/src/app
-      - /usr/src/app/node_modules
+      # Usamos el node_modules del host (bind mount) en lugar de un volumen
+      # anónimo: un volumen anónimo se inicializa UNA vez desde la imagen y
+      # persiste entre rebuilds, por lo que quedaba obsoleto (ej. faltaba
+      # @huggingface/transformers). Con bind mount las dependencias siempre
+      # quedan sincronizadas con `npm install` del host.
+      - ./server/node_modules:/usr/src/app/node_modules
     ports:
-      - '3003:3003'
+      # SEC-PHASE1: no exponer la API a la red; solo localhost (detrás
+      # de un reverse proxy con TLS en producción).
+      - '127.0.0.1:3003:3003'
     healthcheck:
       # node:20-slim no trae wget/curl; usamos fetch nativo de Node
       test:
@@ -125,7 +149,9 @@ services:
     container_name: kognirecovery-web
     restart: unless-stopped
     environment:
-      SESSION_SECRET: ${WEB_SESSION_SECRET:-cambiar-en-produccion-2026-secreto}
+      # SEC-PHASE1: el secreto de sesión del panel web es OBLIGATORIO;
+      # no hay valor por defecto (antes era público).
+      SESSION_SECRET: ${WEB_SESSION_SECRET:?WEB_SESSION_SECRET no definido en .env}
       COOKIE_SECURE: "true"
       NEXT_PUBLIC_API_URL: ${WEB_PUBLIC_API_URL:-https://apirecovery.kognitoai.cloud}
     ports:
@@ -167,8 +193,9 @@ services:
     env_file:
       - .env
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      # SEC-PHASE1: credenciales de pgAdmin obligatorias (nunca vacías).
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:?PGADMIN_DEFAULT_EMAIL no definido en .env}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:?PGADMIN_DEFAULT_PASSWORD no definido en .env}
       PGADMIN_LISTEN_PORT: 80
     ports:
       # SEC-009 + SEC-023 FIX: Solo accesible desde localhost
@@ -197,6 +224,7 @@ services:
       - tts
 
   # TTS Service - Kokoro (Recomendado: mejor calidad, español nativo, ligero)
+  # Se levanta por defecto (sin perfil): es el fallback de voz del asistente.
   kokoro-tts:
     build:
       context: ./docker/kokoro
@@ -207,8 +235,6 @@ services:
       - '8009:8000'
     networks:
       - kognirecovery-network
-    profiles:
-      - tts
 
 volumes:
   postgres_data:

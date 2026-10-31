@@ -1,4 +1,5 @@
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 export interface ConsumptionEvent {
   id: string;
@@ -27,10 +28,12 @@ export const createConsumptionEvent = async (userId: string, data: Partial<Consu
     data.unit || 'unidades',
     data.consumed_at || new Date(),
     data.craving_intensity || null,
-    data.context_notes || null
+    // SEC-PHASE1: cifrar notas de contexto de consumo.
+    data.context_notes ? encrypt(data.context_notes) : null
   ];
   const result = await query(sql, values);
-  return result.rows[0] as ConsumptionEvent;
+  const row = result.rows[0] as ConsumptionEvent | undefined;
+  return row ? { ...row, context_notes: tryDecrypt(row.context_notes ?? '') } : (row as unknown as ConsumptionEvent);
 };
 
 export const getConsumptionEvents = async (userId: string, limit = 50, offset = 0): Promise<ConsumptionEvent[]> => {
@@ -41,7 +44,10 @@ export const getConsumptionEvents = async (userId: string, limit = 50, offset = 
     LIMIT $2 OFFSET $3
   `;
   const result = await query(sql, [userId, limit, offset]);
-  return result.rows as ConsumptionEvent[];
+  return (result.rows as ConsumptionEvent[]).map((row) => ({
+    ...row,
+    context_notes: tryDecrypt(row.context_notes ?? ''),
+  }));
 };
 
 export const getWeeklyVariationStats = async (userId: string, days = 7): Promise<any[]> => {

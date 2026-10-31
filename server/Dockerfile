@@ -24,4 +24,7 @@ EXPOSE 3003
 
 # Command to run migrations and then start the server in DEV mode
 # This uses 'tsx' which handles TS files directly and skips strict type checking errors
-CMD ["sh", "-c", "npx tsx src/scripts/migrate.ts && npm run dev"]
+# Nota: se ejecutan AMBOS runners de migraciones:
+#   - migrate.ts (SQL hardcodeado, legacy)
+#   - runMigrations.ts (aplica server/migrations/*.sql, ej. auth_login_attempts)
+CMD ["sh", "-c", "npx tsx src/scripts/migrate.ts && npx tsx src/scripts/runMigrations.ts && npm run dev"]

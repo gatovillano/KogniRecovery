@@ -9,6 +9,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 import * as ClinicalAccess from './clinicalAccess.service.js';
 import type { AuditContext } from './clinicalAccess.service.js';
 import * as AuditService from './audit.service.js';
@@ -128,7 +129,8 @@ export const evaluatePatientCheckins = async (
       `INSERT INTO clinical_alerts
          (organization_id, patient_id, source, severity, status, summary, source_ref)
        VALUES ($1, $2, 'checkin', $3, 'open', $4, $5)`,
-      [organizationId, patientId, severity, summary, row.id]
+      // SEC-PHASE1: el resumen de la alerta es texto clínico; se cifra.
+      [organizationId, patientId, severity, encrypt(summary), row.id]
     );
     created += 1;
   }
@@ -219,7 +221,7 @@ export const listAlertsForTherapist = async (input: {
   });
 
   return {
-    items: result.rows,
+    items: result.rows.map((row) => ({ ...row, summary: tryDecrypt(row.summary) })),
     consent: {
       detail_level: decision.detailLevel,
       expires_at: decision.consent.expires_at ?? null,
@@ -259,7 +261,8 @@ const findAlertInOrg = async (
      WHERE id = $1 AND organization_id = $2 AND patient_id = $3`,
     [alertId, organizationId, patientId]
   );
-  return result.rows[0] ?? null;
+  const row = result.rows[0];
+  return row ? { ...row, summary: tryDecrypt(row.summary) } : null;
 };
 
 const recordAlertAction = async (input: {
@@ -325,7 +328,7 @@ export const acknowledgeAlert = async (input: {
     [input.alertId, input.actorId]
   );
 
-  const updated = result.rows[0]!;
+  const updated = { ...result.rows[0]!, summary: tryDecrypt(result.rows[0]!.summary) };
   await recordAlertAction({ ...input, alert: updated, action: 'view' });
   return updated;
 };
@@ -369,7 +372,7 @@ export const escalateAlert = async (input: {
     [input.alertId, input.actorId]
   );
 
-  const updated = result.rows[0]!;
+  const updated = { ...result.rows[0]!, summary: tryDecrypt(result.rows[0]!.summary) };
   await recordAlertAction({ ...input, alert: updated, action: 'export' });
   return updated;
 };
@@ -403,7 +406,7 @@ export const closeAlert = async (input: {
     [input.alertId, input.outcome]
   );
 
-  const updated = result.rows[0]!;
+  const updated = { ...result.rows[0]!, summary: tryDecrypt(result.rows[0]!.summary) };
   await recordAlertAction({ ...input, alert: updated, action: 'view' });
   return updated;
 };

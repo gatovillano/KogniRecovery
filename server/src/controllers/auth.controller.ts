@@ -77,7 +77,7 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    const result = await authService.login({ email, password });
+    const result = await authService.login({ email, password, ipAddress: req.ip });
 
     res.status(200).json({
       success: true,
@@ -91,13 +91,140 @@ export const login = async (
       res.status(err.statusCode).json({
         success: false,
         error: {
-          code: err.statusCode === 401 ? 'INVALID_CREDENTIALS' : 'ACCOUNT_ERROR',
+          code: err.statusCode === 429 ? 'ACCOUNT_LOCKED' : err.statusCode === 401 ? 'INVALID_CREDENTIALS' : 'ACCOUNT_ERROR',
           message: err.message,
         },
       });
       return;
     }
 
+    next(error);
+  }
+};
+
+// =====================================================
+// RECUPERACIÓN DE CONTRASEÑA
+// =====================================================
+
+/**
+ * POST /api/v1/auth/forgot-password
+ * Solicita un token de recuperación. Respuesta genérica (no revela si
+ * el correo existe).
+ */
+export const forgotPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email } = req.body;
+    if (!email || typeof email !== 'string') {
+      res.status(400).json({
+        success: false,
+        error: { code: 'INVALID_PAYLOAD', message: 'email es obligatorio' },
+      });
+      return;
+    }
+
+    const result = await authService.requestPasswordReset(email);
+
+    res.status(200).json({
+      success: true,
+      message: 'Si el correo existe, recibirás un enlace para recuperar tu contraseña.',
+      ...(result.devToken ? { data: { dev_token: result.devToken } } : {}),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/auth/reset-password
+ * Consume el token y actualiza la contraseña.
+ */
+export const resetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_PAYLOAD',
+          message: 'token y newPassword son obligatorios',
+        },
+      });
+      return;
+    }
+
+    await authService.resetPassword({ token, newPassword });
+
+    res.status(200).json({
+      success: true,
+      message: 'Contraseña actualizada. Vuelve a iniciar sesión.',
+    });
+  } catch (error) {
+    const err = error as Error & { statusCode?: number };
+    if (err.statusCode) {
+      res.status(err.statusCode).json({
+        success: false,
+        error: { code: 'INVALID_RESET_TOKEN', message: err.message },
+      });
+      return;
+    }
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/auth/change-password
+ * Cambio de contraseña desde sesión iniciada (requiere authenticate).
+ */
+export const changePassword = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'No autenticado' },
+      });
+      return;
+    }
+
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_PAYLOAD',
+          message: 'currentPassword y newPassword son obligatorios',
+        },
+      });
+      return;
+    }
+
+    await authService.changePassword({ userId, currentPassword, newPassword });
+
+    res.status(200).json({
+      success: true,
+      message: 'Contraseña actualizada. Cierra sesión e inicia de nuevo.',
+    });
+  } catch (error) {
+    const err = error as Error & { statusCode?: number };
+    if (err.statusCode) {
+      res.status(err.statusCode).json({
+        success: false,
+        error: { code: 'INVALID_CREDENTIALS', message: err.message },
+      });
+      return;
+    }
     next(error);
   }
 };
@@ -462,6 +589,9 @@ export default {
   login,
   refresh,
   logout,
+  forgotPassword,
+  resetPassword,
+  changePassword,
   getSessions,
   verify,
 };

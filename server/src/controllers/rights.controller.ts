@@ -5,6 +5,7 @@
 
 import type { NextFunction, Request, Response } from 'express';
 import * as DataRightsService from '../services/dataRights.service.js';
+import * as PrivacyService from '../services/privacy.service.js';
 import * as NotificationsService from '../services/notifications.service.js';
 import * as AuditService from '../services/audit.service.js';
 import * as ClinicalAccess from '../services/clinicalAccess.service.js';
@@ -206,6 +207,22 @@ export const reviewDeletionRequest = async (
         400,
         'INVALID_PAYLOAD'
       );
+    }
+
+    // SEC-PHASE1: al completar una solicitud, ejecutar ANTES el borrado
+    // físico completo (DB + Neo4j + embeddings). Si falla, la solicitud
+    // permanece en su estado anterior y el centro puede reintentar.
+    if (decision === 'completed') {
+      const pre = await query<{ patient_id: string }>(
+        `SELECT patient_id FROM data_deletion_requests
+         WHERE id = $1 AND organization_id = $2`,
+        [requestId, organizationId]
+      );
+      const patientId = pre.rows[0]?.patient_id;
+      if (!patientId) {
+        throw createError('Solicitud no encontrada', 404, 'DELETION_REQUEST_NOT_FOUND');
+      }
+      await PrivacyService.executeFullDataDeletion(patientId);
     }
 
     const request = await DataRightsService.reviewDeletionRequest({

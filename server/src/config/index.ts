@@ -5,15 +5,21 @@
 
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 
 // Cargar variables de entorno
+// En Docker las variables llegan vía env_file/environment del compose, así que
+// no exigimos que exista un archivo .env dentro del contenedor.
 const envPath = path.resolve(process.cwd(), '.env');
-console.log(`🔍 Intentando cargar .env desde: ${envPath}`);
-const result = dotenv.config({ path: envPath });
-if (result.error) {
-  console.error('❌ Error al cargar .env:', result.error);
+if (fs.existsSync(envPath)) {
+  const result = dotenv.config({ path: envPath });
+  if (result.error) {
+    console.error('❌ Error al cargar .env:', result.error);
+  } else {
+    console.log('✅ Archivo .env cargado exitosamente');
+  }
 } else {
-  console.log('✅ Archivo .env cargado exitosamente');
+  console.log(`ℹ️ No se encontró .env en ${envPath}; usando variables de entorno inyectadas`);
 }
 
 // =====================================================
@@ -100,6 +106,37 @@ const getOptionalNumber = (key: string, defaultValue: number): number => {
   return value ? parseInt(value, 10) : defaultValue;
 };
 
+/**
+ * SEC-PHASE2: parsea duraciones expresadas como segundos numéricos o
+ * como cadenas legibles ('15m', '7d', '1h', '30s', '500ms').
+ * Evita el bug de `parseInt('15m')` → 15 SEGUNDOS en vez de 15 minutos.
+ */
+const getOptionalDuration = (key: string, defaultSeconds: number): number => {
+  const raw = process.env[key];
+  if (!raw) return defaultSeconds;
+  const value = raw.trim().toLowerCase();
+  const match = /^(\d+)(ms|s|m|h|d)?$/.exec(value);
+  if (!match) {
+    const parsed = parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : defaultSeconds;
+  }
+  const n = parseInt(match[1]!, 10);
+  switch (match[2]) {
+    case 'ms':
+      return n / 1000;
+    case 's':
+      return n;
+    case 'm':
+      return n * 60;
+    case 'h':
+      return n * 3600;
+    case 'd':
+      return n * 86400;
+    default:
+      return n;
+  }
+};
+
 const getOptionalBoolean = (key: string, defaultValue: boolean): boolean => {
   const value = process.env[key];
   return value ? value === 'true' : defaultValue;
@@ -125,12 +162,18 @@ export const database: DatabaseConfig = {
 
 export const jwt: JwtConfig = {
   secret: getRequired('JWT_SECRET'),
-  // SEC-016 FIX: default 15 minutos (900s), NO 7 días
-  // Configurar JWT_EXPIRES_IN en .env para cambiar (valor en segundos)
-  expiresIn: getOptionalNumber('JWT_EXPIRES_IN', 900),
+  // SEC-016 FIX: default 15 minutos (900s), NO 7 días.
+  // Acepta segundos ('900') o duraciones legibles ('15m', '1h', '7d').
+  expiresIn: getOptionalDuration('JWT_EXPIRES_IN', 900),
   refreshSecret: getRequired('JWT_REFRESH_SECRET'),
-  refreshExpiresIn: getOptionalNumber('JWT_REFRESH_EXPIRES_IN', 2592000), // 30 días en segundos
+  refreshExpiresIn: getOptionalDuration('JWT_REFRESH_EXPIRES_IN', 2592000), // 30 días
 };
+
+// SEC-PHASE1 FIX: claves de cifrado de datos clínicos OBLIGATORIAS.
+// Sin ellas el servidor no arranca: se elimina cualquier fallback
+// hardcodeado que permitía derivar la clave de JWT_SECRET o de cadenas fijas.
+getRequired('ENCRYPTION_KEY');
+getRequired('ENCRYPTION_SALT');
 
 export const auth: AuthConfig = {
   passwordMinLength: getOptionalNumber('PASSWORD_MIN_LENGTH', 8),

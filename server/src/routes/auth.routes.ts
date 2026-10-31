@@ -66,6 +66,18 @@ router.post(
   authController.refresh
 );
 
+/**
+ * POST /api/v1/auth/forgot-password
+ * Solicita token de recuperación (respuesta genérica anti-enumeración)
+ */
+router.post('/forgot-password', authController.forgotPassword);
+
+/**
+ * POST /api/v1/auth/reset-password
+ * Consume el token y actualiza la contraseña
+ */
+router.post('/reset-password', authController.resetPassword);
+
 // =====================================================
 // RUTAS PROTEGIDAS
 // =====================================================
@@ -104,5 +116,11 @@ router.get(
   authenticate,
   authController.verify
 );
+
+/**
+ * POST /api/v1/auth/change-password
+ * Cambio de contraseña desde sesión iniciada
+ */
+router.post('/change-password', authenticate, authController.changePassword);
 
 export default router;

@@ -4,9 +4,12 @@
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
+import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import * as UserModel from '../models/user.model.js';
 import * as RefreshTokenModel from '../models/refreshToken.model.js';
+import * as LoginAttemptModel from '../models/loginAttempt.model.js';
+import * as PasswordResetTokenModel from '../models/passwordResetToken.model.js';
 import * as ProfileModel from '../models/profile.model.js';
 import * as MfaService from './mfa.service.js';
 import { auth as authConfig, jwt as jwtConfig } from '../config/index.js';
@@ -31,6 +34,7 @@ export interface RegisterInput {
 export interface LoginInput {
   email: string;
   password: string;
+  ipAddress?: string;
 }
 
 export interface AuthTokens {
@@ -202,11 +206,30 @@ export const register = async (input: RegisterInput): Promise<RegisterResponse> 
  * Inicia sesión con email y contraseña
  */
 export const login = async (input: LoginInput): Promise<LoginResult> => {
-  const { email, password } = input;
+  const { email, password, ipAddress } = input;
+  const identifier = email.toLowerCase();
+
+  // SEC-PHASE2: lockout por cuenta (por identificador + IP). Se consulta
+  // antes de validar credenciales para no regalar coste de bcrypt a un
+  // atacante bloqueado.
+  const attempt = await LoginAttemptModel.getAttempt(identifier, ipAddress);
+  if (LoginAttemptModel.isLocked(attempt)) {
+    const error = new Error(
+      'Demasiados intentos fallidos. Inténtalo más tarde.'
+    ) as Error & { statusCode: number };
+    error.statusCode = 429;
+    throw error;
+  }
 
   // Buscar usuario por email
-  const user = await UserModel.findByEmail(email.toLowerCase());
+  const user = await UserModel.findByEmail(identifier);
   if (!user) {
+    await LoginAttemptModel.recordFailure({
+      identifier,
+      ipAddress,
+      maxAttempts: authConfig.maxLoginAttempts,
+      lockoutMinutes: authConfig.loginLockoutDuration,
+    });
     const error = new Error('Credenciales inválidas') as Error & { statusCode: number };
     error.statusCode = 401;
     throw error;
@@ -215,10 +238,19 @@ export const login = async (input: LoginInput): Promise<LoginResult> => {
   // Verificar contraseña
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
+    await LoginAttemptModel.recordFailure({
+      identifier,
+      ipAddress,
+      maxAttempts: authConfig.maxLoginAttempts,
+      lockoutMinutes: authConfig.loginLockoutDuration,
+    });
     const error = new Error('Credenciales inválidas') as Error & { statusCode: number };
     error.statusCode = 401;
     throw error;
   }
+
+  // Credenciales válidas: limpiar intentos fallidos.
+  await LoginAttemptModel.clearAttempts(identifier, ipAddress);
 
   // Verificar estado de cuenta
   if (user.status === 'suspended') {
@@ -350,9 +382,21 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
     throw error;
   }
 
-  // Verificar que el token no esté revocado o usado
-  if (storedToken.is_revoked || storedToken.is_used) {
-    const error = new Error('Refresh token revocado o ya usado') as Error & { statusCode: number };
+  // SEC-PHASE2: si el token ya fue usado, es una señal de reuso
+  // (robo/duplicación). Se revoca TODA la familia de tokens del usuario
+  // y se rechaza. No reutilizamos el token ni emitimos otros nuevos.
+  if (storedToken.is_used) {
+    await RefreshTokenModel.revokeAllByUserId(storedToken.user_id);
+    const error = new Error(
+      'Refresh token reutilizado: todas las sesiones del usuario fueron revocadas'
+    ) as Error & { statusCode: number };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  // Verificar que el token no esté revocado
+  if (storedToken.is_revoked) {
+    const error = new Error('Refresh token revocado') as Error & { statusCode: number };
     error.statusCode = 401;
     throw error;
   }
@@ -360,6 +404,16 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
   // Verificar que el token no haya expirado
   if (new Date() > new Date(storedToken.expires_at)) {
     const error = new Error('Refresh token expirado') as Error & { statusCode: number };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  // Verificar que el token pertenezca al mismo usuario del payload JWT
+  if (storedToken.user_id !== decoded.userId) {
+    await RefreshTokenModel.revokeAllByUserId(storedToken.user_id);
+    const error = new Error('Refresh token no corresponde al usuario') as Error & {
+      statusCode: number;
+    };
     error.statusCode = 401;
     throw error;
   }
@@ -390,6 +444,119 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
   });
 
   return { tokens };
+};
+
+// =====================================================
+// RECUPERACIÓN DE CONTRASEÑA
+// =====================================================
+
+const PASSWORD_RESET_TTL_MS = 30 * 60 * 1000; // 30 minutos
+
+/**
+ * Solicita un token de recuperación para un correo.
+ * La respuesta NO revela si el correo existe (anti-enumeración).
+ */
+export const requestPasswordReset = async (email: string): Promise<{ devToken?: string }> => {
+  const identifier = email.toLowerCase();
+  const user = await UserModel.findByEmail(identifier);
+
+  // Si el usuario no existe, no crear token (misma respuesta genérica).
+  if (!user) {
+    return {};
+  }
+
+  const token = crypto.randomBytes(32).toString('hex');
+  await PasswordResetTokenModel.create({
+    userId: user.id,
+    token,
+    expiresAt: new Date(Date.now() + PASSWORD_RESET_TTL_MS),
+  });
+
+  // Sin SMTP configurado, el token se devuelve SOLO en entornos de
+  // desarrollo/test. En producción debe enviarse por email (canal fuera
+  // de banda); aquí solo se registra a nivel info, sin datos del usuario.
+  if (process.env.NODE_ENV !== 'production') {
+    return { devToken: token };
+  }
+  console.info('[AUTH] Password reset token creado (enviar por email en producción).');
+  return {};
+};
+
+/**
+ * Consume el token y actualiza la contraseña. Token de uso único.
+ */
+export const resetPassword = async (input: {
+  token: string;
+  newPassword: string;
+}): Promise<void> => {
+  const passwordErrors = validatePassword(input.newPassword);
+  if (passwordErrors.length > 0) {
+    const error = new Error(passwordErrors.join(', ')) as Error & { statusCode: number };
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const stored = await PasswordResetTokenModel.findByToken(input.token);
+  if (!stored || stored.used_at) {
+    const error = new Error('Token de recuperación inválido o ya usado') as Error & {
+      statusCode: number;
+    };
+    error.statusCode = 400;
+    throw error;
+  }
+  if (new Date() > new Date(stored.expires_at)) {
+    const error = new Error('Token de recuperación expirado') as Error & { statusCode: number };
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const saltRounds = parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10);
+  const hashedPassword = await bcrypt.hash(input.newPassword, saltRounds);
+  await UserModel.updatePassword(stored.user_id, hashedPassword);
+
+  await PasswordResetTokenModel.markAsUsed(stored.id);
+
+  // Revocar todas las sesiones del usuario: cualquier cliente con un
+  // refresh token anterior queda invalidado.
+  await RefreshTokenModel.revokeAllByUserId(stored.user_id);
+};
+
+/**
+ * Cambio de contraseña desde sesión iniciada.
+ */
+export const changePassword = async (input: {
+  userId: string;
+  currentPassword: string;
+  newPassword: string;
+}): Promise<void> => {
+  const passwordErrors = validatePassword(input.newPassword);
+  if (passwordErrors.length > 0) {
+    const error = new Error(passwordErrors.join(', ')) as Error & { statusCode: number };
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const user = await UserModel.findById(input.userId);
+  if (!user) {
+    const error = new Error('Usuario no encontrado') as Error & { statusCode: number };
+    error.statusCode = 404;
+    throw error;
+  }
+
+  const isValidCurrent = await bcrypt.compare(input.currentPassword, user.password);
+  if (!isValidCurrent) {
+    const error = new Error('Contraseña actual incorrecta') as Error & { statusCode: number };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const saltRounds = parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10);
+  const hashedPassword = await bcrypt.hash(input.newPassword, saltRounds);
+  await UserModel.updatePassword(user.id, hashedPassword);
+
+  // Revocar sesiones previas (el cliente actual deberá re-autenticarse
+  // o usar el refresh token nuevo que obtenga al volver a entrar).
+  await RefreshTokenModel.revokeAllByUserId(user.id);
 };
 
 // =====================================================
@@ -447,5 +614,8 @@ export default {
   login,
   refreshTokens,
   logout,
+  requestPasswordReset,
+  resetPassword,
+  changePassword,
   getActiveSessions,
 };

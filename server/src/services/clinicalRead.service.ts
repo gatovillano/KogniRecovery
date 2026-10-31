@@ -6,6 +6,7 @@
  */
 
 import { query } from '../config/database.js';
+import { tryDecrypt } from '../utils/encryption.js';
 import type { ConsentCategory, DetailLevel } from '../config/consent.js';
 import * as UserModel from '../models/user.model.js';
 import * as CareModel from '../models/care.model.js';
@@ -153,8 +154,17 @@ export const getCheckInsForTherapist = async (input: {
     );
   }
 
+  // SEC-PHASE1: descifrar columnas de texto clínico (notes/risk_description).
+  const items = includeNotes
+    ? result.rows.map((row) => ({
+        ...row,
+        notes: row.notes ? tryDecrypt(row.notes) : null,
+        risk_description: row.risk_description ? tryDecrypt(row.risk_description) : null,
+      }))
+    : result.rows;
+
   return {
-    items: result.rows,
+    items,
     consent: {
       summary: {
         detail_level: summaryDecision.detailLevel,

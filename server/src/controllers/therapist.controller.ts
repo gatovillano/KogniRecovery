@@ -18,6 +18,74 @@ import {
 const contextFor = (req: Request): ClinicalAccess.AuditContext =>
   ClinicalAccess.buildAuditContext(req);
 
+/**
+ * SEC-PHASE2: registro auditado de un evento "break glass".
+ *
+ * No altera la autorización: el acceso sin consentimiento sigue
+ * bloqueado por authorizeClinicalRead. Este endpoint deja constancia de
+ * la intención (con motivo) para que el centro la revise y, si procede,
+ * otorgue un consentimiento temporal o tome la acción manual.
+ */
+export const requestBreakGlass = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { actorId, actorRole } = getAuthenticatedActor(req);
+    const organizationId = await resolveOrganizationId(req, actorId);
+    const patientId = req.params.id;
+    const reason = (req.body as { reason?: unknown })?.reason;
+
+    if (!patientId || typeof reason !== 'string' || !reason.trim()) {
+      throw createError('id y reason son obligatorios', 400, 'INVALID_PAYLOAD');
+    }
+
+    const auditContext = contextFor(req);
+    const { membership } = await ClinicalAccess.resolveMembership(
+      actorId,
+      actorRole,
+      organizationId,
+      auditContext
+    );
+    if (membership.status !== 'active') {
+      throw createError('Membresía inactiva', 403, 'NOT_A_MEMBER');
+    }
+    await ClinicalAccess.assertClinicalCredential({
+      actorId,
+      actorRole,
+      organizationId,
+      role: membership.role,
+      context: auditContext,
+    });
+
+    await AuditService.logAccess({
+      actorId,
+      actorRole,
+      organizationId,
+      patientId,
+      consentId: null,
+      action: 'break_glass',
+      resourceType: 'clinical_data',
+      resourceIds: [],
+      purpose: 'safety',
+      success: true,
+      ipAddress: auditContext.ipAddress,
+      userAgent: auditContext.userAgent,
+      requestId: auditContext.requestId,
+    });
+
+    res.json({
+      success: true,
+      data: { status: 'recorded' },
+      message:
+        'Evento break-glass registrado en auditoría. Revisa la política del centro antes de acceder sin consentimiento.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const listPatients = async (
   req: Request,
   res: Response,

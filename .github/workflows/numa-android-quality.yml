@@ -25,5 +25,12 @@ jobs:
         run: npm run typecheck
       - name: ESLint
         run: npm run lint
+      - name: Secretos / plantillas de entorno (SEC-PHASE1)
+        run: node scripts/validate-env-examples.mjs
+      - name: Server TypeScript (backend)
+        run: |
+          cd server
+          npm install --no-audit --no-fund
+          npx tsc --noEmit
       - name: Export Android bundle
         run: npx expo export --platform android

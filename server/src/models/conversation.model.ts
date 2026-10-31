@@ -5,6 +5,28 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
+
+/**
+ * SEC-PHASE1: el contexto de conversación puede contener datos clínicos
+ * (estado emocional, eventos, acuerdos). Se cifra el JSON antes de
+ * persistir. La columna admite JSON: guardamos una cadena JSON cuyo
+ * contenido es el ciphertext.
+ */
+const encodeContext = (context: any): string => JSON.stringify(encrypt(JSON.stringify(context)));
+
+const decodeContext = (value: any): any => {
+  if (value === null || value === undefined) return value;
+  if (typeof value === 'string') {
+    const decrypted = tryDecrypt(value);
+    try {
+      return JSON.parse(decrypted);
+    } catch {
+      return decrypted;
+    }
+  }
+  return value;
+};
 
 // =====================================================
 // INTERFACES
@@ -93,11 +115,12 @@ export const createConversation = async (
     data.title || 'Nueva conversación',
     data.scenario_type || 'apoyo_emocional',
     data.status || 'active',
-    data.context ? JSON.stringify(data.context) : '{}',
+    data.context ? encodeContext(data.context) : '{}',
   ];
 
   const result = await query<Conversation>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
@@ -106,7 +129,8 @@ export const createConversation = async (
 export const getConversationById = async (id: string): Promise<Conversation | null> => {
   const sql = `SELECT * FROM conversations WHERE id = $1`;
   const result = await query<Conversation>(sql, [id]);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
@@ -119,7 +143,8 @@ export const getActiveConversation = async (userId: string): Promise<Conversatio
     ORDER BY last_message_at DESC
     LIMIT 1`;
   const result = await query<Conversation>(sql, [userId]);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
@@ -143,7 +168,10 @@ export const getUserConversations = async (
     LIMIT $2 OFFSET $3`;
   const result = await query<Conversation>(sql, [userId, limit, offset]);
 
-  return { conversations: result.rows, total };
+  return {
+    conversations: result.rows.map((row) => ({ ...row, context: decodeContext(row.context) })),
+    total,
+  };
 };
 
 /**
@@ -178,7 +206,7 @@ export const updateConversation = async (
     if (allowedFields.includes(key) && value !== undefined) {
       fields.push(`${key} = $${paramIndex}`);
       if (key === 'context') {
-        values.push(JSON.stringify(value));
+        values.push(encodeContext(value));
       } else {
         values.push(value);
       }
@@ -192,7 +220,8 @@ export const updateConversation = async (
   const sql = `UPDATE conversations SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
 
   const result = await query<Conversation>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**

@@ -18,6 +18,12 @@ import rateLimit from 'express-rate-limit';
 export const createApp = (): Application => {
   const app = express();
 
+  // SEC-PHASE2: detrás de un reverse proxy (nginx/docker), Express debe
+  // confiar en los headers X-Forwarded-* para que req.ip y req.protocol
+  // sean correctos (necesario para enforceHttps/HSTS y lockout por IP).
+  // Se activa explícitamente con TRUST_PROXY=true.
+  app.set('trust proxy', process.env.TRUST_PROXY === 'true');
+
   // =====================================================
   // MIDDLEWARES DE SEGURIDAD (SEC-010 FIX: aplicar antes que rutas)
   // =====================================================

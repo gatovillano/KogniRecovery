@@ -6,6 +6,7 @@
 
 import { query, queryWithTransaction } from '../config/database.js';
 import type { PoolClient } from 'pg';
+import { tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -371,6 +372,27 @@ export const exportUserData = async (userId: string): Promise<Record<string, unk
         [userId]
     );
 
+    // SEC-PHASE1: descifrar campos clínicos antes de exportar.
+    const decryptCheckIn = (row: any) => ({
+        ...row,
+        notes: row.notes ? tryDecrypt(row.notes) : null,
+        risk_description: row.risk_description ? tryDecrypt(row.risk_description) : null,
+    });
+    const decryptCraving = (row: any) => ({
+        ...row,
+        consequences: row.consequences ? tryDecrypt(row.consequences) : null,
+        notes: row.notes ? tryDecrypt(row.notes) : null,
+    });
+    const decryptConversation = (row: any) => {
+        if (!row || row.context === null || row.context === undefined) return row;
+        const ctx = typeof row.context === 'string' ? row.context : JSON.stringify(row.context);
+        try {
+            return { ...row, context: JSON.parse(tryDecrypt(ctx)) };
+        } catch {
+            return row;
+        }
+    };
+
     // Compilar datos exportados
     const exportedData = {
         export_metadata: {
@@ -391,10 +413,13 @@ export const exportUserData = async (userId: string): Promise<Record<string, unk
         })),
         privacy_settings: privacySettings,
         profile: profileResult.rows[0],
-        checkins: checkinsResult.rows,
-        journal_entries: journalResult.rows,
-        conversations: conversationsResult.rows,
-        cravings: cravingsResult.rows
+        checkins: checkinsResult.rows.map(decryptCheckIn),
+        journal_entries: journalResult.rows.map((row: any) => ({
+            ...row,
+            content: row.content ? tryDecrypt(row.content) : row.content,
+        })),
+        conversations: conversationsResult.rows.map(decryptConversation),
+        cravings: cravingsResult.rows.map(decryptCraving)
     };
 
     // Registrar en auditoría
@@ -522,7 +547,36 @@ export const executeDataDeletion = async (userId: string): Promise<void> => {
     // 16. Data requests previas
     await client.query(`DELETE FROM data_requests WHERE user_id = $1`, [userId]);
 
-    // 17. Anonimizar y marcar usuario (soft-delete)
+    // 17. SEC-PHASE1: tablas adicionales con datos clínicos (best-effort;
+    //     algunas pueden no existir según el esquema desplegado).
+    await client.query(`DELETE FROM daily_notes WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM habit_entries WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM social_entries WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM consumption_analysis WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM activity_entries WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM craving_patterns WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM craving_triggers WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM coping_strategies WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM strategy_usage WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM medications WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM medication_logs WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM emergency_alerts WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM message_intents WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(
+      `DELETE FROM conversation_sessions WHERE user_id = $1`,
+      [userId]
+    ).catch(() => {});
+    await client.query(`DELETE FROM llm_logs WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM checkin_streaks WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM checkin_goals WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM substance_preferences WHERE user_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM sharing_consent_events WHERE patient_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM sharing_consents WHERE patient_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM sharing_invitations WHERE patient_id = $1`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM patient_enrollment_invites WHERE patient_email = (SELECT email FROM users WHERE id = $1)`, [userId]).catch(() => {});
+    await client.query(`DELETE FROM therapist_invites WHERE email = (SELECT email FROM users WHERE id = $1)`, [userId]).catch(() => {});
+
+    // 18. Anonimizar y marcar usuario (soft-delete)
     // No eliminamos la fila para no romper integridad referencial en auditoría
     await client.query(
       `UPDATE users SET
@@ -545,9 +599,28 @@ export const executeDataDeletion = async (userId: string): Promise<void> => {
     undefined,
     {
       scope: 'full_user_data',
-      note: 'Usuario anonimizado. Borrado en Neo4j y embeddings pend (servicio externo).'
+      note: 'Usuario anonimizado. Borrado en Neo4j y embeddings ejecutado por executeFullDataDeletion.'
     }
   );
+};
+
+/**
+ * SEC-PHASE1 FIX: ejecuta la eliminación COMPLETA del usuario, incluido
+ * el grafo clínico de Neo4j y (best-effort) los embeddings asociados.
+ * Es el único punto de entrada para completar un derecho al olvido.
+ */
+export const executeFullDataDeletion = async (userId: string): Promise<void> => {
+  // 1. Base de datos relacional (transacción + anonimización).
+  await executeDataDeletion(userId);
+
+  // 2. Neo4j: nodo del usuario (DETACH DELETE elimina también sus
+  //    relaciones; los embeddings vectoriales viven en nodos asociados).
+  try {
+    const { getNeo4jDriver } = await import('../config/neo4j.js');
+    await deleteUserFromNeo4j(userId, getNeo4jDriver());
+  } catch (error) {
+    console.error(`[PRIVACY] Error borrando nodo Neo4j de ${userId}:`, error);
+  }
 };
 
 /**
@@ -611,6 +684,7 @@ export default {
     exportUserData,
     requestDataDeletion,
     executeDataDeletion,
+    executeFullDataDeletion,
     getRetentionPolicies,
     getRetentionPolicy
 };

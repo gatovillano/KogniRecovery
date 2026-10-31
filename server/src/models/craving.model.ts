@@ -5,6 +5,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -109,10 +110,11 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
     data.outcome || null,
     data.consumed_quantity || null,
     data.consumed_unit || null,
-    data.consequences || null,
+    // SEC-PHASE1: cifrar texto libre clínico.
+    data.consequences ? encrypt(data.consequences) : null,
     data.location ? JSON.stringify(data.location) : null,
     data.craving_start_time || new Date(),
-    data.notes || null,
+    data.notes ? encrypt(data.notes) : null,
   ];
 
   const result = await query<Craving>(sql, values);
@@ -125,7 +127,10 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
 export const getCravingById = async (id: string): Promise<Craving | null> => {
   const sql = `SELECT * FROM cravings WHERE id = $1`;
   const result = await query<Craving>(sql, [id]);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row
+    ? { ...row, consequences: tryDecrypt(row.consequences ?? ''), notes: tryDecrypt(row.notes ?? '') }
+    : null;
 };
 
 /**
@@ -137,19 +142,29 @@ export const getActiveCravings = async (userId: string): Promise<Craving[]> => {
     WHERE user_id = $1 AND status = 'active'
     ORDER BY craving_start_time DESC`;
   const result = await query<Craving>(sql, [userId]);
-  return result.rows;
+  return result.rows.map((row) => ({
+    ...row,
+    consequences: tryDecrypt(row.consequences ?? ''),
+    notes: tryDecrypt(row.notes ?? ''),
+  }));
 };
 
 /**
  * Obtener cravings recientes del usuario
  */
 export const getRecentCravings = async (userId: string, days = 30): Promise<Craving[]> => {
+  // SEC-PHASE1: se corrige la interpolación rota (INTERVAL '$2 days' no
+  // aceptaba parámetros dentro de comillas) por una expresión paramétrica.
   const sql = `
     SELECT * FROM cravings 
-    WHERE user_id = $1 AND craving_start_time >= CURRENT_DATE - INTERVAL '$2 days'
+    WHERE user_id = $1 AND craving_start_time >= CURRENT_DATE - ($2::int * INTERVAL '1 day')
     ORDER BY craving_start_time DESC`;
   const result = await query<Craving>(sql, [userId, days]);
-  return result.rows;
+  return result.rows.map((row) => ({
+    ...row,
+    consequences: tryDecrypt(row.consequences ?? ''),
+    notes: tryDecrypt(row.notes ?? ''),
+  }));
 };
 
 /**
@@ -173,7 +188,14 @@ export const getUserCravings = async (
     LIMIT $2 OFFSET $3`;
   const result = await query<Craving>(sql, [userId, limit, offset]);
 
-  return { cravings: result.rows, total };
+  return {
+    cravings: result.rows.map((row) => ({
+      ...row,
+      consequences: tryDecrypt(row.consequences ?? ''),
+      notes: tryDecrypt(row.notes ?? ''),
+    })),
+    total,
+  };
 };
 
 /**
@@ -208,6 +230,9 @@ export const updateCraving = async (
       fields.push(`${key} = $${paramIndex}`);
       if (key === 'coping_strategies' || key === 'location') {
         values.push(value ? JSON.stringify(value) : null);
+      } else if ((key === 'consequences' || key === 'notes') && typeof value === 'string') {
+        // SEC-PHASE1: cifrar texto libre clínico.
+        values.push(encrypt(value));
       } else {
         values.push(value);
       }
@@ -221,7 +246,10 @@ export const updateCraving = async (
   const sql = `UPDATE cravings SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
 
   const result = await query<Craving>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row
+    ? { ...row, consequences: tryDecrypt(row.consequences ?? ''), notes: tryDecrypt(row.notes ?? '') }
+    : null;
 };
 
 /**
@@ -537,7 +565,8 @@ export const createCravingTrigger = async (
     data.avg_intensity_when_triggered || null,
     data.consumption_probability || null,
     data.status || 'active',
-    data.context_notes || null,
+    // SEC-PHASE1: cifrar notas de contexto del trigger.
+    data.context_notes ? encrypt(data.context_notes) : null,
   ];
 
   const result = await query<CravingTrigger>(sql, values);
@@ -553,7 +582,10 @@ export const getUserCravingTriggers = async (userId: string): Promise<CravingTri
     WHERE user_id = $1 AND status = 'active'
     ORDER BY consumption_probability DESC NULLS LAST`;
   const result = await query<CravingTrigger>(sql, [userId]);
-  return result.rows;
+  return result.rows.map((row) => ({
+    ...row,
+    context_notes: tryDecrypt(row.context_notes ?? ''),
+  }));
 };
 
 /**

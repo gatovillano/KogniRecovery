@@ -1,4 +1,5 @@
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 export interface AgentNote {
   id: string;
@@ -22,12 +23,16 @@ export const createNote = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.title || null,
-    data.content,
+    // SEC-PHASE1: cifrar título y contenido de notas del agente.
+    data.title ? encrypt(data.title) : null,
+    encrypt(data.content),
     data.source || 'user',
     data.category || null,
   ]);
-  return result.rows[0] as AgentNote;
+  const row = result.rows[0] as AgentNote | undefined;
+  return row
+    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
+    : (row as unknown as AgentNote);
 };
 
 export const getNotes = async (
@@ -58,7 +63,11 @@ export const getNotes = async (
   params.push(limit);
 
   const result = await query(sql, params);
-  return result.rows as AgentNote[];
+  return (result.rows as AgentNote[]).map((row) => ({
+    ...row,
+    title: row.title ? tryDecrypt(row.title) : null,
+    content: tryDecrypt(row.content),
+  }));
 };
 
 export const getNoteById = async (id: string, userId: string): Promise<AgentNote | null> => {
@@ -66,7 +75,10 @@ export const getNoteById = async (id: string, userId: string): Promise<AgentNote
     id,
     userId,
   ]);
-  return (result.rows[0] as AgentNote) || null;
+  const row = result.rows[0] as AgentNote | undefined;
+  return row
+    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
+    : null;
 };
 
 export const updateNote = async (
@@ -80,12 +92,14 @@ export const updateNote = async (
 
   if (data.title !== undefined) {
     fields.push(`title = $${paramIndex}`);
-    params.push(data.title);
+    // SEC-PHASE1: cifrar título.
+    params.push(data.title ? encrypt(data.title) : null);
     paramIndex++;
   }
   if (data.content !== undefined) {
     fields.push(`content = $${paramIndex}`);
-    params.push(data.content);
+    // SEC-PHASE1: cifrar contenido.
+    params.push(encrypt(data.content));
     paramIndex++;
   }
   if (data.category !== undefined) {
@@ -111,7 +125,10 @@ export const updateNote = async (
   params.push(id, userId);
 
   const result = await query(sql, params);
-  return (result.rows[0] as AgentNote) || null;
+  const row = result.rows[0] as AgentNote | undefined;
+  return row
+    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
+    : null;
 };
 
 export const deleteNote = async (id: string, userId: string): Promise<boolean> => {

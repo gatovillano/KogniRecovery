@@ -7,6 +7,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as checkinModel from '../models/checkin.model.js';
 import { AuthRequest } from '../middleware/auth.js';
+import { logPrivacyAction } from '../services/privacy.service.js';
 
 // =====================================================
 // CREAR CHECK-IN
@@ -40,6 +41,11 @@ export const createCheckIn = async (
     if (existingCheckIn) {
       // Actualizar check-in existente
       const updated = await checkinModel.updateCheckIn(existingCheckIn.id, req.body);
+      // SEC-PHASE2: auditar escritura de dato clínico.
+      await logPrivacyAction(userId, 'data_written', 'checkin', existingCheckIn.id, {
+        action: 'update',
+        source: 'patient_app',
+      }).catch(() => {});
       res.json({
         success: true,
         data: updated,
@@ -49,6 +55,11 @@ export const createCheckIn = async (
     }
 
     const checkIn = await checkinModel.createCheckIn(userId, req.body);
+    // SEC-PHASE2: auditar escritura de dato clínico.
+    await logPrivacyAction(userId, 'data_written', 'checkin', checkIn.id, {
+      action: 'create',
+      source: 'patient_app',
+    }).catch(() => {});
 
     // Registrar en historial de mood si hay datos emocionales
     if (req.body.mood_score || req.body.anxiety_score || req.body.energy_score) {

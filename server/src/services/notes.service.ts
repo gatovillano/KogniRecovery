@@ -40,14 +40,18 @@ export interface ClinicalNoteView {
 // CIFRADO LOCAL
 // =====================================================
 
+// SEC-PHASE1 FIX: clave derivada ÚNICAMENTE de ENCRYPTION_KEY/SALT.
+// Sin fallbacks a JWT_SECRET ni a cadenas fijas. El arranque del
+// servidor ya valida que ambas variables existan (config/index.ts).
 const getEncryptionKey = (): Buffer => {
   const envKey = process.env.ENCRYPTION_KEY;
   const envSalt = process.env.ENCRYPTION_SALT;
-  if (envKey && envSalt) {
-    return crypto.pbkdf2Sync(envKey, envSalt, 100000, 32, 'sha512');
+  if (!envKey || !envSalt) {
+    throw new Error(
+      'ENCRYPTION_KEY y ENCRYPTION_SALT son obligatorias para cifrar notas clínicas'
+    );
   }
-  const base = process.env.JWT_SECRET ?? 'kognirecovery-dev';
-  return crypto.createHash('sha256').update(`${base}:clinical_notes`).digest();
+  return crypto.pbkdf2Sync(envKey, envSalt, 100000, 32, 'sha512');
 };
 
 const encryptContent = (plain: string): Buffer => {

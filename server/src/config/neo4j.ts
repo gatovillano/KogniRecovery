@@ -25,6 +25,14 @@ export interface Neo4jConfig {
 // CONFIGURACIÓN
 // =====================================================
 
+const getRequired = (key: string): string => {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
+};
+
 const getOptional = (key: string, defaultValue: string): string => {
   return process.env[key] || defaultValue;
 };
@@ -34,10 +42,12 @@ const getOptionalNumber = (key: string, defaultValue: number): number => {
   return value ? parseInt(value, 10) : defaultValue;
 };
 
+// SEC-PHASE1 FIX: credenciales de Neo4j obligatorias, sin fallbacks
+// hardcodeados ('neo4j'/'password').
 export const neo4jConfig: Neo4jConfig = {
-  uri: getOptional('NEO4J_URI', 'bolt://localhost:7687'),
-  user: getOptional('NEO4J_USER', 'neo4j'),
-  password: getOptional('NEO4J_PASSWORD', 'password'),
+  uri: getRequired('NEO4J_URI'),
+  user: getRequired('NEO4J_USER'),
+  password: getRequired('NEO4J_PASSWORD'),
   database: getOptional('NEO4J_DATABASE', 'neo4j'),
   maxConnectionPoolSize: getOptionalNumber('NEO4J_POOL_SIZE', 50),
   connectionAcquisitionTimeout: getOptionalNumber('NEO4J_CONNECTION_TIMEOUT', 60000),
@@ -63,6 +73,20 @@ const connection: Neo4jConnection = {
  * Crea y configura el driver de Neo4j
  */
 export const createNeo4jDriver = (): Driver => {
+  // SEC-PHASE2: TLS habilitado cuando la URI usa bolt+s:// o
+  // neo4j+s:// (recomendado en producción). En local/localhost con
+  // bolt:// se mantiene sin TLS para desarrollo.
+  const useTls =
+    /bolt\+s(s|c)?:\/\//i.test(neo4jConfig.uri) ||
+    /neo4j\+s(s|c)?:\/\//i.test(neo4jConfig.uri);
+
+  if (process.env.NODE_ENV === 'production' && !useTls) {
+    console.warn(
+      '⚠️ [NEO4J] En producción se recomienda usar bolt+s:// (TLS). ' +
+        'La conexión actual va sin cifrar.'
+    );
+  }
+
   const driver = neo4j.driver(
     neo4jConfig.uri,
     neo4j.auth.basic(neo4jConfig.user, neo4jConfig.password),
@@ -70,6 +94,9 @@ export const createNeo4jDriver = (): Driver => {
       maxConnectionPoolSize: neo4jConfig.maxConnectionPoolSize,
       connectionAcquisitionTimeout: neo4jConfig.connectionAcquisitionTimeout,
       maxTransactionRetryTime: neo4jConfig.maxTransactionRetryTime,
+      ...(useTls
+        ? { encrypted: 'ENCRYPTION_ON', trust: 'TRUST_ALL_CERTIFICATES' }
+        : {}),
     }
   );
 

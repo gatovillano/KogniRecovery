@@ -5,6 +5,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -112,7 +113,8 @@ export const createCheckIn = async (userId: string, data: Partial<CheckIn>): Pro
     data.emotional_tags || [],
     JSON.stringify(data.consumed_substances || []),
     data.risk_situation || false,
-    data.risk_description || null,
+    // SEC-PHASE1: cifrar campos clínicos de texto libre.
+    data.risk_description ? encrypt(data.risk_description) : null,
     data.coping_strategy_used || null,
     data.sleep_hours || null,
     data.sleep_quality || null,
@@ -121,7 +123,7 @@ export const createCheckIn = async (userId: string, data: Partial<CheckIn>): Pro
     data.exercise_type || null,
     JSON.stringify(data.activities || []),
     data.social_interaction || 'ninguna',
-    data.notes || null,
+    data.notes ? encrypt(data.notes) : null,
     data.location ? JSON.stringify(data.location) : null,
     data.checkin_date || new Date().toISOString().split('T')[0],
     data.checkin_time || new Date().toTimeString().split(' ')[0]
@@ -141,7 +143,10 @@ export const createCheckIn = async (userId: string, data: Partial<CheckIn>): Pro
 export const getCheckInById = async (id: string): Promise<CheckIn | null> => {
   const sql = `SELECT * FROM checkins WHERE id = $1`;
   const result = await query(sql, [id]);
-  return (result.rows[0] as CheckIn) || null;
+  const row = result.rows[0] as CheckIn | undefined;
+  return row
+    ? { ...row, notes: tryDecrypt(row.notes ?? ''), risk_description: tryDecrypt(row.risk_description ?? '') }
+    : null;
 };
 
 /**
@@ -150,7 +155,10 @@ export const getCheckInById = async (id: string): Promise<CheckIn | null> => {
 export const getCheckInByDate = async (userId: string, date: string): Promise<CheckIn | null> => {
   const sql = `SELECT * FROM checkins WHERE user_id = $1 AND checkin_date = $2`;
   const result = await query(sql, [userId, date]);
-  return (result.rows[0] as CheckIn) || null;
+  const row = result.rows[0] as CheckIn | undefined;
+  return row
+    ? { ...row, notes: tryDecrypt(row.notes ?? ''), risk_description: tryDecrypt(row.risk_description ?? '') }
+    : null;
 };
 
 /**
@@ -174,7 +182,11 @@ export const getCheckInsByDateRange = async (
     WHERE user_id = $1 AND checkin_date >= $2 AND checkin_date <= $3
     ORDER BY checkin_date DESC`;
   const result = await query(sql, [userId, startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]]);
-  return result.rows as CheckIn[];
+  return (result.rows as CheckIn[]).map((row) => ({
+    ...row,
+    notes: tryDecrypt(row.notes ?? ''),
+    risk_description: tryDecrypt(row.risk_description ?? ''),
+  }));
 };
 
 /**
@@ -198,7 +210,14 @@ export const getUserCheckIns = async (
     LIMIT $2 OFFSET $3`;
   const result = await query(sql, [userId, limit, offset]);
 
-  return { checkIns: result.rows as CheckIn[], total };
+  return {
+    checkIns: (result.rows as CheckIn[]).map((row) => ({
+      ...row,
+      notes: tryDecrypt(row.notes ?? ''),
+      risk_description: tryDecrypt(row.risk_description ?? ''),
+    })),
+    total,
+  };
 };
 
 /**
@@ -221,6 +240,9 @@ export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise
       fields.push(`${key} = $${paramIndex}`);
       if (key === 'consumed_substances' || key === 'activities' || key === 'location') {
         values.push(JSON.stringify(value));
+      } else if ((key === 'notes' || key === 'risk_description') && typeof value === 'string') {
+        // SEC-PHASE1: cifrar texto libre clínico.
+        values.push(encrypt(value));
       } else {
         values.push(value);
       }
@@ -234,7 +256,10 @@ export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise
   const sql = `UPDATE checkins SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
   
   const result = await query(sql, values);
-  return (result.rows[0] as CheckIn) || null;
+  const row = result.rows[0] as CheckIn | undefined;
+  return row
+    ? { ...row, notes: tryDecrypt(row.notes ?? ''), risk_description: tryDecrypt(row.risk_description ?? '') }
+    : null;
 };
 
 /**

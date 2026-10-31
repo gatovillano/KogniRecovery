@@ -18,6 +18,8 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+  // SEC-PHASE1: solo se persisten tokens si el usuario eligió "recordarme".
+  rememberMe: boolean;
 
   // Acciones
   login: (credentials: LoginRequest) => Promise<boolean>;
@@ -25,6 +27,7 @@ interface AuthState {
   logout: () => Promise<void>;
   setUser: (user: User | null) => void;
   setToken: (token: string | null) => void;
+  setRememberMe: (rememberMe: boolean) => void;
   clearError: () => void;
 }
 
@@ -62,6 +65,7 @@ export const authStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
       error: null,
+      rememberMe: false,
 
       login: async (credentials: LoginRequest) => {
         set({ isLoading: true, error: null });
@@ -132,17 +136,26 @@ export const authStore = create<AuthState>()(
 
       setUser: (user) => set({ user }),
       setToken: (token) => set({ token }),
+      setRememberMe: (rememberMe) => set({ rememberMe }),
 
       clearError: () => set({ error: null }),
     }),
     {
       name: 'kognirecovery-auth-storage',
       storage: createJSONStorage(() => secureStorage),
+      // SEC-PHASE1: si "recordarme" está desactivado, NO se persisten
+      // tokens ni datos de usuario (solo el flag). Así la sesión vive
+      // únicamente en memoria.
       partialize: (state) => ({
-        token: state.token,
-        refreshToken: state.refreshToken,
-        user: state.user,
-        isAuthenticated: state.isAuthenticated,
+        rememberMe: state.rememberMe,
+        ...(state.rememberMe
+          ? {
+              token: state.token,
+              refreshToken: state.refreshToken,
+              user: state.user,
+              isAuthenticated: state.isAuthenticated,
+            }
+          : {}),
       }),
     }
   )
