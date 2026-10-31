@@ -192,7 +192,7 @@ export const SubstanceDoseScreen: React.FC<{
               <Icon
                 name="pulse-outline"
                 size={20}
-                color={cravingHigh ? theme.colors.error : '#FF9500'}
+                color={cravingHigh ? theme.colors.error : '#C4A882'}
               />
               <Text style={{ color: theme.colors.text }}>Ansiedad previa: </Text>
               <View
