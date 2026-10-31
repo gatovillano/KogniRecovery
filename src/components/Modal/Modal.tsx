@@ -23,7 +23,6 @@ import React, { useEffect, useCallback } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
@@ -31,6 +30,7 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { ModalProps, Theme } from '@types';
 
@@ -92,7 +92,9 @@ export const Modal: React.FC<ModalProps> = ({
               )}
               {showCloseButton && (
                 <TouchableWithoutFeedback onPress={handleClose}>
-                  <View style={[modalStyles.closeButton, { backgroundColor: theme.colors.background }]}>
+                  <View
+                    style={[modalStyles.closeButton, { backgroundColor: theme.colors.background }]}
+                  >
                     <Text style={[modalStyles.closeButtonText, { color: theme.colors.text }]}>
                       ✕
                     </Text>
@@ -112,7 +114,9 @@ export const Modal: React.FC<ModalProps> = ({
   );
 };
 
-const getStyles = (theme: Theme): {
+const getStyles = (
+  theme: Theme
+): {
   keyboardAvoidingView: ViewStyle;
   overlay: ViewStyle;
   container: ViewStyle;

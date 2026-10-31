@@ -10,8 +10,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { Theme, ThemeMode, lightTheme, darkTheme, mergeThemes } from './theme';
+
 import { uiStore } from '../store/uiStore';
+
+import { Theme, ThemeMode, lightTheme, darkTheme } from './theme';
 
 const THEME_STORAGE_KEY = 'kognirecovery_theme_mode';
 
@@ -51,13 +53,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const loadSavedTheme = async () => {
     try {
-      const savedTheme = await SecureStore.getItemAsync(THEME_STORAGE_KEY) as ThemeMode;
+      const savedTheme = (await SecureStore.getItemAsync(THEME_STORAGE_KEY)) as ThemeMode;
       if (savedTheme && ['light', 'dark', 'auto'].includes(savedTheme)) {
         setThemeModeState(savedTheme);
       } else {
         // Usar tema del sistema por defecto
-        const systemMode = systemColorScheme === 'dark' ? 'dark' : 'light';
-        setThemeModeState(systemMode);
+        setThemeModeState('auto');
       }
     } catch (error) {
       console.warn('Error loading theme from storage:', error);
@@ -83,7 +84,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   // Determinar tema efectivo
-  const effectiveMode = themeMode === 'auto' ? (systemColorScheme === 'dark' ? 'dark' : 'light') : themeMode;
+  const effectiveMode =
+    themeMode === 'auto' ? (systemColorScheme === 'dark' ? 'dark' : 'light') : themeMode;
   const theme = effectiveMode === 'dark' ? darkTheme : lightTheme;
 
   const value: ThemeContextType = {

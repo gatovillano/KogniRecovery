@@ -10,31 +10,29 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  Animated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@theme/ThemeContext';
-import { Header } from '@components';
-import { useChatbot, Message } from '@hooks/useChatbot';
 import Markdown from 'react-native-markdown-display';
 import { Ionicons } from '@expo/vector-icons';
+
+import { useTheme } from '@theme/ThemeContext';
+import { useChatbot, Message } from '@hooks/useChatbot';
 
 const TOOL_CONFIG: Record<string, { icon: string; label: string; color: string }> = {
   knowledge_graph_search: {
     icon: 'git-network-outline',
     label: 'Consultando tu historial',
-    color: '#8BAFD4',
+    color: '#8EAD91',
   },
   rag_search: {
     icon: 'document-search-outline',
     label: 'Buscando en base de conocimiento',
-    color: '#6B8BB2',
+    color: '#739B7A',
   },
   web_search: {
     icon: 'globe-outline',
     label: 'Buscando en la web',
-    color: '#3B82F6',
+    color: '#2A8176',
   },
   list_documents: {
     icon: 'folder-open-outline',
@@ -44,7 +42,7 @@ const TOOL_CONFIG: Record<string, { icon: string; label: string; color: string }
   get_document_content: {
     icon: 'reader-outline',
     label: 'Leyendo documento',
-    color: '#8BAFD4',
+    color: '#8EAD91',
   },
 };
 
@@ -58,7 +56,6 @@ export const ChatbotScreen: React.FC = () => {
     activeConversation,
     conversations,
     loadConversations,
-    loading,
     sending,
     createConversation,
     loadConversation,
@@ -539,7 +536,7 @@ const styles = StyleSheet.create({
   },
   userMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#8BAFD4',
+    backgroundColor: '#8EAD91',
     borderTopRightRadius: 4,
   },
   assistantMessage: {

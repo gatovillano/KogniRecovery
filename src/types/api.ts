@@ -85,6 +85,7 @@ export interface AuthResponse {
 export interface User {
   id: string;
   email: string;
+  name?: string;
   firstName?: string;
   lastName?: string;
   phone?: string;
@@ -117,12 +118,7 @@ export interface AuthTokens {
 /**
  * Estado de ánimo para check-in
  */
-export type MoodState = 
-  | 'great' 
-  | 'good' 
-  | 'okay' 
-  | 'low' 
-  | 'bad';
+export type MoodState = 'great' | 'good' | 'okay' | 'low' | 'bad';
 
 /**
  * Payload para crear check-in
@@ -205,12 +201,7 @@ export interface Resource {
 /**
  * Tipos de recursos
  */
-export type ResourceType = 
-  | 'article' 
-  | 'video' 
-  | 'hotline' 
-  | 'support_group' 
-  | 'emergency';
+export type ResourceType = 'article' | 'video' | 'hotline' | 'support_group' | 'emergency';
 
 // ============================================
 // Tipos de chatbot

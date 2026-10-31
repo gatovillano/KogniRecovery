@@ -10,14 +10,15 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, Input } from '@components';
-import { authStore } from '@store/authStore';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { useTheme } from '@theme/ThemeContext';
+import { Button, Input } from '@components';
+import { authStore } from '@store/authStore';
 import { AuthStackParamList } from '@navigation/types';
-import Icon from '@expo/vector-icons/Ionicons';
+import { NumaMark } from '@components/NumaLogo';
 
 export const LoginScreen: React.FC = () => {
   const { theme, isDark } = useTheme();
@@ -69,14 +70,11 @@ export const LoginScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <LinearGradient
-              colors={['rgba(255,255,255,0.25)', 'rgba(255,255,255,0.08)']}
-              style={styles.logoIcon}
-            >
-              <Icon name="heart" size={36} color="#FFFFFF" />
-            </LinearGradient>
-            <Text style={styles.title}>Numa</Text>
-            <Text style={styles.subtitle}>Acompañándote en cada paso de tu recuperación</Text>
+            <View style={styles.logoIcon}>
+              <NumaMark size={78} light={isDark} />
+            </View>
+            <Text style={styles.title}>NUMA</Text>
+            <Text style={styles.subtitle}>Avanza en tu recuperación</Text>
           </View>
 
           <View

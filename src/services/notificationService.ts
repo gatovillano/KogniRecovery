@@ -175,9 +175,7 @@ export const scheduleMedicationNotification = async (
 /**
  * Cancela la notificación asociada a un medicamento.
  */
-export const cancelMedicationNotification = async (
-  medicationId: string
-): Promise<void> => {
+export const cancelMedicationNotification = async (medicationId: string): Promise<void> => {
   try {
     const map = await loadNotifMap();
     const identifier = map[medicationId];
@@ -200,9 +198,7 @@ export const cancelMedicationNotification = async (
  *
  * @param medications lista completa de medicamentos activos del usuario
  */
-export const rescheduleAllMedications = async (
-  medications: Medication[]
-): Promise<void> => {
+export const rescheduleAllMedications = async (medications: Medication[]): Promise<void> => {
   try {
     // Cancelar TODAS las notificaciones pendientes antes de reprogramar
     await Notifications.cancelAllScheduledNotificationsAsync();
@@ -224,13 +220,12 @@ export const rescheduleAllMedications = async (
 /**
  * Devuelve todas las notificaciones de medicamentos actualmente programadas.
  */
-export const getScheduledMedicationNotifications =
-  async (): Promise<Notifications.NotificationRequest[]> => {
-    const all = await Notifications.getAllScheduledNotificationsAsync();
-    return all.filter(
-      n => n.content.data?.type === 'medication_reminder'
-    );
-  };
+export const getScheduledMedicationNotifications = async (): Promise<
+  Notifications.NotificationRequest[]
+> => {
+  const all = await Notifications.getAllScheduledNotificationsAsync();
+  return all.filter((n) => n.content.data?.type === 'medication_reminder');
+};
 
 /**
  * Cancela TODAS las notificaciones de medicamentos.

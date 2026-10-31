@@ -1,7 +1,7 @@
 /**
  * Hook useFormValidation - KogniRecovery
  * Hook personalizado para validación de formularios
- * 
+ *
  * Funcionalidades:
  * - Estado de errores por campo
  * - Validación en tiempo real (onChange)
@@ -10,8 +10,9 @@
  * - Mensajes de error personalizables
  */
 
-import { useState, useCallback, useMemo, useEffect, ChangeEvent, FocusEvent } from 'react';
-import { ValidatorFunction, ValidationField, ValidationSchema } from '../utils/validation';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+
+import { ValidatorFunction, ValidationSchema } from '../utils/validation';
 
 // ============================================
 // Tipos
@@ -83,7 +84,7 @@ export interface UseFormValidationReturn {
   isValid: boolean;
   isSubmitting: boolean;
   isDirty: boolean;
-  
+
   // Métodos
   handleChange: (fieldName: string) => (value: string) => void;
   handleChangeText: (fieldName: string) => (text: string) => void;
@@ -95,7 +96,10 @@ export interface UseFormValidationReturn {
   clearErrors: () => void;
   validateField: (fieldName: string) => boolean;
   validateForm: () => boolean;
-  getFieldProps: (fieldName: string, validators?: ValidatorFunction[]) => {
+  getFieldProps: (
+    fieldName: string,
+    validators?: ValidatorFunction[]
+  ) => {
     value: string;
     error: string | undefined;
     onChangeText: (text: string) => void;
@@ -215,7 +219,7 @@ export const useFormValidation = (
       // Actualizar valor
       setValues((prev) => {
         const newValues = { ...prev, [fieldName]: value };
-        
+
         // Marcar como dirty
         setDirtyFields((prev) => new Set(prev).add(fieldName));
 
@@ -364,21 +368,7 @@ export const useFormValidation = (
    * Obtiene las props para un campo (compatible con componentes controlados)
    */
   const getFieldProps = useCallback(
-    (fieldName: string, validators?: ValidatorFunction[]) => {
-      // Si hay validadores personalizados, usarlos; si no, usar los del schema
-      const effectiveValidators = validators || 
-        schema?.fields.find((f) => f.name === fieldName)?.validators || [];
-
-      const validateField = (value: string): string | undefined => {
-        for (const validator of effectiveValidators) {
-          const result = validator(value, values);
-          if (!result.isValid) {
-            return customMessages[fieldName] || result.error;
-          }
-        }
-        return undefined;
-      };
-
+    (fieldName: string, _validators?: ValidatorFunction[]) => {
       return {
         value: values[fieldName] || '',
         error: errors[fieldName],

@@ -6,12 +6,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { NotesStackParamList } from '../../navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
 import Markdown from 'react-native-markdown-display';
+
+import { useTheme } from '@theme/ThemeContext';
+
+import { NotesStackParamList } from '../../navigation/types';
 
 type NoteDetailRouteProp = RouteProp<NotesStackParamList, 'NoteDetail'>;
 type NoteDetailNavProp = NativeStackNavigationProp<NotesStackParamList, 'NoteDetail'>;

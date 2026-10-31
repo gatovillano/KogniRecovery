@@ -4,9 +4,10 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { api } from '../services/api';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system/legacy';
+
+import { api } from '../services/api';
 
 export interface Message {
   id: string;
@@ -243,7 +244,7 @@ export const useChatbot = () => {
                     )
                   );
                 }
-              } catch (e) {
+              } catch {
                 // Ignorar errores de parseo de chunks parciales
               }
             }

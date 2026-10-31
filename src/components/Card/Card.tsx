@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { CardProps } from '@types';
 
@@ -30,10 +31,7 @@ export const Card: React.FC<CardProps> = ({
         borderColor: theme.colors.border,
       },
       filled: {
-        backgroundColor:
-          theme.mode === 'dark'
-            ? theme.colors.surface
-            : theme.colors.primary + '07',
+        backgroundColor: theme.mode === 'dark' ? theme.colors.surface : theme.colors.primary + '07',
       },
     };
 

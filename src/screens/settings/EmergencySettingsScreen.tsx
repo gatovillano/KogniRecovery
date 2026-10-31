@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Switch, Alert } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button, Input } from '@components';
 import { useProfile } from '@hooks/useProfile';
@@ -20,7 +21,7 @@ interface EmergencyContact {
 export const EmergencySettingsScreen: React.FC = () => {
   const { theme } = useTheme();
   const { settings, updateSettings, loading } = useProfile();
-  
+
   const [autoDetectCrisis, setAutoDetectCrisis] = useState(true);
   const [emergencyContactsNotified, setEmergencyContactsNotified] = useState(true);
   const [locationSharing, setLocationSharing] = useState(false);
@@ -41,10 +42,10 @@ export const EmergencySettingsScreen: React.FC = () => {
       await updateSettings({
         auto_detect_crisis: autoDetectCrisis,
         emergency_contacts_notified: emergencyContactsNotified,
-        location_sharing_emergency: locationSharing
+        location_sharing_emergency: locationSharing,
       });
       Alert.alert('Éxito', 'Configuración de emergencia guardada');
-    } catch (error) {
+    } catch {
       Alert.alert('Error', 'No se pudo guardar la configuración');
     }
   };
@@ -58,7 +59,7 @@ export const EmergencySettingsScreen: React.FC = () => {
     const contact: EmergencyContact = {
       id: Date.now().toString(),
       ...newContact,
-      is_primary: emergencyContacts.length === 0
+      is_primary: emergencyContacts.length === 0,
     };
 
     setEmergencyContacts([...emergencyContacts, contact]);
@@ -66,7 +67,7 @@ export const EmergencySettingsScreen: React.FC = () => {
   };
 
   const handleRemoveContact = (id: string) => {
-    setEmergencyContacts(emergencyContacts.filter(c => c.id !== id));
+    setEmergencyContacts(emergencyContacts.filter((c) => c.id !== id));
   };
 
   return (
@@ -89,7 +90,7 @@ export const EmergencySettingsScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           Detección Automática
         </Text>
-        
+
         <View style={styles.settingRow}>
           <View style={styles.settingInfo}>
             <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
@@ -141,10 +142,8 @@ export const EmergencySettingsScreen: React.FC = () => {
 
       {/* Línea de Crisis */}
       <Card variant="elevated" padding="md" style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          📞 Línea de Crisis
-        </Text>
-        
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>📞 Línea de Crisis</Text>
+
         <Input
           label="Número de línea de crisis"
           value={crisisLine}
@@ -152,7 +151,7 @@ export const EmergencySettingsScreen: React.FC = () => {
           placeholder="Ej: 141"
           keyboardType="phone-pad"
         />
-        
+
         <Text style={[styles.helpText, { color: theme.colors.textSecondary }]}>
           En Chile: 141 (Fono Vida)
         </Text>
@@ -163,16 +162,18 @@ export const EmergencySettingsScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           👥 Contactos de Emergencia
         </Text>
-        
+
         {emergencyContacts.map((contact) => (
-          <View 
-            key={contact.id} 
+          <View
+            key={contact.id}
             style={[styles.contactCard, { backgroundColor: theme.colors.surface }]}
           >
             <View style={styles.contactInfo}>
               <Text style={[styles.contactName, { color: theme.colors.text }]}>
                 {contact.name}
-                {contact.is_primary && <Text style={{ color: theme.colors.primary }}> (Principal)</Text>}
+                {contact.is_primary && (
+                  <Text style={{ color: theme.colors.primary }}> (Principal)</Text>
+                )}
               </Text>
               <Text style={[styles.contactPhone, { color: theme.colors.textSecondary }]}>
                 {contact.phone}
@@ -182,12 +183,11 @@ export const EmergencySettingsScreen: React.FC = () => {
               </Text>
             </View>
             <Button
-              variant="text"
+              variant="ghost"
+              title="Eliminar"
               onPress={() => handleRemoveContact(contact.id)}
               textStyle={{ color: theme.colors.error }}
-            >
-              Eliminar
-            </Button>
+            />
           </View>
         ))}
 
@@ -217,23 +217,21 @@ export const EmergencySettingsScreen: React.FC = () => {
           />
           <Button
             variant="secondary"
+            title="+ Agregar Contacto"
             onPress={handleAddContact}
             style={styles.addButton}
-          >
-            + Agregar Contacto
-          </Button>
+          />
         </View>
       </Card>
 
       {/* Botón Guardar */}
       <Button
         variant="primary"
+        title="Guardar Configuración"
         onPress={handleSaveSettings}
         loading={loading}
         style={styles.saveButton}
-      >
-        Guardar Configuración
-      </Button>
+      />
 
       {/* Información de Emergencia */}
       <Card variant="outlined" padding="md" style={styles.infoCard}>
@@ -244,10 +242,8 @@ export const EmergencySettingsScreen: React.FC = () => {
           Si tú o alguien que conoces está en peligro inmediato, por favor:
         </Text>
         <Text style={[styles.infoBullet, { color: theme.colors.textSecondary }]}>
-          • Llama al 141 (Fono Vida Chile){'\n'}
-          • Llama al 131 (SAMU){'\n'}
-          • Llama al 132 (Bomberos){'\n'}
-          • Ve al servicio de urgencia más cercano
+          • Llama al 141 (Fono Vida Chile){'\n'}• Llama al 131 (SAMU){'\n'}• Llama al 132 (Bomberos)
+          {'\n'}• Ve al servicio de urgencia más cercano
         </Text>
       </Card>
     </ScrollView>
@@ -285,7 +281,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: 'rgba(120,120,120,0.25)',
   },
   settingInfo: {
     flex: 1,
@@ -330,7 +326,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: 'rgba(120,120,120,0.25)',
   },
   addContactTitle: {
     fontSize: 16,

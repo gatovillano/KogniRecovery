@@ -1,7 +1,7 @@
 /**
  * Hook useAuth - KogniRecovery
  * Hook personalizado para gestión de autenticación
- * 
+ *
  * Funcionalidades:
  * - Login, logout, registro de usuarios
  * - Verificación y refresh de token
@@ -13,12 +13,14 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
+
 import { User, LoginCredentials, RegisterData } from '@types';
+
 import { authStore } from '../store/authStore';
 import * as api from '../services/api';
+
 import {
   AuthStatus,
-  AuthOptions,
   LoginOptions,
   RegisterOptions,
   AuthOperationResult,
@@ -31,16 +33,6 @@ import {
 // ============================================
 // Valores por defecto del estado
 // ============================================
-
-const DEFAULT_AUTH_STATUS: AuthStatus = {
-  isAuthenticated: false,
-  isLoading: false,
-  isVerifying: true,
-  user: null,
-  token: null,
-  refreshToken: null,
-  error: null,
-};
 
 // ============================================
 // Hook principal useAuth
@@ -119,11 +111,11 @@ export const useAuth = () => {
       // Verificar si hay sesión guardada y "recordarme" está activo
       if (token && refreshToken && userData && rememberMe === 'true') {
         const user = JSON.parse(userData) as User;
-        
+
         // Actualizar el store de Zustand
         store.setUser(user);
         store.setToken(token);
-        
+
         // *** CRÍTICO: también actualizar el cliente API ***
         // Sin esto, todas las peticiones autenticadas fallan aunque el store tenga el token
         api.setAuthTokens({
@@ -131,7 +123,7 @@ export const useAuth = () => {
           refreshToken: refreshToken,
           expiresAt: Date.now() + 3600 * 1000, // Asumir 1h, se verifica luego
         });
-        
+
         return true;
       }
 
@@ -159,7 +151,7 @@ export const useAuth = () => {
         if (hasStoredSession) {
           // Verificar si el token es válido con el backend
           const isValid = await api.verifyToken();
-          
+
           if (!isValid) {
             // Token no válido, cerrar sesión
             await store.logout();
@@ -212,12 +204,7 @@ export const useAuth = () => {
         store.setToken(response.accessToken);
 
         // Persistir si "recordarme" está activo
-        await saveSession(
-          response.user,
-          response.accessToken,
-          response.refreshToken,
-          rememberMe
-        );
+        await saveSession(response.user, response.accessToken, response.refreshToken, rememberMe);
 
         return {
           success: true,
@@ -265,12 +252,7 @@ export const useAuth = () => {
         store.setToken(response.accessToken);
 
         // Persistir sesión
-        await saveSession(
-          response.user,
-          response.accessToken,
-          response.refreshToken,
-          rememberMe
-        );
+        await saveSession(response.user, response.accessToken, response.refreshToken, rememberMe);
 
         return {
           success: true,
@@ -299,7 +281,7 @@ export const useAuth = () => {
     } finally {
       // Limpiar store
       await store.logout();
-      
+
       // Limpiar storage
       await clearSession();
 
@@ -320,7 +302,7 @@ export const useAuth = () => {
 
     try {
       const isValid = await api.verifyToken();
-      
+
       if (isValid && store.user) {
         return {
           isValid: true,

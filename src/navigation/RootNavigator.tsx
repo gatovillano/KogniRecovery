@@ -11,9 +11,11 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { useTheme } from '@theme/ThemeContext';
 import { authStore } from '@store/authStore';
 import apiClient from '@services/api';
+
 import { AuthNavigator } from './AuthNavigator';
 import { MainTabNavigator } from './MainTabNavigator';
 import { RootStackParamList } from './types';
@@ -37,8 +39,7 @@ const LoadingScreen: React.FC = () => {
  * RootNavigator - Decide qué navegador mostrar basado en autenticación
  */
 export const RootNavigator: React.FC = () => {
-  const { theme } = useTheme();
-  const { isAuthenticated, isLoading, token } = authStore();
+  const { isAuthenticated, isLoading } = authStore();
   const [isReady, setIsReady] = useState(false);
 
   // Verificar token al iniciar y establecer callbacks de sesión

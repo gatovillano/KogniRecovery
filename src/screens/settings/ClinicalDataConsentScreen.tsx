@@ -18,6 +18,7 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button } from '@components';
 import { api } from '@services/api';
@@ -58,14 +59,14 @@ interface CareLink {
   care_status: string;
   enrolled_at?: string | null;
   assigned_professional: { id: string; name: string } | null;
-  active_consents: Array<{
+  active_consents: {
     id: string;
     grantee_type: 'organization' | 'professional';
     grantee_id: string;
     purpose: string;
     expires_at?: string | null;
     categories: ConsentCategory[];
-  }>;
+  }[];
 }
 
 interface AccessEntry {
@@ -140,11 +141,8 @@ export const ClinicalDataConsentScreen: React.FC = () => {
 
   const treatmentConsent = useMemo(() => {
     if (!selectedLink) return null;
-    const granteeType = selectedLink.assigned_professional
-      ? 'professional'
-      : 'organization';
-    const granteeId =
-      selectedLink.assigned_professional?.id ?? selectedLink.organization.id;
+    const granteeType = selectedLink.assigned_professional ? 'professional' : 'organization';
+    const granteeId = selectedLink.assigned_professional?.id ?? selectedLink.organization.id;
 
     return (
       consents.find(
@@ -190,8 +188,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
       }
 
       const granteeType = link.assigned_professional ? 'professional' : 'organization';
-      const granteeId =
-        link.assigned_professional?.id ?? link.organization.id;
+      const granteeId = link.assigned_professional?.id ?? link.organization.id;
       const current = allConsents.find(
         (consent) =>
           consent.status === 'granted' &&
@@ -206,12 +203,9 @@ export const ClinicalDataConsentScreen: React.FC = () => {
 
       for (const category of allCatalog) {
         if (category.purpose !== 'treatment') continue;
-        const existing = current?.categories.find(
-          (item) => item.category === category.key
-        );
+        const existing = current?.categories.find((item) => item.category === category.key);
         nextEnabled[category.key] = Boolean(existing?.enabled);
-        nextLevels[category.key] =
-          existing?.detail_level ?? category.required_detail_level;
+        nextLevels[category.key] = existing?.detail_level ?? category.required_detail_level;
       }
 
       setEnabled(nextEnabled);
@@ -223,21 +217,19 @@ export const ClinicalDataConsentScreen: React.FC = () => {
   const load = useCallback(async () => {
     try {
       const [linksResponse, consentsResponse, accessResponse, invitesResponse] = await Promise.all([
-        api.get<{ success: boolean; data: { care_links: CareLink[] } }>(
-          '/patient/care-links'
-        ),
+        api.get<{ success: boolean; data: { care_links: CareLink[] } }>('/patient/care-links'),
         api.get<{
           success: boolean;
           data: { consents: Consent[]; catalog: CatalogCategory[] };
         }>('/patient/sharing-consents'),
-        api.get<{ success: boolean; data: { entries: AccessEntry[] } }>(
-          '/patient/access-log',
-          { limit: 10 }
-        ),
+        api.get<{ success: boolean; data: { entries: AccessEntry[] } }>('/patient/access-log', {
+          limit: 10,
+        }),
         api
-          .get<{ success: boolean; data: { invites: PendingInvite[] } }>(
-            '/patient/invitations/pending'
-          )
+          .get<{
+            success: boolean;
+            data: { invites: PendingInvite[] };
+          }>('/patient/invitations/pending')
           .catch(() => ({ success: true, data: { invites: [] } })),
       ]);
 
@@ -253,14 +245,12 @@ export const ClinicalDataConsentScreen: React.FC = () => {
       setPendingInvites(nextInvites);
 
       const currentOrgId =
-        selectedOrgId &&
-        nextLinks.some((link) => link.organization.id === selectedOrgId)
+        selectedOrgId && nextLinks.some((link) => link.organization.id === selectedOrgId)
           ? selectedOrgId
-          : nextLinks[0]?.organization.id ?? null;
+          : (nextLinks[0]?.organization.id ?? null);
 
       setSelectedOrgId(currentOrgId);
-      const currentLink =
-        nextLinks.find((link) => link.organization.id === currentOrgId) ?? null;
+      const currentLink = nextLinks.find((link) => link.organization.id === currentOrgId) ?? null;
       applyConsentState(currentLink, nextConsents, nextCatalog);
     } catch (error) {
       console.error('Error cargando consentimiento clínico:', error);
@@ -288,7 +278,10 @@ export const ClinicalDataConsentScreen: React.FC = () => {
     setAcceptingId(inviteId);
     try {
       await api.post(`/patient/invitations/${inviteId}/accept`);
-      Alert.alert('Vínculo creado', 'Ya formas parte del centro. Configura tu consentimiento abajo.');
+      Alert.alert(
+        'Vínculo creado',
+        'Ya formas parte del centro. Configura tu consentimiento abajo.'
+      );
       await load();
     } catch (error) {
       console.error('Error aceptando invitación:', error);
@@ -338,11 +331,8 @@ export const ClinicalDataConsentScreen: React.FC = () => {
       return;
     }
 
-    const granteeType = selectedLink.assigned_professional
-      ? 'professional'
-      : 'organization';
-    const granteeId =
-      selectedLink.assigned_professional?.id ?? selectedLink.organization.id;
+    const granteeType = selectedLink.assigned_professional ? 'professional' : 'organization';
+    const granteeId = selectedLink.assigned_professional?.id ?? selectedLink.organization.id;
 
     if (treatmentConsent) {
       await api.put(`/patient/sharing-consents/${treatmentConsent.id}`, {
@@ -411,9 +401,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
           style: 'destructive',
           onPress: async () => {
             try {
-              await api.delete(
-                `/patient/sharing-consents/${treatmentConsent.id}`
-              );
+              await api.delete(`/patient/sharing-consents/${treatmentConsent.id}`);
               await load();
               Alert.alert('Revocado', 'El acceso fue revocado.');
             } catch (error) {
@@ -465,9 +453,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
   };
 
   // El protocolo de seguridad se controla aparte del consentimiento de tratamiento.
-  const safetyEnabled = Boolean(
-    safetyConsent?.categories.find((category) => category.enabled)
-  );
+  const safetyEnabled = Boolean(safetyConsent?.categories.find((category) => category.enabled));
   const [safetyDraft, setSafetyDraft] = useState(safetyEnabled);
 
   useEffect(() => {
@@ -492,12 +478,10 @@ export const ClinicalDataConsentScreen: React.FC = () => {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     >
       <Card variant="elevated" padding="md">
-        <Text style={[styles.title, { color: theme.colors.text }]}>
-          Qué compartes y con quién
-        </Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>Qué compartes y con quién</Text>
         <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-          Tú decides categoría por categoría. El centro no puede activar datos por ti y
-          puedes revocar el acceso cuando quieras.
+          Tú decides categoría por categoría. El centro no puede activar datos por ti y puedes
+          revocar el acceso cuando quieras.
         </Text>
 
         {pendingInvites.length > 0 && (
@@ -531,8 +515,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
 
         {links.length === 0 ? (
           <Text style={[styles.muted, { color: theme.colors.textSecondary }]}>
-            Todavía no tienes un centro vinculado. Cuando aceptes una invitación,
-            aparecerá aquí.
+            Todavía no tienes un centro vinculado. Cuando aceptes una invitación, aparecerá aquí.
           </Text>
         ) : (
           links.map((link) => {
@@ -545,9 +528,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
                   styles.orgRow,
                   {
                     borderColor: selected ? theme.colors.primary : theme.colors.border,
-                    backgroundColor: selected
-                      ? theme.colors.surface
-                      : 'transparent',
+                    backgroundColor: selected ? theme.colors.surface : 'transparent',
                   },
                 ]}
               >
@@ -586,29 +567,22 @@ export const ClinicalDataConsentScreen: React.FC = () => {
 
             {treatmentCatalog.map((category) => {
               const active = Boolean(enabled[category.key]);
-              const chosenLevel =
-                levels[category.key] ?? category.required_detail_level;
+              const chosenLevel = levels[category.key] ?? category.required_detail_level;
               const allowedLevels = DETAIL_OPTIONS.filter(
-                (level) =>
-                  DETAIL_RANK[level] >= DETAIL_RANK[category.required_detail_level]
+                (level) => DETAIL_RANK[level] >= DETAIL_RANK[category.required_detail_level]
               );
 
               return (
                 <View
                   key={category.key}
-                  style={[
-                    styles.category,
-                    { borderBottomColor: theme.colors.border },
-                  ]}
+                  style={[styles.category, { borderBottomColor: theme.colors.border }]}
                 >
                   <View style={styles.categoryHeader}>
                     <View style={styles.flex}>
                       <Text style={[styles.label, { color: theme.colors.text }]}>
                         {category.label}
                       </Text>
-                      <Text
-                        style={[styles.muted, { color: theme.colors.textSecondary }]}
-                      >
+                      <Text style={[styles.muted, { color: theme.colors.textSecondary }]}>
                         {category.description}
                       </Text>
                     </View>
@@ -630,12 +604,8 @@ export const ClinicalDataConsentScreen: React.FC = () => {
                             style={[
                               styles.levelChip,
                               {
-                                borderColor: selected
-                                  ? theme.colors.primary
-                                  : theme.colors.border,
-                                backgroundColor: selected
-                                  ? theme.colors.primary
-                                  : 'transparent',
+                                borderColor: selected ? theme.colors.primary : theme.colors.border,
+                                backgroundColor: selected ? theme.colors.primary : 'transparent',
                               },
                             ]}
                           >
@@ -667,9 +637,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
                     <Text style={[styles.label, { color: theme.colors.text }]}>
                       {riskCategory.label}
                     </Text>
-                    <Text
-                      style={[styles.muted, { color: theme.colors.textSecondary }]}
-                    >
+                    <Text style={[styles.muted, { color: theme.colors.textSecondary }]}>
                       {riskCategory.description}
                     </Text>
                   </View>
@@ -748,7 +716,7 @@ export const ClinicalDataConsentScreen: React.FC = () => {
                       {
                         color: entry.success
                           ? theme.colors.primary
-                          : theme.colors.error ?? '#B00020',
+                          : (theme.colors.error ?? '#B00020'),
                       },
                     ]}
                   >
@@ -821,7 +789,7 @@ const styles = StyleSheet.create({
   logState: { fontSize: 12, fontWeight: '700' },
   invitesBlock: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: 'rgba(120,120,120,0.25)',
     paddingTop: 12,
     marginTop: 4,
     gap: 8,
@@ -832,7 +800,7 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingVertical: 8,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: 'rgba(120,120,120,0.25)',
   },
   rightsRow: {
     flexDirection: 'row',

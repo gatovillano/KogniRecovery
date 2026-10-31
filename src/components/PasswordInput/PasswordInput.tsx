@@ -28,6 +28,7 @@ import {
   TextStyle,
   TextInputProps,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry'> {
@@ -88,8 +89,8 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
       borderColor: error
         ? theme.colors.error
         : disabled
-        ? theme.colors.border
-        : theme.colors.border,
+          ? theme.colors.border
+          : theme.colors.border,
       borderRadius: theme.borderRadius.md,
       paddingHorizontal: theme.spacing.md,
       minHeight: 44,

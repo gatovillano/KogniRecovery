@@ -93,6 +93,11 @@ build/
 android/app/build/
 ios/build/
 
+# Keystore y credenciales de firma (release)
+android/keystore-release.properties
+android/app/release.keystore
+android/app/*.jks
+
 # Temporary files
 tmp/
 temp/

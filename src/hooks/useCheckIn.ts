@@ -4,7 +4,9 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+
 import { api } from '../services/api';
+import { ApiResponse } from '../types/api';
 
 export interface CheckIn {
   id: string;
@@ -106,48 +108,54 @@ export const useCheckIn = () => {
   }, []);
 
   // Crear check-in
-  const createCheckIn = useCallback(async (data: Partial<CheckIn>) => {
-    try {
-      setLoading(true);
-      setError(null);
+  const createCheckIn = useCallback(
+    async (data: Partial<CheckIn>) => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const response = await api.post<any>('/checkins', data);
+        const response = await api.post<any>('/checkins', data);
 
-      if (response && response.success) {
-        setTodayCheckIn(response.data);
-        await loadCheckIns();
-        await loadStreaks();
-        return response.data;
+        if (response && response.success) {
+          setTodayCheckIn(response.data);
+          await loadCheckIns();
+          await loadStreaks();
+          return response.data;
+        }
+      } catch (err: any) {
+        setError(err.response?.data?.error?.message || 'Error al crear check-in');
+        throw err;
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Error al crear check-in');
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [loadCheckIns]);
+    },
+    [loadCheckIns]
+  );
 
   // Actualizar check-in
-  const updateCheckIn = useCallback(async (id: string, data: Partial<CheckIn>) => {
-    try {
-      setLoading(true);
-      setError(null);
+  const updateCheckIn = useCallback(
+    async (id: string, data: Partial<CheckIn>) => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const response = await api.put<any>(`/checkins/${id}`, data);
+        const response = await api.put<any>(`/checkins/${id}`, data);
 
-      if (response && response.success) {
-        if (todayCheckIn?.id === id) {
-          setTodayCheckIn(response.data);
+        if (response && response.success) {
+          if (todayCheckIn?.id === id) {
+            setTodayCheckIn(response.data);
+          }
+          return response.data;
         }
-        return response.data;
+      } catch (err: any) {
+        setError(err.response?.data?.error?.message || 'Error al actualizar check-in');
+        throw err;
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Error al actualizar check-in');
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [todayCheckIn]);
+    },
+    [todayCheckIn]
+  );
 
   // Cargar rachas
   const loadStreaks = useCallback(async () => {
@@ -189,23 +197,28 @@ export const useCheckIn = () => {
   }, []);
 
   // Reiniciar racha
-  const resetStreak = useCallback(async (streakType: string) => {
-    try {
-      setLoading(true);
-      setError(null);
+  const resetStreak = useCallback(
+    async (streakType: string) => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const response = await api.post('/checkins/streaks/reset', { streak_type: streakType });
+        const response = await api.post<ApiResponse<any>>('/checkins/streaks/reset', {
+          streak_type: streakType,
+        });
 
-      if (response.data.success) {
-        await loadStreaks();
+        if (response.data.success) {
+          await loadStreaks();
+        }
+      } catch (err: any) {
+        setError(err.response?.data?.error?.message || 'Error al reiniciar racha');
+        throw err;
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Error al reiniciar racha');
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [loadStreaks]);
+    },
+    [loadStreaks]
+  );
 
   // Verificar si ha hecho check-in hoy
   const hasCheckedInToday = useCallback(() => {
@@ -214,7 +227,7 @@ export const useCheckIn = () => {
 
   // Obtener racha actual
   const getCurrentStreak = useCallback(() => {
-    const checkinStreak = streaks.find(s => s.streak_type === 'checkin_completed');
+    const checkinStreak = streaks.find((s) => s.streak_type === 'checkin_completed');
     return checkinStreak?.current_streak || 0;
   }, [streaks]);
 
@@ -227,12 +240,8 @@ export const useCheckIn = () => {
         await loadTodayCheckIn();
         await loadStreaks();
         // El resto puede fallar sin bloquear tanto
-        await Promise.all([
-          loadCheckIns(),
-          loadStats(),
-          loadMoodHistory()
-        ]);
-      } catch (err) {
+        await Promise.all([loadCheckIns(), loadStats(), loadMoodHistory()]);
+      } catch {
         console.warn('⚠️ [useCheckIn] Algunos datos no pudieron cargarse');
       } finally {
         setLoading(false);

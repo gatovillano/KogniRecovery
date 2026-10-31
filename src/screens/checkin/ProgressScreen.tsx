@@ -10,22 +10,24 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
 import Icon from '@expo/vector-icons/Ionicons';
-import { api } from '@services/api';
-import { ApiResponse } from '../../types/api';
-import { Card } from '@components';
 import { LineChart } from 'react-native-chart-kit';
+
+import { useTheme } from '@theme/ThemeContext';
+import { api } from '@services/api';
+import { Card } from '@components';
+
+import { ApiResponse } from '../../types/api';
 
 const { width } = Dimensions.get('window');
 
 const EMOTION_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  happiness: { label: 'Felicidad', icon: 'happy-outline', color: '#4CAF50' },
-  surprise: { label: 'Sorpresa', icon: 'alert-circle-outline', color: '#FF9800' },
-  fear: { label: 'Miedo', icon: 'skull-outline', color: '#9C27B0' },
-  anger: { label: 'Ira', icon: 'flame-outline', color: '#F44336' },
-  disgust: { label: 'Asco', icon: 'close-circle-outline', color: '#795548' },
-  sadness: { label: 'Tristeza', icon: 'water-outline', color: '#2196F3' },
+  happiness: { label: 'Felicidad', icon: 'happy-outline', color: '#739B7A' },
+  surprise: { label: 'Sorpresa', icon: 'alert-circle-outline', color: '#C4A882' },
+  fear: { label: 'Miedo', icon: 'skull-outline', color: '#8EAD91' },
+  anger: { label: 'Ira', icon: 'flame-outline', color: '#B9786D' },
+  disgust: { label: 'Asco', icon: 'close-circle-outline', color: '#9A8066' },
+  sadness: { label: 'Tristeza', icon: 'water-outline', color: '#104C50' },
 };
 
 const TAG_TRANSLATIONS: Record<string, string> = {
@@ -125,7 +127,7 @@ export const ProgressScreen: React.FC = () => {
 
   const [stats, setStats] = useState<any>(null);
   const [habitStats, setHabitStats] = useState<any[]>([]);
-  const [cravingStats, setCravingStats] = useState<any>(null);
+  const [, setCravingStats] = useState<any>(null);
   const [moodHistory, setMoodHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'recovery' | 'emotions' | 'habits'>('recovery');
@@ -276,7 +278,7 @@ export const ProgressScreen: React.FC = () => {
               <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>Energía</Text>
             </View>
             <View style={styles.moodItem}>
-              <Text style={[styles.moodValue, { color: theme.colors.accent || '#9C27B0' }]}>
+              <Text style={[styles.moodValue, { color: theme.colors.accent || '#8EAD91' }]}>
                 {stats?.averageAnxiety?.toFixed(1) || '0.0'}
               </Text>
               <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>
@@ -284,7 +286,7 @@ export const ProgressScreen: React.FC = () => {
               </Text>
             </View>
             <View style={styles.moodItem}>
-              <Text style={[styles.moodValue, { color: '#3B82F6' }]}>
+              <Text style={[styles.moodValue, { color: '#2A8176' }]}>
                 {stats?.averageSleep?.toFixed(1) || '0.0'}
               </Text>
               <Text style={[styles.moodLabel, { color: theme.colors.textSecondary }]}>
@@ -376,7 +378,7 @@ export const ProgressScreen: React.FC = () => {
                 </Text>
               </View>
               <View style={styles.legendItem}>
-                <View style={[styles.legendDot, { backgroundColor: '#9C27B0' }]} />
+                <View style={[styles.legendDot, { backgroundColor: '#8EAD91' }]} />
                 <Text style={[styles.legendText, { color: theme.colors.textSecondary }]}>
                   Ansiedad
                 </Text>
@@ -387,7 +389,7 @@ export const ProgressScreen: React.FC = () => {
                 labels: trendLabels,
                 datasets: [
                   { data: moodScores, color: () => theme.colors.primary, strokeWidth: 2 },
-                  { data: anxietyScores, color: () => '#9C27B0', strokeWidth: 2 },
+                  { data: anxietyScores, color: () => '#8EAD91', strokeWidth: 2 },
                 ],
                 legend: [],
               }}
@@ -440,8 +442,8 @@ export const ProgressScreen: React.FC = () => {
                           {entry.mood_score || '—'}
                         </Text>
                       </View>
-                      <View style={[styles.scoreChip, { backgroundColor: '#9C27B015' }]}>
-                        <Text style={[styles.scoreChipText, { color: '#9C27B0' }]}>
+                      <View style={[styles.scoreChip, { backgroundColor: '#8EAD9115' }]}>
+                        <Text style={[styles.scoreChipText, { color: '#8EAD91' }]}>
                           {entry.anxiety_score || '—'}
                         </Text>
                       </View>

@@ -10,11 +10,10 @@
 module.exports = {
   extends: [
     'expo',
-    'expo/typescript',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'react-native', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2021,
@@ -73,6 +72,14 @@ module.exports = {
     '.expo/',
     'coverage/',
     '*.config.js',
+    // Aplicaciones/servicios con toolchains propias
+    'web/',
+    'server/',
+    'android/',
+    'ios/',
+    'docker/',
+    'docs/',
+    'logs/',
   ],
   overrides: [
     {

@@ -19,29 +19,15 @@ export type {
 
 // Exportaciones del hook useProfile
 export { useProfile } from './useProfile';
-export type {
-  Profile,
-  ProfileSettings,
-  SubstancePreference,
-} from './useProfile';
+export type { Profile, ProfileSettings, SubstancePreference } from './useProfile';
 
 // Exportaciones del hook useCheckIn
 export { useCheckIn } from './useCheckIn';
-export type {
-  CheckIn,
-  CheckInStats,
-  Streak,
-  MoodHistory,
-} from './useCheckIn';
+export type { CheckIn, CheckInStats, Streak, MoodHistory } from './useCheckIn';
 
 // Exportaciones del hook useChatbot
 export { useChatbot } from './useChatbot';
-export type {
-  Message,
-  Conversation,
-  Scenario,
-  QuickResponse,
-} from './useChatbot';
+export type { Message, Conversation, Scenario, QuickResponse } from './useChatbot';
 
 // Exportaciones de tipos
 export type {

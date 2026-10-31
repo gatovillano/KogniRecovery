@@ -8,6 +8,7 @@ import {
   TextStyle,
   View,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { ButtonProps } from '@types';
 

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
-import { useChatbot } from '@hooks/useChatbot';
 import Icon from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
+
+import { useTheme } from '@theme/ThemeContext';
+import { useChatbot } from '@hooks/useChatbot';
 
 export const IntelligenceProfileScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -17,21 +18,31 @@ export const IntelligenceProfileScreen: React.FC = () => {
 
   const getIconForType = (type: string) => {
     switch (type) {
-      case 'preference': return 'star';
-      case 'emotional_state': return 'heart';
-      case 'goal': return 'flag';
-      case 'history': return 'time';
-      default: return 'bookmark';
+      case 'preference':
+        return 'star';
+      case 'emotional_state':
+        return 'heart';
+      case 'goal':
+        return 'flag';
+      case 'history':
+        return 'time';
+      default:
+        return 'bookmark';
     }
   };
 
   const getLabelForType = (type: string) => {
     switch (type) {
-      case 'preference': return 'Preferencias';
-      case 'emotional_state': return 'Estados Emocionales';
-      case 'goal': return 'Objetivos';
-      case 'history': return 'Antecedentes';
-      default: return 'Otros';
+      case 'preference':
+        return 'Preferencias';
+      case 'emotional_state':
+        return 'Estados Emocionales';
+      case 'goal':
+        return 'Objetivos';
+      case 'history':
+        return 'Antecedentes';
+      default:
+        return 'Otros';
     }
   };
 
@@ -41,7 +52,7 @@ export const IntelligenceProfileScreen: React.FC = () => {
         colors={[theme.colors.primary + '15', theme.colors.background]}
         style={StyleSheet.absoluteFill}
       />
-      
+
       <View style={[styles.header, { paddingTop: Math.max(insets.top, 20) }]}>
         <Text style={[styles.title, { color: theme.colors.text }]}>Memoria de LÚA</Text>
         <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
@@ -49,7 +60,7 @@ export const IntelligenceProfileScreen: React.FC = () => {
         </Text>
       </View>
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
@@ -57,13 +68,22 @@ export const IntelligenceProfileScreen: React.FC = () => {
           <ActivityIndicator size="large" color={theme.colors.primary} style={{ marginTop: 40 }} />
         ) : contextHistory.length > 0 ? (
           contextHistory.map((item, index) => (
-            <View 
-              key={index} 
-              style={[styles.card, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}
+            <View
+              key={index}
+              style={[
+                styles.card,
+                { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
+              ]}
             >
               <View style={styles.cardHeader}>
-                <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '15' }]}>
-                  <Icon name={getIconForType(item.context_type)} size={20} color={theme.colors.primary} />
+                <View
+                  style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '15' }]}
+                >
+                  <Icon
+                    name={getIconForType(item.context_type)}
+                    size={20}
+                    color={theme.colors.primary}
+                  />
                 </View>
                 <View style={styles.headerText}>
                   <Text style={[styles.typeLabel, { color: theme.colors.textSecondary }]}>
@@ -73,7 +93,9 @@ export const IntelligenceProfileScreen: React.FC = () => {
                     {item.key.replace(/_/g, ' ').toUpperCase()}
                   </Text>
                 </View>
-                <View style={[styles.importanceBadge, { backgroundColor: theme.colors.accent + '20' }]}>
+                <View
+                  style={[styles.importanceBadge, { backgroundColor: theme.colors.accent + '20' }]}
+                >
                   <Text style={[styles.importanceText, { color: theme.colors.accent }]}>
                     ★ {item.importance}
                   </Text>
@@ -98,7 +120,11 @@ export const IntelligenceProfileScreen: React.FC = () => {
           ))
         ) : (
           <View style={styles.emptyContainer}>
-            <Icon name="cloud-offline-outline" size={60} color={theme.colors.textSecondary + '40'} />
+            <Icon
+              name="cloud-offline-outline"
+              size={60}
+              color={theme.colors.textSecondary + '40'}
+            />
             <Text style={[styles.emptyText, { color: theme.colors.textSecondary }]}>
               LÚA aún está conociéndote. Sigue charlando para que aprenda más sobre ti.
             </Text>

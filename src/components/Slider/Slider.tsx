@@ -20,14 +20,8 @@
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface SliderProps {
@@ -60,7 +54,7 @@ export const Slider: React.FC<SliderProps> = ({
   disabled = false,
   error,
   style,
-  labelStyle,
+  labelStyle: _labelStyle,
 }) => {
   const { theme } = useTheme();
 
@@ -172,8 +166,8 @@ export const Slider: React.FC<SliderProps> = ({
       backgroundColor: isActive
         ? theme.colors.primary
         : disabled
-        ? theme.colors.border
-        : theme.colors.surface,
+          ? theme.colors.border
+          : theme.colors.surface,
       borderWidth: isActive ? 0 : 1,
       borderColor: theme.colors.border,
     };
@@ -186,8 +180,8 @@ export const Slider: React.FC<SliderProps> = ({
       color: isActive
         ? theme.colors.textInverse
         : disabled
-        ? theme.colors.textSecondary
-        : theme.colors.text,
+          ? theme.colors.textSecondary
+          : theme.colors.text,
     };
   };
 
@@ -225,7 +219,7 @@ export const Slider: React.FC<SliderProps> = ({
   return (
     <View style={getContainerStyle()}>
       {label && <Text style={getLabelStyle()}>{label}</Text>}
-      
+
       <View style={getValueContainerStyle()}>
         <Text style={getEmojiStyle()}>{getCurrentEmoji()}</Text>
         <Text style={getValueLabelStyle()}>{getCurrentLabel() || value.toString()}</Text>
@@ -237,15 +231,11 @@ export const Slider: React.FC<SliderProps> = ({
       </View>
 
       {/* Botones de selección */}
-      <View style={getButtonsContainerStyle()}>
-        {renderButtons()}
-      </View>
+      <View style={getButtonsContainerStyle()}>{renderButtons()}</View>
 
       {error && <Text style={getErrorStyle()}>{error}</Text>}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  // Estilos adicionales si son necesarios
-});
+// Sin estilos adicionales por ahora

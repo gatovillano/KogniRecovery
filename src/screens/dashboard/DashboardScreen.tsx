@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,16 +14,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useCallback, useRef } from 'react';
+import Icon from '@expo/vector-icons/Ionicons';
+import { BarChart, LineChart } from 'react-native-chart-kit';
+
 import { useMotivationalGreeting } from '@hooks/useMotivationalGreeting';
 import { useTheme } from '@theme/ThemeContext';
-import { Card, Button, Header } from '@components';
+import { Card, Button } from '@components';
 import { useCheckIn } from '@hooks/useCheckIn';
 import { api } from '@services/api';
 import { MainTabNavigationProp } from '@navigation/types';
-import { DashboardData, ApiResponse } from '../../types/api';
 import { JOURNAL_ENDPOINTS, SOS_CONFIG } from '@services/endpoints';
-import Icon from '@expo/vector-icons/Ionicons';
-import { BarChart, LineChart } from 'react-native-chart-kit';
+import { NumaMark } from '@components/NumaLogo';
+
+import { DashboardData, ApiResponse } from '../../types/api';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -36,12 +39,12 @@ interface FeedEntry {
 }
 
 const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#5D89BA' },
-  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8BAFD4' },
+  checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#104C50' },
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8EAD91' },
   habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#5D89BA' },
   social: { label: 'Entorno Social', icon: 'people-outline', color: '#8BAFD4' },
-  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#94A3B8' },
-  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#C07878' },
+  activity: { label: 'Actividad', icon: 'analytics-outline', color: '#C4A882' },
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#B9786D' },
   habit_completion: {
     label: 'Hábito Completado',
     icon: 'checkmark-circle-outline',
@@ -56,9 +59,6 @@ export const DashboardScreen: React.FC = () => {
   const {
     todayCheckIn,
     checkIns,
-    stats,
-    streaks,
-    hasCheckedInToday,
     getCurrentStreak,
     loadTodayCheckIn,
     loadCheckIns,
@@ -70,12 +70,11 @@ export const DashboardScreen: React.FC = () => {
   const [feedData, setFeedData] = useState<FeedEntry[]>([]);
   const [habitsStatus, setHabitsStatus] = useState<any[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(false);
-  const [loadingHabits, setLoadingHabits] = useState(false);
+  const [, setLoadingHabits] = useState(false);
   const [totalSpent, setTotalSpent] = useState<number | null>(null);
   const {
     text: greetingText,
     isStreaming: greetingStreaming,
-    done: greetingDone,
     fetchGreeting,
   } = useMotivationalGreeting();
 
@@ -297,19 +296,24 @@ export const DashboardScreen: React.FC = () => {
         {/* HEADER SEGÚN MOCKUP */}
         <View style={styles.mockupHeader}>
           <View>
-            <Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
-              {new Date().getHours() < 12 ? 'Buenos días,' : 'Buenas tardes,'}
-            </Text>
-            <Text style={[styles.userName, { color: theme.colors.text }]}>
-              {dashboardData?.profile?.first_name || 'Amigx'}
-            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <NumaMark size={32} />
+              <View>
+                <Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
+                  {new Date().getHours() < 12 ? 'Buenos días,' : 'Buenas tardes,'}
+                </Text>
+                <Text style={[styles.userName, { color: theme.colors.text }]}>
+                  {dashboardData?.profile?.first_name || 'Amigx'}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Profile')}
+              style={[styles.avatarContainer, { backgroundColor: theme.colors.accent + '35' }]}
+            >
+              <Icon name="person-outline" size={22} color={theme.colors.primary} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Profile')}
-            style={[styles.avatarContainer, { backgroundColor: theme.colors.accent + '20' }]}
-          >
-            <Icon name="person" size={24} color={theme.colors.accent} />
-          </TouchableOpacity>
         </View>
 
         {/* HERO: DÍAS SIN CONSUMO (RACHA) - ESTILIZADO Y ANIMADO */}

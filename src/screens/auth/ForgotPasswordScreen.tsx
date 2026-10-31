@@ -10,13 +10,15 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, Input } from '@components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '@navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
+
+import { NumaMark } from '@components/NumaLogo';
+import { useTheme } from '@theme/ThemeContext';
+import { Button, Input } from '@components';
+import { AuthStackParamList } from '@navigation/types';
 import apiClient from '@services/api';
 import { AUTH_ENDPOINTS } from '@services/endpoints';
 
@@ -143,6 +145,17 @@ export const ForgotPasswordScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
+            <NumaMark size={56} light={theme.mode === 'dark'} />
+            <Text
+              style={{
+                color: theme.colors.primary,
+                fontSize: 22,
+                fontWeight: '800',
+                letterSpacing: 4,
+              }}
+            >
+              NUMA
+            </Text>
             <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary }]}>
               <Icon name="lock-closed-outline" size={40} color="white" />
             </View>

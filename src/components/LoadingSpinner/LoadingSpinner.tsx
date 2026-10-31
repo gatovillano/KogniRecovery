@@ -16,14 +16,8 @@
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  StyleSheet,
-  ViewStyle,
-  Modal,
-} from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Modal } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { LoadingSpinnerProps } from '@types';
 
@@ -53,30 +47,19 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 
   // Spinner simple
   const spinner = (
-    <ActivityIndicator
-      size={getIndicatorSize()}
-      color={spinnerColor}
-      animating={true}
-    />
+    <ActivityIndicator size={getIndicatorSize()} color={spinnerColor} animating={true} />
   );
 
   // Si es fullScreen, mostrar con overlay
   if (fullScreen) {
     return (
-      <Modal
-        visible={true}
-        transparent
-        animationType="none"
-        statusBarTranslucent
-      >
+      <Modal visible={true} transparent animationType="none" statusBarTranslucent>
         <View style={[styles.fullScreenOverlay, { backgroundColor: theme.colors.overlay }]}>
           <View style={styles.fullScreenContainer}>
             {spinner}
             {text && (
               <View style={styles.textContainer}>
-                <Text style={[styles.text, { color: theme.colors.textInverse }]}>
-                  {text}
-                </Text>
+                <Text style={[styles.text, { color: theme.colors.textInverse }]}>{text}</Text>
               </View>
             )}
           </View>

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Switch, Alert } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button } from '@components';
 import { useProfile } from '@hooks/useProfile';
@@ -12,13 +13,12 @@ import { useProfile } from '@hooks/useProfile';
 export const PrivacySettingsScreen: React.FC = () => {
   const { theme } = useTheme();
   const { settings, updateSettings, loading } = useProfile();
-  
+
   const [dataSharingEnabled, setDataSharingEnabled] = useState(false);
   const [shareWithFamily, setShareWithFamily] = useState(false);
   const [shareProgressWeekly, setShareProgressWeekly] = useState(true);
   const [anonymousAnalytics, setAnonymousAnalytics] = useState(true);
-  const [shareWithFamilyMembers, setShareWithFamilyMembers] = useState<any[]>([]);
-
+  const [shareWithFamilyMembers] = useState<{ id: string; name: string; email: string }[]>([]);
   useEffect(() => {
     if (settings) {
       setDataSharingEnabled(settings.data_sharing_enabled ?? false);
@@ -34,10 +34,10 @@ export const PrivacySettingsScreen: React.FC = () => {
         data_sharing_enabled: dataSharingEnabled,
         share_with_family: shareWithFamily,
         share_progress_weekly: shareProgressWeekly,
-        anonymous_analytics: anonymousAnalytics
+        anonymous_analytics: anonymousAnalytics,
       });
       Alert.alert('Éxito', 'Configuración de privacidad guardada');
-    } catch (error) {
+    } catch {
       Alert.alert('Error', 'No se pudo guardar la configuración');
     }
   };
@@ -62,7 +62,7 @@ export const PrivacySettingsScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           👨‍👩‍👧 Compartir con Familia
         </Text>
-        
+
         <View style={styles.settingRow}>
           <View style={styles.settingInfo}>
             <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
@@ -127,10 +127,8 @@ export const PrivacySettingsScreen: React.FC = () => {
 
       {/* Compartir Datos */}
       <Card variant="elevated" padding="md" style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          📊 Compartir Datos
-        </Text>
-        
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>📊 Compartir Datos</Text>
+
         <View style={styles.settingRow}>
           <View style={styles.settingInfo}>
             <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
@@ -169,11 +167,11 @@ export const PrivacySettingsScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           ℹ️ Tu Privacidad es Importante
         </Text>
-        
+
         <Text style={[styles.infoText, { color: theme.colors.textSecondary }]}>
           En Numa nos comprometemos a proteger tu privacidad:
         </Text>
-        
+
         <View style={styles.privacyList}>
           <Text style={[styles.privacyItem, { color: theme.colors.text }]}>
             ✓ Tus datos están encriptados
@@ -195,41 +193,40 @@ export const PrivacySettingsScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           ⚙️ Opciones Adicionales
         </Text>
-        
+
         <Button
           variant="secondary"
+          title="📥 Descargar mis datos"
           onPress={() => Alert.alert('Información', 'Esta función estará disponible pronto')}
           style={styles.optionButton}
-        >
-          📥 Descargar mis datos
-        </Button>
-        
+        />
+
         <Button
           variant="secondary"
-          onPress={() => Alert.alert(
-            'Eliminar cuenta',
-            '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.',
-            [
-              { text: 'Cancelar', style: 'cancel' },
-              { text: 'Eliminar', style: 'destructive', onPress: () => {} }
-            ]
-          )}
+          title="🗑️ Eliminar mi cuenta"
+          onPress={() =>
+            Alert.alert(
+              'Eliminar cuenta',
+              '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.',
+              [
+                { text: 'Cancelar', style: 'cancel' },
+                { text: 'Eliminar', style: 'destructive', onPress: () => {} },
+              ]
+            )
+          }
           textStyle={{ color: theme.colors.error }}
           style={[styles.optionButton, { borderColor: theme.colors.error }]}
-        >
-          🗑️ Eliminar mi cuenta
-        </Button>
+        />
       </Card>
 
       {/* Botón Guardar */}
       <Button
         variant="primary"
+        title="Guardar Configuración"
         onPress={handleSaveSettings}
         loading={loading}
         style={styles.saveButton}
-      >
-        Guardar Configuración
-      </Button>
+      />
     </ScrollView>
   );
 };
@@ -265,7 +262,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: 'rgba(120,120,120,0.25)',
   },
   settingInfo: {
     flex: 1,
@@ -289,7 +286,7 @@ const styles = StyleSheet.create({
   },
   familyMember: {
     padding: 12,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'rgba(120,120,120,0.10)',
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -304,7 +301,7 @@ const styles = StyleSheet.create({
   noMembers: {
     marginTop: 16,
     padding: 16,
-    backgroundColor: '#FFF3E0',
+    backgroundColor: 'rgba(196,168,130,0.22)',
     borderRadius: 8,
   },
   noMembersText: {

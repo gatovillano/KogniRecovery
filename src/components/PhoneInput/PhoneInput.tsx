@@ -29,6 +29,7 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface Country {
@@ -135,8 +136,8 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
       borderColor: error
         ? theme.colors.error
         : disabled
-        ? theme.colors.border
-        : theme.colors.border,
+          ? theme.colors.border
+          : theme.colors.border,
       borderRadius: theme.borderRadius.md,
       paddingHorizontal: theme.spacing.md,
       minHeight: 44,
@@ -187,13 +188,19 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
             style={getCountryButtonStyle()}
           >
             <Text style={{ fontSize: 20, marginRight: 4 }}>{selectedCountry.flag}</Text>
-            <Text style={{ color: theme.colors.text, fontSize: 16 }}>{selectedCountry.dialCode}</Text>
-            <Text style={{ color: theme.colors.textSecondary, fontSize: 12, marginLeft: 4 }}>▼</Text>
+            <Text style={{ color: theme.colors.text, fontSize: 16 }}>
+              {selectedCountry.dialCode}
+            </Text>
+            <Text style={{ color: theme.colors.textSecondary, fontSize: 12, marginLeft: 4 }}>
+              ▼
+            </Text>
           </TouchableOpacity>
         ) : (
           <View style={getCountryButtonStyle()}>
             <Text style={{ fontSize: 20, marginRight: 4 }}>{selectedCountry.flag}</Text>
-            <Text style={{ color: theme.colors.text, fontSize: 16 }}>{selectedCountry.dialCode}</Text>
+            <Text style={{ color: theme.colors.text, fontSize: 16 }}>
+              {selectedCountry.dialCode}
+            </Text>
           </View>
         )}
         <TextInput
@@ -211,14 +218,24 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
       </View>
       {error && <Text style={getErrorStyle()}>{error}</Text>}
 
-      <Modal visible={isCountrySelectorOpen} transparent animationType="fade" onRequestClose={closeCountrySelector}>
+      <Modal
+        visible={isCountrySelectorOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={closeCountrySelector}
+      >
         <View style={styles.modalOverlay}>
           <TouchableOpacity
             style={styles.overlayTouch}
             onPress={closeCountrySelector}
             activeOpacity={1}
           />
-          <View style={[styles.modalContent, { backgroundColor: theme.colors.surface, borderRadius: theme.borderRadius.lg }]}>
+          <View
+            style={[
+              styles.modalContent,
+              { backgroundColor: theme.colors.surface, borderRadius: theme.borderRadius.lg },
+            ]}
+          >
             <Text style={[styles.modalTitle, { color: theme.colors.text }]}>Seleccionar país</Text>
             <FlatList
               data={COUNTRIES}

@@ -13,6 +13,7 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button, Select } from '@components';
 import { api, updateAISettings } from '@services/api';
@@ -21,7 +22,7 @@ import { useAuth } from '@hooks/useAuth';
 
 export const AISettingsScreen: React.FC = () => {
   const { theme } = useTheme();
-  const { profile, loadProfile } = useProfile();
+  const { loadProfile } = useProfile();
   const { user, updateUser } = useAuth();
 
   const [provider, setProvider] = useState<'openai' | 'openrouter' | 'default'>(
@@ -166,19 +167,21 @@ export const AISettingsScreen: React.FC = () => {
           ]}
           onPress={() => setProvider('default')}
         >
-          <Text style={[styles.providerName, { color: theme.colors.text }]}>
-            ⚙️ Por defecto
-          </Text>
+          <Text style={[styles.providerName, { color: theme.colors.text }]}>⚙️ Por defecto</Text>
           <Text style={[styles.providerDesc, { color: theme.colors.textSecondary }]}>
             Usa OpenRouter gratuito configurado en el servidor. Ideal para probar la plataforma sin
             costo.
-            <Text style={styles.highlight}> Puede tener intermitencias.</Text>
+            <Text style={[styles.highlight, { color: theme.colors.warning }]}>
+              {' '}
+              Puede tener intermitencias.
+            </Text>
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[
             styles.providerOption,
+            { borderColor: theme.colors.border, backgroundColor: theme.colors.card },
             provider === 'openrouter' && { borderColor: theme.colors.primary, borderWidth: 2 },
           ]}
           onPress={() => setProvider('openrouter')}
@@ -192,6 +195,7 @@ export const AISettingsScreen: React.FC = () => {
         <TouchableOpacity
           style={[
             styles.providerOption,
+            { borderColor: theme.colors.border, backgroundColor: theme.colors.card },
             provider === 'openai' && { borderColor: theme.colors.primary, borderWidth: 2 },
           ]}
           onPress={() => setProvider('openai')}
@@ -202,8 +206,16 @@ export const AISettingsScreen: React.FC = () => {
           </Text>
         </TouchableOpacity>
 
-        <View style={[styles.providerOption, styles.disabledOption]}>
-          <Text style={[styles.providerName, { color: '#999' }]}>Anthropic (Próximamente)</Text>
+        <View
+          style={[
+            styles.providerOption,
+            styles.disabledOption,
+            { borderColor: theme.colors.border, backgroundColor: theme.colors.surface },
+          ]}
+        >
+          <Text style={[styles.providerName, { color: theme.colors.textSecondary }]}>
+            Anthropic (Próximamente)
+          </Text>
         </View>
       </Card>
 
@@ -274,8 +286,13 @@ export const AISettingsScreen: React.FC = () => {
             LÚA está configurado para usar el motor gratuito de OpenRouter (modelo Step-3.5 Flash).
             Esta configuración no requiere que proporciones una API key.
           </Text>
-          <View style={[styles.warningBox, { backgroundColor: '#FFF3CD', borderColor: '#FFC107' }]}>
-            <Text style={[styles.warningText, { color: '#856404' }]}>
+          <View
+            style={[
+              styles.warningBox,
+              { backgroundColor: theme.colors.warning + '26', borderColor: theme.colors.warning },
+            ]}
+          >
+            <Text style={[styles.warningText, { color: theme.colors.text }]}>
               ⚠️ <Text style={styles.warningBold}>Atención:</Text> El modelo gratuito puede
               presentar intermitencias, límites de tasa o indisponibilidad en momentos de alta
               demanda. Para una experiencia más estable, selecciona OpenRouter o OpenAI y
@@ -339,8 +356,6 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FAFAFA',
     marginBottom: 8,
   },
   providerName: {
@@ -354,11 +369,9 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: 'bold',
-    color: '#FF9800',
   },
   disabledOption: {
-    opacity: 0.5,
-    backgroundColor: '#eee',
+    opacity: 0.55,
   },
   inputContainer: {
     flexDirection: 'row',

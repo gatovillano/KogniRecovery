@@ -12,11 +12,12 @@ import {
   FlatList,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from '@expo/vector-icons/Ionicons';
+import { RouteProp } from '@react-navigation/native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { api } from '@services/api';
-import Icon from '@expo/vector-icons/Ionicons';
-import { useRoute, RouteProp } from '@react-navigation/native';
-import { MainTabParamList, CheckInStackParamList } from '@navigation/types';
+import { CheckInStackParamList } from '@navigation/types';
 
 interface SubstanceDose {
   id: string;
@@ -136,7 +137,7 @@ export const SubstanceDoseScreen: React.FC<{
         setEditingDoseId(null);
         fetchDoses();
       }
-    } catch (error) {
+    } catch {
       Alert.alert('Error', 'No se pudo guardar el registro.');
     } finally {
       setSaving(false);
@@ -192,7 +193,7 @@ export const SubstanceDoseScreen: React.FC<{
               <Icon
                 name="pulse-outline"
                 size={20}
-                color={cravingHigh ? theme.colors.error : '#FF9500'}
+                color={cravingHigh ? theme.colors.error : '#C4A882'}
               />
               <Text style={{ color: theme.colors.text }}>Ansiedad previa: </Text>
               <View

@@ -21,13 +21,12 @@ import {
   TextInput,
   ActivityIndicator,
   Animated,
-  Platform,
 } from 'react-native';
+import Icon from '@expo/vector-icons/Ionicons';
+
 import { useTheme } from '@theme/ThemeContext';
 import { api } from '@services/api';
 import { MEDICATION_ENDPOINTS } from '@services/endpoints';
-import { ApiResponse } from '../../types/api';
-import Icon from '@expo/vector-icons/Ionicons';
 import { Header } from '@components';
 import {
   scheduleMedicationNotification,
@@ -36,6 +35,8 @@ import {
   requestNotificationPermission,
   configureNotificationHandler,
 } from '@services/notificationService';
+
+import { ApiResponse } from '../../types/api';
 
 // ─── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -360,7 +361,7 @@ export const MedicationScreen: React.FC = () => {
                 cancelMedicationNotification(id);
                 setMedications((prev) => prev.filter((m) => m.id !== id));
               }
-            } catch (error) {
+            } catch {
               Alert.alert('Error', 'No se pudo eliminar el medicamento.');
             }
           },
@@ -414,7 +415,12 @@ export const MedicationScreen: React.FC = () => {
     <View
       style={[
         styles.progressCard,
-        { backgroundColor: theme.colors.card, borderWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.border, ...theme.shadows.sm },
+        {
+          backgroundColor: theme.colors.card,
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: theme.colors.border,
+          ...theme.shadows.sm,
+        },
       ]}
     >
       <View style={styles.progressHeader}>
@@ -630,7 +636,9 @@ export const MedicationScreen: React.FC = () => {
               </View>
             </View>
             {/* Botones footer */}
-            <View style={[styles.modalFooter, { borderTopColor: 'transparent', paddingHorizontal: 0 }]}>
+            <View
+              style={[styles.modalFooter, { borderTopColor: 'transparent', paddingHorizontal: 0 }]}
+            >
               <TouchableOpacity
                 style={[styles.cancelButton, { borderColor: theme.colors.border }]}
                 onPress={closeModal}
