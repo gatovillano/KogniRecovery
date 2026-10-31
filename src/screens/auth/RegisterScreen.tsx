@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NumaMark } from '@components/NumaLogo';
 import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, Input } from '@components';
@@ -92,6 +93,9 @@ export const RegisterScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
+        <NumaMark size={64} />
+        <Text style={{ color: theme.colors.primary, fontSize: 25, fontWeight: '800', letterSpacing: 4 }}>NUMA</Text>
+        <Text style={{ color: theme.colors.textSecondary, marginBottom: 18 }}>Avanza en tu recuperación</Text>
             <Text style={[styles.title, { color: theme.colors.text }]}>
               Crear Cuenta
             </Text>
