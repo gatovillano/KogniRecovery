@@ -18,22 +18,22 @@ const Stack = createStackNavigator<AuthStackParamList>();
 /**
  * Configuración de opciones de pantalla basadas en el tema
  */
-const getScreenOptions = (isDark: boolean) => ({
+const getScreenOptions = (theme: ReturnType<typeof useTheme>['theme']) => ({
   headerStyle: {
-    backgroundColor: isDark ? '#1E1E1E' : '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 1,
-    borderBottomColor: isDark ? '#333333' : '#E5E7EB',
+    borderBottomColor: theme.colors.border,
   },
-  headerTintColor: isDark ? '#F0F0F0' : '#1A1A1A',
+  headerTintColor: theme.colors.text,
   headerTitleStyle: {
     fontWeight: '600' as const,
     fontSize: 18,
   },
   headerBackTitleVisible: false,
   cardStyle: {
-    backgroundColor: isDark ? '#121212' : '#F5F7FA',
+    backgroundColor: theme.colors.background,
   },
   cardOverlayEnabled: true,
   gestureEnabled: true,
@@ -41,8 +41,8 @@ const getScreenOptions = (isDark: boolean) => ({
 });
 
 export const AuthNavigator: React.FC = () => {
-  const { isDark } = useTheme();
-  const screenOptions = getScreenOptions(isDark);
+  const { theme } = useTheme();
+  const screenOptions = getScreenOptions(theme);
 
   return (
     <Stack.Navigator
