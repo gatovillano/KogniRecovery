@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@theme/ThemeContext';
 import Icon from '@expo/vector-icons/Ionicons';
+import { NumaMark } from '../NumaLogo';
 
 export interface HeaderProps {
   title: string;
@@ -46,6 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
     <View style={headerStyle}>
       <View style={styles.headerContent}>
         <View style={styles.headerTitleGroup}>
+          <NumaMark size={30} />
           <View>
             {subtitle && (
               <Text style={[styles.headerSubtitle, { color: theme.colors.textSecondary }]}>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   },
   headerContent: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   headerTitleGroup: {
@@ -111,8 +113,8 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   headerTitle: {
-    fontSize: 26,
-    fontWeight: '300',
+    fontSize: 25,
+    fontWeight: '700',
     letterSpacing: -0.5,
   },
   actionButton: {
