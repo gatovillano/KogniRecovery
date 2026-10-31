@@ -55,17 +55,17 @@ interface FeedEntry {
 // Mapeo de tipos a información de visualización
 const FEED_TYPE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
   checkin: { label: 'Diario de Observación', icon: 'journal-outline', color: '#739072' }, // primary (sage)
-  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8BAFD4' }, // secondary (blue)
+  note: { label: 'Nota Libre', icon: 'create-outline', color: '#8EAD91' }, // secondary (blue)
   habit: { label: 'Hábitos', icon: 'leaf-outline', color: '#739072' },
-  social: { label: 'Entorno Social', icon: 'people-outline', color: '#8BAFD4' },
+  social: { label: 'Entorno Social', icon: 'people-outline', color: '#8EAD91' },
   activity: { label: 'Actividad', icon: 'analytics-outline', color: '#C4A882' }, // accent (sand)
-  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#C07878' }, // error
+  analysis: { label: 'Análisis de Consumo', icon: 'shield-half-outline', color: '#B9786D' }, // error
   habit_completion: {
     label: 'Hábito Completado',
     icon: 'checkmark-circle-outline',
     color: '#739072',
   },
-  substance_dose: { label: 'Dosis Individual', icon: 'flask-outline', color: '#8BAFD4' },
+  substance_dose: { label: 'Dosis Individual', icon: 'flask-outline', color: '#8EAD91' },
   craving: { label: 'Craving', icon: 'flame-outline', color: '#C4A882' },
 };
 
