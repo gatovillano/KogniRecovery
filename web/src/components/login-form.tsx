@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { api } from '@/lib/api';
 import { toast } from 'sonner';
 
@@ -72,16 +72,27 @@ export function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-10">
+      <div className="mb-8 flex flex-col items-center gap-3 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-2xl font-semibold text-primary-foreground">
+          N
+        </div>
+        <div>
+          <p className="text-2xl font-semibold tracking-[0.12em] text-primary">NUMA</p>
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            Clinical workspace
+          </p>
+        </div>
+      </div>
+
       <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Panel de Terapeutas</CardTitle>
-          <CardDescription className="text-center">
-            Numa - Acceso para profesionales
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
+        <CardContent className="p-8">
+          <h1 className="text-xl font-semibold text-[#29443e]">Acceso para profesionales</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Ingresa con tus credenciales de NUMA Clinical.
+          </p>
+
+          <form onSubmit={handleLogin} className="mt-6 space-y-4">
             {mfaChallenge ? (
               <>
                 <div className="space-y-2">
@@ -99,7 +110,7 @@ export function LoginForm() {
                     required
                     autoFocus
                   />
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     Abre tu app de autenticación e ingresa el código de 6 dígitos.
                   </p>
                 </div>
@@ -151,6 +162,10 @@ export function LoginForm() {
           </form>
         </CardContent>
       </Card>
+
+      <p className="mt-6 px-4 text-center text-xs text-muted-foreground/70">
+        Plataforma de acompañamiento y recuperación · Acceso protegido y auditado.
+      </p>
     </div>
   );
 }

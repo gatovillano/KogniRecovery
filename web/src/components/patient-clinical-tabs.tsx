@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
-import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 
 type TabKey = 'checkins' | 'cravings' | 'medications' | 'consumption' | 'journal' | 'chatbot' | 'alerts' | 'notes';
@@ -119,7 +118,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b text-left text-gray-500">
+          <tr className="border-b border-border text-left text-muted-foreground">
             {columns.map((c) => (
               <th key={c.key} className="py-2 pr-4 font-medium">{c.label}</th>
             ))}
@@ -127,7 +126,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
         </thead>
         <tbody>
           {items.map((row, idx) => (
-            <tr key={String(row.id ?? idx)} className="border-b last:border-0">
+            <tr key={String(row.id ?? idx)} className="border-b border-border last:border-0">
               {columns.map((c) => (
                 <td key={c.key} className="py-2 pr-4 align-top">
                   {c.render ? c.render(row) : fmt(row[c.key])}
@@ -143,14 +142,14 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
   const renderContent = () => {
     if (current?.error) {
       return (
-        <p className="text-sm text-amber-600 py-4">
+        <p className="py-4 text-sm text-[#a68b54]">
           Esta categoría no está compartida por el paciente (o el acceso fue revocado).
         </p>
       );
     }
 
     if (items.length === 0) {
-      return <p className="text-sm text-gray-500 py-4">Sin registros.</p>;
+      return <p className="py-4 text-sm text-muted-foreground">Sin registros.</p>;
     }
 
     switch (tab) {
@@ -290,38 +289,38 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
           value={noteDraft}
           onChange={(e) => setNoteDraft(e.target.value)}
           placeholder="Escribe una nota privada sobre este paciente…"
-          className="w-full min-h-[90px] rounded-md border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="min-h-[90px] w-full rounded-xl border border-input bg-card px-3 py-2 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
         />
         <button
           type="button"
           onClick={createNote}
           disabled={!noteDraft.trim()}
-          className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground disabled:opacity-50"
+          className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
         >
           Guardar nota
         </button>
       </div>
 
       {items.length === 0 ? (
-        <p className="text-sm text-gray-500 py-2">Sin notas.</p>
+        <p className="py-2 text-sm text-muted-foreground">Sin notas.</p>
       ) : (
         <div className="space-y-2">
           {(items as unknown as NoteRow[]).map((note) => (
-            <div key={note.id} className="border rounded-md p-3">
+            <div key={note.id} className="rounded-xl border border-border p-4">
               <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-muted-foreground">
                   {note.author_name ?? 'Profesional'} · {fmtDate(note.created_at)}
                   {note.visibility === 'private' ? ' · Privada' : ' · Equipo'}
                 </span>
                 <button
                   type="button"
                   onClick={() => deleteNote(note.id)}
-                  className="text-xs text-red-500 hover:underline"
+                  className="text-xs text-destructive hover:underline"
                 >
                   Eliminar
                 </button>
               </div>
-              <p className="text-sm text-gray-800 whitespace-pre-wrap">{note.content}</p>
+              <p className="whitespace-pre-wrap text-sm text-foreground">{note.content}</p>
             </div>
           ))}
         </div>
@@ -331,10 +330,10 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
 
   const severityColor = (severity: string): string => {
     switch (severity) {
-      case 'critical': return 'bg-red-100 text-red-700';
-      case 'high': return 'bg-orange-100 text-orange-700';
-      case 'medium': return 'bg-amber-100 text-amber-700';
-      default: return 'bg-gray-100 text-gray-600';
+      case 'critical': return 'bg-[#f8eeee] text-[#b66d67]';
+      case 'high': return 'bg-[#f7f0e8] text-[#a6703c]';
+      case 'medium': return 'bg-[#f5f1e8] text-[#a68b54]';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 
@@ -364,30 +363,30 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
   const renderAlerts = () => (
     <div className="space-y-2">
       {(items as unknown as AlertRow[]).map((alert) => (
-        <div key={alert.id} className="border rounded-md p-3 flex items-start justify-between gap-3">
+        <div key={alert.id} className="flex items-start justify-between gap-3 rounded-xl border border-border p-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${severityColor(alert.severity)}`}>
                 {alert.severity}
               </span>
-              <span className="text-xs text-gray-500">{statusLabel(alert.status)}</span>
-              <span className="text-xs text-gray-400">{fmtDate(alert.created_at)}</span>
+              <span className="text-xs text-muted-foreground">{statusLabel(alert.status)}</span>
+              <span className="text-xs text-muted-foreground/60">{fmtDate(alert.created_at)}</span>
             </div>
-            <p className="text-sm mt-1 text-gray-800">{alert.summary}</p>
+            <p className="mt-1 text-sm text-foreground">{alert.summary}</p>
           </div>
           {(alert.status === 'open' || alert.status === 'acknowledged') && (
             <div className="flex flex-col gap-1 shrink-0">
               <button
                 type="button"
                 onClick={() => runAlertAction(alert.id, 'acknowledge')}
-                className="text-xs px-2 py-1 rounded border hover:bg-gray-50"
+                className="rounded-lg border border-border px-2 py-1 text-xs transition hover:bg-muted"
               >
                 Reconocer
               </button>
               <button
                 type="button"
                 onClick={() => runAlertAction(alert.id, 'escalate')}
-                className="text-xs px-2 py-1 rounded border border-red-200 text-red-600 hover:bg-red-50"
+                className="rounded-lg border border-destructive/30 px-2 py-1 text-xs text-destructive transition hover:bg-destructive/10"
               >
                 Escalar
               </button>
@@ -399,19 +398,18 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
   );
 
   return (
-    <Card>
-      <CardContent className="p-4">
-        <div className="flex flex-wrap gap-1 border-b pb-3 mb-3">
+    <div className="space-y-4">
+        <div className="mb-4 flex flex-wrap gap-1 border-b border-border pb-3">
           {TABS.map((t) => (
             <button
               key={t.key}
               type="button"
               onClick={() => setTab(t.key)}
               className={
-                'px-3 py-1.5 text-sm rounded-md transition-colors ' +
+                'rounded-lg px-3 py-1.5 text-sm transition-colors ' +
                 (tab === t.key
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-gray-600 hover:bg-gray-100')
+                  ? 'bg-secondary font-medium text-secondary-foreground'
+                  : 'text-muted-foreground hover:bg-muted')
               }
             >
               {t.label}
@@ -420,7 +418,7 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
         </div>
 
         {consent?.summary && (
-          <p className="text-xs text-gray-500 mb-2">
+          <p className="mb-2 text-xs text-muted-foreground">
             Nivel de detalle: {consent.summary.detail_level}
             {consent.summary.expires_at
               ? ` · vence ${fmtDate(consent.summary.expires_at)}`
@@ -428,14 +426,13 @@ export function PatientClinicalTabs({ patientId }: { patientId: string }) {
           </p>
         )}
 
-        {loading ? <p className="text-sm text-gray-500 py-4">Cargando…</p> : renderContent()}
+        {loading ? <p className="py-4 text-sm text-muted-foreground">Cargando…</p> : renderContent()}
 
         {unavailable.length > 0 && !current?.error && (
-          <p className="text-xs text-gray-400 mt-2">
+          <p className="mt-2 text-xs text-muted-foreground/70">
             No disponibles: {unavailable.join(', ')}
           </p>
         )}
-      </CardContent>
-    </Card>
+    </div>
   );
 }
