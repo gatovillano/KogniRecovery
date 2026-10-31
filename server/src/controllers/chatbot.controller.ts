@@ -200,9 +200,12 @@ export const getConversationById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (!id) throw new Error('ID de conversación requerido');
-    const conversation = await conversationModel.getConversationById(id as string);
+    // FASE 2 (C03): solo se puede leer una conversación del usuario autenticado.
+    const conversation = userId ? await conversationModel.getConversationById(id as string, userId) : null;
 
     if (!conversation) {
       res.status(404).json({
@@ -237,16 +240,22 @@ export const closeConversation = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (!id) throw new Error('ID de conversación requerido');
     const { satisfaction, helpfulness, relevance } = req.body;
 
-    const conversation = await conversationModel.closeConversation(
-      id as string,
-      satisfaction,
-      helpfulness,
-      relevance
-    );
+    // FASE 2 (C03): solo se puede cerrar una conversación del usuario autenticado.
+    const conversation = userId
+      ? await conversationModel.closeConversation(
+          id as string,
+          userId,
+          satisfaction,
+          helpfulness,
+          relevance
+        )
+      : null;
 
     if (!conversation) {
       res.status(404).json({
@@ -304,8 +313,11 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    // Verificar que la conversación existe
-    const conversation = await conversationModel.getConversationById(conversationId as string);
+    // FASE 2 (C03): verificar que la conversación existe Y pertenece al usuario
+    // autenticado. Si no es de este usuario se responde 404 (sin revelar existencia).
+    const conversation = userId
+      ? await conversationModel.getConversationById(conversationId as string, userId)
+      : null;
     if (!conversation) {
       res.status(404).json({
         success: false,
@@ -354,8 +366,8 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
       console.error('⚠️ [NEO4J] Error al guardar mensaje usuario:', err);
     }
 
-    // Actualizar conversación
-    await conversationModel.updateConversationActivity(conversationId as string);
+    // Actualizar conversación (solo si pertenece al usuario autenticado)
+    await conversationModel.updateConversationActivity(conversationId as string, userId);
 
     // Generar título automático si es el primer mensaje o tiene el título por defecto
     if (isDefaultTitle(conversation.title)) {
@@ -363,7 +375,7 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
         .generateConversationTitle(userId as string, content)
         .then(async (newTitle) => {
           if (newTitle) {
-            await conversationModel.updateConversation(conversationId as string, {
+            await conversationModel.updateConversation(conversationId as string, userId, {
               title: newTitle,
             });
             console.log(`✅ Título actualizado: "${conversation.title}" → "${newTitle}"`);
@@ -468,9 +480,9 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
       console.error('⚠️ [NEO4J] Error al guardar mensaje asistente:', err);
     }
 
-    // Verificar si es crisis y actualizar conversación
+    // Verificar si es crisis y actualizar conversación (solo si es del usuario)
     if (crisisResult.isCrisis) {
-      await conversationModel.updateConversation(conversationId as string, {
+      await conversationModel.updateConversation(conversationId as string, userId, {
         contains_crisk: true,
         escalated_to_emergency: crisisResult.crisisType === 'emergency',
       });
@@ -513,6 +525,17 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
+    // FASE 2 (C03): verificar que la conversación pertenece al usuario autenticado
+    // antes de insertar mensajes (se responde 404 sin revelar existencia).
+    const ownedConversation = await conversationModel.getConversationById(
+      conversationId as string,
+      userId
+    );
+    if (!ownedConversation) {
+      res.status(404).json({ success: false, message: 'Conversación no encontrada' });
+      return;
+    }
+
     // Configuración para Server-Sent Events (SSE)
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
@@ -537,7 +560,7 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
     } catch (err) {
       console.error('⚠️ [NEO4J] Error al guardar mensaje usuario en stream:', err);
     }
-    await conversationModel.updateConversationActivity(conversationId as string);
+    await conversationModel.updateConversationActivity(conversationId as string, userId);
 
     // Procesar memoria del turno (extracción + persistencia + resumen)
     const messages = await messageModel.getConversationMessages(conversationId as string);
@@ -551,13 +574,16 @@ export const streamMessage = async (req: Request, res: Response): Promise<void> 
     ).catch(err => console.error('⚠️ [MEMORY-STREAM] Error procesando memoria:', err));
 
     // Obtener información de la conversación para verificar el título
-    const conversation = await conversationModel.getConversationById(conversationId as string);
+    const conversation = await conversationModel.getConversationById(
+      conversationId as string,
+      userId
+    );
     if (conversation && isDefaultTitle(conversation.title)) {
       langGraphAgent
         .generateConversationTitle(userId as string, content)
         .then(async (newTitle) => {
           if (newTitle) {
-            await conversationModel.updateConversation(conversationId as string, {
+            await conversationModel.updateConversation(conversationId as string, userId, {
               title: newTitle,
             });
             console.log(`✅ Título actualizado (stream): "${conversation.title}" → "${newTitle}"`);
@@ -674,8 +700,18 @@ export const changeScenario = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     const { scenario_type } = req.body;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'Usuario no autenticado' },
+      });
+      return;
+    }
 
     if (!scenario_type) {
       res.status(400).json({
@@ -685,7 +721,19 @@ export const changeScenario = async (
       return;
     }
 
-    const conversation = await conversationModel.updateConversation(id as string, {
+    // FASE 2 (C03): solo se puede cambiar el escenario de una conversación propia.
+    const owned = userId
+      ? await conversationModel.getConversationById(id as string, userId)
+      : null;
+    if (!owned) {
+      res.status(404).json({
+        success: false,
+        error: { code: 'NOT_FOUND', message: 'Conversación no encontrada' },
+      });
+      return;
+    }
+
+    const conversation = await conversationModel.updateConversation(id as string, userId, {
       scenario_type,
     });
 
@@ -707,7 +755,7 @@ export const changeScenario = async (
         'Hablemos sobre estrategias para prevenir una recaída. ¿Qué situaciones te preocupan?',
     };
 
-    await messageModel.createMessage(id as string, conversation.user_id, {
+    await messageModel.createMessage(id as string, userId as string, {
       role: 'assistant',
       content: scenarioMessages[scenario_type] || 'Cambiando a un nuevo modo de conversación.',
       active_scenario: scenario_type,
@@ -845,10 +893,23 @@ export const getMessageSpeech = async (
     const messageId = req.params.id as string;
     const { language, speaker } = req.body;
 
-    // Obtener el mensaje de la base de datos
-    const message = await messageModel.getMessageById(messageId);
+    // FASE 2 (C04): el mensaje debe pertenecer al usuario autenticado...
+    const message = await messageModel.getMessageById(messageId, userId);
 
     if (!message) {
+      res.status(404).json({
+        success: false,
+        error: { code: 'NOT_FOUND', message: 'Mensaje no encontrado' },
+      });
+      return;
+    }
+
+    // ...y su conversación asociada también.
+    const conversation = await conversationModel.getConversationById(
+      message.conversation_id,
+      userId
+    );
+    if (!conversation) {
       res.status(404).json({
         success: false,
         error: { code: 'NOT_FOUND', message: 'Mensaje no encontrado' },

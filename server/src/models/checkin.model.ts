@@ -138,11 +138,12 @@ export const createCheckIn = async (userId: string, data: Partial<CheckIn>): Pro
 };
 
 /**
- * Obtener check-in por ID
+ * Obtener check-in por ID (solo si pertenece al usuario)
+ * FASE 2 (C01): se filtra por user_id para impedir acceso cruzado (IDOR/BOLA).
  */
-export const getCheckInById = async (id: string): Promise<CheckIn | null> => {
-  const sql = `SELECT * FROM checkins WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const getCheckInById = async (id: string, userId: string): Promise<CheckIn | null> => {
+  const sql = `SELECT * FROM checkins WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   const row = result.rows[0] as CheckIn | undefined;
   return row
     ? { ...row, notes: tryDecrypt(row.notes ?? ''), risk_description: tryDecrypt(row.risk_description ?? '') }
@@ -221,9 +222,14 @@ export const getUserCheckIns = async (
 };
 
 /**
- * Actualizar check-in
+ * Actualizar check-in (solo si pertenece al usuario)
+ * FASE 2 (C01): se filtra por user_id para impedir modificación cruzada.
  */
-export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise<CheckIn | null> => {
+export const updateCheckIn = async (
+  id: string,
+  userId: string,
+  data: Partial<CheckIn>
+): Promise<CheckIn | null> => {
   const fields: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
@@ -252,8 +258,8 @@ export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE checkins SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE checkins SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
   
   const result = await query(sql, values);
   const row = result.rows[0] as CheckIn | undefined;
@@ -263,11 +269,12 @@ export const updateCheckIn = async (id: string, data: Partial<CheckIn>): Promise
 };
 
 /**
- * Eliminar check-in
+ * Eliminar check-in (solo si pertenece al usuario)
+ * FASE 2 (C01): se filtra por user_id para impedir eliminación cruzada.
  */
-export const deleteCheckIn = async (id: string): Promise<boolean> => {
-  const sql = `DELETE FROM checkins WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteCheckIn = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `DELETE FROM checkins WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 

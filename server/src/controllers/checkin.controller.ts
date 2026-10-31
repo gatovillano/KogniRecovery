@@ -39,8 +39,8 @@ export const createCheckIn = async (
     const existingCheckIn = await checkinModel.getCheckInByDate(userId, checkinDate);
 
     if (existingCheckIn) {
-      // Actualizar check-in existente
-      const updated = await checkinModel.updateCheckIn(existingCheckIn.id, req.body);
+      // Actualizar check-in existente (solo si pertenece al usuario autenticado)
+      const updated = await checkinModel.updateCheckIn(existingCheckIn.id, userId, req.body);
       // SEC-PHASE2: auditar escritura de dato clínico.
       await logPrivacyAction(userId, 'data_written', 'checkin', existingCheckIn.id, {
         action: 'update',
@@ -225,6 +225,8 @@ export const getCheckInById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (!id) {
       res.status(400).json({
@@ -233,7 +235,8 @@ export const getCheckInById = async (
       });
       return;
     }
-    const checkIn = await checkinModel.getCheckInById(id);
+    // FASE 2 (C01): solo se puede leer un check-in si pertenece al usuario autenticado.
+    const checkIn = userId ? await checkinModel.getCheckInById(id, userId) : null;
 
     if (!checkIn) {
       res.status(404).json({
@@ -266,6 +269,8 @@ export const updateCheckIn = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (!id) {
       res.status(400).json({
@@ -274,7 +279,8 @@ export const updateCheckIn = async (
       });
       return;
     }
-    const checkIn = await checkinModel.updateCheckIn(id, req.body);
+    // FASE 2 (C01): solo se puede actualizar un check-in del usuario autenticado.
+    const checkIn = userId ? await checkinModel.updateCheckIn(id, userId, req.body) : null;
 
     if (!checkIn) {
       res.status(404).json({
@@ -308,6 +314,8 @@ export const deleteCheckIn = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (!id) {
       res.status(400).json({
@@ -316,7 +324,8 @@ export const deleteCheckIn = async (
       });
       return;
     }
-    const deleted = await checkinModel.deleteCheckIn(id);
+    // FASE 2 (C01): solo se puede eliminar un check-in del usuario autenticado.
+    const deleted = userId ? await checkinModel.deleteCheckIn(id, userId) : false;
 
     if (!deleted) {
       res.status(404).json({
