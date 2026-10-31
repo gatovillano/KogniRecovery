@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#F8F7F2"
       },
       "package": "com.kognirecovery.app",
       "permissions": [
@@ -50,7 +50,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "KogniRecovery necesita acceso a tus fotos para permitirte compartir imágenes en tu progreso."
+          "photosPermission": "NUMA necesita acceso a tus fotos para permitirte compartir imágenes en tu progreso."
         }
       ],
       "expo-font",
