@@ -1,24 +1,26 @@
 import React, { useState, useCallback } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  TextInput, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
   ActivityIndicator,
   Alert,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from '@expo/vector-icons/Ionicons';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button } from '@components';
 import { api } from '@services/api';
 import { SUBSTANCE_EXPENSE_ENDPOINTS } from '@services/endpoints';
+
 import { ApiResponse } from '../../types/api';
-import Icon from '@expo/vector-icons/Ionicons';
 
 interface Expense {
   id: string;
@@ -31,12 +33,12 @@ interface Expense {
 export const SubstanceExpenseScreen: React.FC = () => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  
+
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [totalSpent, setTotalSpent] = useState(0);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  
+
   // Form state
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
@@ -46,7 +48,9 @@ export const SubstanceExpenseScreen: React.FC = () => {
   const loadData = async () => {
     setLoading(true);
     try {
-      const response = await api.get<ApiResponse<any> & { total_spent?: number }>(SUBSTANCE_EXPENSE_ENDPOINTS.LIST);
+      const response = await api.get<ApiResponse<any> & { total_spent?: number }>(
+        SUBSTANCE_EXPENSE_ENDPOINTS.LIST
+      );
       if (response && response.success) {
         setExpenses(response.data || []);
         setTotalSpent(response.total_spent || 0);
@@ -83,7 +87,7 @@ export const SubstanceExpenseScreen: React.FC = () => {
         amount: Number(amount),
         description: description,
         currency: 'CLP',
-        expense_date: new Date().toISOString()
+        expense_date: new Date().toISOString(),
       });
 
       if (response && response.success) {
@@ -102,34 +106,32 @@ export const SubstanceExpenseScreen: React.FC = () => {
   };
 
   const handleDeleteExpense = (id: string) => {
-    Alert.alert(
-      'Eliminar Gasto',
-      '¿Estás seguro de que deseas eliminar este registro?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        { 
-          text: 'Eliminar', 
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              const response = await api.delete<ApiResponse<any>>(SUBSTANCE_EXPENSE_ENDPOINTS.DELETE(id));
-              if (response && response.success) {
-                loadData();
-              }
-            } catch (error) {
-              Alert.alert('Error', 'No se pudo eliminar el gasto');
+    Alert.alert('Eliminar Gasto', '¿Estás seguro de que deseas eliminar este registro?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Eliminar',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            const response = await api.delete<ApiResponse<any>>(
+              SUBSTANCE_EXPENSE_ENDPOINTS.DELETE(id)
+            );
+            if (response && response.success) {
+              loadData();
             }
+          } catch {
+            Alert.alert('Error', 'No se pudo eliminar el gasto');
           }
-        }
-      ]
-    );
+        },
+      },
+    ]);
   };
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('es-CL', {
       style: 'currency',
       currency: 'CLP',
-      minimumFractionDigits: 0
+      minimumFractionDigits: 0,
     }).format(value);
   };
 
@@ -138,7 +140,7 @@ export const SubstanceExpenseScreen: React.FC = () => {
     return date.toLocaleDateString('es-CL', {
       day: 'numeric',
       month: 'short',
-      year: 'numeric'
+      year: 'numeric',
     });
   };
 
@@ -148,12 +150,16 @@ export const SubstanceExpenseScreen: React.FC = () => {
         colors={[theme.colors.primary + '10', theme.colors.background]}
         style={StyleSheet.absoluteFill}
       />
-      
+
       <ScrollView
         style={{ flex: 1, paddingTop: insets.top }}
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 100 }]}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.colors.primary} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.primary}
+          />
         }
       >
         <View style={styles.header}>
@@ -169,7 +175,9 @@ export const SubstanceExpenseScreen: React.FC = () => {
             <View style={[styles.iconCircle, { backgroundColor: theme.colors.error + '15' }]}>
               <Icon name="wallet-outline" size={24} color={theme.colors.error} />
             </View>
-            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Total Gastado</Text>
+            <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
+              Total Gastado
+            </Text>
           </View>
           <Text style={[styles.summaryValue, { color: theme.colors.text }]}>
             {formatCurrency(totalSpent)}
@@ -181,9 +189,9 @@ export const SubstanceExpenseScreen: React.FC = () => {
 
         {/* Botón para Mostrar Formulario */}
         {!showForm && (
-          <Button 
-            title="Registrar un Nuevo Gasto" 
-            variant="primary" 
+          <Button
+            title="Registrar un Nuevo Gasto"
+            variant="primary"
             onPress={() => setShowForm(true)}
             icon={<Icon name="add-circle-outline" size={20} color="white" />}
           />
@@ -200,9 +208,18 @@ export const SubstanceExpenseScreen: React.FC = () => {
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Monto (Pesos Chilenos)</Text>
-              <View style={[styles.inputContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
-                <Text style={[styles.currencyPrefix, { color: theme.colors.textSecondary }]}>$</Text>
+              <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>
+                Monto (Pesos Chilenos)
+              </Text>
+              <View
+                style={[
+                  styles.inputContainer,
+                  { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+                ]}
+              >
+                <Text style={[styles.currencyPrefix, { color: theme.colors.textSecondary }]}>
+                  $
+                </Text>
                 <TextInput
                   style={[styles.input, { color: theme.colors.text }]}
                   placeholder="Ej: 5000"
@@ -215,13 +232,19 @@ export const SubstanceExpenseScreen: React.FC = () => {
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Descripción (Opcional)</Text>
+              <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>
+                Descripción (Opcional)
+              </Text>
               <TextInput
-                style={[styles.input, styles.textArea, { 
-                  backgroundColor: theme.colors.card, 
-                  borderColor: theme.colors.border,
-                  color: theme.colors.text
-                }]}
+                style={[
+                  styles.input,
+                  styles.textArea,
+                  {
+                    backgroundColor: theme.colors.card,
+                    borderColor: theme.colors.border,
+                    color: theme.colors.text,
+                  },
+                ]}
                 placeholder="¿En qué se gastó?"
                 placeholderTextColor={theme.colors.textSecondary + '70'}
                 multiline
@@ -232,9 +255,9 @@ export const SubstanceExpenseScreen: React.FC = () => {
             </View>
 
             <View style={styles.formActions}>
-              <Button 
-                title="Guardar Registro" 
-                variant="primary" 
+              <Button
+                title="Guardar Registro"
+                variant="primary"
                 onPress={handleAddExpense}
                 loading={isSubmitting}
                 disabled={isSubmitting}
@@ -246,13 +269,25 @@ export const SubstanceExpenseScreen: React.FC = () => {
 
         {/* Listado de Gastos */}
         <View style={styles.listSection}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Historial Reciente</Text>
-          
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            Historial Reciente
+          </Text>
+
           {loading && !refreshing ? (
-            <ActivityIndicator size="large" color={theme.colors.primary} style={{ marginTop: 20 }} />
+            <ActivityIndicator
+              size="large"
+              color={theme.colors.primary}
+              style={{ marginTop: 20 }}
+            />
           ) : expenses.length > 0 ? (
             expenses.map((expense) => (
-              <View key={expense.id} style={[styles.expenseItem, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+              <View
+                key={expense.id}
+                style={[
+                  styles.expenseItem,
+                  { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+                ]}
+              >
                 <View style={styles.expenseInfo}>
                   <Text style={[styles.expenseAmount, { color: theme.colors.text }]}>
                     {formatCurrency(expense.amount)}
@@ -261,13 +296,16 @@ export const SubstanceExpenseScreen: React.FC = () => {
                     {formatDate(expense.expense_date)}
                   </Text>
                   {expense.description ? (
-                    <Text style={[styles.expenseDesc, { color: theme.colors.textSecondary }]} numberOfLines={1}>
+                    <Text
+                      style={[styles.expenseDesc, { color: theme.colors.textSecondary }]}
+                      numberOfLines={1}
+                    >
                       {expense.description}
                     </Text>
                   ) : null}
                 </View>
-                <TouchableOpacity 
-                  style={styles.deleteButton} 
+                <TouchableOpacity
+                  style={styles.deleteButton}
                   onPress={() => handleDeleteExpense(expense.id)}
                 >
                   <Icon name="trash-outline" size={20} color={theme.colors.error} />

@@ -3,8 +3,8 @@
  * Valida los campos del formulario de inicio de sesión
  */
 
-import { ValidationSchema } from '../validation';
-import { required, email, minLength } from '../validation';
+import { ValidationSchema } from '../../validation';
+import { required, email, minLength } from '../../validation';
 
 /**
  * Schema de validación para el formulario de login

@@ -4,7 +4,19 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity, RefreshControl, Modal, TextInput, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+  Modal,
+  TextInput,
+  Alert,
+} from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Card, Button } from '@components';
 import { api } from '@services/api';
@@ -22,11 +34,11 @@ interface Patient {
     checkin_date: string;
     emotional_tags: string[];
   };
-  streaks?: Array<{
+  streaks?: {
     streak_type: string;
     current_streak: number;
     longest_streak: number;
-  }>;
+  }[];
   active_cravings: number;
 }
 
@@ -35,7 +47,7 @@ export const FamilyDashboardScreen: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  
+
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [messageModalVisible, setMessageModalVisible] = useState(false);
   const [messageText, setMessageText] = useState('');
@@ -60,9 +72,9 @@ export const FamilyDashboardScreen: React.FC = () => {
     setSending(true);
     try {
       const response = await api.post(`/family/patients/${selectedPatient.id}/message`, {
-        message: messageText.trim()
+        message: messageText.trim(),
       });
-      
+
       if (response && (response as any).success) {
         Alert.alert('Éxito', 'Mensaje enviado correctamente');
         setMessageModalVisible(false);
@@ -102,10 +114,10 @@ export const FamilyDashboardScreen: React.FC = () => {
     <Card variant="elevated" padding="md" style={styles.patientCard}>
       <View style={styles.patientHeader}>
         <View style={styles.patientInfo}>
-          <Text style={[styles.patientName, { color: theme.colors.text }]}>
-            {item.name}
-          </Text>
-          <View style={[styles.riskBadge, { backgroundColor: getRiskColor(item.risk_level) + '20' }]}>
+          <Text style={[styles.patientName, { color: theme.colors.text }]}>{item.name}</Text>
+          <View
+            style={[styles.riskBadge, { backgroundColor: getRiskColor(item.risk_level) + '20' }]}
+          >
             <Text style={[styles.riskText, { color: getRiskColor(item.risk_level) }]}>
               {item.risk_level || 'bajo'} riesgo
             </Text>
@@ -124,19 +136,25 @@ export const FamilyDashboardScreen: React.FC = () => {
               <Text style={[styles.checkinValue, { color: theme.colors.primary }]}>
                 {item.last_checkin.mood_score || '-'}
               </Text>
-              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>Ánimo</Text>
+              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>
+                Ánimo
+              </Text>
             </View>
             <View style={styles.checkinStat}>
               <Text style={[styles.checkinValue, { color: theme.colors.warning }]}>
                 {item.last_checkin.anxiety_score || '-'}
               </Text>
-              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>Ansiedad</Text>
+              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>
+                Ansiedad
+              </Text>
             </View>
             <View style={styles.checkinStat}>
               <Text style={[styles.checkinValue, { color: theme.colors.secondary }]}>
                 {item.last_checkin.energy_score || '-'}
               </Text>
-              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>Energía</Text>
+              <Text style={[styles.checkinLabel, { color: theme.colors.textSecondary }]}>
+                Energía
+              </Text>
             </View>
           </View>
         </View>
@@ -147,7 +165,7 @@ export const FamilyDashboardScreen: React.FC = () => {
         <View style={styles.streaksRow}>
           <View style={styles.streakItem}>
             <Text style={[styles.streakValue, { color: theme.colors.primary }]}>
-              {item.streaks.find(s => s.streak_type === 'checkin_completed')?.current_streak || 0}
+              {item.streaks.find((s) => s.streak_type === 'checkin_completed')?.current_streak || 0}
             </Text>
             <Text style={[styles.streakLabel, { color: theme.colors.textSecondary }]}>
               Días seguidos
@@ -176,12 +194,7 @@ export const FamilyDashboardScreen: React.FC = () => {
             setMessageModalVisible(true);
           }}
         />
-        <Button
-          variant="secondary"
-          size="sm"
-          title="📊 Ver progreso"
-          onPress={() => {}}
-        />
+        <Button variant="secondary" size="sm" title="📊 Ver progreso" onPress={() => {}} />
       </View>
     </Card>
   );
@@ -189,9 +202,7 @@ export const FamilyDashboardScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: theme.colors.background }]}>
-        <Text style={[styles.loadingText, { color: theme.colors.textSecondary }]}>
-          Cargando...
-        </Text>
+        <Text style={[styles.loadingText, { color: theme.colors.textSecondary }]}>Cargando...</Text>
       </View>
     );
   }
@@ -200,15 +211,11 @@ export const FamilyDashboardScreen: React.FC = () => {
     <ScrollView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
       contentContainerStyle={styles.content}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     >
       {/* Header */}
       <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>
-          👨‍👩‍👧 Dashboard Familiar
-        </Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>👨‍👩‍👧 Dashboard Familiar</Text>
         <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
           Seguimiento de tus seres queridos
         </Text>
@@ -216,9 +223,7 @@ export const FamilyDashboardScreen: React.FC = () => {
 
       {/* Resumen */}
       <Card variant="elevated" padding="md" style={styles.summaryCard}>
-        <Text style={[styles.summaryTitle, { color: theme.colors.text }]}>
-          Resumen
-        </Text>
+        <Text style={[styles.summaryTitle, { color: theme.colors.text }]}>Resumen</Text>
         <View style={styles.summaryRow}>
           <View style={styles.summaryItem}>
             <Text style={[styles.summaryValue, { color: theme.colors.primary }]}>
@@ -230,7 +235,7 @@ export const FamilyDashboardScreen: React.FC = () => {
           </View>
           <View style={styles.summaryItem}>
             <Text style={[styles.summaryValue, { color: theme.colors.success }]}>
-              {patients.filter(p => p.risk_level === 'bajo').length}
+              {patients.filter((p) => p.risk_level === 'bajo').length}
             </Text>
             <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
               Riesgo bajo
@@ -238,7 +243,7 @@ export const FamilyDashboardScreen: React.FC = () => {
           </View>
           <View style={styles.summaryItem}>
             <Text style={[styles.summaryValue, { color: theme.colors.warning }]}>
-              {patients.filter(p => p.active_cravings > 0).length}
+              {patients.filter((p) => p.active_cravings > 0).length}
             </Text>
             <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>
               Con cravings
@@ -269,17 +274,13 @@ export const FamilyDashboardScreen: React.FC = () => {
 
       {/* Botón de ayuda */}
       <Card variant="outlined" padding="md" style={styles.helpCard}>
-        <Text style={[styles.helpTitle, { color: theme.colors.text }]}>
-          💚 ¿Necesitas apoyo?
-        </Text>
+        <Text style={[styles.helpTitle, { color: theme.colors.text }]}>💚 ¿Necesitas apoyo?</Text>
         <Text style={[styles.helpText, { color: theme.colors.textSecondary }]}>
           Si tu ser querido está pasando por un momento difícil, recuerda que puedes:
         </Text>
         <Text style={[styles.helpBullet, { color: theme.colors.textSecondary }]}>
-          • Ofrecer apoyo sin juzgar{'\n'}
-          • Escuchar activamente{'\n'}
-          • Invitarlo a hablar con NADA{'\n'}
-          • Contactar a profesionales si es necesario
+          • Ofrecer apoyo sin juzgar{'\n'}• Escuchar activamente{'\n'}• Invitarlo a hablar con NADA
+          {'\n'}• Contactar a profesionales si es necesario
         </Text>
       </Card>
 
@@ -290,32 +291,27 @@ export const FamilyDashboardScreen: React.FC = () => {
         animationType="slide"
         onRequestClose={() => setMessageModalVisible(false)}
       >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
           onPress={() => setMessageModalVisible(false)}
         >
-          <View 
-            style={[
-              styles.modalContent, 
-              { backgroundColor: theme.colors.background }
-            ]}
-          >
+          <View style={[styles.modalContent, { backgroundColor: theme.colors.background }]}>
             <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
               Enviar mensaje a {selectedPatient?.name}
             </Text>
             <Text style={[styles.modalSubtitle, { color: theme.colors.textSecondary }]}>
               Tu mensaje aparecerá en su pared compartida.
             </Text>
-            
+
             <TextInput
               style={[
-                styles.messageInput, 
-                { 
-                  color: theme.colors.text, 
+                styles.messageInput,
+                {
+                  color: theme.colors.text,
                   backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border
-                }
+                  borderColor: theme.colors.border,
+                },
               ]}
               placeholder="Escribe algo alentador..."
               placeholderTextColor={theme.colors.textSecondary}
@@ -324,7 +320,7 @@ export const FamilyDashboardScreen: React.FC = () => {
               onChangeText={setMessageText}
               autoFocus
             />
-            
+
             <View style={styles.modalActions}>
               <Button
                 variant="outline"
@@ -334,7 +330,7 @@ export const FamilyDashboardScreen: React.FC = () => {
               />
               <Button
                 variant="primary"
-                title={sending ? "Enviando..." : "Enviar"}
+                title={sending ? 'Enviando...' : 'Enviar'}
                 onPress={handleSendMessage}
                 disabled={sending || !messageText.trim()}
                 style={{ flex: 1 }}

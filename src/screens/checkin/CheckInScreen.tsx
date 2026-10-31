@@ -5,7 +5,7 @@
  * Se implementará completamente en el sprint correspondiente.
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,24 +14,22 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
-  FlatList,
   Modal,
   Alert,
   Platform,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from '@expo/vector-icons/Ionicons';
+import Markdown from 'react-native-markdown-display';
+
 import { MainTabNavigationProp } from '@navigation/types';
 import { useTheme } from '@theme/ThemeContext';
 import { Button, Card, Slider, Input, Header } from '@components';
-import { checkinStore } from '@store/checkinStore';
-import { useAuth } from '@hooks/useAuth';
 import { api } from '@services/api';
+import { JOURNAL_ENDPOINTS } from '@services/endpoints';
+
 import { ApiResponse } from '../../types/api';
-import { JOURNAL_ENDPOINTS, CHECKIN_ENDPOINTS } from '@services/endpoints';
-import Icon from '@expo/vector-icons/Ionicons';
-import Markdown from 'react-native-markdown-display';
 
 // Tipo para las entradas del feed unificado
 interface FeedEntry {
@@ -149,7 +147,6 @@ export const CheckInScreen: React.FC = () => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<MainTabNavigationProp>();
-  const { user } = useAuth();
 
   const [viewMode, setViewMode] = useState<
     'calendar' | 'form' | 'notes' | 'activity' | 'analysis' | 'social' | 'habits' | 'craving'
@@ -157,10 +154,10 @@ export const CheckInScreen: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const [dayData, setDayData] = useState<any>(null);
+  const [, setDayData] = useState<any>(null);
   const [monthCheckIns, setMonthCheckIns] = useState<string[]>([]); // Array de fechas YYYY-MM-DD
   const [stats, setStats] = useState<any>(null);
-  const [loadingDay, setLoadingDay] = useState(false);
+  const [, setLoadingDay] = useState(false);
   const [feedData, setFeedData] = useState<FeedEntry[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(false);
   const [showMonthCalendar, setShowMonthCalendar] = useState(false);
@@ -443,7 +440,7 @@ export const CheckInScreen: React.FC = () => {
       } else {
         setDayData(null);
       }
-    } catch (error) {
+    } catch {
       setDayData(null);
     } finally {
       setLoadingDay(false);
@@ -1190,9 +1187,7 @@ export const CheckInScreen: React.FC = () => {
                       ✓ Resistido
                     </Text>
                   ) : (
-                    <Text style={{ color: theme.colors.error, fontWeight: '700' }}>
-                      ⚠ Cedido
-                    </Text>
+                    <Text style={{ color: theme.colors.error, fontWeight: '700' }}>⚠ Cedido</Text>
                   )}
                 </Text>
               </View>
@@ -1398,12 +1393,11 @@ export const CheckInScreen: React.FC = () => {
   const renderCalendar = () => {
     const days = generateMonthDays(currentMonth);
     const monthName = currentMonth.toLocaleDateString('es-CL', { month: 'long', year: 'numeric' });
-    const formattedSelectedDate =
-      (selectedDate || new Date()).toLocaleDateString('es-CL', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-      });
+    const formattedSelectedDate = (selectedDate || new Date()).toLocaleDateString('es-CL', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
 
     return (
       <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -1428,7 +1422,9 @@ export const CheckInScreen: React.FC = () => {
               ]}
             >
               <View style={styles.dateSelectorContent}>
-                <View style={[styles.dateIconCircle, { backgroundColor: theme.colors.primary + '15' }]}>
+                <View
+                  style={[styles.dateIconCircle, { backgroundColor: theme.colors.primary + '15' }]}
+                >
                   <Icon name="calendar" size={24} color={theme.colors.primary} />
                 </View>
                 <View style={{ flex: 1 }}>
@@ -1478,7 +1474,8 @@ export const CheckInScreen: React.FC = () => {
 
                   const dateStr = getLocalDateString(d);
                   const isToday = d.toDateString() === new Date().toDateString();
-                  const isSelected = selectedDate && d.toDateString() === selectedDate.toDateString();
+                  const isSelected =
+                    selectedDate && d.toDateString() === selectedDate.toDateString();
                   const hasCheckIn = monthCheckIns.includes(dateStr);
 
                   return (
@@ -1498,7 +1495,8 @@ export const CheckInScreen: React.FC = () => {
                         style={[
                           styles.dayText,
                           { color: isSelected ? 'white' : theme.colors.text },
-                          isToday && !isSelected && { color: theme.colors.primary, fontWeight: 'bold' },
+                          isToday &&
+                            !isSelected && { color: theme.colors.primary, fontWeight: 'bold' },
                         ]}
                       >
                         {d.getDate()}
@@ -2086,7 +2084,9 @@ export const CheckInScreen: React.FC = () => {
                 placeholder="Ej. Estrés en el trabajo, reunión familiar, ansiedad... Separados por comas"
               />
               <View style={{ height: 24 }} />
-              <Text style={[styles.subTitle, { color: theme.colors.textSecondary, marginBottom: 12 }]}>
+              <Text
+                style={[styles.subTitle, { color: theme.colors.textSecondary, marginBottom: 12 }]}
+              >
                 ¿Cuál fue el desenlace?
               </Text>
               <View style={{ flexDirection: 'row', gap: 12 }}>
@@ -2098,7 +2098,9 @@ export const CheckInScreen: React.FC = () => {
                     padding: 18,
                     borderRadius: 20,
                     backgroundColor:
-                      cravingStatus === 'resisted' ? theme.colors.success + '20' : theme.colors.surface,
+                      cravingStatus === 'resisted'
+                        ? theme.colors.success + '20'
+                        : theme.colors.surface,
                     borderWidth: 2,
                     borderColor:
                       cravingStatus === 'resisted' ? theme.colors.success : 'transparent',
@@ -2111,13 +2113,18 @@ export const CheckInScreen: React.FC = () => {
                   <Icon
                     name="shield-checkmark"
                     size={22}
-                    color={cravingStatus === 'resisted' ? theme.colors.success : theme.colors.textSecondary}
+                    color={
+                      cravingStatus === 'resisted'
+                        ? theme.colors.success
+                        : theme.colors.textSecondary
+                    }
                   />
                   <Text
                     style={{
                       fontWeight: '700',
                       fontSize: 16,
-                      color: cravingStatus === 'resisted' ? theme.colors.success : theme.colors.text,
+                      color:
+                        cravingStatus === 'resisted' ? theme.colors.success : theme.colors.text,
                     }}
                   >
                     Resistido
@@ -2132,7 +2139,9 @@ export const CheckInScreen: React.FC = () => {
                     padding: 18,
                     borderRadius: 20,
                     backgroundColor:
-                      cravingStatus === 'given_in' ? theme.colors.error + '20' : theme.colors.surface,
+                      cravingStatus === 'given_in'
+                        ? theme.colors.error + '20'
+                        : theme.colors.surface,
                     borderWidth: 2,
                     borderColor: cravingStatus === 'given_in' ? theme.colors.error : 'transparent',
                     alignItems: 'center',
@@ -2144,7 +2153,9 @@ export const CheckInScreen: React.FC = () => {
                   <Icon
                     name="alert-circle"
                     size={22}
-                    color={cravingStatus === 'given_in' ? theme.colors.error : theme.colors.textSecondary}
+                    color={
+                      cravingStatus === 'given_in' ? theme.colors.error : theme.colors.textSecondary
+                    }
                   />
                   <Text
                     style={{
@@ -2790,7 +2801,15 @@ export const CheckInScreen: React.FC = () => {
             />
           </View>
         )}
-        <View style={{ flexDirection: 'row', gap: 12, marginTop: 40, marginBottom: 40, paddingHorizontal: 20 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 12,
+            marginTop: 40,
+            marginBottom: 40,
+            paddingHorizontal: 20,
+          }}
+        >
           {step > 0 && (
             <Button
               title="Atrás"
@@ -2891,7 +2910,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginTop: 6,
     borderLeftWidth: 3,
-    borderLeftColor: '#4ECDC4',
+    borderLeftColor: 'rgba(142,173,145,0.55)',
     paddingLeft: 12,
   },
   dotIndicator: {
@@ -3057,7 +3076,7 @@ const styles = StyleSheet.create({
   },
   progressBarContainer: {
     height: 6,
-    backgroundColor: '#eee',
+    backgroundColor: 'rgba(120,120,120,0.22)',
     width: '100%',
   },
   progressBar: {
@@ -3381,7 +3400,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingLeft: 8,
     borderLeftWidth: 3,
-    borderLeftColor: '#8E8E93',
+    borderLeftColor: 'rgba(120,120,120,0.3)',
   },
   feelingText: {
     fontSize: 14,

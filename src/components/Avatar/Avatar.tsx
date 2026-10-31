@@ -13,7 +13,7 @@
  *   name="Juan Pérez"
  *   size="lg"
  * />
- * 
+ *
  * <Avatar
  *   name="María González"
  *   size="md"
@@ -21,14 +21,8 @@
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { View, Text, Image, ViewStyle, TextStyle, ImageStyle } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -57,13 +51,7 @@ const FONT_SIZE_MAP: Record<AvatarSize, number> = {
   xl: 40,
 };
 
-export const Avatar: React.FC<AvatarProps> = ({
-  uri,
-  name,
-  size = 'md',
-  style,
-  textStyle,
-}) => {
+export const Avatar: React.FC<AvatarProps> = ({ uri, name, size = 'md', style, textStyle }) => {
   const { theme } = useTheme();
 
   // Obtener las iniciales del nombre
@@ -78,13 +66,13 @@ export const Avatar: React.FC<AvatarProps> = ({
   // Generar un color de fondo basado en el nombre
   const getBackgroundColor = (name?: string): string => {
     if (!name) return theme.colors.primary;
-    
+
     // Generar un hash simple del nombre
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     // Colores pasteles agradables
     const colors = [
       '#4A90E2', // Azul
@@ -96,7 +84,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       '#FFB74D', // Amber
       '#BA68C8', // Purple
     ];
-    
+
     return colors[Math.abs(hash) % colors.length];
   };
 
@@ -115,7 +103,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     };
   };
 
-  const getImageStyle = (): ViewStyle => {
+  const getImageStyle = (): ImageStyle => {
     return {
       width: dimension,
       height: dimension,
@@ -144,14 +132,10 @@ export const Avatar: React.FC<AvatarProps> = ({
           accessibilityLabel={name ? `Imagen de ${name}` : 'Avatar'}
         />
       ) : (
-        <Text style={[getTextStyle(), textStyle]}>
-          {name ? getInitials(name) : '?'}
-        </Text>
+        <Text style={[getTextStyle(), textStyle]}>{name ? getInitials(name) : '?'}</Text>
       )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  // Estilos adicionales si son necesarios
-});
+// Sin estilos adicionales por ahora

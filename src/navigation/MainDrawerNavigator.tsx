@@ -10,19 +10,10 @@
 
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useTheme } from '@theme/ThemeContext';
-import {
-  MainTabParamList,
-  ProfileStackParamList,
-  CheckInStackParamList,
-  NotesStackParamList,
-} from './types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Platform } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
-// Importar pantallas
+import { useTheme } from '@theme/ThemeContext';
 import {
   DashboardScreen,
   CheckInScreen,
@@ -36,8 +27,15 @@ import {
   ProgressScreen,
   SubstanceExpenseScreen,
   SubstanceDoseScreen,
+  ClinicalDataConsentScreen,
 } from '@screens';
-import { ClinicalDataConsentScreen } from '@screens';
+
+import {
+  MainTabParamList,
+  ProfileStackParamList,
+  CheckInStackParamList,
+  NotesStackParamList,
+} from './types';
 
 const Drawer = createDrawerNavigator<MainTabParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
@@ -86,8 +84,6 @@ const ProfileNavigator: React.FC = () => {
  * Navegador de Notas (Stack)
  */
 const NotesNavigator: React.FC = () => {
-  const { theme } = useTheme();
-
   return (
     <NotesStack.Navigator
       screenOptions={{
@@ -112,8 +108,6 @@ const CheckInStack = createNativeStackNavigator<CheckInStackParamList>();
  * Navegador de Bitácora (Stack)
  */
 const CheckInNavigator: React.FC = () => {
-  const { theme } = useTheme();
-
   return (
     <CheckInStack.Navigator
       screenOptions={{

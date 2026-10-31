@@ -16,14 +16,8 @@
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface CheckboxProps {
@@ -73,10 +67,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       borderColor: disabled
         ? theme.colors.border
         : checked
-        ? theme.colors.primary
-        : error
-        ? theme.colors.error
-        : theme.colors.textSecondary,
+          ? theme.colors.primary
+          : error
+            ? theme.colors.error
+            : theme.colors.textSecondary,
       backgroundColor: checked ? theme.colors.primary : 'transparent',
       alignItems: 'center',
       justifyContent: 'center',

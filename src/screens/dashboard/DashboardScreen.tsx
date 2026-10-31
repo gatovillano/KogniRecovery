@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,17 +14,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useCallback, useRef } from 'react';
+import Icon from '@expo/vector-icons/Ionicons';
+import { BarChart, LineChart } from 'react-native-chart-kit';
+
 import { useMotivationalGreeting } from '@hooks/useMotivationalGreeting';
 import { useTheme } from '@theme/ThemeContext';
-import { Card, Button, Header } from '@components';
+import { Card, Button } from '@components';
 import { useCheckIn } from '@hooks/useCheckIn';
 import { api } from '@services/api';
 import { MainTabNavigationProp } from '@navigation/types';
-import { DashboardData, ApiResponse } from '../../types/api';
 import { JOURNAL_ENDPOINTS, SOS_CONFIG } from '@services/endpoints';
-import Icon from '@expo/vector-icons/Ionicons';
 import { NumaMark } from '@components/NumaLogo';
-import { BarChart, LineChart } from 'react-native-chart-kit';
+
+import { DashboardData, ApiResponse } from '../../types/api';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -57,9 +59,6 @@ export const DashboardScreen: React.FC = () => {
   const {
     todayCheckIn,
     checkIns,
-    stats,
-    streaks,
-    hasCheckedInToday,
     getCurrentStreak,
     loadTodayCheckIn,
     loadCheckIns,
@@ -71,12 +70,11 @@ export const DashboardScreen: React.FC = () => {
   const [feedData, setFeedData] = useState<FeedEntry[]>([]);
   const [habitsStatus, setHabitsStatus] = useState<any[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(false);
-  const [loadingHabits, setLoadingHabits] = useState(false);
+  const [, setLoadingHabits] = useState(false);
   const [totalSpent, setTotalSpent] = useState<number | null>(null);
   const {
     text: greetingText,
     isStreaming: greetingStreaming,
-    done: greetingDone,
     fetchGreeting,
   } = useMotivationalGreeting();
 
@@ -298,18 +296,24 @@ export const DashboardScreen: React.FC = () => {
         {/* HEADER SEGÚN MOCKUP */}
         <View style={styles.mockupHeader}>
           <View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}><NumaMark size={32} /><View><Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
-              {new Date().getHours() < 12 ? 'Buenos días,' : 'Buenas tardes,'}
-            </Text>
-            <Text style={[styles.userName, { color: theme.colors.text }]}>
-              {dashboardData?.profile?.first_name || 'Amigx'}
-            </Text></View></View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Profile')}
-            style={[styles.avatarContainer, { backgroundColor: theme.colors.accent + '35' }]}
-          >
-            <Icon name="person-outline" size={22} color={theme.colors.primary} />
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <NumaMark size={32} />
+              <View>
+                <Text style={[styles.greetingLabel, { color: theme.colors.textSecondary }]}>
+                  {new Date().getHours() < 12 ? 'Buenos días,' : 'Buenas tardes,'}
+                </Text>
+                <Text style={[styles.userName, { color: theme.colors.text }]}>
+                  {dashboardData?.profile?.first_name || 'Amigx'}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Profile')}
+              style={[styles.avatarContainer, { backgroundColor: theme.colors.accent + '35' }]}
+            >
+              <Icon name="person-outline" size={22} color={theme.colors.primary} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* HERO: DÍAS SIN CONSUMO (RACHA) - ESTILIZADO Y ANIMADO */}

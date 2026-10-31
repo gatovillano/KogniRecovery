@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
 import Icon from '@expo/vector-icons/Ionicons';
+
+import { useTheme } from '@theme/ThemeContext';
+
 import { NumaMark } from '../NumaLogo';
 
 export interface HeaderProps {
@@ -60,11 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         <View style={styles.headerActions}>
           {onAction2 && (
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={onAction2}
-              activeOpacity={0.6}
-            >
+            <TouchableOpacity style={styles.actionButton} onPress={onAction2} activeOpacity={0.6}>
               <Icon
                 name={action2Icon as any}
                 size={22}
@@ -73,11 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
             </TouchableOpacity>
           )}
           {onAction && (
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={onAction}
-              activeOpacity={0.6}
-            >
+            <TouchableOpacity style={styles.actionButton} onPress={onAction} activeOpacity={0.6}>
               <Icon
                 name={actionIcon as any}
                 size={22}

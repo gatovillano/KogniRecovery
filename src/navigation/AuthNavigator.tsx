@@ -7,11 +7,13 @@
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import { useTheme } from '@theme/ThemeContext';
+import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from '@screens';
+
 import { AuthStackParamList } from './types';
 
 // Importar pantallas
-import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from '@screens';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
@@ -45,10 +47,7 @@ export const AuthNavigator: React.FC = () => {
   const screenOptions = getScreenOptions(theme);
 
   return (
-    <Stack.Navigator
-      initialRouteName="Login"
-      screenOptions={screenOptions}
-    >
+    <Stack.Navigator initialRouteName="Login" screenOptions={screenOptions}>
       <Stack.Screen
         name="Login"
         component={LoginScreen}

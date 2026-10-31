@@ -2,10 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ThemeProvider } from '@theme/ThemeContext';
-import { NavigationContainer, NavigationContainerRef, CommonActions } from '@react-navigation/native';
-import { RootNavigator } from '@navigation/RootNavigator';
+import {
+  NavigationContainer,
+  NavigationContainerRef,
+  CommonActions,
+} from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
+
+import { ThemeProvider } from '@theme/ThemeContext';
+import { RootNavigator } from '@navigation/RootNavigator';
 import { configureNotificationHandler } from '@services/notificationService';
 
 // Configurar el handler de notificaciones ANTES de que la app se monte
@@ -25,16 +30,12 @@ export default function App() {
 
   useEffect(() => {
     // Cuando el usuario toca la notificación → navegar a la pantalla de medicamentos
-    const subscription = Notifications.addNotificationResponseReceivedListener(
-      response => {
-        const data = response.notification.request.content.data;
-        if (data?.type === 'medication_reminder' && navigationRef.current) {
-          navigationRef.current.dispatch(
-            CommonActions.navigate({ name: 'Medications' })
-          );
-        }
+    const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      const data = response.notification.request.content.data;
+      if (data?.type === 'medication_reminder' && navigationRef.current) {
+        navigationRef.current.dispatch(CommonActions.navigate({ name: 'Medications' }));
       }
-    );
+    });
     return () => subscription.remove();
   }, []);
 

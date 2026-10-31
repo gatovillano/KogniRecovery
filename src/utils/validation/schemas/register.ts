@@ -3,8 +3,8 @@
  * Valida los campos del formulario de registro de usuario
  */
 
-import { ValidationSchema } from '../validation';
-import { required, email, password, minLength, maxLength, equals, composeValidators } from '../validation';
+import { ValidationSchema } from '../../validation';
+import { required, email, password, minLength, maxLength, equals } from '../../validation';
 
 /**
  * Schema de validación para el formulario de registro

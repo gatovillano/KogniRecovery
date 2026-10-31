@@ -27,6 +27,7 @@ import {
   ScrollView,
   Animated,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface DatePickerProps {
@@ -46,8 +47,18 @@ export interface DatePickerProps {
 const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
 // Meses del año
 const MONTHS = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
 ];
 // Años desde 1900 hasta el año actual
 const getYears = (minYear: number = 1900) => {
@@ -65,7 +76,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   minimumDate,
   maximumDate = new Date(),
   style,
-  labelStyle,
+  labelStyle: _labelStyle,
 }) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -101,17 +112,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const handleConfirm = () => {
     const newDate = new Date(selectedYear, selectedMonth, selectedDay);
-    
+
     // Validar mínimo
     if (minimumDate && newDate < minimumDate) {
       return;
     }
-    
+
     // Validar máximo
     if (maximumDate && newDate > maximumDate) {
       return;
     }
-    
+
     onChange(newDate);
     closePicker();
   };
@@ -153,8 +164,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       borderColor: error
         ? theme.colors.error
         : disabled
-        ? theme.colors.border
-        : theme.colors.border,
+          ? theme.colors.border
+          : theme.colors.border,
       borderRadius: theme.borderRadius.md,
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.md,
@@ -201,25 +212,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         accessibilityState={{ disabled }}
         style={getInputContainerStyle()}
       >
-        <Text style={getInputTextStyle()}>
-          {value ? formatDate(value) : placeholder}
-        </Text>
+        <Text style={getInputTextStyle()}>{value ? formatDate(value) : placeholder}</Text>
         <Text style={{ color: theme.colors.textSecondary, fontSize: 18 }}>📅</Text>
       </TouchableOpacity>
       {error && <Text style={getErrorStyle()}>{error}</Text>}
 
       <Modal visible={isOpen} transparent animationType="none" onRequestClose={closePicker}>
-        <Animated.View
-          style={[
-            styles.modalOverlay,
-            { opacity: backdropOpacity },
-          ]}
-        >
-          <TouchableOpacity
-            style={styles.overlayTouch}
-            onPress={closePicker}
-            activeOpacity={1}
-          />
+        <Animated.View style={[styles.modalOverlay, { opacity: backdropOpacity }]}>
+          <TouchableOpacity style={styles.overlayTouch} onPress={closePicker} activeOpacity={1} />
         </Animated.View>
         <Animated.View
           style={[
@@ -247,8 +247,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                     style={[
                       styles.pickerItem,
                       {
-                        backgroundColor:
-                          day === selectedDay ? theme.colors.primary : 'transparent',
+                        backgroundColor: day === selectedDay ? theme.colors.primary : 'transparent',
                       },
                     ]}
                   >
@@ -256,8 +255,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                       style={[
                         styles.pickerItemText,
                         {
-                          color:
-                            day === selectedDay ? theme.colors.textInverse : theme.colors.text,
+                          color: day === selectedDay ? theme.colors.textInverse : theme.colors.text,
                         },
                       ]}
                     >
@@ -336,23 +334,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           <View style={styles.buttonRow}>
             <TouchableOpacity
               onPress={closePicker}
-              style={[
-                styles.button,
-                { borderColor: theme.colors.border, borderWidth: 1 },
-              ]}
+              style={[styles.button, { borderColor: theme.colors.border, borderWidth: 1 }]}
             >
               <Text style={{ color: theme.colors.text }}>Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleConfirm}
-              style={[
-                styles.button,
-                { backgroundColor: theme.colors.primary },
-              ]}
+              style={[styles.button, { backgroundColor: theme.colors.primary }]}
             >
-              <Text style={{ color: theme.colors.textInverse, fontWeight: '600' }}>
-                Confirmar
-              </Text>
+              <Text style={{ color: theme.colors.textInverse, fontWeight: '600' }}>Confirmar</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>

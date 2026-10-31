@@ -1,7 +1,7 @@
 /**
  * Validadores reutilizables para formularios - KogniRecovery
  * Sistema de validación de formularios con mensajes en español
- * 
+ *
  * Validadores incluidos:
  * - email: Valida formato de email
  * - password: Valida contraseña (mínimo 8 caracteres, mayúscula, número)
@@ -135,7 +135,7 @@ export const email = (message?: string): ValidatorFunction => {
 
     // Regex más completo para validación de email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
+
     if (!emailRegex.test(value)) {
       return {
         isValid: false,
@@ -234,11 +234,11 @@ export const phone = (message?: string): ValidatorFunction => {
 
     // Eliminar espacios y guiones para validar
     const cleanPhone = value.replace(/[\s\-\(\)]/g, '');
-    
+
     // Regex para teléfonos internacionales (con o sin +)
     // Acepta: +5491112345678, 5491112345678, 1112345678, etc.
     const phoneRegex = /^\+?[1-9]\d{6,14}$/;
-    
+
     if (!phoneRegex.test(cleanPhone)) {
       return {
         isValid: false,
@@ -270,7 +270,7 @@ export const date = (
 
     // Intentar parsear la fecha
     const dateObj = new Date(value);
-    
+
     if (isNaN(dateObj.getTime())) {
       return {
         isValid: false,
@@ -326,9 +326,7 @@ export const country = (message?: string): ValidatorFunction => {
       return { isValid: true }; // No es requerido
     }
 
-    const isValidCountry = COUNTRIES.some(
-      (c) => c.toLowerCase() === value.toLowerCase()
-    );
+    const isValidCountry = COUNTRIES.some((c) => c.toLowerCase() === value.toLowerCase());
 
     if (!isValidCountry) {
       return {
@@ -451,11 +449,7 @@ export const integer = (message?: string): ValidatorFunction => {
 /**
  * Validador de rango numérico
  */
-export const range = (
-  min: number,
-  max: number,
-  message?: string
-): ValidatorFunction => {
+export const range = (min: number, max: number, message?: string): ValidatorFunction => {
   return (value: string | undefined): ValidationResult => {
     if (!value || value.trim() === '') {
       return { isValid: true }; // No es requerido
@@ -465,7 +459,9 @@ export const range = (
     if (isNaN(num) || num < min || num > max) {
       return {
         isValid: false,
-        error: message || DEFAULT_MESSAGES.range.replace('{min}', String(min)).replace('{max}', String(max)),
+        error:
+          message ||
+          DEFAULT_MESSAGES.range.replace('{min}', String(min)).replace('{max}', String(max)),
       };
     }
     return { isValid: true };
@@ -475,10 +471,7 @@ export const range = (
 /**
  * Validador de patrón (regex personalizado)
  */
-export const pattern = (
-  regex: RegExp,
-  message?: string
-): ValidatorFunction => {
+export const pattern = (regex: RegExp, message?: string): ValidatorFunction => {
   return (value: string | undefined): ValidationResult => {
     if (!value || value.trim() === '') {
       return { isValid: true }; // No es requerido
@@ -560,7 +553,7 @@ export const validateForm = (
 
   for (const field of schema.fields) {
     const value = values[field.name];
-    
+
     for (const validator of field.validators) {
       const result = validator(value, values);
       if (!result.isValid && result.error) {

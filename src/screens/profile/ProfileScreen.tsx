@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Icon from '@expo/vector-icons/Ionicons';
+
 import { useTheme } from '@theme/ThemeContext';
 import { Button } from '@components';
 import { authStore } from '@store/authStore';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ProfileStackParamList } from '@navigation/types';
-import Icon from '@expo/vector-icons/Ionicons';
 import { NumaMark } from '@components/NumaLogo';
 
 export const ProfileScreen: React.FC = () => {
@@ -22,7 +23,11 @@ export const ProfileScreen: React.FC = () => {
   };
 
   const menuItems = [
-    { icon: 'document-text-outline' as const, label: 'Mis notas', onPress: () => navigation.navigate('NotesHome') },
+    {
+      icon: 'document-text-outline' as const,
+      label: 'Mis notas',
+      onPress: () => navigation.navigate('NotesHome'),
+    },
     {
       icon: 'hardware-chip-outline' as const,
       label: 'Motor de Inteligencia LÚA',
@@ -33,7 +38,11 @@ export const ProfileScreen: React.FC = () => {
       label: 'Memoria de LÚA (Insights)',
       onPress: () => navigation.navigate('IntelligenceProfile'),
     },
-    { icon: 'notifications-outline' as const, label: 'Alertas y contactos de apoyo', onPress: () => navigation.navigate('EmergencySettings') },
+    {
+      icon: 'notifications-outline' as const,
+      label: 'Alertas y contactos de apoyo',
+      onPress: () => navigation.navigate('EmergencySettings'),
+    },
     {
       icon: 'shield-checkmark-outline' as const,
       label: 'Privacidad y Seguridad',
@@ -54,7 +63,7 @@ export const ProfileScreen: React.FC = () => {
     >
       {/* Hero Header */}
       <LinearGradient
-        colors={theme.gradients.hero}
+        colors={theme.gradients.hero as [string, string]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={[styles.heroHeader, { paddingTop: insets.top + 24 }]}
@@ -66,13 +75,13 @@ export const ProfileScreen: React.FC = () => {
               <View style={styles.avatarGlow}>
                 <View style={styles.avatar}>
                   <Text style={styles.avatarText}>
-                    {user.profile?.firstName?.[0] || user.email[0].toUpperCase()}
+                    {(user.name || user.firstName || user.email)[0].toUpperCase()}
                   </Text>
                 </View>
               </View>
             </View>
             <Text style={styles.userName}>
-              {user.profile?.firstName} {user.profile?.lastName}
+              {user.name || [user.firstName, user.lastName].filter(Boolean).join(' ') || 'Amigx'}
             </Text>
             <Text style={styles.userEmail}>{user.email}</Text>
             <View style={styles.badge}>
@@ -89,11 +98,44 @@ export const ProfileScreen: React.FC = () => {
       <View style={styles.content}>
         <View style={styles.appearanceCard}>
           <Text style={[styles.label, { color: theme.colors.textSecondary }]}>APARIENCIA</Text>
-          <View style={[styles.appearanceRow, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
-            {([{ key: 'light', label: 'Claro', icon: 'sunny-outline' }, { key: 'dark', label: 'Oscuro', icon: 'moon-outline' }, { key: 'auto', label: 'Sistema', icon: 'phone-portrait-outline' }] as const).map((option) => (
-              <TouchableOpacity key={option.key} onPress={() => setThemeMode(option.key)} style={[styles.appearanceOption, { backgroundColor: themeMode === option.key ? theme.colors.primary : 'transparent' }]}>
-                <Icon name={option.icon as any} size={16} color={themeMode === option.key ? '#FFFFFF' : theme.colors.textSecondary} />
-                <Text style={{ color: themeMode === option.key ? '#FFFFFF' : theme.colors.text, fontSize: 12, fontWeight: '600' }}>{option.label}</Text>
+          <View
+            style={[
+              styles.appearanceRow,
+              { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+            ]}
+          >
+            {(
+              [
+                { key: 'light', label: 'Claro', icon: 'sunny-outline' },
+                { key: 'dark', label: 'Oscuro', icon: 'moon-outline' },
+                { key: 'auto', label: 'Sistema', icon: 'phone-portrait-outline' },
+              ] as const
+            ).map((option) => (
+              <TouchableOpacity
+                key={option.key}
+                onPress={() => setThemeMode(option.key)}
+                style={[
+                  styles.appearanceOption,
+                  {
+                    backgroundColor:
+                      themeMode === option.key ? theme.colors.primary : 'transparent',
+                  },
+                ]}
+              >
+                <Icon
+                  name={option.icon as any}
+                  size={16}
+                  color={themeMode === option.key ? '#FFFFFF' : theme.colors.textSecondary}
+                />
+                <Text
+                  style={{
+                    color: themeMode === option.key ? '#FFFFFF' : theme.colors.text,
+                    fontSize: 12,
+                    fontWeight: '600',
+                  }}
+                >
+                  {option.label}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -225,7 +267,15 @@ const styles = StyleSheet.create({
   },
   appearanceCard: { gap: 10 },
   appearanceRow: { flexDirection: 'row', borderRadius: 18, borderWidth: 1, padding: 5, gap: 4 },
-  appearanceOption: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 12, borderRadius: 13 },
+  appearanceOption: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 12,
+    borderRadius: 13,
+  },
   menu: {
     gap: 10,
   },

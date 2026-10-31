@@ -11,6 +11,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import * as SecureStore from 'expo-secure-store';
+
 import { CheckIn, CheckInFormData, CheckInType } from '@types';
 
 interface CheckInState {
@@ -62,14 +63,16 @@ const getISODate = (date: Date = new Date()): string => {
 };
 
 // Helper para calcular streaks
-const calculateStreaks = (checkIns: CheckIn[]): { currentStreak: number; longestStreak: number } => {
+const calculateStreaks = (
+  checkIns: CheckIn[]
+): { currentStreak: number; longestStreak: number } => {
   if (checkIns.length === 0) {
     return { currentStreak: 0, longestStreak: 0 };
   }
 
   // Ordenar por fecha descendente
   const sorted = [...checkIns]
-    .map(c => new Date(c.completedAt))
+    .map((c) => new Date(c.completedAt))
     .sort((a, b) => b.getTime() - a.getTime());
 
   const today = new Date();
@@ -83,7 +86,9 @@ const calculateStreaks = (checkIns: CheckIn[]): { currentStreak: number; longest
     const checkInDate = new Date(sorted[i]);
     checkInDate.setHours(0, 0, 0, 0);
 
-    const diffDays = Math.floor((checkDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
+    const diffDays = Math.floor(
+      (checkDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
 
     if (diffDays === 0 || diffDays === 1) {
       if (diffDays === 1) {
@@ -100,7 +105,7 @@ const calculateStreaks = (checkIns: CheckIn[]): { currentStreak: number; longest
 
   // Calcular longest streak
   const dateGroups: { [key: string]: boolean } = {};
-  sorted.forEach(date => {
+  sorted.forEach((date) => {
     const iso = getISODate(date);
     dateGroups[iso] = true;
   });
@@ -164,7 +169,7 @@ export const checkinStore = create<CheckInState>()(
 
       getCheckInsByDateRange: (startDate: Date, endDate: Date) => {
         const { checkIns } = get();
-        return checkIns.filter(checkIn => {
+        return checkIns.filter((checkIn) => {
           const date = new Date(checkIn.completedAt);
           return date >= startDate && date <= endDate;
         });
@@ -172,13 +177,13 @@ export const checkinStore = create<CheckInState>()(
 
       getCheckInsByType: (type: CheckInType) => {
         const { checkIns } = get();
-        return checkIns.filter(checkIn => checkIn.type === type);
+        return checkIns.filter((checkIn) => checkIn.type === type);
       },
 
       getTodayCheckIn: () => {
         const { checkIns } = get();
         const today = getISODate();
-        return checkIns.find(checkIn => getISODate(checkIn.completedAt) === today);
+        return checkIns.find((checkIn) => getISODate(checkIn.completedAt) === today);
       },
 
       hasCheckedInToday: () => {
@@ -195,7 +200,7 @@ export const checkinStore = create<CheckInState>()(
 
       deleteCheckIn: (id: string) => {
         set((state) => {
-          const updatedCheckIns = state.checkIns.filter(c => c.id !== id);
+          const updatedCheckIns = state.checkIns.filter((c) => c.id !== id);
           const streaks = calculateStreaks(updatedCheckIns);
 
           return {

@@ -7,16 +7,17 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { NumaMark } from '@components/NumaLogo';
-import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, Input } from '@components';
-import { authStore } from '@store/authStore';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { NumaMark } from '@components/NumaLogo';
+import { useTheme } from '@theme/ThemeContext';
+import { Button, Input } from '@components';
+import { authStore } from '@store/authStore';
 import { AuthStackParamList } from '@navigation/types';
 
 export const RegisterScreen: React.FC = () => {
@@ -44,7 +45,10 @@ export const RegisterScreen: React.FC = () => {
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,})/;
     if (!passwordRegex.test(password)) {
-      Alert.alert('Contraseña débil', 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (!@#$%^&*)');
+      Alert.alert(
+        'Contraseña débil',
+        'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (!@#$%^&*)'
+      );
       return;
     }
 
@@ -52,7 +56,7 @@ export const RegisterScreen: React.FC = () => {
       email,
       password,
       firstName,
-      lastName
+      lastName,
     });
 
     if (success) {
@@ -77,7 +81,7 @@ export const RegisterScreen: React.FC = () => {
         colors={[theme.colors.primary + '15', theme.colors.background]}
         style={StyleSheet.absoluteFill}
       />
-      
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
@@ -88,17 +92,26 @@ export const RegisterScreen: React.FC = () => {
             {
               paddingTop: Math.max(insets.top, 40),
               paddingBottom: Math.max(insets.bottom, 24),
-            }
+            },
           ]}
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-        <NumaMark size={64} light={theme.mode === 'dark'} />
-        <Text style={{ color: theme.colors.primary, fontSize: 25, fontWeight: '800', letterSpacing: 4 }}>NUMA</Text>
-        <Text style={{ color: theme.colors.textSecondary, marginBottom: 18 }}>Avanza en tu recuperación</Text>
-            <Text style={[styles.title, { color: theme.colors.text }]}>
-              Crear Cuenta
+            <NumaMark size={64} light={theme.mode === 'dark'} />
+            <Text
+              style={{
+                color: theme.colors.primary,
+                fontSize: 25,
+                fontWeight: '800',
+                letterSpacing: 4,
+              }}
+            >
+              NUMA
             </Text>
+            <Text style={{ color: theme.colors.textSecondary, marginBottom: 18 }}>
+              Avanza en tu recuperación
+            </Text>
+            <Text style={[styles.title, { color: theme.colors.text }]}>Crear Cuenta</Text>
             <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
               Únete a nuestra comunidad de apoyo y comienza tu camino hoy
             </Text>
@@ -169,9 +182,7 @@ export const RegisterScreen: React.FC = () => {
               ¿Ya tienes una cuenta?
             </Text>
             <TouchableOpacity onPress={navigateToLogin}>
-              <Text style={[styles.loginLink, { color: theme.colors.primary }]}>
-                Inicia sesión
-              </Text>
+              <Text style={[styles.loginLink, { color: theme.colors.primary }]}>Inicia sesión</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

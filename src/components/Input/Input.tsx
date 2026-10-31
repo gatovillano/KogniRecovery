@@ -8,6 +8,7 @@ import {
   TextStyle,
   TextInputProps,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 import { InputProps } from '@types';
 

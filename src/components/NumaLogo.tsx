@@ -12,11 +12,31 @@ export const NumaMark: React.FC<NumaMarkProps> = ({ size = 64, light = false }) 
         <Stop offset="100%" stopColor={light ? '#E5F0D8' : '#8EAD91'} />
       </LinearGradient>
     </Defs>
-    <Path d="M18 84 C18 62 18 36 18 25 C18 7 34 8 43 23 C55 43 70 72 82 79 C94 86 102 76 102 59 L102 18"
-      fill="none" stroke="#082F31" strokeWidth="25" strokeLinecap="round" strokeLinejoin="round" opacity={0.18}
-      transform="translate(1.5 2.5)" />
-    <Path d="M18 82 C18 60 18 34 18 23 C18 5 34 7 43 21 C55 41 70 70 82 77 C94 84 102 74 102 57 L102 16"
-      fill="none" stroke="url(#numaRibbon)" strokeWidth="23" strokeLinecap="round" strokeLinejoin="round" />
-    <Path d="M20 28 C22 16 31 15 39 26" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity={0.28} />
+    <Path
+      d="M18 84 C18 62 18 36 18 25 C18 7 34 8 43 23 C55 43 70 72 82 79 C94 86 102 76 102 59 L102 18"
+      fill="none"
+      stroke="#082F31"
+      strokeWidth="25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity={0.18}
+      transform="translate(1.5 2.5)"
+    />
+    <Path
+      d="M18 82 C18 60 18 34 18 23 C18 5 34 7 43 21 C55 41 70 70 82 77 C94 84 102 74 102 57 L102 16"
+      fill="none"
+      stroke="url(#numaRibbon)"
+      strokeWidth="23"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M20 28 C22 16 31 15 39 26"
+      fill="none"
+      stroke="#FFFFFF"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      opacity={0.28}
+    />
   </Svg>
 );

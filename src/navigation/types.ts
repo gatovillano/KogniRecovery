@@ -3,6 +3,13 @@
  * Define los param lists para todos los navegadores
  */
 
+// ============================================
+// Tipos de navegación (Props)
+// ============================================
+
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 export type RootStackParamList = {
   Auth: undefined;
   Main: undefined;
@@ -54,9 +61,15 @@ export type ProfileStackParamList = {
   NotesHome: undefined;
   NoteDetail: {
     note: {
-      id: string; user_id: string; title: string | null; content: string;
-      source: 'user' | 'agent'; category: string | null; is_pinned: boolean;
-      created_at: string; updated_at: string;
+      id: string;
+      user_id: string;
+      title: string | null;
+      content: string;
+      source: 'user' | 'agent';
+      category: string | null;
+      is_pinned: boolean;
+      created_at: string;
+      updated_at: string;
     };
   };
 };
@@ -77,13 +90,6 @@ export type NotesStackParamList = {
     };
   };
 };
-
-// ============================================
-// Tipos de navegación (Props)
-// ============================================
-
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
 export type ProfileStackNavigationProp = NativeStackNavigationProp<ProfileStackParamList>;

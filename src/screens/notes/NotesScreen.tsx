@@ -24,16 +24,18 @@ import {
   RefreshControl,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
-import { Header } from '@components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { api } from '@services/api';
-import { NOTES_ENDPOINTS } from '@services/endpoints';
-import { ApiResponse } from '../../types/api';
-import { NotesStackParamList } from '../../navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
 import Markdown from 'react-native-markdown-display';
+
+import { useTheme } from '@theme/ThemeContext';
+import { Header } from '@components';
+import { api } from '@services/api';
+import { NOTES_ENDPOINTS } from '@services/endpoints';
+
+import { ApiResponse } from '../../types/api';
+import { NotesStackParamList } from '../../navigation/types';
 
 // ─── Interfaces ────────────────────────────────────────────────────────────────
 

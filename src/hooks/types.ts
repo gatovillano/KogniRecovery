@@ -3,7 +3,7 @@
  * Define las interfaces y tipos utilizados por el hook de autenticación
  */
 
-import { User, UserRole, LoginCredentials, RegisterData } from '@types';
+import { User, LoginCredentials, RegisterData } from '@types';
 
 // ============================================
 // Tipos de estado de autenticación
@@ -88,7 +88,7 @@ export const validateEmail = (email: string): ValidationResult => {
 
   // Regex para validación básica de email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
   if (!emailRegex.test(email)) {
     return {
       isValid: false,
@@ -127,13 +127,15 @@ export const validateRegisterData = (data: RegisterData): Record<string, Validat
   const emailValidation = validateEmail(data.email);
   const passwordValidation = validatePassword(data.password);
 
-  const firstNameValidation: ValidationResult = !data.firstName || data.firstName.trim() === ''
-    ? { isValid: false, error: 'El nombre es requerido' }
-    : { isValid: true };
+  const firstNameValidation: ValidationResult =
+    !data.firstName || data.firstName.trim() === ''
+      ? { isValid: false, error: 'El nombre es requerido' }
+      : { isValid: true };
 
-  const lastNameValidation: ValidationResult = !data.lastName || data.lastName.trim() === ''
-    ? { isValid: false, error: 'El apellido es requerido' }
-    : { isValid: true };
+  const lastNameValidation: ValidationResult =
+    !data.lastName || data.lastName.trim() === ''
+      ? { isValid: false, error: 'El apellido es requerido' }
+      : { isValid: true };
 
   const roleValidation: ValidationResult = !data.role
     ? { isValid: false, error: 'El rol es requerido' }
@@ -151,7 +153,9 @@ export const validateRegisterData = (data: RegisterData): Record<string, Validat
 /**
  * Valida las credenciales de login
  */
-export const validateLoginCredentials = (credentials: LoginCredentials): Record<string, ValidationResult> => {
+export const validateLoginCredentials = (
+  credentials: LoginCredentials
+): Record<string, ValidationResult> => {
   return {
     email: validateEmail(credentials.email),
     password: validatePassword(credentials.password),

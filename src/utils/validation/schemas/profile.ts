@@ -3,17 +3,17 @@
  * Valida los campos del formulario de perfil de usuario
  */
 
-import { ValidationSchema } from '../validation';
-import { 
-  required, 
-  email, 
-  minLength, 
-  maxLength, 
-  phone, 
-  date, 
+import { ValidationSchema } from '../../validation';
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+  phone,
+  date,
   country,
-  optional 
-} from '../validation';
+  optional,
+} from '../../validation';
 
 /**
  * Schema de validación para el formulario de perfil
@@ -46,9 +46,7 @@ export const profileSchema: ValidationSchema = {
     },
     {
       name: 'phone',
-      validators: [
-        optional(phone('Ingresa un número de teléfono válido')),
-      ],
+      validators: [optional(phone('Ingresa un número de teléfono válido'))],
     },
     {
       name: 'dateOfBirth',
@@ -63,45 +61,29 @@ export const profileSchema: ValidationSchema = {
     },
     {
       name: 'country',
-      validators: [
-        optional(country('Selecciona un país válido')),
-      ],
+      validators: [optional(country('Selecciona un país válido'))],
     },
     {
       name: 'city',
       validators: [
-        optional(
-          minLength(2, 'La ciudad debe tener al menos 2 caracteres')
-        ),
-        optional(
-          maxLength(50, 'La ciudad no puede exceder 50 caracteres')
-        ),
+        optional(minLength(2, 'La ciudad debe tener al menos 2 caracteres')),
+        optional(maxLength(50, 'La ciudad no puede exceder 50 caracteres')),
       ],
     },
     {
       name: 'address',
       validators: [
-        optional(
-          minLength(5, 'La dirección debe tener al menos 5 caracteres')
-        ),
-        optional(
-          maxLength(100, 'La dirección no puede exceder 100 caracteres')
-        ),
+        optional(minLength(5, 'La dirección debe tener al menos 5 caracteres')),
+        optional(maxLength(100, 'La dirección no puede exceder 100 caracteres')),
       ],
     },
     {
       name: 'emergencyPhone',
-      validators: [
-        optional(phone('Ingresa un número de teléfono válido')),
-      ],
+      validators: [optional(phone('Ingresa un número de teléfono válido'))],
     },
     {
       name: 'medicalNotes',
-      validators: [
-        optional(
-          maxLength(500, 'Las notas médicas no pueden exceder 500 caracteres')
-        ),
-      ],
+      validators: [optional(maxLength(500, 'Las notas médicas no pueden exceder 500 caracteres'))],
     },
   ],
 };

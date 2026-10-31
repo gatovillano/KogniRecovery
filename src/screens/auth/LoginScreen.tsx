@@ -10,14 +10,14 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, Input } from '@components';
-import { authStore } from '@store/authStore';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { useTheme } from '@theme/ThemeContext';
+import { Button, Input } from '@components';
+import { authStore } from '@store/authStore';
 import { AuthStackParamList } from '@navigation/types';
-import Icon from '@expo/vector-icons/Ionicons';
 import { NumaMark } from '@components/NumaLogo';
 
 export const LoginScreen: React.FC = () => {
@@ -70,7 +70,9 @@ export const LoginScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <View style={styles.logoIcon}><NumaMark size={78} light={isDark} /></View>
+            <View style={styles.logoIcon}>
+              <NumaMark size={78} light={isDark} />
+            </View>
             <Text style={styles.title}>NUMA</Text>
             <Text style={styles.subtitle}>Avanza en tu recuperación</Text>
           </View>

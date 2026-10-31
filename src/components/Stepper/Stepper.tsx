@@ -16,14 +16,8 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-  Animated,
-} from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TextStyle, Animated } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface StepperProps {
@@ -41,11 +35,10 @@ export const Stepper: React.FC<StepperProps> = ({
   steps,
   style,
   labelStyle,
-  onStepChange,
+  onStepChange: _onStepChange,
 }) => {
   const { theme } = useTheme();
   const progressAnim = useRef(new Animated.Value(0)).current;
-  const stepAnim = useRef(new Animated.Value(0)).current;
 
   // Actualizar la animación cuando cambia el paso actual
   useEffect(() => {
@@ -107,22 +100,16 @@ export const Stepper: React.FC<StepperProps> = ({
   };
 
   const getStepCircleStyle = (index: number): ViewStyle => {
-    const isActive = index < currentStep;
-    const isCurrent = index === currentStep;
     const isPast = index < currentStep;
-    
+
     return {
       width: 32,
       height: 32,
       borderRadius: 16,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isPast
-        ? theme.colors.primary
-        : isCurrent
-        ? theme.colors.primary
-        : theme.colors.surface,
-      borderWidth: isPast || isCurrent ? 0 : 2,
+      backgroundColor: isPast ? theme.colors.primary : theme.colors.surface,
+      borderWidth: isPast ? 0 : 2,
       borderColor: theme.colors.border,
       zIndex: 2,
     };
@@ -131,7 +118,7 @@ export const Stepper: React.FC<StepperProps> = ({
   const getStepTextStyle = (index: number): TextStyle => {
     const isPast = index < currentStep;
     const isCurrent = index === currentStep;
-    
+
     return {
       fontFamily: theme.typography.fontFamily.medium,
       fontSize: theme.typography.fontSize.sm,
@@ -141,7 +128,7 @@ export const Stepper: React.FC<StepperProps> = ({
 
   const getLabelStyle = (index: number): TextStyle => {
     const isCurrent = index === currentStep;
-    
+
     return {
       fontFamily: theme.typography.fontFamily.regular,
       fontSize: theme.typography.fontSize.xs,
@@ -156,14 +143,11 @@ export const Stepper: React.FC<StepperProps> = ({
     const stepElements = [];
     for (let i = 0; i < totalSteps; i++) {
       const isPast = i < currentStep;
-      const isCurrent = i === currentStep;
-      
+
       stepElements.push(
         <View key={i} style={styles.stepWrapper}>
           <View style={getStepCircleStyle(i)}>
-            <Text style={getStepTextStyle(i)}>
-              {isPast ? '✓' : i + 1}
-            </Text>
+            <Text style={getStepTextStyle(i)}>{isPast ? '✓' : i + 1}</Text>
           </View>
           {steps && steps[i] && (
             <Text style={[getLabelStyle(i), labelStyle]} numberOfLines={2}>

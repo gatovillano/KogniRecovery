@@ -33,6 +33,7 @@ import {
   TextStyle,
   Animated,
 } from 'react-native';
+
 import { useTheme } from '@theme/ThemeContext';
 
 export interface SelectOption {
@@ -63,7 +64,7 @@ export const Select: React.FC<SelectProps> = ({
   error,
   disabled = false,
   style,
-  labelStyle,
+  labelStyle: _labelStyle,
   searchable = false,
   searchPlaceholder = 'Buscar...',
 }) => {

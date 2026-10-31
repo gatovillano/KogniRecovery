@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@theme/ThemeContext';
 import Icon from '@expo/vector-icons/Ionicons';
-import { api } from '@services/api';
-import { ApiResponse } from '../../types/api';
-import { Card } from '@components';
 import { LineChart } from 'react-native-chart-kit';
+
+import { useTheme } from '@theme/ThemeContext';
+import { api } from '@services/api';
+import { Card } from '@components';
+
+import { ApiResponse } from '../../types/api';
 
 const { width } = Dimensions.get('window');
 
@@ -125,7 +127,7 @@ export const ProgressScreen: React.FC = () => {
 
   const [stats, setStats] = useState<any>(null);
   const [habitStats, setHabitStats] = useState<any[]>([]);
-  const [cravingStats, setCravingStats] = useState<any>(null);
+  const [, setCravingStats] = useState<any>(null);
   const [moodHistory, setMoodHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'recovery' | 'emotions' | 'habits'>('recovery');

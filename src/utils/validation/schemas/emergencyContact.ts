@@ -3,16 +3,8 @@
  * Valida los campos del formulario de contacto de emergencia
  */
 
-import { ValidationSchema } from '../validation';
-import { 
-  required, 
-  minLength, 
-  maxLength, 
-  phone, 
-  country,
-  optional,
-  email 
-} from '../validation';
+import { ValidationSchema } from '../../validation';
+import { required, minLength, maxLength, phone, country, optional, email } from '../../validation';
 
 /**
  * Schema de validación para el formulario de contacto de emergencia
@@ -53,60 +45,37 @@ export const emergencyContactSchema: ValidationSchema = {
     },
     {
       name: 'alternatePhone',
-      validators: [
-        optional(phone('Ingresa un número de teléfono válido')),
-      ],
+      validators: [optional(phone('Ingresa un número de teléfono válido'))],
     },
     {
       name: 'email',
-      validators: [
-        optional(email('Ingresa un correo electrónico válido')),
-      ],
+      validators: [optional(email('Ingresa un correo electrónico válido'))],
     },
     {
       name: 'country',
-      validators: [
-        required('El país es requerido'),
-        country('Selecciona un país válido'),
-      ],
+      validators: [required('El país es requerido'), country('Selecciona un país válido')],
     },
     {
       name: 'city',
       validators: [
-        optional(
-          minLength(2, 'La ciudad debe tener al menos 2 caracteres')
-        ),
-        optional(
-          maxLength(50, 'La ciudad no puede exceder 50 caracteres')
-        ),
+        optional(minLength(2, 'La ciudad debe tener al menos 2 caracteres')),
+        optional(maxLength(50, 'La ciudad no puede exceder 50 caracteres')),
       ],
     },
     {
       name: 'address',
       validators: [
-        optional(
-          minLength(5, 'La dirección debe tener al menos 5 caracteres')
-        ),
-        optional(
-          maxLength(100, 'La dirección no puede exceder 100 caracteres')
-        ),
+        optional(minLength(5, 'La dirección debe tener al menos 5 caracteres')),
+        optional(maxLength(100, 'La dirección no puede exceder 100 caracteres')),
       ],
     },
     {
       name: 'priority',
-      validators: [
-        optional(
-          minLength(1, 'La prioridad es requerida')
-        ),
-      ],
+      validators: [optional(minLength(1, 'La prioridad es requerida'))],
     },
     {
       name: 'notes',
-      validators: [
-        optional(
-          maxLength(200, 'Las notas no pueden exceder 200 caracteres')
-        ),
-      ],
+      validators: [optional(maxLength(200, 'Las notas no pueden exceder 200 caracteres'))],
     },
   ],
 };

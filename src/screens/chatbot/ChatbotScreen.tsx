@@ -10,15 +10,13 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  Animated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@theme/ThemeContext';
-import { Header } from '@components';
-import { useChatbot, Message } from '@hooks/useChatbot';
 import Markdown from 'react-native-markdown-display';
 import { Ionicons } from '@expo/vector-icons';
+
+import { useTheme } from '@theme/ThemeContext';
+import { useChatbot, Message } from '@hooks/useChatbot';
 
 const TOOL_CONFIG: Record<string, { icon: string; label: string; color: string }> = {
   knowledge_graph_search: {
@@ -58,7 +56,6 @@ export const ChatbotScreen: React.FC = () => {
     activeConversation,
     conversations,
     loadConversations,
-    loading,
     sending,
     createConversation,
     loadConversation,

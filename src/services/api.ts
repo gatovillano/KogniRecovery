@@ -6,6 +6,7 @@
 import * as Network from 'expo-network';
 import { router } from 'expo-router';
 import { Platform } from 'react-native';
+
 import {
   ApiResponse,
   ApiError,
@@ -15,6 +16,7 @@ import {
   RefreshTokenRequest,
   AuthResponse,
 } from '../types/api';
+
 import { AUTH_ENDPOINTS, USER_ENDPOINTS, API_CONFIG } from './endpoints';
 
 // ============================================
@@ -119,7 +121,10 @@ const getNetworkFailureMessage = (error: Error | null): string => {
 
   const hostname = getApiHostname();
 
-  if (Platform.OS === 'android' && (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '10.0.2.2')) {
+  if (
+    Platform.OS === 'android' &&
+    (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '10.0.2.2')
+  ) {
     return `No se pudo conectar con ${API_CONFIG.BASE_URL}. En un Android físico debes usar la IP LAN del servidor, por ejemplo http://192.168.x.x:3003.`;
   }
 
@@ -178,7 +183,7 @@ const handleErrorStatus = (status: number): void => {
 
       try {
         router.replace('/auth/login');
-      } catch (e) {
+      } catch {
         console.warn('⚠️ Router no listo para redirigir');
       }
       break;
@@ -254,7 +259,7 @@ const fetchWithRetry = async (
 
       // Esperar antes de reintentar (exponential backoff)
       const delay = config.retryDelay * Math.pow(2, attempt);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
 
@@ -265,10 +270,6 @@ const fetchWithRetry = async (
 // Interceptors
 // ============================================
 
-interface InterceptorConfig {
-  headers: Record<string, string>;
-}
-
 /**
  * Aplica el interceptor de request (agrega headers, etc)
  */
@@ -278,8 +279,8 @@ const applyRequestInterceptor = async (
 ): Promise<[string, RequestInit]> => {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    ...(options.headers as Record<string, string> || {}),
+    Accept: 'application/json',
+    ...((options.headers as Record<string, string>) || {}),
   };
 
   // Agregar token de autorización si existe
@@ -295,7 +296,11 @@ const applyRequestInterceptor = async (
  */
 const applyResponseInterceptor = async (response: Response): Promise<Response> => {
   // Manejar errores 401 (excepto en login/registro donde es normal recibir 401 si las credenciales fallan)
-  if (response.status === 401 && !response.url.includes('/auth/login') && !response.url.includes('/auth/register')) {
+  if (
+    response.status === 401 &&
+    !response.url.includes('/auth/login') &&
+    !response.url.includes('/auth/register')
+  ) {
     console.log('🔄 [API] 401 Detectado, intentando refrescar token...');
     // Intentar refresh token
     const refreshed = await tryRefreshToken();
@@ -358,8 +363,10 @@ const tryRefreshToken = async (): Promise<boolean> => {
       });
 
       if (response.ok) {
-        const data: ApiResponse<{ tokens: { accessToken: string; refreshToken: string; expiresIn?: number } }> = await response.json();
-        
+        const data: ApiResponse<{
+          tokens: { accessToken: string; refreshToken: string; expiresIn?: number };
+        }> = await response.json();
+
         const newTokens: AuthTokens = {
           accessToken: data.data.tokens.accessToken,
           refreshToken: data.data.tokens.refreshToken,
@@ -408,7 +415,9 @@ const request = async <T>(
 
   // Asegurar que la URL sea absoluta
   // Si ya tiene http, la usamos. Si no, le ponemos el baseUrl configurado.
-  const finalUrl = url.startsWith('http') ? url : `${config.baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  const finalUrl = url.startsWith('http')
+    ? url
+    : `${config.baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
 
   // Aplicar interceptor de request
   const [requestUrl, requestOptions] = await applyRequestInterceptor(finalUrl, {
@@ -451,10 +460,7 @@ const request = async <T>(
       errorMessage = errorData.error.details[0].message;
     }
 
-    throw createApiError(
-      response.status,
-      errorMessage
-    );
+    throw createApiError(response.status, errorMessage);
   }
 
   // Parsear respuesta
@@ -470,7 +476,9 @@ const request = async <T>(
  */
 export const get = async <T>(
   url: string,
-  params?: Record<string, string | number | boolean>
+  params?:
+    | Record<string, string | number | boolean>
+    | { params?: Record<string, string | number | boolean> }
 ): Promise<T> => {
   let fullUrl = url;
 
@@ -546,7 +554,7 @@ export const login = async (credentials: LoginRequest): Promise<AuthResponse> =>
     user,
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-    expiresIn: response.data.expiresIn || 3600
+    expiresIn: response.data.expiresIn || 3600,
   };
 };
 
@@ -577,7 +585,7 @@ export const register = async (userData: RegisterRequest): Promise<AuthResponse>
     user,
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-    expiresIn: tokens.expiresIn || response.data.expiresIn || 3600
+    expiresIn: tokens.expiresIn || response.data.expiresIn || 3600,
   };
 };
 
@@ -694,7 +702,4 @@ export const api = apiClient;
 export default apiClient;
 
 // Exportar tipos para uso externo
-export type {
-  ApiClientConfig,
-  RequestConfig,
-};
+export type { ApiClientConfig, RequestConfig };
