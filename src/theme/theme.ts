@@ -1,5 +1,5 @@
 /**
- * Tema: Zen Bluish
+ * Tema: NUMA Orgánico
  * Una evolución calmada enfocada en tonos azulados uniformes.
  * Soporta modos Claro y Oscuro con coherencia visual.
  */
@@ -15,46 +15,46 @@ import {
 } from '../types';
 
 // ─────────────────────────────────────────────
-// PALETA CLARA - Zen Bluish
+// PALETA CLARA - NUMA
 // ─────────────────────────────────────────────
 const lightColors: ThemeColors = {
-  primary: '#5D89BA', // Azul Sereno
-  primaryDark: '#4A6D95',
-  secondary: '#A5C0D3', // Azul Pálido
-  accent: '#E2E8F0', // Gris Azulado muy suave
-  background: '#F8FAFC', // Fondo casi blanco azulado
+  primary: '#104C50', // Azul petróleo NUMA
+  primaryDark: '#0B383B',
+  secondary: '#8EAD91', // Verde salvia
+  accent: '#E9DDC8', // Arena suave
+  background: '#F8F7F2', // Blanco cálido
   surface: '#FFFFFF',
   card: '#FFFFFF',
-  text: '#1E293B', // Slate 800
-  textSecondary: '#64748B', // Slate 500
+  text: '#263C38', // Verde carbón
+  textSecondary: '#65756B', // Verde grisáceo
   textInverse: '#FFFFFF',
-  border: '#E2E8F0',
-  success: '#6B8BB2',
-  warning: '#94A3B8',
+  border: '#E8E4DA',
+  success: '#739B7A',
+  warning: '#C4A882',
   error: '#C07878',
-  info: '#5D89BA',
+  info: '#104C50',
   overlay: 'rgba(15, 23, 42, 0.4)',
 };
 
 // ─────────────────────────────────────────────
-// PALETA OSCURA - Zen Bluish
+// PALETA OSCURA - NUMA
 // ─────────────────────────────────────────────
 const darkColors: ThemeColors = {
-  primary: '#8BAFD4', // Azul Cielo luminoso sobre oscuro
-  primaryDark: '#5D89BA',
-  secondary: '#4A6D95',
-  accent: '#334155',
-  background: '#0F172A', // Slate 900 (Azul profundo)
-  surface: '#1E293B', // Slate 800
-  card: '#1E293B',
-  text: '#F1F5F9', // Slate 100
-  textSecondary: '#94A3B8', // Slate 400
-  textInverse: '#0F172A',
-  border: '#334155',
-  success: '#8BAFD4',
-  warning: '#64748B',
+  primary: '#A6C7A9', // Verde salvia luminoso
+  primaryDark: '#104C50',
+  secondary: '#739B7A',
+  accent: '#49483D',
+  background: '#142522', // Verde petróleo profundo
+  surface: '#203530', // Verde pizarra
+  card: '#203530',
+  text: '#EAF0E8', // Blanco salvia
+  textSecondary: '#B7C8BC', // Salvia gris
+  textInverse: '#142522',
+  border: '#385149',
+  success: '#A6C7A9',
+  warning: '#D5BC91',
   error: '#F87171',
-  info: '#8BAFD4',
+  info: '#A6C7A9',
   overlay: 'rgba(0, 0, 0, 0.6)',
 };
 
@@ -145,28 +145,28 @@ const darkShadows: ThemeShadows = {
 };
 
 const lightGradients: ThemeGradients = {
-  primary: ['#5D89BA', '#4A6D95'],
-  secondary: ['#8BAFD4', '#6B8BB2'],
-  hero: ['#5D89BA', '#8BAFD4'],
-  surface: ['rgba(93,137,186,0.06)', 'rgba(139,175,212,0.03)'],
+  primary: ['#104C50', '#2A8176'],
+  secondary: ['#8EAD91', '#5E907D'],
+  hero: ['#104C50', '#739B7A'],
+  surface: ['rgba(16,76,80,0.06)', 'rgba(142,173,145,0.04)'],
 };
 
 const darkGradients: ThemeGradients = {
-  primary: ['#8BAFD4', '#5D89BA'],
-  secondary: ['#546E8E', '#4A6D95'],
-  hero: ['#1E293B', '#0F172A'],
-  surface: ['rgba(139,175,212,0.08)', 'rgba(93,137,186,0.04)'],
+  primary: ['#A6C7A9', '#28605A'],
+  secondary: ['#547D69', '#294D45'],
+  hero: ['#28605A', '#142522'],
+  surface: ['rgba(166,199,169,0.08)', 'rgba(142,173,145,0.04)'],
 };
 
 const lightGlass = {
-  background: 'rgba(255, 255, 255, 0.7)',
-  border: 'rgba(226, 232, 240, 0.5)',
+  background: 'rgba(255, 255, 255, 0.76)',
+  border: 'rgba(232, 228, 218, 0.7)',
   blur: 20,
 };
 
 const darkGlass = {
-  background: 'rgba(30, 41, 59, 0.7)',
-  border: 'rgba(51, 65, 85, 0.5)',
+  background: 'rgba(32, 53, 48, 0.82)',
+  border: 'rgba(56, 81, 73, 0.65)',
   blur: 20,
 };
 

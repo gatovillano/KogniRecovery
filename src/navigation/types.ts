@@ -49,6 +49,14 @@ export type ProfileStackParamList = {
   AISettings: undefined;
   IntelligenceProfile: undefined;
   ClinicalConsent: undefined;
+  NotesHome: undefined;
+  NoteDetail: {
+    note: {
+      id: string; user_id: string; title: string | null; content: string;
+      source: 'user' | 'agent'; category: string | null; is_pinned: boolean;
+      created_at: string; updated_at: string;
+    };
+  };
 };
 
 export type NotesStackParamList = {

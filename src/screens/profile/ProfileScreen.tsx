@@ -11,7 +11,7 @@ import { ProfileStackParamList } from '@navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
 
 export const ProfileScreen: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme, themeMode, setThemeMode } = useTheme();
   const insets = useSafeAreaInsets();
   const { user, logout } = authStore();
   const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -21,6 +21,7 @@ export const ProfileScreen: React.FC = () => {
   };
 
   const menuItems = [
+    { icon: 'document-text-outline' as const, label: 'Mis notas', onPress: () => navigation.navigate('NotesHome') },
     {
       icon: 'hardware-chip-outline' as const,
       label: 'Motor de Inteligencia LÚA',
@@ -84,6 +85,17 @@ export const ProfileScreen: React.FC = () => {
       </LinearGradient>
 
       <View style={styles.content}>
+        <View style={styles.appearanceCard}>
+          <Text style={[styles.label, { color: theme.colors.textSecondary }]}>APARIENCIA</Text>
+          <View style={[styles.appearanceRow, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+            {([{ key: 'light', label: 'Claro', icon: 'sunny-outline' }, { key: 'dark', label: 'Oscuro', icon: 'moon-outline' }, { key: 'auto', label: 'Sistema', icon: 'phone-portrait-outline' }] as const).map((option) => (
+              <TouchableOpacity key={option.key} onPress={() => setThemeMode(option.key)} style={[styles.appearanceOption, { backgroundColor: themeMode === option.key ? theme.colors.primary : 'transparent' }]}>
+                <Icon name={option.icon as any} size={16} color={themeMode === option.key ? '#FFFFFF' : theme.colors.textSecondary} />
+                <Text style={{ color: themeMode === option.key ? '#FFFFFF' : theme.colors.text, fontSize: 12, fontWeight: '600' }}>{option.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
         {/* Menu Section */}
         <View style={styles.menu}>
           <Text style={[styles.label, { color: theme.colors.textSecondary }]}>CONFIGURACIÓN</Text>
@@ -209,6 +221,9 @@ const styles = StyleSheet.create({
     gap: 24,
     marginTop: 8,
   },
+  appearanceCard: { gap: 10 },
+  appearanceRow: { flexDirection: 'row', borderRadius: 18, borderWidth: 1, padding: 5, gap: 4 },
+  appearanceOption: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 12, borderRadius: 13 },
   menu: {
     gap: 10,
   },
