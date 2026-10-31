@@ -274,8 +274,8 @@ export const AISettingsScreen: React.FC = () => {
             LÚA está configurado para usar el motor gratuito de OpenRouter (modelo Step-3.5 Flash).
             Esta configuración no requiere que proporciones una API key.
           </Text>
-          <View style={[styles.warningBox, { backgroundColor: '#FFF3CD', borderColor: '#FFC107' }]}>
-            <Text style={[styles.warningText, { color: '#856404' }]}>
+          <View style={[styles.warningBox, { backgroundColor: '#F3EAD7', borderColor: '#C4A882' }]}>
+            <Text style={[styles.warningText, { color: '#6B5735' }]}>
               ⚠️ <Text style={styles.warningBold}>Atención:</Text> El modelo gratuito puede
               presentar intermitencias, límites de tasa o indisponibilidad en momentos de alta
               demanda. Para una experiencia más estable, selecciona OpenRouter o OpenAI y
@@ -339,8 +339,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FAFAFA',
+    borderColor: '#E8E4DA',
+    backgroundColor: '#F8F7F2',
     marginBottom: 8,
   },
   providerName: {
