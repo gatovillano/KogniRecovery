@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NumaMark } from '@components/NumaLogo';
 import { useTheme } from '@theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, Input } from '@components';
@@ -143,6 +144,8 @@ export const ForgotPasswordScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
+        <NumaMark size={56} />
+        <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '800', letterSpacing: 4 }}>NUMA</Text>
             <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary }]}>
               <Icon name="lock-closed-outline" size={40} color="white" />
             </View>
