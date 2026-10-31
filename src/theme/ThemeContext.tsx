@@ -56,7 +56,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         setThemeModeState(savedTheme);
       } else {
         // Usar tema del sistema por defecto
-        const systemMode = systemColorScheme === 'dark' ? 'dark' : 'light';
         setThemeModeState('auto');
       }
     } catch (error) {
