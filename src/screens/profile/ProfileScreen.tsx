@@ -32,11 +32,11 @@ export const ProfileScreen: React.FC = () => {
       label: 'Memoria de LÚA (Insights)',
       onPress: () => navigation.navigate('IntelligenceProfile'),
     },
-    { icon: 'notifications-outline' as const, label: 'Notificaciones', onPress: () => {} },
+    { icon: 'notifications-outline' as const, label: 'Alertas y contactos de apoyo', onPress: () => navigation.navigate('EmergencySettings') },
     {
       icon: 'shield-checkmark-outline' as const,
       label: 'Privacidad y Seguridad',
-      onPress: () => {},
+      onPress: () => navigation.navigate('PrivacySettings'),
     },
     {
       icon: 'eye-outline' as const,
