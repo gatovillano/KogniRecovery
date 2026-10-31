@@ -10,7 +10,7 @@ import {
   DashboardScreen, CheckInScreen, ChatbotScreen, ProfileScreen,
   AISettingsScreen, IntelligenceProfileScreen, ClinicalDataConsentScreen,
   MedicationScreen, NotesScreen, NoteDetailScreen, ProgressScreen,
-  SubstanceExpenseScreen, SubstanceDoseScreen,
+  SubstanceExpenseScreen, SubstanceDoseScreen, EmergencySettingsScreen, PrivacySettingsScreen,
 } from '@screens';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -33,6 +33,8 @@ const ProfileNavigator: React.FC = () => {
       <ProfileStack.Screen name="AISettings" component={AISettingsScreen} options={{ title: 'Ajustes de LÚA' }} />
       <ProfileStack.Screen name="IntelligenceProfile" component={IntelligenceProfileScreen} options={{ title: 'Memoria de LÚA' }} />
       <ProfileStack.Screen name="ClinicalConsent" component={ClinicalDataConsentScreen} options={{ title: 'Consentimiento clínico' }} />
+      <ProfileStack.Screen name="EmergencySettings" component={EmergencySettingsScreen} options={{ title: 'Red de apoyo y emergencias' }} />
+      <ProfileStack.Screen name="PrivacySettings" component={PrivacySettingsScreen} options={{ title: 'Privacidad y seguridad' }} />
     </ProfileStack.Navigator>
   );
 };
