@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ProfileStackParamList } from '@navigation/types';
 import Icon from '@expo/vector-icons/Ionicons';
+import { NumaMark } from '@components/NumaLogo';
 
 export const ProfileScreen: React.FC = () => {
   const { theme, themeMode, setThemeMode } = useTheme();
@@ -60,6 +61,7 @@ export const ProfileScreen: React.FC = () => {
       >
         {user ? (
           <View style={styles.profileSection}>
+            <NumaMark size={58} light />
             <View style={styles.avatarContainer}>
               <View style={styles.avatarGlow}>
                 <View style={styles.avatar}>
