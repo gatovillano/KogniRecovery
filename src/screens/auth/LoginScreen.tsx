@@ -17,6 +17,7 @@ import { authStore } from '@store/authStore';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '@navigation/types';
+import Icon from '@expo/vector-icons/Ionicons';
 import { NumaMark } from '@components/NumaLogo';
 
 export const LoginScreen: React.FC = () => {

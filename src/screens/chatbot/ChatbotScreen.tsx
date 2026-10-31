@@ -24,22 +24,22 @@ const TOOL_CONFIG: Record<string, { icon: string; label: string; color: string }
   knowledge_graph_search: {
     icon: 'git-network-outline',
     label: 'Consultando tu historial',
-    color: '#8EAD91',
+    color: '#8BAFD4',
   },
   rag_search: {
     icon: 'document-search-outline',
     label: 'Buscando en base de conocimiento',
-    color: '#104C50',
+    color: '#6B8BB2',
   },
   web_search: {
     icon: 'globe-outline',
     label: 'Buscando en la web',
-    color: '#739B7A',
+    color: '#3B82F6',
   },
   list_documents: {
     icon: 'folder-open-outline',
     label: 'Explorando archivos',
-    color: '#65756B',
+    color: '#64748B',
   },
   get_document_content: {
     icon: 'reader-outline',
