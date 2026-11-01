@@ -5,6 +5,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -88,7 +89,8 @@ export const createMessage = async (
     conversationId,
     userId,
     data.role,
-    data.content,
+    // SEC-PHASE1: cifrar el contenido del mensaje (dato clínico) en reposo.
+    encrypt(data.content ?? ''),
     data.metadata ? JSON.stringify(data.metadata) : '{}',
     data.tokens_used || null,
     data.active_scenario || null,
@@ -103,12 +105,14 @@ export const createMessage = async (
 };
 
 /**
- * Obtener mensaje por ID
+ * Obtener mensaje por ID (solo si pertenece al usuario)
+ * FASE 2 (C03/C04): filtro por user_id para impedir acceso cruzado.
  */
-export const getMessageById = async (id: string): Promise<Message | null> => {
-  const sql = `SELECT * FROM messages WHERE id = $1`;
-  const result = await query<Message>(sql, [id]);
-  return result.rows[0] || null;
+export const getMessageById = async (id: string, userId: string): Promise<Message | null> => {
+  const sql = `SELECT * FROM messages WHERE id = $1 AND user_id = $2`;
+  const result = await query<Message>(sql, [id, userId]);
+  const row = result.rows[0];
+  return row ? { ...row, content: tryDecrypt(row.content) } : null;
 };
 
 /**
@@ -133,7 +137,7 @@ export const getConversationMessages = async (
     ? await query<Message>(sql, [conversationId, beforeId, limit])
     : await query<Message>(sql, [conversationId, limit]);
 
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, content: tryDecrypt(row.content) }));
 };
 
 /**
@@ -146,7 +150,8 @@ export const getLastMessage = async (conversationId: string): Promise<Message | 
     ORDER BY created_at DESC
     LIMIT 1`;
   const result = await query<Message>(sql, [conversationId]);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, content: tryDecrypt(row.content) } : null;
 };
 
 /**
@@ -160,7 +165,7 @@ export const getMessageHistory = async (conversationId: string, limit = 10): Pro
     LIMIT $2`;
   const result = await query<Message>(sql, [conversationId, limit]);
 
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, content: tryDecrypt(row.content) }));
 };
 
 // =====================================================
@@ -291,6 +296,11 @@ export const saveContextHistory = async (
     };
   }
 
+  // SEC-PHASE1: la memoria del agente contiene datos clínicos derivados
+  // de conversaciones. Se cifra el JSON antes de persistir. La columna
+  // admite JSON: guardamos una cadena JSON cuyo contenido es el ciphertext.
+  const encryptedValue = JSON.stringify(encrypt(JSON.stringify(valueToSave)));
+
   const sql = `
     INSERT INTO context_history (user_id, context_type, key, value, source_message_id, importance)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -304,10 +314,28 @@ export const saveContextHistory = async (
     userId,
     contextType,
     key,
-    JSON.stringify(valueToSave),
+    encryptedValue,
     sourceMessageId,
     importance,
   ]);
+};
+
+/**
+ * Decodifica un valor de context_history almacenado (cifrado o en claro
+ * previo a la migración) y devuelve el objeto original.
+ */
+const decodeContextValue = (value: any): any => {
+  if (value === null || value === undefined) return value;
+  // pg devuelve la cadena JSONB ya decodificada; puede ser el ciphertext.
+  if (typeof value === 'string') {
+    const decrypted = tryDecrypt(value);
+    try {
+      return JSON.parse(decrypted);
+    } catch {
+      return decrypted;
+    }
+  }
+  return value;
 };
 
 /**
@@ -327,7 +355,7 @@ export const getContextHistory = async (userId: string, contextType?: string): P
 
   const result = contextType ? await query(sql, [userId, contextType]) : await query(sql, [userId]);
 
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, value: decodeContextValue(row.value) }));
 };
 
 /**
@@ -338,7 +366,7 @@ export const getUserPreferences = async (userId: string): Promise<any> => {
     SELECT value FROM context_history 
     WHERE user_id = $1 AND context_type = 'preference'`;
   const result = await query(sql, [userId]);
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, value: decodeContextValue(row.value) }));
 };
 
 /**
@@ -349,7 +377,7 @@ export const getUserHistory = async (userId: string): Promise<any> => {
     SELECT value FROM context_history 
     WHERE user_id = $1 AND context_type = 'history'`;
   const result = await query(sql, [userId]);
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, value: decodeContextValue(row.value) }));
 };
 
 /**
@@ -360,7 +388,7 @@ export const getUserGoals = async (userId: string): Promise<any> => {
     SELECT value FROM context_history 
     WHERE user_id = $1 AND context_type = 'goal'`;
   const result = await query(sql, [userId]);
-  return result.rows;
+  return result.rows.map((row) => ({ ...row, value: decodeContextValue(row.value) }));
 };
 
 // =====================================================
@@ -397,7 +425,8 @@ export const logLLMCall = async (
     data.promptTokens || null,
     data.completionTokens || null,
     data.totalTokens || null,
-    data.responseText || null,
+    // SEC-PHASE1: las respuestas del LLM contienen contenido clínico derivado.
+    data.responseText ? encrypt(data.responseText) : null,
     data.finishReason || null,
     data.latencyMs || null,
     data.costUsd || null,
@@ -414,8 +443,11 @@ export const getLLMLogs = async (userId: string, limit = 20): Promise<any[]> => 
     WHERE user_id = $1
     ORDER BY created_at DESC
     LIMIT $2`;
-  const result = await query<MessageIntent>(sql, [userId, limit]);
-  return result.rows;
+  const result = await query<any>(sql, [userId, limit]);
+  return result.rows.map((row) => ({
+    ...row,
+    response_text: row.response_text ? tryDecrypt(row.response_text) : null,
+  }));
 };
 
 // =====================================================

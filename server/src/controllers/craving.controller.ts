@@ -187,6 +187,8 @@ export const getCravingById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (typeof id !== 'string' || !id) {
       res.status(400).json({
@@ -195,7 +197,8 @@ export const getCravingById = async (
       });
       return;
     }
-    const craving = await cravingModel.getCravingById(id);
+    // FASE 2 (C02): solo se puede leer un craving del usuario autenticado.
+    const craving = userId ? await cravingModel.getCravingById(id, userId) : null;
 
     if (!craving) {
       res.status(404).json({
@@ -224,6 +227,8 @@ export const updateCraving = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (typeof id !== 'string' || !id) {
       res.status(400).json({
@@ -237,7 +242,8 @@ export const updateCraving = async (
     const data = { ...req.body };
     if (data.status === 'given_in') data.status = 'surrendered';
 
-    const craving = await cravingModel.updateCraving(id, data);
+    // FASE 2 (C02): solo se puede actualizar un craving del usuario autenticado.
+    const craving = userId ? await cravingModel.updateCraving(id, userId, data) : null;
 
     if (!craving) {
       res.status(404).json({
@@ -267,6 +273,8 @@ export const resolveCraving = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (typeof id !== 'string' || !id) {
       res.status(400).json({
@@ -285,7 +293,8 @@ export const resolveCraving = async (
       return;
     }
 
-    const craving = await cravingModel.resolveCraving(id, status, strategies, outcome);
+    // FASE 2 (C02): solo se puede resolver un craving del usuario autenticado.
+    const craving = userId ? await cravingModel.resolveCraving(id, userId, status, strategies, outcome) : null;
 
     if (!craving) {
       res.status(404).json({
@@ -445,6 +454,8 @@ export const updateStrategy = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (typeof id !== 'string' || !id) {
       res.status(400).json({
@@ -453,7 +464,8 @@ export const updateStrategy = async (
       });
       return;
     }
-    const strategy = await cravingModel.updateCopingStrategy(id, req.body);
+    // FASE 2 (C02): solo se puede actualizar una estrategia del usuario autenticado.
+    const strategy = userId ? await cravingModel.updateCopingStrategy(id, userId, req.body) : null;
 
     if (!strategy) {
       res.status(404).json({
@@ -483,6 +495,8 @@ export const deleteStrategy = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.userId;
     const { id } = req.params;
     if (typeof id !== 'string' || !id) {
       res.status(400).json({
@@ -491,7 +505,8 @@ export const deleteStrategy = async (
       });
       return;
     }
-    const deleted = await cravingModel.deleteCopingStrategy(id);
+    // FASE 2 (C02): solo se puede eliminar una estrategia del usuario autenticado.
+    const deleted = userId ? await cravingModel.deleteCopingStrategy(id, userId) : false;
 
     if (!deleted) {
       res.status(404).json({
@@ -541,15 +556,13 @@ export const recordStrategyUsage = async (
     }
     const { craving_id, was_effective } = req.body;
 
-    if (typeof craving_id !== 'string' || !craving_id) {
-      res.status(400).json({
-        success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'craving_id requerido' },
-      });
-      return;
-    }
+    // FASE 2 (C02): craving_id es opcional. Si no viene (o es null), se
+    // registra el uso sin asociarlo a un craving.
+    const normalizedCravingId =
+      typeof craving_id === 'string' && craving_id.trim() !== '' ? craving_id.trim() : null;
 
-    await cravingModel.recordStrategyUsage(userId, id, craving_id, was_effective);
+    // FASE 2 (C02): el servicio valida que la estrategia pertenezca al usuario.
+    await cravingModel.recordStrategyUsage(userId, id, normalizedCravingId, was_effective);
 
     res.json({
       success: true,

@@ -27,3 +27,7 @@ export { default as alertService } from './alert.service.js';
 // Servicio de TTS (Sprint 4)
 export * from './tts.service.js';
 export { default as ttsService } from './tts.service.js';
+
+// Servicio de configuración TTS por organización (ElevenLabs + fallback Kokoro)
+export * from './ttsSettings.service.js';
+export { default as ttsSettingsService } from './ttsSettings.service.js';
