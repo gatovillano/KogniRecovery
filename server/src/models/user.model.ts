@@ -5,6 +5,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -82,7 +83,9 @@ export const findByEmail = async (email: string): Promise<User | null> => {
     [email]
   );
 
-  return result.rows[0] ?? null;
+  const row = result.rows[0] ?? null;
+  if (row && row.llm_api_key) row.llm_api_key = tryDecrypt(row.llm_api_key);
+  return row;
 };
 
 /**
@@ -96,7 +99,9 @@ export const findById = async (id: string): Promise<User | null> => {
     [id]
   );
 
-  return result.rows[0] ?? null;
+  const row = result.rows[0] ?? null;
+  if (row && row.llm_api_key) row.llm_api_key = tryDecrypt(row.llm_api_key);
+  return row;
 };
 
 /**
@@ -175,7 +180,7 @@ export const update = async (id: string, userData: UpdateUserInput): Promise<Use
   }
   if (userData.llm_api_key !== undefined) {
     fields.push(`llm_api_key = $${paramIndex++}`);
-    values.push(userData.llm_api_key);
+    values.push(userData.llm_api_key ? encrypt(userData.llm_api_key) : userData.llm_api_key);
   }
   if (userData.two_factor_enabled !== undefined) {
     fields.push(`two_factor_enabled = $${paramIndex++}`);
@@ -198,7 +203,9 @@ export const update = async (id: string, userData: UpdateUserInput): Promise<Use
     values
   );
 
-  return result.rows[0] ?? null;
+  const row = result.rows[0] ?? null;
+  if (row && row.llm_api_key) row.llm_api_key = tryDecrypt(row.llm_api_key);
+  return row;
 };
 
 /**
@@ -245,7 +252,7 @@ export const findAll = async (
   ]);
 
   return {
-    users: usersResult.rows,
+    users: (usersResult.rows as User[]).map((u) => ({ ...u, llm_api_key: u.llm_api_key ? tryDecrypt(u.llm_api_key) : u.llm_api_key })),
     total: parseInt(countResult.rows[0]?.count ?? '0', 10),
   };
 };
@@ -273,7 +280,7 @@ export const findByRole = async (
   ]);
 
   return {
-    users: usersResult.rows,
+    users: (usersResult.rows as User[]).map((u) => ({ ...u, llm_api_key: u.llm_api_key ? tryDecrypt(u.llm_api_key) : u.llm_api_key })),
     total: parseInt(countResult.rows[0]?.count ?? '0', 10),
   };
 };
@@ -316,7 +323,7 @@ export const findByProfileType = async (
   ]);
 
   return {
-    users: usersResult.rows,
+    users: (usersResult.rows as User[]).map((u) => ({ ...u, llm_api_key: u.llm_api_key ? tryDecrypt(u.llm_api_key) : u.llm_api_key })),
     total: parseInt(countResult.rows[0]?.count ?? '0', 10),
   };
 };

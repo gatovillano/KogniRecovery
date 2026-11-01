@@ -23,16 +23,13 @@ export const createNote = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    // SEC-PHASE1: cifrar título y contenido de notas del agente.
     data.title ? encrypt(data.title) : null,
     encrypt(data.content),
     data.source || 'user',
     data.category || null,
   ]);
-  const row = result.rows[0] as AgentNote | undefined;
-  return row
-    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
-    : (row as unknown as AgentNote);
+  const row = result.rows[0] as AgentNote;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const getNotes = async (
@@ -63,10 +60,10 @@ export const getNotes = async (
   params.push(limit);
 
   const result = await query(sql, params);
-  return (result.rows as AgentNote[]).map((row) => ({
-    ...row,
-    title: row.title ? tryDecrypt(row.title) : null,
-    content: tryDecrypt(row.content),
+  return (result.rows as AgentNote[]).map((r) => ({
+    ...r,
+    title: r.title ? tryDecrypt(r.title) : null,
+    content: tryDecrypt(r.content),
   }));
 };
 
@@ -75,10 +72,9 @@ export const getNoteById = async (id: string, userId: string): Promise<AgentNote
     id,
     userId,
   ]);
-  const row = result.rows[0] as AgentNote | undefined;
-  return row
-    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
-    : null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const updateNote = async (
@@ -92,13 +88,11 @@ export const updateNote = async (
 
   if (data.title !== undefined) {
     fields.push(`title = $${paramIndex}`);
-    // SEC-PHASE1: cifrar título.
     params.push(data.title ? encrypt(data.title) : null);
     paramIndex++;
   }
   if (data.content !== undefined) {
     fields.push(`content = $${paramIndex}`);
-    // SEC-PHASE1: cifrar contenido.
     params.push(encrypt(data.content));
     paramIndex++;
   }
@@ -125,10 +119,9 @@ export const updateNote = async (
   params.push(id, userId);
 
   const result = await query(sql, params);
-  const row = result.rows[0] as AgentNote | undefined;
-  return row
-    ? { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) }
-    : null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const deleteNote = async (id: string, userId: string): Promise<boolean> => {
@@ -146,5 +139,7 @@ export const togglePin = async (id: string, userId: string): Promise<AgentNote |
     WHERE id = $1 AND user_id = $2
     RETURNING *`;
   const result = await query(sql, [id, userId]);
-  return (result.rows[0] as AgentNote) || null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
