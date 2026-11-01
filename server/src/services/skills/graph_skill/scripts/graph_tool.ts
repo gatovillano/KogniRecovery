@@ -8,7 +8,9 @@ import { neo4jService } from '../../../neo4j.service.js';
  * full profile, memory attributes, substances, check-ins, cravings, and patterns.
  */
 export const knowledgeGraphSearchTool = tool(
-  async ({ userId, queryType }: { userId: string; queryType?: string }) => {
+  async ({ queryType }: { queryType?: string }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       console.log(`[SKILL: knowledge_graph_search] Querying context for user: ${userId}, type: ${queryType || 'full'}`);
       
@@ -78,7 +80,6 @@ export const knowledgeGraphSearchTool = tool(
     name: "knowledge_graph_search",
     description: "Consulta el Grafo de Conocimiento personal del usuario (Neo4j). Devuelve perfil completo, memorias almacenadas (triggers, objetivos, patrones emocionales, estrategias de afrontamiento, factores de riesgo, relaciones, patrones de consumo), check-ins recientes, cravings, interacciones medicamentosas peligrosas y evolución del usuario. Usa queryType para filtrar: 'full' (todo), 'memory' (solo memorias), 'cravings', 'interactions', 'profile'.",
     schema: z.object({
-      userId: z.string().describe("The UUID of the user to fetch context for."),
       queryType: z.string().optional().describe("Type of query: 'full' (default), 'memory', 'cravings', 'interactions', 'profile'"),
     }) as any,
   }

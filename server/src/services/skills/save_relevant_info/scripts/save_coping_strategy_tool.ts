@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as cravingModel from '../../../../models/craving.model.js';
 
 export const saveCopingStrategyTool = tool(
-  async ({ userId, name, category, description, instructions, when_to_use }) => {
+  async ({ name, category, description, instructions, when_to_use }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const strategy = await cravingModel.createCopingStrategy(userId, {
         name,
@@ -25,7 +27,6 @@ export const saveCopingStrategyTool = tool(
     description:
       'Guarda una estrategia de afrontamiento que el usuario menciona o descubre. Usalo cuando el usuario identifique una tecnica o estrategia que le ayuda a manejar cravings, estres o emociones dificiles.',
     schema: z.object({
-      userId: z.string(),
       name: z.string().describe('Nombre corto de la estrategia'),
       category: z
         .string()

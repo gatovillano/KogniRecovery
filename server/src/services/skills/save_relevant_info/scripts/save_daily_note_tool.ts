@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as journalModel from '../../../../models/journal.model.js';
 
 export const recordDailyNoteTool = tool(
-  async ({ userId, content }) => {
+  async ({ content }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const note = await journalModel.createDailyNote(userId, {
         content,
@@ -20,7 +22,6 @@ export const recordDailyNoteTool = tool(
     description:
       'Guarda una entrada de diario/nota diaria del usuario. Usalo cuando el usuario comparta una reflexion, pensamiento, evento del dia, o cualquier cosa que merezca ser documentada en su bitacora personal.',
     schema: z.object({
-      userId: z.string(),
       content: z.string().describe('Contenido de la nota/reflexion del usuario'),
     }),
   }

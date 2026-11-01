@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as journalModel from '../../../../models/journal.model.js';
 
 export const recordActivityEntryTool = tool(
-  async ({ userId, activity_name, feeling_before, feeling_during, feeling_after }) => {
+  async ({ activity_name, feeling_before, feeling_during, feeling_after }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const entry = await journalModel.createActivityEntry(userId, {
         activity_name,
@@ -23,7 +25,6 @@ export const recordActivityEntryTool = tool(
     description:
       'Registra una actividad realizada por el usuario con contexto emocional. Usalo cuando el usuario describa haber hecho algo (ejercicio, hobbies, trabajo, etc.) y como se sintio antes, durante o despues.',
     schema: z.object({
-      userId: z.string(),
       activity_name: z.string().describe('Nombre de la actividad realizada'),
       feeling_before: z
         .string()

@@ -4,7 +4,9 @@ import * as doseModel from '../../../../models/substance_dose.model.js';
 import { neo4jService } from '../../../neo4j.service.js';
 
 export const substanceDoseTool = tool(
-  async ({ userId, substance, quantity, unit, intensity, feelings, notes }) => {
+  async ({ substance, quantity, unit, intensity, feelings, notes }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return '❌ Error: contexto de usuario no disponible.';
     try {
       const dose = await doseModel.createSubstanceDose(userId, {
         substance_name: substance,
@@ -55,7 +57,6 @@ export const substanceDoseTool = tool(
     description:
       'Registra una dosis individual de una sustancia (alcohol, tabaco, drogas, etc.) consumida por el usuario. Úsalo cuando el usuario mencione haber consumido algo.',
     schema: z.object({
-      userId: z.string(),
       substance: z.string(),
       quantity: z.number(),
       unit: z.string(),

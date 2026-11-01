@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as cravingModel from '../../../../models/craving.model.js';
 
 export const saveCravingTriggerTool = tool(
-  async ({ userId, trigger_type, trigger_description, frequency, context_notes }) => {
+  async ({ trigger_type, trigger_description, frequency, context_notes }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const trigger = await cravingModel.createCravingTrigger(userId, {
         trigger_type,
@@ -24,7 +26,6 @@ export const saveCravingTriggerTool = tool(
     description:
       'Guarda un desencadenante de craving identificado por el usuario. Usalo cuando el usuario identifique algo (un lugar, persona, emocion, situacion) que le provoca cravings.',
     schema: z.object({
-      userId: z.string(),
       trigger_type: z
         .string()
         .describe('Tipo de desencadenante (ej: emocional, social, ambiental, fisico)'),

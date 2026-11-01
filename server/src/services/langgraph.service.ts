@@ -359,7 +359,7 @@ Mensaje: "${lastMessage.content}"`;
     const app = workflow.compile({ checkpointer: this.checkpointer });
 
     const threadId = conversationId;
-    const config = { configurable: { thread_id: threadId } };
+    const config = { configurable: { thread_id: threadId, userId } };
 
     const historyMessages = await this.getHistoryMessages(conversationId);
     const initialState = {
@@ -411,7 +411,7 @@ Mensaje: "${lastMessage.content}"`;
     const app = workflow.compile({ checkpointer: this.checkpointer });
 
     const config = {
-      configurable: { thread_id: conversationId },
+      configurable: { thread_id: conversationId, userId },
       recursionLimit: 25,
     };
 
