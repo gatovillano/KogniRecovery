@@ -4,7 +4,6 @@ import * as checkinModel from '../../../../models/checkin.model.js';
 
 export const recordMoodCheckinTool = tool(
   async ({
-    userId,
     mood_score,
     anxiety_score,
     energy_score,
@@ -15,7 +14,9 @@ export const recordMoodCheckinTool = tool(
     exercise_type,
     social_interaction,
     notes,
-  }) => {
+  }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const existing = await checkinModel.getTodayCheckIn(userId);
 
@@ -66,7 +67,6 @@ export const recordMoodCheckinTool = tool(
     description:
       'Registra un check-in emocional del usuario. Usalo cuando el usuario describa como se siente emocionalmente, mencione calidad de sueno, ejercicio, o comparta una actualizacion general de su estado emocional fuera de la pantalla formal de check-in.',
     schema: z.object({
-      userId: z.string(),
       mood_score: z.number().optional().nullable().describe('Estado de animo del 1 al 10'),
       anxiety_score: z.number().optional().nullable().describe('Nivel de ansiedad del 1 al 10'),
       energy_score: z.number().optional().nullable().describe('Nivel de energia del 1 al 10'),

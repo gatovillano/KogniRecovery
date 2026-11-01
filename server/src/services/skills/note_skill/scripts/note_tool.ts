@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as noteModel from '../../../../models/note.model.js';
 
 export const saveNoteTool = tool(
-  async ({ userId, title, content, category }) => {
+  async ({ title, content, category }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const note = await noteModel.createNote(userId, {
         title: title || undefined,
@@ -24,7 +26,6 @@ export const saveNoteTool = tool(
     description:
       'Guarda una nota personal para el usuario. Usalo cuando el usuario pida que guardes algo, cuando quieras recordarle algo importante, o cuando identifiques un insight valioso durante la conversacion que merezca ser guardado para referencia futura.',
     schema: z.object({
-      userId: z.string(),
       title: z.string().optional().nullable(),
       content: z.string(),
       category: z.string().optional().nullable(),
@@ -33,7 +34,9 @@ export const saveNoteTool = tool(
 );
 
 export const listNotesTool = tool(
-  async ({ userId, source }) => {
+  async ({ source }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const opts: { source?: 'user' | 'agent'; limit?: number } = { limit: 10 };
       if (source) opts.source = source as 'user' | 'agent';
@@ -64,14 +67,15 @@ export const listNotesTool = tool(
     description:
       'Lista las notas guardadas del usuario. Usalo cuando el usuario pregunte sobre sus notas o quiera ver que tiene guardado.',
     schema: z.object({
-      userId: z.string(),
       source: z.string().optional().nullable(),
     }),
   }
 );
 
 export const deleteNoteTool = tool(
-  async ({ userId, noteId }) => {
+  async ({ noteId }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const deleted = await noteModel.deleteNote(noteId, userId);
       if (deleted) {
@@ -88,7 +92,6 @@ export const deleteNoteTool = tool(
     description:
       'Elimina una nota guardada. Usalo cuando el usuario pida eliminar una nota especifica.',
     schema: z.object({
-      userId: z.string(),
       noteId: z.string(),
     }),
   }

@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as journalModel from '../../../../models/journal.model.js';
 
 export const recordConsumptionAnalysisTool = tool(
-  async ({ userId, trigger_situation, action_taken }) => {
+  async ({ trigger_situation, action_taken }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const entry = await journalModel.createConsumptionAnalysis(userId, {
         trigger_situation,
@@ -21,7 +23,6 @@ export const recordConsumptionAnalysisTool = tool(
     description:
       'Registra un analisis de consumo que vincula una situacion desencadenante con la accion tomada. Usalo cuando el usuario describa una situacion que llevo al consumo de sustancias o a un momento de riesgo, y lo que hizo al respecto.',
     schema: z.object({
-      userId: z.string(),
       trigger_situation: z
         .string()
         .describe('Descripcion de la situacion que desencadeno el impulso o consumo'),

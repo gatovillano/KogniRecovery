@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as journalModel from '../../../../models/journal.model.js';
 
 export const recordSocialEntryTool = tool(
-  async ({ userId, people_description, impact_assessment }) => {
+  async ({ people_description, impact_assessment }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const entry = await journalModel.createSocialEntry(userId, {
         people_description,
@@ -21,7 +23,6 @@ export const recordSocialEntryTool = tool(
     description:
       'Registra una entrada de entorno social. Usalo cuando el usuario mencione interacciones con personas que impactan su recuperacion, describa su entorno social, o hable de relaciones significativas.',
     schema: z.object({
-      userId: z.string(),
       people_description: z
         .string()
         .describe('Descripcion de las personas o interacciones sociales'),

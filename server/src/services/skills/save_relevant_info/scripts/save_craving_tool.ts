@@ -3,7 +3,9 @@ import { z } from 'zod';
 import * as cravingModel from '../../../../models/craving.model.js';
 
 export const recordCravingTool = tool(
-  async ({ userId, substance_name, intensity, triggers, coping_strategies, notes }) => {
+  async ({ substance_name, intensity, triggers, coping_strategies, notes }, config?: any) => {
+    const userId = config?.configurable?.userId as string | undefined;
+    if (!userId) return 'Error: contexto de usuario no disponible.';
     try {
       const craving = await cravingModel.createCraving(userId, {
         substance_name,
@@ -26,7 +28,6 @@ export const recordCravingTool = tool(
     description:
       'Registra un craving (antojo) experimentado por el usuario. Usalo cuando el usuario mencione un deseo intenso de consumir una sustancia, describa sintomas de craving, o reporte haber tenido un craving recientemente.',
     schema: z.object({
-      userId: z.string(),
       substance_name: z.string().describe('Nombre de la sustancia asociada al craving'),
       intensity: z.number().describe('Intensidad del craving del 1 al 10'),
       triggers: z
