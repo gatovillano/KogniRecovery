@@ -6,6 +6,7 @@
 
 import { query } from '../config/database.js';
 import { v4 as uuidv4 } from 'uuid';
+import crypto from 'node:crypto';
 
 // =====================================================
 // INTERFACES
@@ -45,6 +46,15 @@ export interface CreateRefreshTokenInput {
 // CONSULTAS
 // =====================================================
 
+
+// =====================================================
+// HASHING DE TOKENS (SEC-005)
+// =====================================================
+
+const hashToken = (token: string): string => {
+  return crypto.createHash('sha256').update(token).digest('hex');
+};
+
 const TABLE_NAME = 'refresh_tokens';
 
 /**
@@ -74,7 +84,7 @@ export const create = async (input: CreateRefreshTokenInput): Promise<RefreshTok
     [
       uuidv4(),
       userId,
-      token,
+      hashToken(token),
       deviceId ?? null,
       deviceName ?? null,
       deviceType ?? null,
@@ -94,7 +104,7 @@ export const create = async (input: CreateRefreshTokenInput): Promise<RefreshTok
 export const findByToken = async (token: string): Promise<RefreshToken | null> => {
   const result = await query<RefreshToken>(
     `SELECT * FROM ${TABLE_NAME} WHERE token = $1`,
-    [token]
+    [hashToken(token)]
   );
 
   return result.rows[0] ?? null;
@@ -140,7 +150,7 @@ export const markAsUsed = async (token: string): Promise<boolean> => {
     `UPDATE ${TABLE_NAME} 
      SET is_used = TRUE, used_at = NOW() 
      WHERE token = $1`,
-    [token]
+    [hashToken(token)]
   );
 
   return (result.rowCount ?? 0) > 0;
@@ -154,7 +164,7 @@ export const revoke = async (token: string): Promise<boolean> => {
     `UPDATE ${TABLE_NAME} 
      SET is_revoked = TRUE, revoked_at = NOW() 
      WHERE token = $1`,
-    [token]
+    [hashToken(token)]
   );
 
   return (result.rowCount ?? 0) > 0;
@@ -210,7 +220,7 @@ export const isValid = async (token: string): Promise<boolean> => {
   const result = await query<{ count: string }>(
     `SELECT COUNT(*) as count FROM ${TABLE_NAME} 
      WHERE token = $1 AND is_revoked = FALSE AND is_used = FALSE AND expires_at > NOW()`,
-    [token]
+    [hashToken(token)]
   );
 
   return parseInt(result.rows[0]?.count ?? '0', 10) > 0;

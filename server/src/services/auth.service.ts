@@ -352,6 +352,8 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
 
   // Verificar que el token no esté revocado o usado
   if (storedToken.is_revoked || storedToken.is_used) {
+    // Detección de reutilización: revocar todas las sesiones del usuario.
+    await RefreshTokenModel.revokeAllByUserId(storedToken.user_id);
     const error = new Error('Refresh token revocado o ya usado') as Error & { statusCode: number };
     error.statusCode = 401;
     throw error;
