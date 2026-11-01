@@ -632,6 +632,10 @@ const MIGRATIONS = [
   `ALTER TABLE users ADD CONSTRAINT users_status_check CHECK (status IN ('active', 'inactive', 'suspended', 'deleted'))`,
 ];
 
+  // Phase 3: permitir estado 'deleted' en users
+  `ALTER TABLE users DROP CONSTRAINT IF EXISTS users_status_check`,
+  `ALTER TABLE users ADD CONSTRAINT users_status_check CHECK (status IN ('active', 'inactive', 'suspended', 'deleted'))`,
+
 const TRIGGERS = [
   `CREATE OR REPLACE TRIGGER update_users_timestamp BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,
   `CREATE OR REPLACE TRIGGER update_profiles_timestamp BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_timestamp();`,

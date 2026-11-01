@@ -128,7 +128,9 @@ export class TTSServiceImpl implements TTSService {
           console.log('[TTS] Usando Kokoro como fallback');
           return await this.synthesizeKokoro(cleanText, config, language, speaker);
         }
-        throw new Error(`No se pudo generar el audio con ElevenLabs: ${reason}`);
+        throw new Error(`No se pudo generar el audio con ElevenLabs: ${reason}`, {
+          cause: error,
+        });
       }
     }
 
