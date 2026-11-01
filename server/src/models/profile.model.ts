@@ -5,6 +5,7 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 // =====================================================
 // INTERFACES
@@ -91,12 +92,12 @@ export const createProfile = async (
     data.profile_type || 'estandar',
     data.display_name || null,
     data.avatar_url || null,
-    data.bio || null,
+    data.bio ? encrypt(data.bio) : null,
     data.age_range || null,
     data.gender || null,
     data.education_level || null,
     data.employment_status || null,
-    data.primary_substance || null,
+    data.primary_substance ? encrypt(data.primary_substance) : null,
     data.substance_years_use || null,
     data.previous_treatments || false,
     data.has_relapse_history || false,
@@ -110,7 +111,9 @@ export const createProfile = async (
   ];
 
   const result = await query<Profile>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0] || null;
+  if (!row) return null;
+  return { ...row, bio: row.bio ? tryDecrypt(row.bio) : undefined, primary_substance: row.primary_substance ? tryDecrypt(row.primary_substance) : undefined };
 };
 
 /**
@@ -119,7 +122,9 @@ export const createProfile = async (
 export const getProfileByUserId = async (userId: string): Promise<Profile | null> => {
   const sql = `SELECT * FROM profiles WHERE user_id = $1`;
   const result = await query<Profile>(sql, [userId]);
-  return result.rows[0] || null;
+  const row = result.rows[0] || null;
+  if (!row) return null;
+  return { ...row, bio: row.bio ? tryDecrypt(row.bio) : undefined, primary_substance: row.primary_substance ? tryDecrypt(row.primary_substance) : undefined };
 };
 
 /**
@@ -128,7 +133,9 @@ export const getProfileByUserId = async (userId: string): Promise<Profile | null
 export const getProfileById = async (id: string): Promise<Profile | null> => {
   const sql = `SELECT * FROM profiles WHERE id = $1`;
   const result = await query<Profile>(sql, [id]);
-  return result.rows[0] || null;
+  const row = result.rows[0] || null;
+  if (!row) return null;
+  return { ...row, bio: row.bio ? tryDecrypt(row.bio) : undefined, primary_substance: row.primary_substance ? tryDecrypt(row.primary_substance) : undefined };
 };
 
 /**
@@ -165,7 +172,10 @@ export const updateProfile = async (
   for (const [key, value] of Object.entries(data)) {
     if (allowedFields.includes(key) && value !== undefined) {
       fields.push(`${key} = $${paramIndex}`);
-      values.push(key === 'notification_preferences' ? JSON.stringify(value) : value);
+      let v = value;
+      if (key === 'bio' || key === 'primary_substance') v = value ? encrypt(String(value)) : value;
+      if (key === 'notification_preferences') v = JSON.stringify(value);
+      values.push(v);
       paramIndex++;
     }
   }
@@ -176,7 +186,9 @@ export const updateProfile = async (
   const sql = `UPDATE profiles SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
 
   const result = await query<Profile>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0] || null;
+  if (!row) return null;
+  return { ...row, bio: row.bio ? tryDecrypt(row.bio) : undefined, primary_substance: row.primary_substance ? tryDecrypt(row.primary_substance) : undefined };
 };
 
 /**
@@ -204,7 +216,7 @@ export const getAllProfiles = async (
   const sql = `SELECT * FROM profiles ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
   const result = await query<Profile>(sql, [limit, offset]);
 
-  return { profiles: result.rows, total };
+  return { profiles: (result.rows as Profile[]).map((r) => ({ ...r, bio: r.bio ? tryDecrypt(r.bio) : undefined, primary_substance: r.primary_substance ? tryDecrypt(r.primary_substance) : undefined })), total };
 };
 
 // =====================================================

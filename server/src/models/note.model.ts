@@ -1,4 +1,5 @@
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
 
 export interface AgentNote {
   id: string;
@@ -22,12 +23,13 @@ export const createNote = async (
     RETURNING *`;
   const result = await query(sql, [
     userId,
-    data.title || null,
-    data.content,
+    data.title ? encrypt(data.title) : null,
+    encrypt(data.content),
     data.source || 'user',
     data.category || null,
   ]);
-  return result.rows[0] as AgentNote;
+  const row = result.rows[0] as AgentNote;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const getNotes = async (
@@ -58,7 +60,11 @@ export const getNotes = async (
   params.push(limit);
 
   const result = await query(sql, params);
-  return result.rows as AgentNote[];
+  return (result.rows as AgentNote[]).map((r) => ({
+    ...r,
+    title: r.title ? tryDecrypt(r.title) : null,
+    content: tryDecrypt(r.content),
+  }));
 };
 
 export const getNoteById = async (id: string, userId: string): Promise<AgentNote | null> => {
@@ -66,7 +72,9 @@ export const getNoteById = async (id: string, userId: string): Promise<AgentNote
     id,
     userId,
   ]);
-  return (result.rows[0] as AgentNote) || null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const updateNote = async (
@@ -80,12 +88,12 @@ export const updateNote = async (
 
   if (data.title !== undefined) {
     fields.push(`title = $${paramIndex}`);
-    params.push(data.title);
+    params.push(data.title ? encrypt(data.title) : null);
     paramIndex++;
   }
   if (data.content !== undefined) {
     fields.push(`content = $${paramIndex}`);
-    params.push(data.content);
+    params.push(encrypt(data.content));
     paramIndex++;
   }
   if (data.category !== undefined) {
@@ -111,7 +119,9 @@ export const updateNote = async (
   params.push(id, userId);
 
   const result = await query(sql, params);
-  return (result.rows[0] as AgentNote) || null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
 
 export const deleteNote = async (id: string, userId: string): Promise<boolean> => {
@@ -129,5 +139,7 @@ export const togglePin = async (id: string, userId: string): Promise<AgentNote |
     WHERE id = $1 AND user_id = $2
     RETURNING *`;
   const result = await query(sql, [id, userId]);
-  return (result.rows[0] as AgentNote) || null;
+  const row = (result.rows[0] as AgentNote) || null;
+  if (!row) return null;
+  return { ...row, title: row.title ? tryDecrypt(row.title) : null, content: tryDecrypt(row.content) };
 };
