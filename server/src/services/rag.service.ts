@@ -7,8 +7,6 @@
 import OpenAI from 'openai';
 import { embeddingsService, EmbeddingChunk } from './embedding.service.js';
 import { neo4jService } from './neo4j.service.js';
-import * as UserModel from '../models/user.model.js';
-import { decrypt } from '../utils/encryption.js';
 import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
 import { ai as aiDefaultConfig } from '../config/neo4j.js';
 

@@ -5,6 +5,7 @@
 
 import { createApp } from './app.js';
 import { initDatabase, closePool } from './config/database.js';
+import * as RefreshTokenModel from './models/refreshToken.model.js';
 import { server } from './config/index.js';
 
 // =====================================================
@@ -17,6 +18,18 @@ const startServer = async (): Promise<void> => {
     console.log('🔄 Iniciando base de datos...');
     await initDatabase();
     console.log('✅ Base de datos conectada');
+
+    // Retención: limpieza periódica de refresh tokens expirados (PRIV-008)
+    const runRetention = async () => {
+      try {
+        const removed = await RefreshTokenModel.cleanupExpired();
+        console.log(`🧹 Retención: ${removed} refresh tokens expirados eliminados`);
+      } catch (err) {
+        console.error('❌ Error en job de retención:', err);
+      }
+    };
+    runRetention();
+    setInterval(runRetention, 24 * 60 * 60 * 1000);
 
     // Crear aplicación Express
     const app = createApp();

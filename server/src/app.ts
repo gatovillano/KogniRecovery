@@ -9,6 +9,7 @@ import { errorHandler, notFoundHandler } from './middleware/error.js';
 import apiRouter from './routes/index.js';
 import { server as serverConfig, rateLimit as rateLimitConfig, isDevelopment } from './config/index.js';
 import { securityMiddleware } from './middleware/security.js';
+import { installRedactingConsole } from './utils/redact.js';
 import rateLimit from 'express-rate-limit';
 
 // =====================================================
@@ -16,6 +17,7 @@ import rateLimit from 'express-rate-limit';
 // =====================================================
 
 export const createApp = (): Application => {
+  installRedactingConsole();
   const app = express();
 
   // =====================================================
