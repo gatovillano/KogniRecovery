@@ -869,6 +869,45 @@ export const getUserContextHistory = async (
 // TTS (TEXT-TO-SPEECH)
 // =====================================================
 
+const TTS_NETWORK_ERROR_CODES = new Set([
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'ENOTFOUND',
+  'EAI_AGAIN',
+  'ETIMEDOUT',
+  'ECONNABORTED',
+  'EHOSTUNREACH',
+  'ENETUNREACH',
+]);
+
+/**
+ * Distingue una indisponibilidad real del proveedor TTS (red, timeout o
+ * respuesta 5xx/429) de un error interno o de programación.
+ *
+ * Solo los primeros deben traducirse a 503; el resto debe propagarse como
+ * error interno para no enmascarar fallos.
+ */
+export const isTtsUnavailableError = (error: unknown): boolean => {
+  const err = error as {
+    code?: string;
+    response?: { status?: number };
+    cause?: unknown;
+  } | null;
+
+  if (!err) return false;
+  if (err.code && TTS_NETWORK_ERROR_CODES.has(err.code)) return true;
+
+  const status = err.response?.status;
+  if (typeof status === 'number') {
+    return status >= 500 || status === 429;
+  }
+
+  // Errores envueltos por el servicio (p. ej. ElevenLabs) conservan la causa.
+  if (err.cause) return isTtsUnavailableError(err.cause);
+
+  return false;
+};
+
 /**
  * GET /api/v1/chatbot/messages/:id/tts
  * Generar audio para un mensaje específico (el mensaje y su conversación
@@ -937,7 +976,16 @@ export const getMessageSpeech = async (
       res.setHeader('Accept-Ranges', 'bytes');
       res.send(audio.data);
     } catch (ttsError: any) {
-      console.warn('⚠️ TTS service unavailable, returning 503:', ttsError.message);
+      // Solo una indisponibilidad real del proveedor se traduce a 503.
+      // Cualquier otro error (programación, configuración inválida, 4xx)
+      // debe llegar al manejador global como error interno.
+      if (!isTtsUnavailableError(ttsError)) {
+        console.error('❌ Error inesperado generando TTS:', ttsError);
+        next(ttsError);
+        return;
+      }
+
+      console.warn('⚠️ TTS service unavailable, returning 503:', ttsError?.message);
       res.status(503).json({
         error: {
           code: 'SERVICE_UNAVAILABLE',

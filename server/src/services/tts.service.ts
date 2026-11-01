@@ -1,19 +1,41 @@
 /**
  * TTS Service
- * Maneja la generación de voz a partir de texto
+ * Maneja la generación de voz a partir de texto.
+ *
+ * Proveedores:
+ *  - ElevenLabs (nube, mejor calidad; requiere API key).
+ *  - Kokoro (local vía Docker, gratis; fallback por defecto).
+ *
+ * Flujo: si el proveedor configurado es ElevenLabs y su llamada falla
+ * (cuota agotada, límite de caracteres, rate limit, error de red o 5xx),
+ * se reintenta automáticamente contra Kokoro cuando el fallback está
+ * habilitado en la configuración del centro.
  * KogniRecovery - Sistema de Acompañamiento en Adicciones
  */
 
 import axios from 'axios';
-import dotenv from 'dotenv';
+import {
+  resolveTtsConfig,
+  type TtsConfigResolved,
+} from './ttsSettings.service.js';
 
-dotenv.config();
-
-const TTS_URL = process.env.TTS_API_URL || 'http://localhost:8009';
-const DEFAULT_LANGUAGE = 'es';
+export interface TtsAudio {
+  data: Buffer;
+  contentType: string;
+}
 
 export interface TTSService {
-  generateSpeech(text: string, language?: string, speaker?: string): Promise<Buffer>;
+  generateSpeech(
+    text: string,
+    language?: string,
+    speaker?: string,
+    opts?: {
+      /** Configuración ya resuelta (por organización). Si se omite, se resuelve desde entorno. */
+      config?: TtsConfigResolved;
+      /** Permite usar Kokoro como fallback cuando ElevenLabs falla. Default: true. */
+      allowFallback?: boolean;
+    }
+  ): Promise<TtsAudio>;
 }
 
 /**
@@ -74,50 +96,146 @@ function cleanMarkdown(text: string): string {
   return cleaned.trim();
 }
 
+const ELEVENLABS_API = 'https://api.elevenlabs.io/v1';
+
 export class TTSServiceImpl implements TTSService {
   /**
-   * Genera audio a partir de texto usando la API de TTS
+   * Genera audio a partir de texto usando el proveedor configurado.
+   * ElevenLabs primero y Kokoro como fallback si está habilitado.
    */
   async generateSpeech(
     text: string,
-    _language: string = DEFAULT_LANGUAGE,
-    _speaker: string = 'default'
-  ): Promise<Buffer> {
-    try {
-      // Limpiar markdown del texto antes de enviarlo al TTS
-      const cleanText = cleanMarkdown(text);
-      console.log(`[TTS] Generando voz para: "${cleanText.substring(0, 30)}..."`);
+    language: string = 'es',
+    speaker: string = 'default',
+    opts: { config?: TtsConfigResolved; allowFallback?: boolean } = {}
+  ): Promise<TtsAudio> {
+    const cleanText = cleanMarkdown(text);
+    const config = opts.config ?? (await resolveTtsConfig(null));
+    const allowFallback = opts.allowFallback !== false;
 
-      // Kokoro TTS: enviar texto con opcionales de voz e idioma
-      const requestData: Record<string, any> = {
-        text: cleanText,
-      };
+    console.log(
+      `[TTS] Generando voz (${cleanText.length} caracteres) · proveedor=${config.provider}`
+    );
 
-      // Voz por defecto: ef_dora (femenina, espanol)
-      requestData.voice = _speaker && _speaker !== 'default' ? _speaker : 'ef_dora';
-      requestData.lang = _language || 'es';
-
-      console.log(`[TTS] Enviando solicitud con ${cleanText.length} caracteres, timeout: 300s`);
-      const startTime = Date.now();
-
-      const response = await axios({
-        method: 'post',
-        url: `${TTS_URL}/tts`,
-        data: requestData,
-        responseType: 'arraybuffer',
-        timeout: 300000, // 5 minutes for long texts
-      });
-
-      const duration = (Date.now() - startTime) / 1000;
-      console.log(
-        `[TTS] Audio generado en ${duration.toFixed(2)} segundos, ${response.data.byteLength} bytes`
-      );
-
-      return Buffer.from(response.data);
-    } catch (error: any) {
-      console.error('❌ [TTS] Error generando audio:', error.message);
-      throw new Error(`No se pudo generar el audio: ${error.message}`);
+    // Proveedor principal: ElevenLabs (si hay key configurada).
+    if (config.provider === 'elevenlabs' && config.elevenlabsApiKey) {
+      try {
+        return await this.synthesizeElevenLabs(cleanText, config);
+      } catch (error: any) {
+        const reason = this.extractElevenError(error);
+        console.warn(`❌ [TTS] ElevenLabs falló, ${reason}`);
+        if (allowFallback && config.fallbackEnabled) {
+          console.log('[TTS] Usando Kokoro como fallback');
+          return await this.synthesizeKokoro(cleanText, config, language, speaker);
+        }
+        throw new Error(`No se pudo generar el audio con ElevenLabs: ${reason}`, {
+          cause: error,
+        });
+      }
     }
+
+    // Kokoro (local) o sin key de ElevenLabs.
+    return this.synthesizeKokoro(cleanText, config, language, speaker);
+  }
+
+  /**
+   * Sintetiza con ElevenLabs. Devuelve audio MP3.
+   */
+  private async synthesizeElevenLabs(
+    text: string,
+    config: TtsConfigResolved
+  ): Promise<TtsAudio> {
+    const voiceId = encodeURIComponent(config.elevenlabsVoiceId);
+    const started = Date.now();
+    const response = await axios({
+      method: 'post',
+      url: `${ELEVENLABS_API}/text-to-speech/${voiceId}`,
+      headers: {
+        'xi-api-key': config.elevenlabsApiKey!,
+        Accept: 'audio/mpeg',
+      },
+      data: {
+        text,
+        model_id: config.elevenlabsModel,
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.75,
+          style: 0.0,
+          use_speaker_boost: false,
+        },
+      },
+      responseType: 'arraybuffer',
+      timeout: 60000, // 60s
+    });
+
+    const duration = (Date.now() - started) / 1000;
+    console.log(
+      `[TTS] ElevenLabs: audio MP3 generado en ${duration.toFixed(2)}s, ${response.data.byteLength} bytes`
+    );
+    return { data: Buffer.from(response.data), contentType: 'audio/mpeg' };
+  }
+
+  /**
+   * Extrae un mensaje legible del error de ElevenLabs (HTTP o red).
+   */
+  private extractElevenError(error: any): string {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      let detail = '';
+      if (error.response?.data) {
+        try {
+          const body = JSON.parse(Buffer.from(error.response.data).toString('utf8'));
+          detail = body.detail || body.message || JSON.stringify(body);
+        } catch {
+          detail = Buffer.from(error.response.data).toString('utf8').slice(0, 300);
+        }
+      }
+      if (status === 401) return `API key inválida (401): ${detail}`.trim();
+      if (status === 402) return `cuota o créditos agotados (402): ${detail}`.trim();
+      if (status === 422) return `solicitud inválida (422): ${detail}`.trim();
+      if (status === 429) return `límite de peticiones alcanzado (429): ${detail}`.trim();
+      if (status && status >= 500) return `error del servicio ElevenLabs (${status}): ${detail}`.trim();
+      return `HTTP ${status ?? '?'}: ${detail}`.trim();
+    }
+    return error?.message || String(error);
+  }
+
+  /**
+   * Sintetiza con Kokoro (local). Devuelve audio WAV.
+   */
+  private async synthesizeKokoro(
+    text: string,
+    config: TtsConfigResolved,
+    language: string,
+    speaker: string
+  ): Promise<TtsAudio> {
+    const voice = speaker && speaker !== 'default' ? speaker : config.kokoroVoice;
+
+    const requestData: Record<string, any> = {
+      text,
+      voice,
+      lang: language || 'es',
+      speed: 1.0,
+    };
+
+    console.log(
+      `[TTS] Kokoro: enviando ${text.length} caracteres a ${config.kokoroUrl} (voz=${voice}), timeout 300s`
+    );
+    const started = Date.now();
+
+    const response = await axios({
+      method: 'post',
+      url: `${config.kokoroUrl.replace(/\/+$/, '')}/tts`,
+      data: requestData,
+      responseType: 'arraybuffer',
+      timeout: 300000, // 5 minutos para textos largos
+    });
+
+    const duration = (Date.now() - started) / 1000;
+    console.log(
+      `[TTS] Kokoro: audio WAV generado en ${duration.toFixed(2)}s, ${response.data.byteLength} bytes`
+    );
+    return { data: Buffer.from(response.data), contentType: 'audio/wav' };
   }
 }
 

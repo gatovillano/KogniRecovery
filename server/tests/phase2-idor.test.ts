@@ -18,6 +18,7 @@
 import { once } from 'node:events';
 import http from 'node:http';
 import { createApp } from '../src/app.js';
+import { isTtsUnavailableError } from '../src/controllers/chatbot.controller.js';
 import { initDatabase, closePool } from '../src/config/database.js';
 
 import * as checkinModel from '../src/models/checkin.model.js';
@@ -82,6 +83,29 @@ const api = async (
 
 const expectStatus = (name: string, got: number, want: number): void =>
   check(`${name} → HTTP ${want} (recibido ${got})`, got === want, `— recibido ${got}`);
+
+/**
+ * Comprueba si el servicio Kokoro configurado está escuchando. Cualquier
+ * respuesta HTTP (incluido 4xx/5xx) demuestra que el proceso está activo;
+ * solo un fallo de conexión/timeout lo considera caído.
+ */
+const kokoroUrl = (
+  process.env.TTS_KOKORO_URL ||
+  process.env.TTS_API_URL ||
+  'http://localhost:8009'
+).replace(/\/+$/, '');
+
+const isKokoroReachable = async (): Promise<boolean> => {
+  try {
+    await fetch(`${kokoroUrl}/`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(3000),
+    });
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 async function main(): Promise<void> {
   await initDatabase();
@@ -301,13 +325,51 @@ async function main(): Promise<void> {
   // C04 — TEXT TO SPEECH
   // ══════════════════════════════════════════════════════════════════════
   console.log('\nC04 — TTS');
+
+  // Clasificación: solo red/timeout/5xx/429 son indisponibilidad real.
+  check(
+    'clasificador TTS: ECONNREFUSED es indisponibilidad',
+    isTtsUnavailableError({ code: 'ECONNREFUSED' }) === true
+  );
+  check(
+    'clasificador TTS: ETIMEDOUT es indisponibilidad',
+    isTtsUnavailableError({ code: 'ETIMEDOUT' }) === true
+  );
+  check(
+    'clasificador TTS: respuesta 502 es indisponibilidad',
+    isTtsUnavailableError({ response: { status: 502 } }) === true
+  );
+  check(
+    'clasificador TTS: respuesta 429 es indisponibilidad',
+    isTtsUnavailableError({ response: { status: 429 } }) === true
+  );
+  check(
+    'clasificador TTS: error genérico NO es indisponibilidad',
+    isTtsUnavailableError(new Error('TypeError: x is not a function')) === false
+  );
+  check(
+    'clasificador TTS: respuesta 400 NO es indisponibilidad',
+    isTtsUnavailableError({ response: { status: 400 } }) === false
+  );
+  check(
+    'clasificador TTS: respuesta 401 NO es indisponibilidad',
+    isTtsUnavailableError({ response: { status: 401 } }) === false
+  );
+
   // B no puede acceder al mensaje de A → 404, sin audio, sin contenido.
   const ttsB = await api('GET', `/api/v1/chatbot/messages/${msgAId}/tts`, tokenB);
   expectStatus('B obtiene TTS de mensaje de A (debe 404)', ttsB.status, 404);
   check('B no recibe audio (sin Content-Type audio)', !String(ttsB.data?.contentType ?? '').startsWith('audio/'));
+  check(
+    'B recibe NOT_FOUND y no un 503 del proveedor',
+    ttsB.data?.error?.code === 'NOT_FOUND',
+    `— ${JSON.stringify(ttsB.data?.error ?? null)}`
+  );
 
-  // A accede a su propio mensaje: 200 con audio válido, o 503 si Kokoro
-  // está indisponible (indisponibilidad real y controlada, no error de auth).
+  // A accede a su propio mensaje. Si Kokoro está disponible debe obtener
+  // audio real; un 503 solo se acepta cuando la caída se verifica de forma
+  // independiente (nunca como cajón de sastre para errores internos).
+  const kokoroUp = await isKokoroReachable();
   const ttsRes = await fetch(base + `/api/v1/chatbot/messages/${msgAId}/tts`, {
     method: 'GET',
     headers: { authorization: `Bearer ${tokenA}` },
@@ -316,20 +378,36 @@ async function main(): Promise<void> {
   const ttsContentType = ttsRes.headers.get('content-type') ?? '';
   const ttsBody = await ttsRes.arrayBuffer();
 
-  check(
-    'A accede a TTS de su mensaje: 200 (audio) o 503 (Kokoro caído)',
-    ttsStatus === 200 || ttsStatus === 503,
-    `— recibido ${ttsStatus}`
-  );
+  let ttsJson: any = null;
+  if (ttsContentType.includes('application/json')) {
+    try {
+      ttsJson = JSON.parse(Buffer.from(ttsBody).toString('utf8'));
+    } catch {
+      /* body no JSON */
+    }
+  }
 
   if (ttsStatus === 200) {
     check('TTS responde con audio (Content-Type audio/*)', ttsContentType.startsWith('audio/'), `— ${ttsContentType}`);
     check('TTS devuelve cuerpo no vacío (> 0 bytes)', ttsBody.byteLength > 0, `— ${ttsBody.byteLength} bytes`);
     check('TTS no expone JSON de error', ttsContentType !== 'application/json');
   } else if (ttsStatus === 503) {
-    check('TTS 503 es indisponibilidad controlada (no 500)', ttsStatus === 503);
+    check(
+      '503 solo se acepta si Kokoro está realmente caído',
+      !kokoroUp,
+      '— Kokoro accesible pero el endpoint devolvió 503 (error interno enmascarado)'
+    );
+    check(
+      '503 identificado como SERVICE_UNAVAILABLE controlado',
+      ttsJson?.error?.code === 'SERVICE_UNAVAILABLE',
+      `— ${JSON.stringify(ttsJson)}`
+    );
   } else {
-    check('TTS no devuelve error inesperado (no 500/401/403)', false, `— recibido ${ttsStatus}`);
+    check(
+      'TTS devuelve 200 o 503 controlado (no 401/403/500)',
+      false,
+      `— recibido ${ttsStatus}`
+    );
   }
 
   // Mensaje inexistente → 404 (no revela existencia)
