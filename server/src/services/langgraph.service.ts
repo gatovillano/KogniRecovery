@@ -2,11 +2,8 @@ import { MemorySaver, StateGraph, START, END, Annotation } from '@langchain/lang
 import { ToolNode, toolsCondition } from '@langchain/langgraph/prebuilt';
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage, BaseMessage, AIMessage } from '@langchain/core/messages';
-import * as UserModel from '../models/user.model.js';
 import * as messageModel from '../models/message.model.js';
-import { decrypt } from '../utils/encryption.js';
 import { resolveEffectiveLlmConfig } from './llmSettings.service.js';
-import { ai as aiDefaultConfig } from '../config/neo4j.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { embeddingsService, chunkingService, EmbeddingChunk } from './embedding.service.js';
