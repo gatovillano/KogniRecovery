@@ -870,8 +870,9 @@ export const getUserContextHistory = async (
 // =====================================================
 
 /**
- * POST /api/v1/chatbot/messages/:id/tts
- * Generar audio para un mensaje específico
+ * GET /api/v1/chatbot/messages/:id/tts
+ * Generar audio para un mensaje específico (el mensaje y su conversación
+ * deben pertenecer al usuario autenticado).
  */
 export const getMessageSpeech = async (
   req: Request,
@@ -891,7 +892,11 @@ export const getMessageSpeech = async (
     }
 
     const messageId = req.params.id as string;
-    const { language, speaker } = req.body;
+    // GET normalmente no trae body; se usan valores por defecto compatibles
+    // con el contrato del servicio TTS (idioma español, voz por defecto).
+    const body = (req.body ?? {}) as { language?: string; speaker?: string };
+    const language = typeof body.language === 'string' && body.language ? body.language : 'es';
+    const speaker = typeof body.speaker === 'string' && body.speaker ? body.speaker : 'default';
 
     // FASE 2 (C04): el mensaje debe pertenecer al usuario autenticado...
     const message = await messageModel.getMessageById(messageId, userId);

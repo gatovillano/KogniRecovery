@@ -521,24 +521,41 @@ export const recordStrategyUsage = async (
   cravingId: string | null,
   wasEffective: boolean
 ): Promise<void> => {
-  // FASE 2 (C02): la estrategia debe pertenecer al usuario autenticado.
-  const ownership = await query<{ id: string }>(
-    `SELECT id FROM coping_strategies WHERE id = $1 AND user_id = $2 AND is_active = true`,
-    [strategyId, userId]
-  );
-  if (!ownership.rows[0]) {
+  // FASE 2 (C02): verificación atómica de propiedad.
+  // La estrategia debe pertenecer al usuario y estar activa. Si cravingId no es
+  // null, el craving también debe existir y pertenecer al mismo usuario.
+  // Se usa INSERT ... SELECT para que la comprobación y la inserción ocurran
+  // en una única sentencia, evitando condiciones de carrera entre validación
+  // e inserción.
+  const insertSql = `
+    INSERT INTO strategy_usage (user_id, strategy_id, craving_id, was_effective)
+    SELECT $1, $2, $3, $4
+    WHERE EXISTS (
+      SELECT 1 FROM coping_strategies
+      WHERE id = $2 AND user_id = $1 AND is_active = true
+    )
+    AND (
+      $3::uuid IS NULL
+      OR EXISTS (
+        SELECT 1 FROM cravings
+        WHERE id = $3::uuid AND user_id = $1
+      )
+    )
+    RETURNING id`;
+
+  const result = await query<{ id: string }>(insertSql, [userId, strategyId, cravingId, wasEffective]);
+
+  if (!result.rows[0]) {
+    // No se insertó: estrategia o craving no pertenecen al usuario (o no
+    // existen). Se devuelve 404 sin revelar cuál falló.
     const error = new Error('Estrategia no encontrada') as Error & { statusCode: number };
     error.statusCode = 404;
     throw error;
   }
 
-  const sql = `
-    INSERT INTO strategy_usage (user_id, strategy_id, craving_id, was_effective)
-    VALUES ($1, $2, $3, $4)`;
-
-  await query(sql, [userId, strategyId, cravingId, wasEffective]);
-
-  // Actualizar contador de la estrategia (solo si pertenece al usuario)
+  // Actualizar contador de la estrategia (solo si pertenece al usuario).
+  // El filtro por user_id en el WHERE garantiza que el contador solo se
+  // actualice cuando el registro se haya realizado correctamente.
   const updateSql = `
     UPDATE coping_strategies 
     SET times_used = times_used + 1,
