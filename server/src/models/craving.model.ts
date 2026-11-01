@@ -122,11 +122,12 @@ export const createCraving = async (userId: string, data: Partial<Craving>): Pro
 };
 
 /**
- * Obtener craving por ID
+ * Obtener craving por ID (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir acceso cruzado (IDOR/BOLA).
  */
-export const getCravingById = async (id: string): Promise<Craving | null> => {
-  const sql = `SELECT * FROM cravings WHERE id = $1`;
-  const result = await query<Craving>(sql, [id]);
+export const getCravingById = async (id: string, userId: string): Promise<Craving | null> => {
+  const sql = `SELECT * FROM cravings WHERE id = $1 AND user_id = $2`;
+  const result = await query<Craving>(sql, [id, userId]);
   const row = result.rows[0];
   return row
     ? { ...row, consequences: tryDecrypt(row.consequences ?? ''), notes: tryDecrypt(row.notes ?? '') }
@@ -199,10 +200,12 @@ export const getUserCravings = async (
 };
 
 /**
- * Actualizar craving
+ * Actualizar craving (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir modificación cruzada.
  */
 export const updateCraving = async (
   id: string,
+  userId: string,
   data: Partial<Craving>
 ): Promise<Craving | null> => {
   const fields: string[] = [];
@@ -242,8 +245,8 @@ export const updateCraving = async (
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE cravings SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE cravings SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
 
   const result = await query<Craving>(sql, values);
   const row = result.rows[0];
@@ -253,11 +256,12 @@ export const updateCraving = async (
 };
 
 /**
- * Eliminar craving
+ * Eliminar craving (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir eliminación cruzada.
  */
-export const deleteCraving = async (id: string): Promise<boolean> => {
-  const sql = `DELETE FROM cravings WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteCraving = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `DELETE FROM cravings WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 
@@ -266,11 +270,13 @@ export const deleteCraving = async (id: string): Promise<boolean> => {
  */
 export const resolveCraving = async (
   id: string,
+  userId: string,
   status: 'managed' | 'resisted' | 'surrendered',
   strategies?: any[],
   outcome?: string
 ): Promise<Craving | null> => {
-  const craving = await getCravingById(id);
+  // FASE 2 (C02): la resolución solo aplica si el craving es del usuario.
+  const craving = await getCravingById(id, userId);
   if (!craving) return null;
 
   const endTime = new Date();
@@ -284,7 +290,7 @@ export const resolveCraving = async (
         outcome = $3,
         craving_end_time = $4,
         duration_minutes = $5
-    WHERE id = $6
+    WHERE id = $6 AND user_id = $7
     RETURNING *`;
 
   const result = await query<Craving>(sql, [
@@ -294,6 +300,7 @@ export const resolveCraving = async (
     endTime,
     durationMinutes,
     id,
+    userId,
   ]);
 
   return result.rows[0] || null;
@@ -349,6 +356,7 @@ export const getUserCravingPatterns = async (userId: string): Promise<CravingPat
  */
 export const updateCravingPattern = async (
   id: string,
+  userId: string,
   data: Partial<CravingPattern>
 ): Promise<CravingPattern | null> => {
   const fields: string[] = [];
@@ -379,8 +387,8 @@ export const updateCravingPattern = async (
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE craving_patterns SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE craving_patterns SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
 
   const result = await query<CravingPattern>(sql, values);
   return result.rows[0] || null;
@@ -389,9 +397,9 @@ export const updateCravingPattern = async (
 /**
  * Eliminar patrón
  */
-export const deleteCravingPattern = async (id: string): Promise<boolean> => {
-  const sql = `DELETE FROM craving_patterns WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteCravingPattern = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `DELETE FROM craving_patterns WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 
@@ -456,10 +464,12 @@ export const getStrategiesByCategory = async (
 };
 
 /**
- * Actualizar estrategia
+ * Actualizar estrategia (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir modificación cruzada.
  */
 export const updateCopingStrategy = async (
   id: string,
+  userId: string,
   data: Partial<CopingStrategy>
 ): Promise<CopingStrategy | null> => {
   const fields: string[] = [];
@@ -495,8 +505,8 @@ export const updateCopingStrategy = async (
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE coping_strategies SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE coping_strategies SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
 
   const result = await query<CopingStrategy>(sql, values);
   return result.rows[0] || null;
@@ -511,13 +521,41 @@ export const recordStrategyUsage = async (
   cravingId: string | null,
   wasEffective: boolean
 ): Promise<void> => {
-  const sql = `
+  // FASE 2 (C02): verificación atómica de propiedad.
+  // La estrategia debe pertenecer al usuario y estar activa. Si cravingId no es
+  // null, el craving también debe existir y pertenecer al mismo usuario.
+  // Se usa INSERT ... SELECT para que la comprobación y la inserción ocurran
+  // en una única sentencia, evitando condiciones de carrera entre validación
+  // e inserción.
+  const insertSql = `
     INSERT INTO strategy_usage (user_id, strategy_id, craving_id, was_effective)
-    VALUES ($1, $2, $3, $4)`;
+    SELECT $1, $2, $3, $4
+    WHERE EXISTS (
+      SELECT 1 FROM coping_strategies
+      WHERE id = $2 AND user_id = $1 AND is_active = true
+    )
+    AND (
+      $3::uuid IS NULL
+      OR EXISTS (
+        SELECT 1 FROM cravings
+        WHERE id = $3::uuid AND user_id = $1
+      )
+    )
+    RETURNING id`;
 
-  await query(sql, [userId, strategyId, cravingId, wasEffective]);
+  const result = await query<{ id: string }>(insertSql, [userId, strategyId, cravingId, wasEffective]);
 
-  // Actualizar contador de la estrategia
+  if (!result.rows[0]) {
+    // No se insertó: estrategia o craving no pertenecen al usuario (o no
+    // existen). Se devuelve 404 sin revelar cuál falló.
+    const error = new Error('Estrategia no encontrada') as Error & { statusCode: number };
+    error.statusCode = 404;
+    throw error;
+  }
+
+  // Actualizar contador de la estrategia (solo si pertenece al usuario).
+  // El filtro por user_id en el WHERE garantiza que el contador solo se
+  // actualice cuando el registro se haya realizado correctamente.
   const updateSql = `
     UPDATE coping_strategies 
     SET times_used = times_used + 1,
@@ -526,17 +564,18 @@ export const recordStrategyUsage = async (
           WHEN times_used + 1 > 0 THEN (times_successful + CASE WHEN $1 THEN 1 ELSE 0 END)::float / (times_used + 1)
           ELSE 0
         END
-    WHERE id = $2`;
+    WHERE id = $2 AND user_id = $3`;
 
-  await query(updateSql, [wasEffective, strategyId]);
+  await query(updateSql, [wasEffective, strategyId, userId]);
 };
 
 /**
- * Eliminar estrategia
+ * Eliminar estrategia (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir eliminación cruzada.
  */
-export const deleteCopingStrategy = async (id: string): Promise<boolean> => {
-  const sql = `UPDATE coping_strategies SET is_active = false WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteCopingStrategy = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `UPDATE coping_strategies SET is_active = false WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 
@@ -589,10 +628,12 @@ export const getUserCravingTriggers = async (userId: string): Promise<CravingTri
 };
 
 /**
- * Actualizar desencadenante
+ * Actualizar desencadenante (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir modificación cruzada.
  */
 export const updateCravingTrigger = async (
   id: string,
+  userId: string,
   data: Partial<CravingTrigger>
 ): Promise<CravingTrigger | null> => {
   const fields: string[] = [];
@@ -617,19 +658,20 @@ export const updateCravingTrigger = async (
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE craving_triggers SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE craving_triggers SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
 
   const result = await query<CravingTrigger>(sql, values);
   return result.rows[0] || null;
 };
 
 /**
- * Eliminar desencadenante
+ * Eliminar desencadenante (solo si pertenece al usuario)
+ * FASE 2 (C02): filtro por user_id para impedir eliminación cruzada.
  */
-export const deleteCravingTrigger = async (id: string): Promise<boolean> => {
-  const sql = `UPDATE craving_triggers SET status = 'archived' WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteCravingTrigger = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `UPDATE craving_triggers SET status = 'archived' WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 

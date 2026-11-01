@@ -105,11 +105,12 @@ export const createMessage = async (
 };
 
 /**
- * Obtener mensaje por ID
+ * Obtener mensaje por ID (solo si pertenece al usuario)
+ * FASE 2 (C03/C04): filtro por user_id para impedir acceso cruzado.
  */
-export const getMessageById = async (id: string): Promise<Message | null> => {
-  const sql = `SELECT * FROM messages WHERE id = $1`;
-  const result = await query<Message>(sql, [id]);
+export const getMessageById = async (id: string, userId: string): Promise<Message | null> => {
+  const sql = `SELECT * FROM messages WHERE id = $1 AND user_id = $2`;
+  const result = await query<Message>(sql, [id, userId]);
   const row = result.rows[0];
   return row ? { ...row, content: tryDecrypt(row.content) } : null;
 };
