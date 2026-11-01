@@ -181,6 +181,73 @@ async function main(): Promise<void> {
   expectStatus('B registra uso de estrategia de A (debe 404)', (await api('POST', `/api/v1/cravings/strategies/${stId}/use`, tokenB, { craving_id: crId, was_effective: true })).status, 404);
   expectStatus('A actualiza su estrategia', (await api('PUT', `/api/v1/cravings/strategies/${stId}`, tokenA, { description: '10 segundos' })).status, 200);
 
+  // ── Escenarios adicionales de propiedad cruzada estrategia/craving ──────
+  // Crear una estrategia para B y un craving para B (para pruebas cruzadas)
+  const stB = await api('POST', '/api/v1/cravings/strategies', tokenB, {
+    name: 'Estrategia de B',
+    category: 'calma',
+  });
+  const stIdB = requireData(stB, 'crear estrategia B').id as string;
+  const crB = await api('POST', '/api/v1/cravings', tokenB, {
+    substance_name: 'Tabaco',
+    intensity: 4,
+  });
+  const crIdB = requireData(crB, 'crear craving B').id as string;
+
+  // Escenario 1 — Uso válido: A usa su estrategia con su craving
+  expectStatus(
+    'Esc1: A registra uso válido (estrategia propia + craving propio)',
+    (await api('POST', `/api/v1/cravings/strategies/${stId}/use`, tokenA, { craving_id: crId, was_effective: true })).status,
+    200
+  );
+
+  // Escenario 2 — Craving ajeno: A usa su estrategia con craving de B
+  expectStatus(
+    'Esc2: A usa estrategia propia con craving de B (debe 404)',
+    (await api('POST', `/api/v1/cravings/strategies/${stId}/use`, tokenA, { craving_id: crIdB, was_effective: true })).status,
+    404
+  );
+
+  // Escenario 3 — Estrategia ajena: A usa estrategia de B con su craving
+  expectStatus(
+    'Esc3: A usa estrategia de B con craving propio (debe 404)',
+    (await api('POST', `/api/v1/cravings/strategies/${stIdB}/use`, tokenA, { craving_id: crId, was_effective: true })).status,
+    404
+  );
+
+  // Escenario 4 — Craving null: A registra uso sin craving
+  expectStatus(
+    'Esc4: A registra uso sin craving asociado (debe 200)',
+    (await api('POST', `/api/v1/cravings/strategies/${stId}/use`, tokenA, { craving_id: null, was_effective: false })).status,
+    200
+  );
+
+  // Escenario 5 — Identificadores inexistentes
+  expectStatus(
+    'Esc5a: estrategia inexistente (debe 404)',
+    (await api('POST', `/api/v1/cravings/strategies/00000000-0000-0000-0000-000000000000/use`, tokenA, { craving_id: crId, was_effective: true })).status,
+    404
+  );
+  expectStatus(
+    'Esc5b: craving inexistente (debe 404)',
+    (await api('POST', `/api/v1/cravings/strategies/${stId}/use`, tokenA, { craving_id: '00000000-0000-0000-0000-000000000000', was_effective: true })).status,
+    404
+  );
+
+  // Verificar que no se crearon registros cruzados en strategy_usage
+  const { query } = await import('../src/config/database.js');
+  const crossCheck = await query(
+    `SELECT COUNT(*) as c FROM strategy_usage WHERE strategy_id = $1 AND craving_id = $2`,
+    [stId, crIdB]
+  );
+  check('No se creó registro cruzado (estrategia A + craving B)', parseInt(crossCheck.rows[0]?.c ?? '0') === 0);
+
+  const alienStratCheck = await query(
+    `SELECT COUNT(*) as c FROM strategy_usage WHERE strategy_id = $1`,
+    [stIdB]
+  );
+  check('No se creó registro con estrategia de B usada por A', parseInt(alienStratCheck.rows[0]?.c ?? '0') === 0);
+
   check('modelo: updateCopingStrategy(A, B) = null', (await cravingModel.updateCopingStrategy(stId, idB, { name: 'X' })) === null);
   check('modelo: deleteCopingStrategy(A, B) = false', (await cravingModel.deleteCopingStrategy(stId, idB)) === false);
 
@@ -234,10 +301,43 @@ async function main(): Promise<void> {
   // C04 — TEXT TO SPEECH
   // ══════════════════════════════════════════════════════════════════════
   console.log('\nC04 — TTS');
-  expectStatus('B obtiene TTS de mensaje de A (debe 404)', (await api('GET', `/api/v1/chatbot/messages/${msgAId}/tts`, tokenB)).status, 404);
+  // B no puede acceder al mensaje de A → 404, sin audio, sin contenido.
+  const ttsB = await api('GET', `/api/v1/chatbot/messages/${msgAId}/tts`, tokenB);
+  expectStatus('B obtiene TTS de mensaje de A (debe 404)', ttsB.status, 404);
+  check('B no recibe audio (sin Content-Type audio)', !String(ttsB.data?.contentType ?? '').startsWith('audio/'));
 
-  const ttsA = await api('GET', `/api/v1/chatbot/messages/${msgAId}/tts`, tokenA);
-  check('A conserva acceso normal a TTS de su mensaje (no 404)', ttsA.status !== 404, `— recibido ${ttsA.status}`);
+  // A accede a su propio mensaje: 200 con audio válido, o 503 si Kokoro
+  // está indisponible (indisponibilidad real y controlada, no error de auth).
+  const ttsRes = await fetch(base + `/api/v1/chatbot/messages/${msgAId}/tts`, {
+    method: 'GET',
+    headers: { authorization: `Bearer ${tokenA}` },
+  });
+  const ttsStatus = ttsRes.status;
+  const ttsContentType = ttsRes.headers.get('content-type') ?? '';
+  const ttsBody = await ttsRes.arrayBuffer();
+
+  check(
+    'A accede a TTS de su mensaje: 200 (audio) o 503 (Kokoro caído)',
+    ttsStatus === 200 || ttsStatus === 503,
+    `— recibido ${ttsStatus}`
+  );
+
+  if (ttsStatus === 200) {
+    check('TTS responde con audio (Content-Type audio/*)', ttsContentType.startsWith('audio/'), `— ${ttsContentType}`);
+    check('TTS devuelve cuerpo no vacío (> 0 bytes)', ttsBody.byteLength > 0, `— ${ttsBody.byteLength} bytes`);
+    check('TTS no expone JSON de error', ttsContentType !== 'application/json');
+  } else if (ttsStatus === 503) {
+    check('TTS 503 es indisponibilidad controlada (no 500)', ttsStatus === 503);
+  } else {
+    check('TTS no devuelve error inesperado (no 500/401/403)', false, `— recibido ${ttsStatus}`);
+  }
+
+  // Mensaje inexistente → 404 (no revela existencia)
+  expectStatus(
+    'TTS de mensaje inexistente (debe 404)',
+    (await api('GET', `/api/v1/chatbot/messages/00000000-0000-0000-0000-000000000000/tts`, tokenA)).status,
+    404
+  );
 
   // ══════════════════════════════════════════════════════════════════════
   // RESUMEN

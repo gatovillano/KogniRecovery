@@ -562,16 +562,13 @@ export const recordStrategyUsage = async (
     }
     const { craving_id, was_effective } = req.body;
 
-    if (typeof craving_id !== 'string' || !craving_id) {
-      res.status(400).json({
-        success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'craving_id requerido' },
-      });
-      return;
-    }
+    // FASE 2 (C02): craving_id es opcional. Si no viene (o es null), se
+    // registra el uso sin asociarlo a un craving.
+    const normalizedCravingId =
+      typeof craving_id === 'string' && craving_id.trim() !== '' ? craving_id.trim() : null;
 
     // FASE 2 (C02): el servicio valida que la estrategia pertenezca al usuario.
-    await cravingModel.recordStrategyUsage(userId, id, craving_id, was_effective);
+    await cravingModel.recordStrategyUsage(userId, id, normalizedCravingId, was_effective);
 
     res.json({
       success: true,
