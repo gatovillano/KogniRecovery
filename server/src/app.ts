@@ -9,6 +9,7 @@ import { errorHandler, notFoundHandler } from './middleware/error.js';
 import apiRouter from './routes/index.js';
 import { server as serverConfig, rateLimit as rateLimitConfig, isDevelopment } from './config/index.js';
 import { securityMiddleware } from './middleware/security.js';
+import { sanitizeInput } from './middleware/sanitize.js';
 import rateLimit from 'express-rate-limit';
 
 // =====================================================
@@ -71,6 +72,9 @@ export const createApp = (): Application => {
 
   // Body parser - URL encoded
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+  // Sanitización básica de entrada (SEC-004/SEC-012)
+  app.use(sanitizeInput);
 
   // Logger simple (nunca loguear body en producción)
   app.use((req, res, next) => {
