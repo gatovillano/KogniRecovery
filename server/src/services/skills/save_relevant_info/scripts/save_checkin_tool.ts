@@ -35,7 +35,8 @@ export const recordMoodCheckinTool = tool(
 
       let checkin;
       if (existing) {
-        checkin = await checkinModel.updateCheckIn(existing.id, checkinData);
+        // FASE 2 (C01): el update exige el userId para validar propiedad.
+        checkin = await checkinModel.updateCheckIn(existing.id, userId, checkinData);
       } else {
         checkin = await checkinModel.createCheckIn(userId, checkinData);
       }

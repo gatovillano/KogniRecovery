@@ -13,10 +13,11 @@ const ITERATIONS = 100000;
 
 /**
  * Obtiene la clave de encriptación desde las variables de entorno
- * SEC-002 FIX: Salt aleatorio por instalación (ENCRYPTION_SALT), nunca hardcodeado.
+ * SEC-002 FIX + SEC-PHASE1 FIX: Salt aleatorio por instalación
+ * (ENCRYPTION_SALT), nunca hardcodeado, sin fallbacks.
  * Generar con: openssl rand -hex 32
  */
-const getEncryptionKey = (): Buffer => {
+export const getEncryptionKey = (): Buffer => {
   const key = process.env.ENCRYPTION_KEY;
   if (!key) {
     throw new Error('ENCRYPTION_KEY environment variable is not set');
@@ -88,6 +89,24 @@ export const decrypt = (encryptedText: string): string => {
   } catch (error) {
     console.error('Decryption error:', error);
     throw new Error('Failed to decrypt data');
+  }
+};
+
+/**
+ * Desencripta un texto si tiene formato cifrado (iv:authTag:encrypted).
+ * Si el valor no tiene formato de cifrado, se devuelve tal cual
+ * (retrocompatibilidad con datos en claro previos a la migración).
+ * Si el descifrado falla (tag inválido / clave distinta), se devuelve el
+ * valor original en lugar de lanzar, evitando romper lecturas.
+ */
+export const tryDecrypt = (value: string): string => {
+  if (!value || !value.includes(':')) {
+    return value;
+  }
+  try {
+    return decrypt(value);
+  } catch {
+    return value;
   }
 };
 
@@ -209,10 +228,12 @@ export const decryptUserSensitiveData = (user: {
 export default {
   encrypt,
   decrypt,
+  tryDecrypt,
   encryptFields,
   decryptFields,
   hash,
   generateSecureKey,
+  getEncryptionKey,
   encryptUserSensitiveData,
   decryptUserSensitiveData,
 };

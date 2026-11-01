@@ -5,6 +5,28 @@
  */
 
 import { query } from '../config/database.js';
+import { encrypt, tryDecrypt } from '../utils/encryption.js';
+
+/**
+ * SEC-PHASE1: el contexto de conversación puede contener datos clínicos
+ * (estado emocional, eventos, acuerdos). Se cifra el JSON antes de
+ * persistir. La columna admite JSON: guardamos una cadena JSON cuyo
+ * contenido es el ciphertext.
+ */
+const encodeContext = (context: any): string => JSON.stringify(encrypt(JSON.stringify(context)));
+
+const decodeContext = (value: any): any => {
+  if (value === null || value === undefined) return value;
+  if (typeof value === 'string') {
+    const decrypted = tryDecrypt(value);
+    try {
+      return JSON.parse(decrypted);
+    } catch {
+      return decrypted;
+    }
+  }
+  return value;
+};
 
 // =====================================================
 // INTERFACES
@@ -93,20 +115,23 @@ export const createConversation = async (
     data.title || 'Nueva conversación',
     data.scenario_type || 'apoyo_emocional',
     data.status || 'active',
-    data.context ? JSON.stringify(data.context) : '{}',
+    data.context ? encodeContext(data.context) : '{}',
   ];
 
   const result = await query<Conversation>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
- * Obtener conversación por ID
+ * Obtener conversación por ID (solo si pertenece al usuario)
+ * FASE 2 (C03): filtro por user_id para impedir acceso cruzado (IDOR/BOLA).
  */
-export const getConversationById = async (id: string): Promise<Conversation | null> => {
-  const sql = `SELECT * FROM conversations WHERE id = $1`;
-  const result = await query<Conversation>(sql, [id]);
-  return result.rows[0] || null;
+export const getConversationById = async (id: string, userId: string): Promise<Conversation | null> => {
+  const sql = `SELECT * FROM conversations WHERE id = $1 AND user_id = $2`;
+  const result = await query<Conversation>(sql, [id, userId]);
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
@@ -119,7 +144,8 @@ export const getActiveConversation = async (userId: string): Promise<Conversatio
     ORDER BY last_message_at DESC
     LIMIT 1`;
   const result = await query<Conversation>(sql, [userId]);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
@@ -143,14 +169,19 @@ export const getUserConversations = async (
     LIMIT $2 OFFSET $3`;
   const result = await query<Conversation>(sql, [userId, limit, offset]);
 
-  return { conversations: result.rows, total };
+  return {
+    conversations: result.rows.map((row) => ({ ...row, context: decodeContext(row.context) })),
+    total,
+  };
 };
 
 /**
- * Actualizar conversación
+ * Actualizar conversación (solo si pertenece al usuario)
+ * FASE 2 (C03): filtro por user_id para impedir modificación cruzada.
  */
 export const updateConversation = async (
   id: string,
+  userId: string,
   data: Partial<Conversation>
 ): Promise<Conversation | null> => {
   const fields: string[] = [];
@@ -178,7 +209,7 @@ export const updateConversation = async (
     if (allowedFields.includes(key) && value !== undefined) {
       fields.push(`${key} = $${paramIndex}`);
       if (key === 'context') {
-        values.push(JSON.stringify(value));
+        values.push(encodeContext(value));
       } else {
         values.push(value);
       }
@@ -188,23 +219,24 @@ export const updateConversation = async (
 
   if (fields.length === 0) return null;
 
-  values.push(id);
-  const sql = `UPDATE conversations SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+  values.push(id, userId);
+  const sql = `UPDATE conversations SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`;
 
   const result = await query<Conversation>(sql, values);
-  return result.rows[0] || null;
+  const row = result.rows[0];
+  return row ? { ...row, context: decodeContext(row.context) } : null;
 };
 
 /**
  * Actualizar timestamp de última actividad
  */
-export const updateConversationActivity = async (id: string): Promise<void> => {
+export const updateConversationActivity = async (id: string, userId: string): Promise<void> => {
   const sql = `
     UPDATE conversations 
     SET last_message_at = CURRENT_TIMESTAMP,
         message_count = message_count + 1
-    WHERE id = $1`;
-  await query(sql, [id]);
+    WHERE id = $1 AND user_id = $2`;
+  await query(sql, [id, userId]);
 };
 
 /**
@@ -212,6 +244,7 @@ export const updateConversationActivity = async (id: string): Promise<void> => {
  */
 export const closeConversation = async (
   id: string,
+  userId: string,
   satisfaction?: number,
   helpfulness?: number,
   relevance?: number
@@ -224,19 +257,20 @@ export const closeConversation = async (
         helpfulness_rating = COALESCE($3, helpfulness_rating),
         relevance_rating = COALESCE($4, relevance_rating),
         duration_minutes = EXTRACT(EPOCH FROM (ended_at - started_at))::integer / 60
-    WHERE id = $1
+    WHERE id = $1 AND user_id = $5
     RETURNING *`;
 
-  const result = await query<Conversation>(sql, [id, satisfaction, helpfulness, relevance]);
+  const result = await query<Conversation>(sql, [id, satisfaction, helpfulness, relevance, userId]);
   return result.rows[0] || null;
 };
 
 /**
- * Eliminar conversación
+ * Eliminar conversación (solo si pertenece al usuario)
+ * FASE 2 (C03): filtro por user_id para impedir eliminación cruzada.
  */
-export const deleteConversation = async (id: string): Promise<boolean> => {
-  const sql = `DELETE FROM conversations WHERE id = $1`;
-  const result = await query(sql, [id]);
+export const deleteConversation = async (id: string, userId: string): Promise<boolean> => {
+  const sql = `DELETE FROM conversations WHERE id = $1 AND user_id = $2`;
+  const result = await query(sql, [id, userId]);
   return (result.rowCount ?? 0) > 0;
 };
 
