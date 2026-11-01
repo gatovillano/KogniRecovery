@@ -627,6 +627,17 @@ const MIGRATIONS = [
         RETURN NEW;
     END;
     $$ LANGUAGE plpgsql;`,
+  // Phase 10: tabla user_push_tokens (PRIV-007)
+  `CREATE TABLE IF NOT EXISTS user_push_tokens (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        push_token TEXT NOT NULL,
+        device_id VARCHAR(255),
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT unique_user_push_token UNIQUE (user_id, push_token)
+    )`,
+  `CREATE INDEX IF NOT EXISTS idx_user_push_tokens_user ON user_push_tokens(user_id)`,
 ];
 
 const TRIGGERS = [
