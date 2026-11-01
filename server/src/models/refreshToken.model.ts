@@ -6,13 +6,7 @@
 
 import { query } from '../config/database.js';
 import { v4 as uuidv4 } from 'uuid';
-import { hash } from '../utils/encryption.js';
-
-/**
- * SEC-PHASE2: los refresh tokens NO se almacenan en texto plano; se
- * guarda SHA-256 del valor. Un dump de la BD no permite reutilizarlos.
- */
-const hashToken = (token: string): string => hash(token);
+import crypto from 'node:crypto';
 
 // =====================================================
 // INTERFACES
@@ -52,6 +46,15 @@ export interface CreateRefreshTokenInput {
 // CONSULTAS
 // =====================================================
 
+
+// =====================================================
+// HASHING DE TOKENS (SEC-005)
+// =====================================================
+
+const hashToken = (token: string): string => {
+  return crypto.createHash('sha256').update(token).digest('hex');
+};
+
 const TABLE_NAME = 'refresh_tokens';
 
 /**
@@ -81,7 +84,7 @@ export const create = async (input: CreateRefreshTokenInput): Promise<RefreshTok
     [
       uuidv4(),
       userId,
-      hashToken(token), // SEC-PHASE2: solo se persiste el hash.
+      hashToken(token),
       deviceId ?? null,
       deviceName ?? null,
       deviceType ?? null,

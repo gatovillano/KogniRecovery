@@ -394,21 +394,11 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
     throw error;
   }
 
-  // SEC-PHASE2: si el token ya fue usado, es una señal de reuso
-  // (robo/duplicación). Se revoca TODA la familia de tokens del usuario
-  // y se rechaza. No reutilizamos el token ni emitimos otros nuevos.
-  if (storedToken.is_used) {
+  // Verificar que el token no esté revocado o usado
+  if (storedToken.is_revoked || storedToken.is_used) {
+    // Detección de reutilización: revocar todas las sesiones del usuario.
     await RefreshTokenModel.revokeAllByUserId(storedToken.user_id);
-    const error = new Error(
-      'Refresh token reutilizado: todas las sesiones del usuario fueron revocadas'
-    ) as Error & { statusCode: number };
-    error.statusCode = 401;
-    throw error;
-  }
-
-  // Verificar que el token no esté revocado
-  if (storedToken.is_revoked) {
-    const error = new Error('Refresh token revocado') as Error & { statusCode: number };
+    const error = new Error('Refresh token revocado o ya usado') as Error & { statusCode: number };
     error.statusCode = 401;
     throw error;
   }
