@@ -82,6 +82,6 @@ router.get('/audit', authenticate, privacyController.getAuditLog);
  * GET /api/v1/privacy/retention-policies
  * Obtener políticas de retención de datos
  */
-router.get('/retention-policies', privacyController.getRetentionPolicies);
+router.get('/retention-policies', authenticate, privacyController.getRetentionPolicies);
 
 export default router;
