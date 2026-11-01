@@ -19,7 +19,7 @@ export interface User {
   created_at: Date;
   updated_at: Date;
   phone?: string;
-  status?: 'active' | 'inactive' | 'suspended';
+  status?: 'active' | 'inactive' | 'suspended' | 'deleted';
   onboarding_completed?: boolean;
   profile_type?: string;
   risk_level?: 'bajo' | 'medio' | 'alto' | 'critico';
@@ -41,7 +41,7 @@ export interface CreateUserInput {
 export interface UpdateUserInput {
   name?: string;
   phone?: string;
-  status?: 'active' | 'inactive' | 'suspended';
+  status?: 'active' | 'inactive' | 'suspended' | 'deleted';
   onboarding_completed?: boolean;
   profile_type?: string;
   risk_level?: 'bajo' | 'medio' | 'alto' | 'critico';

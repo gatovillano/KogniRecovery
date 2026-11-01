@@ -237,6 +237,12 @@ export const login = async (input: LoginInput): Promise<LoginResult> => {
     throw error;
   }
 
+  if (user.status === 'deleted') {
+    const error = new Error('Tu cuenta ya no está disponible.') as Error & { statusCode: number };
+    error.statusCode = 403;
+    throw error;
+  }
+
   // Si el profesional tiene MFA activo, emitir un challenge de dos pasos.
   if (MfaService.isMfaRequiredForUser(user)) {
     const challenge = MfaService.signMfaChallenge(user.id);
@@ -288,6 +294,12 @@ export const verifyMfaAndLogin = async (input: {
   if (!user) {
     const error = new Error('Credenciales inválidas') as Error & { statusCode: number };
     error.statusCode = 401;
+    throw error;
+  }
+
+  if (user.status !== 'active') {
+    const error = new Error('Tu cuenta no está activa.') as Error & { statusCode: number };
+    error.statusCode = 403;
     throw error;
   }
 
@@ -375,6 +387,16 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshRespon
     throw error;
   }
 
+  // Verificar estado actual de la cuenta (sin confiar en el JWT).
+  if (user.status !== 'active') {
+    // Revocar tokens para impedir renovaciones futuras.
+    await RefreshTokenModel.revoke(refreshToken);
+    await RefreshTokenModel.revokeAllByUserId(user.id);
+    const error = new Error('Tu cuenta no está activa.') as Error & { statusCode: number };
+    error.statusCode = 401;
+    throw error;
+  }
+
   // Generar nuevos tokens
   const tokens = generateTokens(user.id, user.email, user.role);
 
@@ -407,6 +429,25 @@ export const logout = async (userId: string, refreshToken?: string): Promise<voi
     // Revocar todos los tokens del usuario
     await RefreshTokenModel.revokeAllByUserId(userId);
   }
+};
+
+// =====================================================
+// SUSPENSIÓN / REACTIVACIÓN DE CUENTA
+// =====================================================
+
+/**
+ * Suspende una cuenta y revoca todas sus sesiones activas.
+ */
+export const suspendAccount = async (userId: string): Promise<void> => {
+  await UserModel.update(userId, { status: 'suspended' });
+  await RefreshTokenModel.revokeAllByUserId(userId);
+};
+
+/**
+ * Reactiva una cuenta suspendida/inactiva.
+ */
+export const reactivateAccount = async (userId: string): Promise<void> => {
+  await UserModel.update(userId, { status: 'active' });
 };
 
 // =====================================================
@@ -448,4 +489,6 @@ export default {
   refreshTokens,
   logout,
   getActiveSessions,
+  suspendAccount,
+  reactivateAccount,
 };

@@ -452,90 +452,195 @@ export const requestDataDeletion = async (userId: string): Promise<DataRequest> 
  *       (ver deleteUserFromNeo4j y deleteUserEmbeddings).
  */
 export const executeDataDeletion = async (userId: string): Promise<void> => {
+  // Marcar solicitudes existentes como en progreso (si existen).
+  try {
+    await query(
+      `UPDATE data_deletion_requests SET status = 'in_progress', updated_at = NOW()
+       WHERE patient_id = $1 AND status IN ('requested', 'in_progress')`,
+      [userId]
+    );
+  } catch {
+    // Tabla puede no existir en entornos reducidos; no bloquea el borrado PG.
+  }
+
   await queryWithTransaction(async (client: PoolClient) => {
+    // Obtener email actual para limpiar auth_login_attempts (identifier).
+    const userRes = await client.query<{ email: string }>(
+      `SELECT email FROM users WHERE id = $1`,
+      [userId]
+    );
+    const userEmail = userRes.rows[0]?.email ?? null;
+
+    // Helper para tablas opcionales (no fallar si no existen).
+    const tableExists = async (tableName: string): Promise<boolean> => {
+      const r = await client.query<{ exists: boolean }>(
+        `SELECT EXISTS (
+           SELECT 1 FROM information_schema.tables
+           WHERE table_schema = 'public' AND table_name = $1
+         ) AS exists`,
+        [tableName]
+      );
+      return r.rows[0]?.exists === true;
+    };
+    const safeDelete = async (tableName: string, column: string, value: unknown): Promise<void> => {
+      if (await tableExists(tableName)) {
+        await client.query(`DELETE FROM ${tableName} WHERE ${column} = $1`, [value]);
+      }
+    };
+
     // 1. Mensajes del chatbot (dato más sensible)
     await client.query(
       `DELETE FROM messages WHERE conversation_id IN (
          SELECT id FROM conversations WHERE user_id = $1
-       )`,
+       ) OR user_id = $1`,
       [userId]
     );
+    await client.query(`DELETE FROM message_intents WHERE user_id = $1`, [userId]);
 
-    // 2. Conversaciones
+    // 2. Sesiones y conversaciones
+    await client.query(`DELETE FROM conversation_sessions WHERE user_id = $1`, [userId]);
     await client.query(`DELETE FROM conversations WHERE user_id = $1`, [userId]);
 
     // 3. Notas del agente
-    await client.query(`DELETE FROM agent_notes WHERE user_id = $1`, [userId])
-      .catch(() => {}); // tabla puede no existir en todas las migraciones
+    await client.query(`DELETE FROM agent_notes WHERE user_id = $1`, [userId]);
 
-    // 4. Journal entries
-    await client.query(`DELETE FROM journal_entries WHERE user_id = $1`, [userId]);
+    // 4. Bitácora modular
+    await safeDelete('journal_entries', 'user_id', userId);
+    await client.query(`DELETE FROM daily_notes WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM habit_entries WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM social_entries WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM activity_entries WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM consumption_analysis WHERE user_id = $1`, [userId]);
 
-    // 5. Check-ins
+    // 5. Check-ins y estado de ánimo
     await client.query(`DELETE FROM checkins WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM mood_history WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM checkin_streaks WHERE user_id = $1`, [userId]);
 
-    // 6. Cravings
+    // 6. Cravings y estrategias
     await client.query(`DELETE FROM cravings WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM craving_patterns WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM craving_triggers WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM coping_strategies WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM strategy_usage WHERE user_id = $1`, [userId]);
 
     // 7. Consumo de sustancias
-    await client.query(`DELETE FROM substance_doses WHERE user_id = $1`, [userId])
-      .catch(() => {});
-    await client.query(
-      `DELETE FROM consumption_events WHERE user_id = $1`,
-      [userId]
-    ).catch(() => {});
+    await client.query(`DELETE FROM substance_doses WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM consumption_events WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM substance_expenses WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM substance_preferences WHERE profile_id IN (SELECT id FROM profiles WHERE user_id = $1)`, [userId]);
+    await client.query(`DELETE FROM habits WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM habit_completions WHERE user_id = $1`, [userId]);
 
-    // 8. Historial de ánimo
-    await client.query(`DELETE FROM mood_history WHERE user_id = $1`, [userId])
-      .catch(() => {});
+    // 8. Medicamentos
+    await client.query(`DELETE FROM medication_logs WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM medications WHERE user_id = $1`, [userId]);
 
-    // 9. Mensajes del muro comunitario
-    await client.query(`DELETE FROM wall_messages WHERE user_id = $1`, [userId])
-      .catch(() => {});
+    // 9. Muro comunitario
+    await client.query(`DELETE FROM wall_messages WHERE patient_id = $1 OR family_id = $1 OR sender_id = $1`, [userId]);
 
-    // 10. Notificaciones push
-    await client.query(`DELETE FROM notifications WHERE user_id = $1`, [userId])
-      .catch(() => {});
-    await client.query(`DELETE FROM user_push_tokens WHERE user_id = $1`, [userId])
-      .catch(() => {});
+    // 10. Notificaciones
+    await client.query(`DELETE FROM notifications WHERE user_id = $1`, [userId]);
+    await safeDelete('user_push_tokens', 'user_id', userId);
 
-    // 11. Refresh tokens (revocar sesiones activas)
+    // 11. Tokens y autenticación
     await client.query(`DELETE FROM refresh_tokens WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM password_reset_tokens WHERE user_id = $1`, [userId]);
+    if (userEmail) {
+      await client.query(`DELETE FROM auth_login_attempts WHERE identifier = $1`, [userEmail]);
+    }
 
-    // 12. Perfil y settings de perfil
+    // 12. Perfil y settings
+    await client.query(`DELETE FROM profile_settings WHERE profile_id IN (SELECT id FROM profiles WHERE user_id = $1)`, [userId]);
     await client.query(`DELETE FROM profiles WHERE user_id = $1`, [userId]);
-    await client.query(`DELETE FROM profile_settings WHERE user_id = $1`, [userId])
-      .catch(() => {});
 
-    // 13. Configuración de privacidad
+    // 13. Privacidad
     await client.query(`DELETE FROM user_privacy_settings WHERE user_id = $1`, [userId]);
-
-    // 14. Consentimientos (GDPR requiere retener registro, pero eliminamos los del usuario)
     await client.query(`DELETE FROM privacy_consents WHERE user_id = $1`, [userId]);
 
-    // 15. Logs de auditoría propios del usuario (excepto el registro de esta operación)
+    // 14. Memoria contextual de LÚA
+    await client.query(`DELETE FROM context_history WHERE user_id = $1`, [userId]);
+
+    // 15. Sharing consents e invitaciones
+    await client.query(`DELETE FROM sharing_consent_categories WHERE consent_id IN (SELECT id FROM sharing_consents WHERE patient_id = $1)`, [userId]);
+    await client.query(`DELETE FROM sharing_consents WHERE patient_id = $1`, [userId]);
+    await client.query(`DELETE FROM sharing_invitations WHERE patient_id = $1 OR family_id = $1`, [userId]);
+    await client.query(`DELETE FROM sharing_consent_events WHERE patient_id = $1`, [userId]);
+
+    // 16. Emergencias
+    await client.query(`DELETE FROM emergency_contacts WHERE user_id = $1`, [userId]);
+    await safeDelete('emergency_alerts', 'user_id', userId);
+
+    // 17. LLM logs
+    await client.query(`DELETE FROM llm_logs WHERE user_id = $1`, [userId]);
+
+    // 18. Relaciones organizacionales: conservar trazabilidad, marcar como removidas/finalizadas.
+    await client.query(
+      `UPDATE organization_members SET status = 'removed', updated_at = NOW()
+       WHERE user_id = $1`,
+      [userId]
+    );
+    await client.query(
+      `UPDATE organization_patients SET status = 'left', discharged_at = COALESCE(discharged_at, NOW()), updated_at = NOW()
+       WHERE patient_id = $1`,
+      [userId]
+    );
+    await client.query(
+      `UPDATE care_assignments SET status = 'ended', ended_at = COALESCE(ended_at, NOW()),
+              ended_reason = COALESCE(ended_reason, 'account_deleted'), updated_at = NOW()
+       WHERE professional_id = $1
+          OR organization_patient_id IN (SELECT id FROM organization_patients WHERE patient_id = $1)`,
+      [userId]
+    );
+    await client.query(`DELETE FROM professional_credentials WHERE user_id = $1`, [userId]);
+
+    // 19. Alertas clínicas operativas (no notas clínicas ni access_log: se conservan).
+    await client.query(`DELETE FROM clinical_alerts WHERE patient_id = $1`, [userId]);
+
+    // 20. Invitaciones de terapeutas y pacientes creadas por el usuario
+    await client.query(`UPDATE patient_enrollment_invites SET created_by = NULL WHERE created_by = $1`, [userId]);
+    await client.query(`UPDATE consent_policy_versions SET created_by = NULL WHERE created_by = $1`, [userId]);
+    await client.query(`UPDATE scenario_configs SET created_by = NULL WHERE created_by = $1`, [userId]);
+
+    // 21. Datos de solicitudes genéricas (no data_deletion_requests: se conserva para auditoría)
+    await client.query(`DELETE FROM data_requests WHERE user_id = $1`, [userId]);
+
+    // 22. Logs de auditoría propios (excepto el registro de borrado)
     await client.query(
       `DELETE FROM privacy_audit_log WHERE user_id = $1 AND action_type != 'data_deleted'`,
       [userId]
     );
 
-    // 16. Data requests previas
-    await client.query(`DELETE FROM data_requests WHERE user_id = $1`, [userId]);
-
-    // 17. Anonimizar y marcar usuario (soft-delete)
-    // No eliminamos la fila para no romper integridad referencial en auditoría
+    // 23. Anonimizar y marcar usuario (soft-delete). Conserva la fila para integridad referencial.
     await client.query(
       `UPDATE users SET
          email = $2,
          name = 'Usuario eliminado',
          phone = NULL,
          status = 'deleted',
+         password = 'DELETED',
          password_hash = 'DELETED',
+         two_factor_enabled = FALSE,
+         two_factor_secret = NULL,
+         llm_provider = NULL,
+         llm_model = NULL,
+         llm_api_key = NULL,
          updated_at = NOW()
        WHERE id = $1`,
       [userId, `deleted_${userId}@kognirecovery.invalid`]
     );
   });
+
+  // Marcar solicitudes de borrado como completadas.
+  try {
+    await query(
+      `UPDATE data_deletion_requests SET status = 'completed', completed_at = NOW(), updated_at = NOW()
+       WHERE patient_id = $1`,
+      [userId]
+    );
+  } catch {
+    // Ignorar si la tabla no existe.
+  }
 
   // Registrar en auditoría (fuera de la transacción para que persista)
   await logPrivacyAction(
@@ -551,35 +656,103 @@ export const executeDataDeletion = async (userId: string): Promise<void> => {
 };
 
 /**
- * Elimina el nodo del usuario de Neo4j
- * PRIV-002: Debe llamarse junto con executeDataDeletion
- * @param userId - ID del usuario a eliminar
- * @param neo4jDriver - Driver de Neo4j ya inicializado
+ * Elimina el nodo del usuario y sus datos asociados en Neo4j.
+ * Se eliminan nodos clínicos propiedad del usuario; los nodos compartidos
+ * (sustancias, etiquetas, atributos) se desvinculan sin borrarlos si pueden
+ * pertenecer a otros usuarios.
  */
 export const deleteUserFromNeo4j = async (
   userId: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   neo4jDriver: any
 ): Promise<void> => {
+  if (!neo4jDriver || typeof neo4jDriver.session !== 'function') {
+    throw new Error('Driver de Neo4j no disponible');
+  }
   const session = neo4jDriver.session();
   try {
-    await session.run(
-      `MATCH (u:User {id: $userId})
-       DETACH DELETE u`,
-      { userId }
-    );
+    await session.executeWrite(async (tx: any) => {
+      // Conversaciones y mensajes
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[:TIENE]->(conv:Conversacion)
+         OPTIONAL MATCH (conv)-[:CONTIENE]->(m:Mensaje)
+         DETACH DELETE m, conv`,
+        { userId }
+      );
+      // Check-ins
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[:REGISTRA]->(c:CheckIn)
+         DETACH DELETE c`,
+        { userId }
+      );
+      // Cravings
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[:EXPERIMENTA]->(cr:Craving)
+         DETACH DELETE cr`,
+        { userId }
+      );
+      // Alertas
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[:TIENE]->(a:Alerta)
+         DETACH DELETE a`,
+        { userId }
+      );
+      // Memorias (atributos): desvincular, no borrar nodos compartidos
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[r]->(attr:Atributo)
+         DELETE r`,
+        { userId }
+      );
+      // Sustancias y medicamentos: desvincular nodos compartidos
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})-[r:USA|TOMA]->(n)
+         DELETE r`,
+        { userId }
+      );
+      // Usuario principal
+      await tx.run(
+        `MATCH (u:Usuario {id: $userId})
+         DETACH DELETE u`,
+        { userId }
+      );
+    });
   } finally {
     await session.close();
   }
 };
 
-// =====================================================
-// DATA RETENTION
-// =====================================================
-
 /**
- * Obtiene las políticas de retención de datos
+ * Orquesta el borrado completo entre PostgreSQL y Neo4j.
+ * No declara éxito si alguna etapa obligatoria falla.
  */
+export const deleteAccountCompletely = async (
+  userId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  neo4jDriver: any
+): Promise<{ postgres: boolean; neo4j: boolean }> => {
+  const result = { postgres: false, neo4j: false };
+  const errors: string[] = [];
+
+  try {
+    await executeDataDeletion(userId);
+    result.postgres = true;
+  } catch (error) {
+    errors.push(`PostgreSQL: ${error instanceof Error ? error.message : String(error)}`);
+  }
+
+  try {
+    await deleteUserFromNeo4j(userId, neo4jDriver);
+    result.neo4j = true;
+  } catch (error) {
+    errors.push(`Neo4j: ${error instanceof Error ? error.message : String(error)}`);
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Borrado parcial o fallido: ${errors.join(' | ')}`);
+  }
+  return result;
+};
+
 export const getRetentionPolicies = async (): Promise<DataRetentionPolicy[]> => {
     const result = await query<DataRetentionPolicy>(
         `SELECT * FROM data_retention_policies ORDER BY data_type`
@@ -611,6 +784,8 @@ export default {
     exportUserData,
     requestDataDeletion,
     executeDataDeletion,
+    deleteUserFromNeo4j,
+    deleteAccountCompletely,
     getRetentionPolicies,
     getRetentionPolicy
 };

@@ -98,7 +98,8 @@ export const authenticate = async (
       }
 
       // IMPORTANTE: Verificar que el usuario aún exista en la base de datos
-      // Esto previene errores 500 por llaves foráneas inexistentes (ej: después de limpiar la DB)
+      // y que su cuenta esté activa. La validación se hace en servidor,
+      // sin confiar en el estado codificado en el JWT.
       const userExists = await UserModel.findById(payload.userId);
       if (!userExists) {
         console.warn(`⚠️ [Auth] Usuario ${payload.userId} no encontrado en DB. Sesión inválida.`);
@@ -108,6 +109,31 @@ export const authenticate = async (
             code: 'USER_NOT_FOUND',
             message: 'Tu cuenta ya no está disponible. Por favor regístrate nuevamente.',
           },
+        });
+        return;
+      }
+
+      // Verificar estado de la cuenta (suspensión/bloqueo/inactivación).
+      const accountStatus = (userExists.status ?? 'active') as string;
+      if (accountStatus !== 'active') {
+        const code =
+          accountStatus === 'suspended'
+            ? 'ACCOUNT_SUSPENDED'
+            : accountStatus === 'inactive'
+            ? 'ACCOUNT_INACTIVE'
+            : accountStatus === 'deleted'
+            ? 'ACCOUNT_DELETED'
+            : 'ACCOUNT_DISABLED';
+        const message =
+          accountStatus === 'suspended'
+            ? 'Tu cuenta ha sido suspendida. Contacta al soporte.'
+            : accountStatus === 'inactive'
+            ? 'Tu cuenta está inactiva. Contacta al soporte.'
+            : 'Tu cuenta ya no está disponible.';
+        console.warn(`⚠️ [Auth] Cuenta ${payload.userId} no activa (${accountStatus}). Acceso rechazado.`);
+        res.status(403).json({
+          success: false,
+          error: { code, message },
         });
         return;
       }
@@ -201,10 +227,11 @@ export const authorize = (...allowedRoles: UserRole[]) => {
 /**
  * Middleware para verificar que la cuenta esté activa
  */
-export const requireActiveAccount = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  // Este middleware se puede extender para verificar
-  // el estado de la cuenta en la base de datos
-  // Por ahora, solo verifica que el usuario esté autenticado
+export const requireActiveAccount = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   if (!req.user) {
     res.status(401).json({
       success: false,
@@ -216,7 +243,27 @@ export const requireActiveAccount = (req: AuthRequest, res: Response, next: Next
     return;
   }
 
-  next();
+  try {
+    const user = await UserModel.findById(req.user.userId);
+    const status = (user?.status ?? 'active') as string;
+    if (!user || status !== 'active') {
+      res.status(403).json({
+        success: false,
+        error: {
+          code: status === 'suspended' ? 'ACCOUNT_SUSPENDED' : 'ACCOUNT_INACTIVE',
+          message: 'Tu cuenta no está activa.',
+        },
+      });
+      return;
+    }
+    next();
+  } catch (error) {
+    console.error('❌ requireActiveAccount error:', error);
+    res.status(500).json({
+      success: false,
+      error: { code: 'AUTH_ERROR', message: 'Error al verificar estado de la cuenta' },
+    });
+  }
 };
 
 // =====================================================
