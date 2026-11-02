@@ -1,20 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="numaRibbon" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0B5556"/>
-      <stop offset=".52" stop-color="#238A7C"/>
-      <stop offset="1" stop-color="#8EAD91"/>
-    </linearGradient>
-    <linearGradient id="numaHighlight" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".3"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    <linearGradient id="numaRibbon" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#A9F6AD"/>
+      <stop offset="0.22" stop-color="#42D9AA"/>
+      <stop offset="0.42" stop-color="#09A49A"/>
+      <stop offset="0.55" stop-color="#025F6A"/>
+      <stop offset="0.72" stop-color="#047A87"/>
+      <stop offset="0.88" stop-color="#42D9AA"/>
+      <stop offset="1" stop-color="#A9F6AD"/>
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="112" fill="#F8F7F2"/>
-  <path d="M126 370V160c0-56 51-76 87-23l111 168c35 52 83 40 83-18V142"
-    fill="none" stroke="#082F31" stroke-width="88" stroke-linecap="round" stroke-linejoin="round" opacity=".16"
-    transform="translate(8 10)"/>
-  <path d="M126 362V152c0-56 51-76 87-23l111 168c35 52 83 40 83-18V134"
-    fill="none" stroke="url(#numaRibbon)" stroke-width="82" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M135 172c8-33 34-44 58-19" fill="none" stroke="url(#numaHighlight)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M332,253c-31.39-43.84-64.12-98.61-117.8-117.15c-26.75-9.23-56.69-7.18-83.35,1.43C38.08,167.26,18.21,255.73,16.99,341.96c-.26,17.95-3.47,56.91,4.17,71.45c10.47,19.97,33.54,14.22,50.55,6.92c44.82-19.24,65.34-60.7,84.66-102.47c6.97-15.08,13.3-38.45,28.37-47.14c3.84-2.21,8.91-4.1,13.26-1.72c8.37,4.58,35.82,55.85,43.19,67.21c20.33,31.3,45.39,63.28,79.62,80.02c28.69,14.02,58.28,14.09,87.59,1.83c100.13-41.85,86.6-139.1,86.74-228.29c.03-20.89,4.98-76.39-6.06-95.14c-23.58-40.02-86.51,4.19-108.43,25.5c-10.29,10-19.07,21.57-26.11,34.06C337.15,185.05,333.51,218.26,332,253Z" fill="url(#numaRibbon)"/>
 </svg>
